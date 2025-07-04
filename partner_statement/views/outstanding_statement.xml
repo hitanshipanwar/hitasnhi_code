@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="partner_statement.outstanding_statement_document">
+        <t t-call="web.html_container">
+            <t t-set="o" t-value="o.with_context({'lang': lang})" />
+            <!-- <t t-set="address">
+                <address t-esc="get_inv_addr(o)" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+                <div t-if="o.vat" class="mt16">
+                    <t t-esc="company.country_id.vat_label or 'Tax ID'" />: <span t-field="o.vat" /></div>
+            </t> -->
+            <div class="header">
+                <div class="row">
+                    <div class="o_background_header">
+                        <div class="float-right">
+                            <h3 class="mt0 text-right" t-field="company.report_header" />
+                        </div>
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo" />
+                        <div class="float-left company_address">
+                            <div>
+                                <strong t-field="company.partner_id.name" />
+                            </div>
+                            <span t-field="company.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}' />
+                            <t>
+                                <t t-if="company.phone">
+                                    <b>Phone: </b><span t-field="company.phone" /><br />
+                                </t>
+                                <!--  <t t-if="company.company_header">
+                                    <b>Email: </b><span t-field="company.company_header"/><br/>
+                                </t>
+                                <t t-if="company.fax">
+                                    <b>Fax: </b><span t-field="company.fax"/><br/>
+                                </t> -->
+                                <t t-if="company.vat">
+                                    <b>ABN: </b><span t-field="company.vat" /><br />
+                                </t>
+                            </t>
+                        </div>
+                        <div class="clearfix mb8" />
+                    </div>
+                </div>
+            </div>
+            <div class="article o_report_layout_standard">
+                <div class="page">
+                    <!-- <div class="oe_structure" />
+                    <h2>Statement of Account</h2>
+                    <div id="informations" class="row mt32 mb32">
+                        <div class="col-3 bm-2">
+                            <strong>Date:</strong>
+                            <p t-esc="d['today']" class="m-0" />
+                        </div>
+                        <div class="col-3 bm-2">
+                            <strong>Partner Name:</strong>
+                            <p t-field="o.name" class="m-0" />
+                        </div>
+                        <div t-if="o.ref" class="col-3 bm-2">
+                            <strong>Partner Code:</strong>
+                            <p t-field="o.ref" class="m-0" />
+                        </div>
+                    </div> -->
+                    <style type="text/css">
+                    .table1 td {
+                        border-top: hidden !important;
+                        padding-top: 0px !important;
+                    }
+
+                    .table1 th {
+                        border-top: 1px solid black !important;
+                        padding-bottom: 0px !important;
+                    }
+
+                    .th_line {
+                        border-top: 1px solid black !important;
+                        border-bottom: 1px solid black !important;
+                    }
+
+                    .td_line {
+                        border: 1px solid black !important;
+                    }
+
+                    .td_font {
+                        font-weight: bold;
+                    }
+                    </style>
+                    <div class="row">
+                        <div style="width: 280px; margin-left: 15em;height:33px;margin-top: 2em;">
+                            <center><b style="font-size:24px;font-weight:700;">STATEMENT</b><br /></center><br />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <table class="table table1 table-condensed" style="width: 45%;margin-left: 7em;border:1px solid black;">
+                            <tr>
+                                <th style="width: 10%;">
+                                    <span>Invoice To:</span>
+                                </th>
+                                <th style="width: 5%;">
+                                    <!-- <span t-esc="o.account_code"/> -->
+                                </th>
+                                <th style="width: 30%;">
+                                    <!-- <span t-esc="o.branch_code"/> -->
+                                </th>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
+                                    <span t-esc="o.name" />
+                                    <span t-esc="o" t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}' />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-8 pull-left">
+                        </div>
+                        <div class="col-4 pull-right">
+                            <span><b>Statement Date: </b><span t-esc="d['end']" /></span>
+                        </div>
+                    </div>
+                    <t t-if="d['currencies']">
+                        <br />
+                        <t t-foreach="d['currencies'].items()" t-as="currency">
+                            <t t-set="display_currency" t-value="Currencies[currency[0]]" />
+                            <t t-set="currency" t-value="currency[1]" />
+                            <!-- <p>
+                                <span t-esc="'' if  account_type == 'receivable' else 'Supplier '" />Statement up to <span t-esc="d['end']" /> in <span t-esc="display_currency.name" />
+                            </p> -->
+                            <!-- <table class="table table-sm table-statement"> -->
+                            <table class="table table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center td_line td_font">Date</th>
+                                        <th class="text-center td_line td_font">Due Date</th>
+                                        <th class="text-center td_line td_font">Reference</th>
+                                        <th class="text-center td_line td_font">Document Type</th>
+                                        <th class="text-center td_line td_font">Debit Amount</th>
+                                        <th class="text-center td_line td_font">Credit Amount</th>
+                                        <th class="text-center td_line td_font">Outstanding Balance</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="currency['lines']" t-as="line" t-att-class="'statement-blocked' if line['blocked'] else ''">
+                                        <td class="td_line">
+                                            <span t-esc="line['date']" />
+                                        </td>
+                                        <td class="td_line">
+                                            <span t-esc="line['date_maturity']" />
+                                        </td>
+                                        <td class="td_line td_font">
+                                            <span t-esc="line['move_id']" />
+                                        </td>
+                                        <td class="td_line td_font">
+                                            <t t-if="line['move_id']" t-set="account_move" t-value="request.env['account.move'].search([('name','=',line['move_id'])], limit=1)" />
+                                            <t t-if="account_move and account_move.move_type == 'out_invoice'">
+                                                Invoice
+                                            </t>
+                                            <t t-if="account_move and account_move.move_type == 'out_refund'">
+                                                Credit Note
+                                            </t>
+                                            <t t-if="account_move and account_move.move_type == 'in_invoice'">
+                                                Vendor Bill
+                                            </t>
+                                            <t t-if="account_move and account_move.move_type == 'in_refund'">
+                                                Debit Note
+                                            </t>
+                                            <t t-if="account_move and account_move.move_type == 'out_receipt'">
+                                                Unallocated Receipt
+                                            </t>
+                                            <t t-if="account_move and account_move.move_type == 'in_receipt'">
+                                                Unallocated Receipt
+                                            </t>
+                                        </td>
+                                        <td class="text-right td_line">
+                                            <span t-esc="line['debit']" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                                        </td>
+                                        <td class="text-right td_line">
+                                            <span t-esc="line['credit']" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                                        </td>
+                                        <td class="td_line">
+                                            <span t-esc="line['open_amount']" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                                        </td>
+                                    </tr>
+                                    <!-- <tr>
+                                        <td />
+                                        <td>
+                                            <span t-esc="d['end']" />
+                                        </td>
+                                        <td>
+                                            Ending Balance
+                                        </td>
+                                        <td />
+                                        <td />
+                                        <td />
+                                        <td class="amount">
+                                            <span t-esc="currency['amount_due']" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                                        </td>
+                                    </tr> -->
+                                </tbody>
+                            </table>
+                            <t t-call="partner_statement.aging_buckets" t-if="currency['buckets']" />
+                            <!-- <br />
+                            <p><b>Remit to:</b></p>
+                            <table style="font-size: 13px;page-break-inside:avoid;">
+                                <tr>
+                                    <td style="width: 33%;"><span><b> Account Name: Mizuno Corporation Australia Pty Ltd</b> </span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33%;"><span><b> Bank Name: Commonwealth bank</b> </span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33%;"><span><b> Branch: Brandon Park, VIC</b> </span></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 33%;"><span><b> Account No: 1039 587</b> </span></td>
+                                </tr>
+                                <tr>
+                                    <td><span><b> Branch/BSB: 063 587</b> </span></td>
+                                </tr>
+                                <tr>
+                                    <td><span><b> Swift Code: </b> </span><b><span t-esc="company.swift_code"/></b></td>
+                                </tr>
+                            </table>
+                            <span>Please quote account &amp; invoice number on EFT payments, and email Remittance Advice and any queries to accounts@mizuno.com.au</span><br /> -->
+                        </t>
+                    </t>
+                    <p t-if="d.get('no_entries')">
+                        <strong>The partner doesn't have due entries.</strong>
+                    </p>
+                </div>
+            </div>
+        </t>
+    </template>
+    <template id="outstanding_statement">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="d" t-value="data.get(o.id)" />
+                <t t-call="partner_statement.outstanding_statement_document" t-lang="o.lang" />
+            </t>
+        </t>
+    </template>
+    <record id="action_print_outstanding_statement" model="ir.actions.report">
+        <field name="name">Customer Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_name">partner_statement.outstanding_statement</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_file">partner_statement.outstanding_statement</field>
+    </record>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_partner_form_crm_history" model="ir.ui.view">
+        <field name="name">res.partner.vat.inherit.crm.history</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//kanban/templates/t/div" position="replace">
+        		<div t-att-class="color + (record.title.raw_value == 1 ? ' oe_kanban_color_alert' : '') + ' oe_kanban_global_click'" style="pointer-events: none;border:none;">
+					<button style="pointer-events:auto; position:inherit; width:100%;border:1px solid #C9CCD2;padding: 7px;background:none;" title="open" type="object" name="open_record">
+					  <div class="o_kanban_image">
+					      <img alt="Contact image" t-att-src="kanban_image('res.partner', 'avatar_128', record.id.raw_value)"/>
+					  </div>
+					  <div class="oe_kanban_details">
+					      <field name="name"/>
+					      <div t-if="record.function.raw_value"><field name="function"/></div>
+					      <div t-if="record.email.raw_value"><field name="email" widget="email"/></div>
+					      <div t-if="record.type.raw_value != 'contact'">
+						  <div>
+						      <field name="zip"/>
+						      <field name="city"/>
+						  </div>
+						  <field t-if="record.state_id.raw_value" name="state_id"/>
+						  <field name="country_id"/>
+					      </div>
+					      <div t-if="record.phone.raw_value">Phone: <t t-esc="record.phone.value"/></div>
+					      <div t-if="record.mobile.raw_value">Mobile: <t t-esc="record.mobile.value"/></div>
+					  </div>
+					</button>
+				</div>
+<!--         		<attribute name="style">pointer-events: none;</attribute> -->
+        	</xpath>
+
+        </field>
+    </record>
+</odoo>

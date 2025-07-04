@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="product_product_bid_discount" model="product.product">
+            <field name="name">BID Product discount</field>
+            <field name="type">service</field>
+            <field name="taxes_id" eval="False"/>
+            <field name="supplier_taxes_id" eval="False"/>
+            <field name="sale_ok" eval="False"/>
+            <field name="purchase_ok" eval="False"/>
+            <field name="default_code">BIDPRODUCT</field>
+            <field name="categ_id" ref="product.product_category_3"/>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,1136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="my_solar_information" name="Installer Information">
+			<t t-call="web.login_layout">
+				<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+					<div id="wrap" class="oe_structure section_wrap">
+					<section id="solar_project_sec">
+						<div class="container secion_review">
+							<div class="row">
+				                <div class="col-sm-12" style="padding: 0;">
+				                    <div class="col-sm-15" style="padding: 0;">
+					                    <div class="review_project_heading_name" style="padding-left: 23px;">
+					                      <h3 style="font-weight:bold; display:inline;">Project Name: <t t-esc="record_id.customer_project_name"/></h3>
+					                    </div>
+				                    </div>
+				                  <t t-if='not is_project and not is_edit and not is_infopage'>
+				                    <div class="col-sm-15" style="padding: 0;">
+				                        <div class="review_main_div_button">
+				                        <!-- <div class=""> -->
+				                          <!-- <a class="edit_btn" t-attf-href="#{'/customer/address?record_id=%s'%(record_id.id)}">Edit </a> -->
+				                          <!-- <a class="edit_btn request_btn" style="cursor:pointer">Edit</a> -->
+				                          <div class="review_project_request_btn" t-if='record_id.installer_project_state == "open"'>
+				                          	<a class="edit_btn request_btn" style="cursor:pointer">Request for Edit</a>
+				                          </div>
+				                          <div class="review_project_request_btn" t-if="record_id.installer_project_state in ['draft','saveasdraft']">
+				                          	<a t-attf-href="#{'/customer/address?record_id=%s'%(record_id.id)}" class="edit_btn" style="cursor:pointer;width: 71px;height: 16px;font-family: Nunito Sans;font-style: normal;font-weight: bold;font-size: 12px;line-height: 16px;color: #4EC296 !important;">Edit</a>
+				                          </div>
+				                          <!-- <a  id="review_edit_btn" class="btn" role="button">Edit Details</a> -->
+				                          	<div id="req_myModal" class="modal">
+
+					                        <!-- Modal content -->
+					                            <div class="modal-content text-center questation_popup">
+					                                <span>
+					                                </span>
+					                                <h2><strong>Request Project</strong></h2>
+					                                <div class="container">
+					                                  <div class="row">
+					                                    <form class="oe_solar_form" method="post" enctype="multipart/form-data" action="/request/project/installer" >
+					                                    <div class="column col-sm-10">
+					                                      <div class="column col-sm-3">
+
+					                                        <input type="text" name="record_id" t-att-value="record_id.id" hidden="hidden"/>
+
+					                                        <label for="name" id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Name of Project<span style="color: red; padding-left: 6px;">*</span></label>
+					                                        <input type="text" id="project_name" name="req_project_name" class="form-control form-control-md project_detail_supplier" readonly="readonly" t-att-value="record_id.customer_project_name">
+					                                        </input>
+					                                      </div>
+
+					                                      <div class="column col-sm-3">
+					                                        <label for="name" id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Name<span style="color: red; padding-left: 6px;">*</span></label>
+					                                        <input type="text" id="customer_project_name" name="req_customer_name" class="form-control form-control-md project_detail_supplier" readonly="readonly" t-att-value="request.env.user.name"/>
+					                                      </div>
+					                                    </div>
+					                                    <div class="column col-sm-10">
+					                                      <div class="column col-sm-3">
+					                                        <label for="login" id="f_name" style="width: 100% !important;text-align: left !important;">Email Address</label>
+					                                        <input type="text" name="login_name" id="login_sign_email" class="form-control form-control-md" placeholder="Enter your email here" readonly="readonly" t-att-value="request.env.user.email"></input>
+					                                      </div>
+
+					                                      <div class="column col-sm-3">
+					                                        <label id="user_detail_labels_no" for="phone" style="width: 100% !important;text-align: left !important;">Phone No.</label>
+					                                        <input type="text" name="phone_cust_no" id="phone_no_sign_customer" class="form-control form-control-md number_input_only" t-att-value="request.env.user.phone" readonly="readonly"></input>
+					                                      </div>
+					                                    </div>
+
+					                                    <div class="column col-sm-10">
+					                                      <div class="column col-sm-6">
+					                                        <label id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Comment</label>
+					                                        <textarea id="about_the_project_comment" name="about_the_project_comment" class="form-control form-control-md" rows="4" cols="50"></textarea>
+					                                      </div>
+					                                    </div>
+
+					                                    <div class="column col-sm-10" data-type="binary" data-name="Field">
+					                                      <div class="column col-sm-6" style="width: 100% !important;text-align: left !important;">
+					                                        <label id="user_detail_labels">Attchment</label>
+					                                        <input type="file" accept=".jpg,.png,.jpeg" name="attchment_photo_multi" id="attchment_photo_multi" multiple="multiple" onchange="javascript:multiple_files()" />
+					                                        <div id="fileList"></div>
+					                                      </div>
+					                                    </div>
+
+					                                    <div class="column col-sm-10">
+					                                      <div class="column col-sm-6">
+					                                        <div class="close_view" style="margin: 30px 0 0 0;">
+					                                          <button type="submit" id="request_return_btn" class="request_req_model btn">Submit</button>
+					                                          <!-- <a role="button" id="request_return_btn" class="request_req_model btn">Request</a> -->
+					                                          <a role="button" id="close_return_btn" class="close_req_model btn">Cancle</a>
+					                                        </div>
+					                                      </div>
+					                                    </div>
+					                                  </form>
+					                                    <!-- </div> -->
+					                                  </div>
+					                                </div>
+					                              <!-- </form> -->
+					                            </div>
+
+                        					</div>
+				                       
+				                        <!-- <t t-if='not record_id.paid_order_id'> -->
+					                        <div class="review_project_delete_btn" t-if="record_id.installer_project_state in ['draft','saveasdraft']">
+					                          <button type="button" class="myBtn delete_btn">Delete</button>
+					                        </div>
+					                        <div id="myModal" class="modal">
+
+					                        
+					                            <div class="modal-content text-center questation_popup">
+					                              <form class="oe_solar_form" method="post" action="/delete/project/installer">
+					                                <span>
+					                                  <img src="/airbid_master/static/src/image/Union.png" class="sad_img" loading="lazy"/>
+					                                </span>
+					                                <h2><strong>Delete project</strong></h2>
+
+					                                <p>Once you delete this project it can’t be undone &amp; you lost all the details you have added to this project. Are you sure to delete this project?</p>
+					                                <div class="delete_view">
+					                                  <a role="button" id="return_btn" class="close btn">Cancle</a>
+
+					                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+					                                  <input type="hidden" name="record_id" t-att-value="record_id.id"/>
+
+					                                  <input type="submit" class="btn" id="discard_btn" value="Delete"/>
+					                                </div>
+					                              </form>
+					                            </div>
+
+					                        </div>
+				                        
+					                        <div class="review_project_publish_project_btn" t-if='record_id.installer_project_state == "saveasdraft"'>
+						                          <form class="oe_solar_form" method="POST" action="/submit/bid">
+													<input type="hidden" name="record_id" t-att-value="record_id.id"/>
+													<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+													<input type="hidden" name="record_id" t-att-value="record_id"/>
+													<t t-if='record_id.is_complate'>
+														<input type="submit" class="btn publish_project_btn" value="Publish Project" />
+													</t>
+													<t t-else=''>
+														<input type="submit" class="btn publish_project_btn" value="Publish Project" disabled='disabled'/>
+													</t>
+												  </form>
+					                        </div>
+				                      </div>
+				                    </div>
+				                   </t>
+				                </div>
+				              </div>
+							
+							<div class="row">
+								<div class="col-sm-12">
+									<t t-if='record_id.supplier_customer_id.is_supplier == "supplier"'>
+										<div class="project_all_view">
+											<div class="col-sm-3">
+												<div class="project_name_review">
+													<h5>Address</h5>
+													<span><t t-esc="record_id.street"/>  <t t-esc="record_id.house_number_or_name"/>,<br></br><t t-esc="record_id.city"/>  <t t-esc="record_id.state_id.name"/>,  <t t-esc="record_id.zip"/></span>
+												</div>
+											</div>
+											<div class="col-sm-3">
+												
+											</div>
+											<div class="col-sm-2">
+												
+											</div>
+											<div class="col-sm-4">
+												
+											</div>
+										</div>
+									</t>
+									<t t-if='record_id.supplier_customer_id.is_supplier == "installer"'>
+										<div class="project_all_view">
+											<div class="col-sm-3">
+												<div class="project_name_review_a" style="height: 211px;">
+													<div class="house_img">
+														<t t-if="record_id.roof">
+									                    	<img t-attf-src="data:image/png;base64,#{record_id.roof}" class="house_images" alt='Roof'></img>  
+									                	</t> 
+														<t t-if="record_id.roof_layout">
+									                    	<img t-attf-src="data:image/png;base64,#{record_id.roof_layout}" class="house_images" alt='Roof'></img>   
+									                    </t>	
+									                </div>
+												</div>
+											</div>
+											<div class="col-sm-3">
+												
+											</div>
+											<div class="col-sm-2">
+												
+											</div>
+											<div class="col-sm-4">
+												
+											</div>
+										</div>
+										
+									</t>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.remove_existing_solar">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Do you want to remove existing solar panels ?</h5>
+												<!-- <t t-esc="record_id.remove_existing_solar"/> -->
+												<span t-esc="dict(record_id.fields_get(allfields=['remove_existing_solar'])['remove_existing_solar']['selection'])[record_id.remove_existing_solar]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.panels_remove">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>How many panels you want to remove?</h5>
+												<t t-esc="record_id.panels_remove"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[record_id.upgrade_system]"></span> -->
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.remove_inverter_solar">
+										<div class="col-sm-4" >
+											<div class="project_name_ques_review">
+												<h5>Do you want to remove inverter ?</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['remove_inverter_solar'])['remove_inverter_solar']['selection'])[record_id.remove_inverter_solar]"></span>
+											</div>
+										</div>
+									</t>
+									
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.pv_system_solar">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Do you want to upgrade PV system ?</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['pv_system_solar'])['pv_system_solar']['selection'])[record_id.pv_system_solar]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.new_pv_system_installation">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>NEW PV System installation</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['new_pv_system_installation'])['new_pv_system_installation']['selection'])[record_id.new_pv_system_installation]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.panels_need">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>How many panels you need</h5>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['panels_need'])['panels_need']['selection'])[record_id.panels_need]"></span> -->
+												<t t-esc="record_id.panels_need"/>
+											</div>	
+										</div>
+									</t>
+									
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.panels_power_class">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>panels power class</h5>
+												<t t-esc="record_id.panels_power_class"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['panels_power_class'])['panels_power_class']['selection'])[record_id.panels_power_class]"></span> -->
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.inverter_size">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Inverter size</h5>
+												<t t-esc="record_id.inverter_size"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['inverter_size'])['inverter_size']['selection'])[record_id.inverter_size]"></span> -->
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.single_three_ph">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Single ph or three ph</h5>
+												<t t-esc="record_id.single_three_ph"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['roof_type'])['roof_type']['selection'])[record_id.roof_type]"></span> -->
+											</div>
+										</div>
+									</t>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.export_device">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Export Device</h5>
+												<t t-esc="record_id.export_device"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[record_id.property_option_new]"></span> -->
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.panels_tilts">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Panels Tilts</h5>
+												<!-- <t t-esc="record_id.panels_tilts"/> -->
+												<span t-esc="dict(record_id.fields_get(allfields=['panels_tilts'])['panels_tilts']['selection'])[record_id.panels_tilts]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.clip_locks">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Clip locks</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['clip_locks'])['clip_locks']['selection'])[record_id.clip_locks]"></span>
+											</div>
+										</div>
+									</t>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.storey">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Storey</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['storey'])['storey']['selection'])[record_id.storey]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.battery_backup">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Do you need battery back up ?</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['battery_backup'])['battery_backup']['selection'])[record_id.battery_backup]"></span>
+											</div>
+										</div>
+									</t>
+
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.battery_backup_second">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Do you need battery back up ?</h5>
+												<span t-esc="dict(record_id.fields_get(allfields=['battery_backup_second'])['battery_backup_second']['selection'])[record_id.battery_backup_second]"></span>
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.battery_size">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Battery Size</h5>
+												<t t-esc="record_id.battery_size"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[record_id.upgrade_system]"></span> -->
+											</div>
+										</div>
+									</t>
+
+									<t t-if="record_id.battery_model_no">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Battery Model No</h5>
+												<t t-esc="record_id.battery_model_no"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['roof_type'])['roof_type']['selection'])[record_id.roof_type]"></span> -->
+											</div>
+										</div>
+									</t>
+								</div>
+							</div>
+
+							<div class="col-sm-12">
+								<div class="project_all_view">
+									<t t-if="record_id.battery_brand">
+										<div class="col-sm-4">
+											<div class="project_name_ques_review">
+												<h5>Battery Brand</h5>
+												<t t-esc="record_id.battery_brand"/>
+												<!-- <span t-esc="dict(record_id.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[record_id.property_option_new]"></span> -->
+											</div>
+										</div>
+									</t>
+								</div>
+							</div>
+							<div class="row">
+				                <div class="col-sm-12" style="padding: 0;">
+				                  <div class="review_project_heading_border_customer">
+				                  </div>
+				                </div>
+				            </div>
+				            <div class="row">
+				                <div class="col-sm-12" style="padding: 0;">
+				                  <div class="review_project_heading">
+				                    <h3>Project Images</h3>
+				                  </div>
+				                </div>
+				              </div>
+
+				              <div class="row">
+				                <div class="image_column" t-if="record_id.house">
+				                  <span>House</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.house}" class="house_images" alt='House'></img>   
+				                  </div>
+				                </div>
+				                <div class="image_column" t-if="record_id.roof">
+				                  <span>Roof</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.roof}" class="house_images" alt='Roof'></img>   
+				                  </div>
+				                </div>
+				                <!-- <div class="image_column" t-if="record_id.house_pic">
+				                  <span>House</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.house_pic}" class="house_images"></img>   
+				                  </div>
+				                </div> -->
+				               
+				                <!-- <div class="image_column" t-if="record_id.roof_layout">
+				                  <span>Roof</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.roof_layout}" class="house_images"></img>   
+				                  </div>
+				                </div> -->
+				                <div class="image_column" t-if="record_id.roof_tile_pic">
+				                  <span>Roof tile pic</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.roof_tile_pic}" class="house_images" alt='Roof tile pic'></img>   
+				                  </div>
+				                </div>
+				                <div class="image_column" t-if="record_id.inverter_wall">
+				                  <span>Inverter Wall</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.inverter_wall}" class="house_images" alt='Inverter Wall'></img>   
+				                  </div>
+				                </div>
+				                <div class="image_column" t-if="record_id.meter_box">
+				                  <span>MeterBox</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.meter_box}" class="house_images" alt='MeterBox'></img>   
+				                  </div>
+				                </div>
+
+				                <div class="image_column" t-if="record_id.meter_box_2">
+				                  <span>MeterBox-2</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.meter_box_2}" class="house_images" alt='MeterBox-2'></img>   
+				                  </div>
+				                </div>
+
+				                <div class="image_column" t-if="record_id.battery_need_install">
+				                  <span>Pic battery</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.battery_need_install}" class="house_images" alt='Pic battery'></img>   
+				                  </div>
+				                </div>
+
+				                <!-- ============================ NEW ==================== -->
+				                <div class="image_column" t-if="record_id.house_pic">
+				                  <span>House</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.house_pic}" class="house_images" alt='House Pic'></img>   
+				                  </div>
+				                </div>
+
+				                <div class="image_column" t-if="record_id.roof_title_pic">
+				                  <span>Roof Tile</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.roof_title_pic}" class="house_images" alt='Roof Tile Pic'></img>   
+				                  </div>
+				                </div>
+
+				                <div class="image_column" t-if="record_id.roof_layout">
+				                  <span>Roof</span>
+				                  <div class="house_img">
+				                    <img t-attf-src="data:image/png;base64,#{record_id.roof_layout}" class="house_images" alt='Pic Roof'></img>   
+				                  </div>
+				                </div>
+				                <!-- ============================ NEW END ==================== -->
+				                
+				              </div>
+				              <div id="ImgModal" class="modal" tabindex="-1" role="dialog">
+								  <div class="" role="document">
+								    <div class="modal-content" style='margin-top: -50px;'>
+								      <div class="modal-header" style='padding:0px'>
+								        <h3 class="modal-title" style='margin-left: 20px;'></h3>
+								        <button type="button" class="close" style='background-image: url(https://img.icons8.com/ios/120/close-window--v1.png);background-repeat: no-repeat;background-size: contain;position: absolute;cursor: pointer;width: 45px;height: 40px;position: inherit;margin-right: 4px;margin-top: -6px;'>
+								          
+								        </button>
+								      </div>
+								      <div class="modal-body">
+								      	<div class="image--zoom" style='display: inline-flex;justify-content: center;align-items: center;'>
+								        	<img class="modal-content panzoomimg" id="img01"  />
+								        </div>
+								        
+								      </div>
+								      <div class="modal-footer">
+								       
+								      </div>
+								    </div>
+								  </div>
+							  </div>
+				             
+						</div>
+					</section>
+
+					<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+					<t t-if="record_id.installer_project_state == 'saveasdraft'">
+						<section id="review_page_main">
+							<div class="container">
+								<t t-if='record_id'>
+									<div class="row">
+										<div class="col-sm-12" style="margin-bottom:40px;">
+											<div class="col-sm-8">
+												<div class="review_edit_btn_sc">
+													<t t-if='is_infopage'>
+														<input type='hidden' name='batteryback_up' value='yes'/>
+														<input type="button" id="previous_click" class="btn" value="Previous" t-attf-onclick="location.href='/battery/backup?record_id=#{record_id.id}&amp;batteryback_up=yes'"/>
+													</t>
+													<t t-elif='is_project'>
+														<input type="button" id="previous_click" class="btn" value="Previous" t-attf-onclick="location.href='/panals/inventer?record_id=#{record_id.id}&amp;int_remove_existing=yes'"/>
+													</t>
+													<t t-else=''>
+														<input type="button" id="previous_click" class="btn" value="Previous" t-attf-onclick="location.href='/PV/installation?record_id=#{record_id.id}&amp;pv_system=yes'"/>
+													</t>
+													<!-- <input type="button" id="previous_click" class="btn" value="Previous" t-attf-onclick="location.href='/upload/documents/?record_id=#{record_id.id}';"/> -->
+
+													<a t-attf-href="#{'/customer/address?record_id=%s'%(record_id.id)}" id="review_edit_btn" class="btn" role="button">Edit Details</a>
+
+													<a href="/installer/customer" role="button" id="save_draft_btn" class="btn">Save as a Draft</a>
+
+												</div>
+											</div>
+											<div class="col-sm-4">
+												<div class="publish_btn">
+													<form class="oe_solar_form" method="POST" action="/submit/bid">
+														<input type="hidden" name="record_id" t-att-value="record_id.id"/>
+														<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+														<!-- <input type="hidden" name="record_id" t-att-value="record_id.id"/> -->
+
+														<input type="hidden" name="record_id" t-att-value="record_id"/>
+
+														<button type="button" class="btn  publishpro" id="next_btn publishpro">Publish Project</button>
+														<div id="publishModal" class="modal">
+									                            <div class="modal-content text-center questation_popup">
+									                              <form class="oe_solar_form" method="POST" action="/submit/bid">
+									                                <span>
+									                                  <!-- <img src="/airbid_master/static/src/image/Union.png" class="sad_img" loading="lazy"/> -->
+									                                </span>
+									                                <h2><strong>Do you want publish project ?</strong></h2>
+									                                <br/>
+									                                
+									                                <div class="delete_view">
+									                                  <a role="button" id="return_btn" class="close btn">NO</a>
+
+									                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+									                                  <input type="hidden" name="record_id" t-att-value="record_id.id"/>
+
+									                                  <input type="submit" class="btn" id="discard_btn" value="Publish"/>
+									                                </div>
+									                              </form>
+									                            </div>
+
+									                        </div>
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</t>
+							</div>
+						</section>
+					</t>
+					<section class="bid_on_this_project" t-if="record_id.installer_bids_ids and record_id.installer_project_state != 'close' and not is_edit">
+			            <div class="container">
+			              <div class="row">
+			                <div class="col-sm-12">
+			                  <div class="col-sm-6">
+			                    <div class="bid_on_this_project_sup">
+			                      <span>Bids History</span>
+			                    </div>
+			                  </div>
+
+			                  <div class="col-sm-6">
+			                    <div class="bid_on_this_project_sup_compare">
+			                      <form class="oe_solar_form" method="POST" action="/compair/installer">
+			                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+			                        <input type="hidden" name="supplier_data" id="supplier_data"/>
+
+			                        <input type="hidden" id="pro_id" name="pro_id" value=""/>
+
+			                        <input type="submit" class="btn compare_bid_ss" t-attf-value="Compare" ></input>
+			                      </form>
+			                    </div>
+
+			                    <ul class="short_ul_filter">
+
+			                      <form class="address_form" method="post"  action="/installer/review">
+			                        <li id="short_by_date_filter_1">
+			                          <a href="#" data-toggle="dropdown" class="short_by_date">Sort by-Price<i class="icon-arrow"></i></a>
+			                            <ul class="dropdown-menu dropdown_filter">
+			                              <li>
+			                                <tr>
+			                                  <td class="text-right">
+			                                  <input type="hidden" name="record_id" t-att-value="record_id.id"/>
+
+			                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+			                                  <input type="hidden" name="high_price" t-attf-value="high_price"/>
+			                                   
+			                                  
+
+			                                  <a t-attf-href="#{'/installer/review?sort=low_price&amp;record_id=%s'%(record_id.id)}" name='low_price' class="btn" t-attf-value="lowest to highest">lowest to highest</a>
+			                                  <br></br>
+			                                   
+			                                  <a t-attf-href="#{'/installer/review?sort=high_price&amp;record_id=%s'%(record_id.id)}" name='high_price' class="btn" t-attf-value="high to low">high to low</a>
+			                                  </td> 
+			                                </tr>
+			                              </li>
+			                            </ul>
+			                          </li>
+			                        </form>
+			                      </ul>
+			                  </div>
+			                </div>  
+			              </div>
+			            </div>
+			          </section>
+
+					<section class="bid_on_this_project" t-if='not is_edit'>
+						<!-- <t t-set='bid_ids' t-value='record_id.installer_bids_ids'/> -->
+						<t t-if='bid_data'>
+				            <div class="container">
+				              <div class="row">
+				                <div class="col-sm-12">
+				                  <table id="customers">
+				                    <tr class="table_menu">
+				                      <th class="checkbox_value"></th>
+				                      <th>Supplier Details</th>
+				                      <th>Bid Description</th>
+				                      <th>Bid Price</th>
+				                      <!-- <th>Bid Description</th> -->
+				                      <th>Choose Supplier</th>
+				                    </tr>
+				                    <div class="bid_on_this_project_tr">
+				                    	<t t-set="count" t-value="0"/>
+				                      <t t-foreach="bid_data" t-as="bid">
+				                    	<t t-set="count" t-value="count + 1"/>
+				                      <form class="oe_solar_form" method="POST" action="/supplier/details">
+				                        
+				                      <tr class="supplier_review_border">
+				                        <td><input type="checkbox" name="compare_supplier_bid" t-att-value="bid['id']"></input></td>
+				                        <td>
+				                          <div class="project_name_review_bid_detail">
+				                            <!-- <t t-esc='bid["supplier"]'/><br /> -->
+				                            <span>Installer<t t-esc='count'/></span><br />
+				                            Residential : <t t-esc='request.env.user.residential'/><br />
+				                            Commercial  : <t t-esc='request.env.user.commercial'/><br />
+								              <!-- <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid['retailer']}"/>
+				                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid['member']}"/><br></br>
+				                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid['iso']}"/>
+				                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid['document']}"/><br></br> -->
+				                          </div>
+				                        </td>
+
+				                        <td>
+				                          	<div class="bid_description">
+				                          		<t t-esc='bid["des"]'/>
+				                        	</div>
+				                        </td>
+
+				                        <input type="hidden" name="record_id" t-att-value="bid['id']"/>
+				                        <td>
+				                        	<t t-esc='bid["price"]'/>
+				                        </td>
+				                        <td>
+				                        	<div class="choose_supplier_review"> 
+					                            <i data-toggle="tooltip" data-original-title="Button Enable After Project Time finish" aria-describedby="tooltip197036">
+					                                <input type="submit" class="btn" disabled="disabled" value="Choose Supplier"/>
+					                            </i>
+					                        </div>
+				                        </td>
+				                      </tr>
+				                      </form>
+				                    </t>
+				                    </div>
+				                  </table>
+				                </div>
+				              </div>
+				            </div>
+				        </t>
+			          </section>
+			         
+				</div>
+			</t>
+			<!-- </t> -->
+		</template>
+
+		<template id="my_solar_information_bid" name="Installer Information Bid">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="POST" action="/create/bid">
+					<input type="hidden" name="record_id" t-att-value="record_id.id"/>
+
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container secion_review">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="post_project" style="font-weight:700; line-break: anywhere;">
+								        	<h3>Project Name: <t t-esc="record_id.customer_project_name"/></h3>
+								        </div>
+										<div class="project_all_view">
+											<div class="col-sm-12">
+												<div class="project_name_review_a" style="height: 235px;">
+													<h4 style="color:black;font-weight:700;">Roof Layout</h4>
+													<div class="house_img">
+														<t t-if="record_id.roof">
+									                    	<img t-attf-src="data:image/png;base64,#{record_id.roof}" class="house_images"></img>
+									                    </t>
+														<t t-if="record_id.roof_layout">
+									                    	<img t-attf-src="data:image/png;base64,#{record_id.roof_layout}" class="house_images" alt='Pic Roof'></img>   
+									                    </t>	
+									                </div>
+													<!-- <h5>Address</h5>
+													<span><t t-esc="record_id.street"/>  <t t-esc="record_id.house_number_or_name"/>,<br></br><t t-esc="record_id.city"/>  <t t-esc="record_id.state_id.name"/>,  <t t-esc="record_id.zip"/></span> -->
+												</div>
+											</div>
+											<div class="col-sm-12">
+												
+											</div>
+											<div class="col-sm-6">
+												<div class="project_bid_count_review">
+						                          <t t-set="total" t-value="0"/>
+						                            <t t-foreach="record_id.installer_bids_ids" t-as="count"> 
+						                              <t t-set="total" t-value="total+1"/>
+						                            </t>
+						                          <span><t t-esc="total"/></span>
+						                          <h5>Bid Count</h5>
+						                        </div>
+											</div>
+											<div class="col-sm-6">
+												 
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.remove_existing_solar">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Do you want to remove existing solar panels ?</h5>
+													<!-- <t t-esc="record_id.remove_existing_solar"/> -->
+													<span t-esc="dict(record_id.fields_get(allfields=['remove_existing_solar'])['remove_existing_solar']['selection'])[record_id.remove_existing_solar]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.panels_remove">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>How many panels you want to remove?</h5>
+													<t t-esc="record_id.panels_remove"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[record_id.upgrade_system]"></span> -->
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.remove_inverter_solar">
+											<div class="col-sm-4" >
+												<div class="project_name_ques_review">
+													<h5>Do you want to remove inverter ?</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['remove_inverter_solar'])['remove_inverter_solar']['selection'])[record_id.remove_inverter_solar]"></span>
+												</div>
+											</div>
+										</t>
+										
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.pv_system_solar">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Do you want to upgrade PV system ?</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['pv_system_solar'])['pv_system_solar']['selection'])[record_id.pv_system_solar]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.new_pv_system_installation">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>NEW PV System installation</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['new_pv_system_installation'])['new_pv_system_installation']['selection'])[record_id.new_pv_system_installation]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.panels_need">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>How many panels you need</h5>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['panels_need'])['panels_need']['selection'])[record_id.panels_need]"></span> -->
+													<t t-esc="record_id.panels_need"/>
+												</div>
+											</div>
+										</t>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.panels_power_class">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>panels power class</h5>
+													<t t-esc="record_id.panels_power_class"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['panels_power_class'])['panels_power_class']['selection'])[record_id.panels_power_class]"></span> -->
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.inverter_size">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Inverter size</h5>
+													<t t-esc="record_id.inverter_size"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['inverter_size'])['inverter_size']['selection'])[record_id.inverter_size]"></span> -->
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.single_three_ph">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Single ph or three ph</h5>
+													<t t-esc="record_id.single_three_ph"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['roof_type'])['roof_type']['selection'])[record_id.roof_type]"></span> -->
+												</div>
+											</div>
+										</t>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.export_device">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Export Device</h5>
+													<t t-esc="record_id.export_device"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[record_id.property_option_new]"></span> -->
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.panels_tilts">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Panels Tilts</h5>
+													<!-- <t t-esc="record_id.panels_tilts"/> -->
+													<span t-esc="dict(record_id.fields_get(allfields=['panels_tilts'])['panels_tilts']['selection'])[record_id.panels_tilts]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.clip_locks">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Clip locks</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['clip_locks'])['clip_locks']['selection'])[record_id.clip_locks]"></span>
+												</div>
+											</div>
+										</t>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.storey">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Storey</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['storey'])['storey']['selection'])[record_id.storey]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.battery_backup">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Do you need battery back up ?</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['battery_backup'])['battery_backup']['selection'])[record_id.battery_backup]"></span>
+												</div>
+											</div>
+										</t>
+
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.battery_backup_second">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Do you need battery back up ?</h5>
+													<span t-esc="dict(record_id.fields_get(allfields=['battery_backup_second'])['battery_backup_second']['selection'])[record_id.battery_backup_second]"></span>
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.battery_size">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Battery Size</h5>
+													<t t-esc="record_id.battery_size"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[record_id.upgrade_system]"></span> -->
+												</div>
+											</div>
+										</t>
+
+										<t t-if="record_id.battery_model_no">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Battery Model No</h5>
+													<t t-esc="record_id.battery_model_no"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['roof_type'])['roof_type']['selection'])[record_id.roof_type]"></span> -->
+												</div>
+											</div>
+										</t>
+									</div>
+								</div>
+
+								<div class="col-sm-12">
+									<div class="project_all_view">
+										<t t-if="record_id.battery_brand">
+											<div class="col-sm-4">
+												<div class="project_name_ques_review">
+													<h5>Battery Brand</h5>
+													<t t-esc="record_id.battery_brand"/>
+													<!-- <span t-esc="dict(record_id.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[record_id.property_option_new]"></span> -->
+												</div>
+											</div>
+										</t>
+									</div>
+								</div>
+								<div class="row">
+					                <div class="col-sm-12" style="padding: 0;">
+					                  <div class="review_project_heading_border_customer">
+					                  </div>
+					                </div>
+					            </div>
+					            <div class="row">
+					                <div class="col-sm-12" style="padding: 0;">
+					                  <div class="review_project_heading">
+					                    <h3>Project Images</h3>
+					                  </div>
+					                </div>
+					              </div>
+
+					              <div class="row">
+					                <div class="image_column" t-if="record_id.house">
+					                  <span>House</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.house}" class="house_images" alt="House"></img>   
+					                  </div>
+					                </div>
+
+					                <div class="image_column" t-if="record_id.roof">
+					                  <span>Roof</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.roof}" class="house_images"></img>   
+					                  </div>
+					                </div>
+					                <div class="image_column" t-if="record_id.roof_tile_pic">
+					                  <span>Roof tile pic</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.roof_tile_pic}" class="house_images"></img>   
+					                  </div>
+					                </div>
+					                <div class="image_column" t-if="record_id.inverter_wall">
+					                  <span>Inverter Wall</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.inverter_wall}" class="house_images"></img>   
+					                  </div>
+					                </div>
+					                <div class="image_column" t-if="record_id.meter_box">
+					                  <span>MeterBox</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.meter_box}" class="house_images"></img>   
+					                  </div>
+					                </div>
+
+					                <div class="image_column" t-if="record_id.meter_box_2">
+					                  <span>MeterBox-2</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.meter_box_2}" class="house_images"></img>   
+					                  </div>
+					                </div>
+					                <div class="image_column" t-if="record_id.battery_need_install">
+					                  <span>Pic battery</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.battery_need_install}" class="house_images"></img>   
+					                  </div>
+					                </div>
+
+					                <!-- ============================ NEW ==================== -->
+					                <div class="image_column" t-if="record_id.house_pic">
+					                  <span>House</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.house_pic}" class="house_images" alt='House Pic'></img>   
+					                  </div>
+					                </div>
+
+					                <div class="image_column" t-if="record_id.roof_title_pic">
+					                  <span>Roof Tile</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.roof_title_pic}" class="house_images" alt='Roof Tile Pic'></img>   
+					                  </div>
+					                </div>
+
+					                <div class="image_column" t-if="record_id.roof_layout">
+					                  <span>Roof</span>
+					                  <div class="house_img">
+					                    <img t-attf-src="data:image/png;base64,#{record_id.roof_layout}" class="house_images" alt='Pic Roof'></img>   
+					                  </div>
+					                </div>
+					                <!-- ============================ NEW END ==================== -->
+
+					                <div id="ImgModal" class="modal" tabindex="-1" role="dialog">
+									  <div class="" role="document">
+									    <div class="modal-content" style='margin-top: -50px;'>
+									      <div class="modal-header" style='padding:0px'>
+									        <h3 class="modal-title" style='margin-left: 20px;'></h3>
+									        <button type="button" class="close" style='background-image: url(https://img.icons8.com/ios/120/close-window--v1.png);background-repeat: no-repeat;background-size: contain;position: absolute;cursor: pointer;width: 45px;height: 40px;position: inherit;margin-right: 4px;margin-top: -6px;'>
+									          
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									      	<div class="image--zoom" style='display: inline-flex;justify-content: center;align-items: center;'>
+									        	<img class="modal-content panzoomimg" id="img01"  />
+									        </div>
+									        
+									      </div>
+									      <div class="modal-footer">
+									       
+									      </div>
+									    </div>
+									  </div>
+								  </div>
+					              </div>
+							</div>
+						</section>
+
+						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+						<section id="review_page_main">
+							<div class="container">
+								<div class="row">
+									<div class="col-sm-12" style="margin-bottom:40px;">
+										<div class="col-sm-8">
+											
+										</div>
+										<div class="col-sm-4">
+											<t t-if='not is_alredy_bid'>
+												<div class="publish_btn">
+													<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+													<!-- <input type="hidden" name="record_id" t-att-value="record_id.id"/> -->
+
+													<input type="hidden" name="record_id" t-att-value="record_id"/>
+
+													<button type="submit" class="btn" id="next_btn">Bid Project</button>
+												</div>
+											</t>
+											<t t-else=''>
+												<div class="publish_btn">
+													<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+													<!-- <input type="hidden" name="record_id" t-att-value="record_id.id"/> -->
+													<input type='hidden' name='is_alredy_bid'  t-att-value='is_alredy_bid'/>
+													<input type="hidden" name="record_id" t-att-value="record_id"/>
+
+													<button type="submit" class="btn" id="next_btn">Edit Bid</button>
+												</div>
+											</t>
+										</div>
+									</div>
+									</div>
+								</div>
+						</section>
+
+						
+					</div>
+				</form>
+			</t>
+			<!-- </t> -->
+		</template>
+
+		<template id="submit_project_bid_form" name="Submit Project">
+			<t t-call="web.login_layout">
+				<form class="project_form" method="post">
+					<div class="submit_details">
+						<h1 id="submit_details">Thank You</h1>
+						<h3 id="submit_details">Your Bid on this Project is Submitted Successfully</h3>
+						<!-- <p id="submit_details">Your Refrence Number is</p> -->
+					</div>
+				</form>
+			</t>
+		</template> 
+	</data>
+</odoo>

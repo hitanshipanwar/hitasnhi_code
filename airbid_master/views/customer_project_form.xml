@@ -1,0 +1,1718 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="customer_project_form" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/solar/shadding">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div class="que1">
+									<div id="que_no_1" class="property_rent">
+										<p>Do you own or rent your property?</p>
+									</div>
+									<div class="property_option">
+										<input type="radio" id="property_yes" name="property" value="yes" required="required" t-att-checked="'checked' if rec_id.property_option_new == 'yes' else None">Own</input>
+										
+										<input type="radio" id="property_no" class="myBtn" name="property" value="no" required="required" t-att-checked="'checked' if rec_id.property_option_new == 'no' else None">Rent</input>
+									</div>
+									<!-- Trigger/Open The Modal -->
+									<!-- The Modal -->
+									<div id="myModal" class="modal">
+									    <!-- Modal content -->
+										<div class="modal-content text-center questation_popup">
+											<span>
+												<img src="/airbid_master/static/src/image/sad 1.png" class="sad_img"/>
+											</span>
+										    <h2><strong>Sorry..!</strong></h2>
+
+										    <p>Unfortunately the owner of the property needs to make the decision to <br></br>install solar power.We're sorry we couldn't help you further</p>
+										    <div class="delete_view">
+											    <a role="button" id="return_btn" class="close btn">Return</a>
+											    <a class="btn" role="button" id="discard_btn" href="/my/project">Discard Project</a>
+											</div>
+									  	</div>
+									</div>
+								</div>
+
+								<div class="btn_next_pre">
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<input type="hidden" name="record_id" t-att-value="record_id"/>
+									<div class="previous_btn">
+										<!-- <input type="button" class="btn" value="Previous" id="previous"/> -->
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/address/data/?record_id=#{record_id}'"/>
+										<!-- &amp;leng=#{long_address}&amp;let=#{let_address}' -->
+									</div>
+									<div class="next_btn">
+										<button type="submit" class="btn" id="next_1">Next</button>
+									</div>
+								</div>
+
+						<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 10%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>			
+		</template>
+		
+		<template id="customer_project_form_que2" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/solar/systemhave">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+		
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que2">
+									<div class="shadding_issues">
+										<p>Do you have any shadding issues?</p>
+									</div>
+									<div class="shadding_option">
+										<input type="radio" id="shadding_yes" name="shadding" value="yes" required="required" t-att-checked="'checked' if rec_id.shading_issue == 'yes' else None">Yes</input>
+										<input type="radio" id="shadding_no" name="shadding" value="no" required="required" t-att-checked="'checked' if rec_id.shading_issue == 'no' else None">No</input>
+									</div>
+								</div>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<!-- <input type="button" class="btn" value="Previous" id="previous"/> -->
+
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/system/?record_id=#{record_id}&amp;property=#{rec_id.property_option_new}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_2" >Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:15%"></div>
+								<hr/> -->
+
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 15%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+								<!-- <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/system/?record_id=#{record_id}&amp;property=#{rec_id.property_option_new}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_2" >Next</button>
+								</div> -->
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>
+		</template>
+
+	<template id="customer_project_form_que3" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/solar/property">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que3">
+									<div class="solar_question">
+										<p>Do you already have a solar system?</p>
+									</div>
+									<div class="solar_option">
+										<input type="radio" id="question3_yes" name="question3" value="yes" required="required" t-att-checked="'checked' if rec_id.solar_system == 'yes' else None">Yes</input>
+										<input type="radio" id="question3_no" name="question3" value="no" required="required" t-att-checked="'checked' if rec_id.solar_system == 'no' else None">No</input>
+									</div>
+								</div>
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/shadding/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_3">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:20%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 20%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+	<template id="customer_project_form_remove_panel" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/existing/panels">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+								<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div  id="que_remove">
+								<div class="existing_panels_question">
+									<p>Do you want to Remove existing Panels?</p>
+								</div>
+								<div class="existing_panels_option">
+									<input type="radio" id="remove_panels_yes" name="remove_panels" value="yes" required="required" t-att-checked="'checked' if rec_id.remove_panels == 'yes' else None">Yes</input>
+									<input type="radio" id="remove_panels_no" name="remove_panels" value="no" required="required" t-att-checked="'checked' if rec_id.remove_panels == 'no' else None">No</input>
+								</div>
+								</div>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/systemhave/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_removeexisting">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:25%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 25%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+							</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+	<template id="customer_project_form_existing_panels" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/add/panels">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+
+									<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_existing">
+								<div class="remove_panels_question">
+									<p>How many existing panels You want to remove?</p>
+								</div>
+								<div class="remove_panels_option">
+									<t t-if="rec_id.no_panels">
+										<input type="text" id="panels" name="panels" required="required" class="number_input_only" t-att-value="rec_id.no_panels"/>
+									</t>
+									<t t-else="">
+										<input type="text" id="panels" name="panels" required="required" class="number_input_only"/>
+									</t>
+								</div>
+								</div>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/property/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_existingtotal">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:30%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 30%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+							</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+	<template id="customer_project_form_add_panels" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/battery/storage">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+
+									<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_add">
+								<div class="add_panels_question">
+									<p>Do you want to add more panels?</p>
+								</div>
+								<div class="add_panels_option">
+									<input type="radio" id="add_panels_yes" name="add_panels" value="yes" required="required" t-att-checked="'checked' if rec_id.add_panels == 'yes' else None">Yes</input>
+									<input type="radio" id="add_panels_no" name="add_panels" value="no" required="required" t-att-checked="'checked' if rec_id.add_panels == 'no' else None">No</input>
+								</div>
+								</div>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/existing/panels/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_addpanels">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:35%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 35%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+							</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+	<template id="customer_project_form_upgrade_system" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/battery/storage">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+
+									<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_upgrade">
+								<div class="upgrade_question">
+									<p>Do you want to upgrade existing system?</p>
+								</div>
+								<div class="upgrade_option">
+									<input type="radio" id="upgrade_system_yes" name="upgrade_system" value="yes" required="required" t-att-checked="'checked' if rec_id.upgrade_system == 'yes' else None">Yes</input>
+									<input type="radio" id="upgrade_system_no" name="upgrade_system" value="no" required="required" t-att-checked="'checked' if rec_id.upgrade_system == 'no' else None">No</input>
+								</div>
+								</div>
+
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/property/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_upgrade">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:30%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 30%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+		<template id="customer_project_form_battery_storage" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/cash/finance">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+
+									<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_storage_new">
+								<div class="storage_question">
+									<p>Do you need to add battery storage ?</p>
+								</div>
+
+								<t t-if="rec_id.add_battery_new">
+									<div class="storage_option">
+										<input type="radio" id="add_battery_yes" name="add_battery" value="yes" required="required" t-att-checked="'checked' if rec_id.add_battery_new == 'yes' else None">Yes</input>
+										<input type="radio" class="myBtn" id="add_battery_no"  name="add_battery" value="no" required="required" t-att-checked="'checked' if rec_id.add_battery_new == 'no' else None">No</input><br></br>
+									</div>
+								</t>
+								<t t-else="">
+									<div class="storage_option">
+										<input type="radio" id="add_battery_yes" name="add_battery" value="yes" required="required" t-att-checked="'checked' if rec_id.add_battery == 'yes' else None">Yes</input>
+										<input type="radio" class="myBtn" id="add_battery_no"  name="add_battery" value="no" required="required" t-att-checked="'checked' if rec_id.add_battery == 'no' else None">No</input><br></br>
+									</div>
+								</t>
+								</div>
+								<!-- Trigger/Open The Modal -->
+
+										<!-- The Modal -->
+										<div id="myModal" class="modal">
+
+										  <!-- Modal content -->
+										  <div class="modal-content text-center questation_popup">
+										  	<span>
+										  	<img src="/airbid_master/static/src/image/sad 1.png" class="sad_img"/>
+										  </span>
+										    <h2><strong>Sorry..!</strong></h2>
+
+										    <p>we don’t provide only removals of panels.
+												Please contact us again</p>
+										    <div>
+											    <a role="button" id="return_btn" class="close btn">Return</a>
+											    <a class="btn" role="button" id="discard_btn">Discard Project</a>
+											</div>
+										  </div>
+
+										</div>
+								
+								<div t-if="rec_id.existing_solar" id="text_box">
+									<div class="row">	
+										<div class="column col-md-4">
+											<label for="existing_solar" id="solar_size_text" class="solar_size_text">Size of the existing solar system(KW)</label><br></br>
+											<input type="text" id="existing_solar" name="existing_solar"  placeholder="6.6" required="required" t-att-value="rec_id.existing_solar"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="inverter" id="inverter_brand_text" class="solar_size_text">Inverter Brand</label><br></br>
+											<input type="text" id="inverter" name="inverter_brand" placeholder="inverter brand" required="required" t-att-value="rec_id.inverter_brand"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="inverter_phase" id="inverter_phase_text" class="solar_size_text">Inverter phase</label><br></br>
+											<input type="text" id="inverter_phase" name="inverter_phase" placeholder="1phase or 3phase" required="required" t-att-value="rec_id.inverter_phase"/><br></br>
+										</div>
+									</div>
+									<br></br>
+									<div class="row">
+										<div class="column col-md-4">
+											<label for="inverter_capacity" id="inverter_capacity_text" class="solar_size_text">Inverter capacity</label><br></br>
+											<input type="text" id="inverter_capacity" name="inverter_capacity" placeholder="8.8" required="required" t-att-value="rec_id.inverter_capacity"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="battery_size" id="battery_size_text" class="solar_size_text">Specify the battery storage size?</label><br></br>
+											<input type="text" id="battery_size" name="storage_size" placeholder="9.0" required="required" t-att-value="rec_id.storage_size"/><br></br>
+										</div>
+									</div>
+								</div>
+
+								<div t-else="rec_id.existing_solar == ''" id="text_box">
+									<div class="row">	
+										<div class="column col-md-4">
+											<label for="existing_solar" id="solar_size_text" class="solar_size_text">Size of the existing solar system(KW)</label><br></br>
+											<input type="text" id="existing_solar" name="existing_solar"  placeholder="6.6" required="required"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="inverter" id="inverter_brand_text" class="solar_size_text">Inverter Brand</label><br></br>
+											<input type="text" id="inverter" name="inverter_brand" placeholder="inverter brand" required="required"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="inverter_phase" id="inverter_phase_text" class="solar_size_text">Inverter phase</label><br></br>
+											<input type="text" id="inverter_phase" name="inverter_phase" placeholder="1phase or 3phase" required="required"/><br></br>
+										</div>
+									</div>
+									<br></br>
+									<div class="row">
+										<div class="column col-md-4">
+											<label for="inverter_capacity" id="inverter_capacity_text" class="solar_size_text">Inverter capacity</label><br></br>
+											<input type="text" id="inverter_capacity" name="inverter_capacity" placeholder="8.8" required="required"/><br></br>
+										</div>
+										<div class="column col-md-4">
+											<label for="battery_size" id="battery_size_text" class="solar_size_text">Specify the battery storage size?</label><br></br>
+											<input type="text" id="battery_size" name="storage_size" placeholder="9.0" required="required"/><br></br>
+										</div>
+									</div>
+								</div>
+
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+
+									<t t-if="rec_id.add_panels == 'no' or rec_id.add_panels == 'yes'">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/add/panels/?record_id=#{record_id}';"/>
+									</t>
+									<t t-else="">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/existing/panels/?record_id=#{record_id}';"/>
+									</t>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_battery">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:35%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 35%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+							</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+
+
+		<template id="customer_project_form_que4" name="Solar System">
+					<t t-call="web.login_layout">
+						<form class="oe_solar_form" method="post" action="/panels/type">
+							<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+								<div id="wrap" class="oe_structure section_wrap">
+								<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que4">
+								<div class="about_property_question">
+									<p>About your proposed installation property</p>
+								</div>
+								<div class="about_property_option">
+
+									<div class="existing_property">
+										<div class="existing_property_lokking">
+											<input type="radio" id="existing_pro" name="question4" value="exit" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.property_select == 'exit' else None"><span class="type_property_electricity">Existing Property</span></input>
+										</div>
+										<div class="less_ele_prize_looking_construction">
+											<input type="radio" id="under_con" name="question4" value="under" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.property_select == 'under' else None"><span class="type_property_electricity">Property under construction</span></input><br></br>
+										</div>
+									</div>
+
+									<div class="property_begin_construction">
+										<div class="existing_property_lokking_2">
+											<input type="radio" id="begin_soon" name="question4" value="soon" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.property_select == 'soon' else None"><span class="type_property_electricity">A Property begin construction soon</span></input>
+										</div>
+
+										<div class="less_ele_prize_looking1">
+											<input type="radio" id="no_pro" name="question4" value="no" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.property_select == 'no' else None"><span class="type_property_electricity">No Property or plans as of now</span></input><br></br>
+										</div>
+									</div>
+									
+									</div>
+								</div>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<t t-if="rec_id.upgrade_system == 'yes'">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/existing/panels/?record_id=#{record_id}';"/>
+									</t>
+									<t t-else="">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/systemhave/?record_id=#{record_id}';"/>
+									</t>
+									
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_4">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:50%">50%</div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 50%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+						</div>
+						</section>
+					</div>
+				</form>
+			</t>
+		</template>
+		<template id="customer_project_form_que5" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/inverter/type">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_type">
+								<div class="panel_type_question">
+									<p>What type of solar panels are you looking for?</p>
+								</div>
+								<t t-foreach="img_data" t-as="img">
+								<div class="panel_type_option">
+									<div class="top_quality">
+										<input type="radio" id="top" name="solar_panels" t-att-value="img.solar_type" required="required" t-att-checked="'checked' if rec_id.solar_type == img.solar_type else None">
+											<t t-esc="dict(img.fields_get(allfields=['solar_type'])['solar_type']['selection'])[img.solar_type]"/>
+										</input>
+									</div>
+									<div class="panel_brand_img">
+										<t t-foreach="img.choose_img_id" t-as="data">
+											<div class="standard_quality_img">
+												<img t-attf-src="data:image/png;base64,#{data.datas}"/>
+											</div>
+										</t>
+									</div>
+								</div>
+							</t>
+								<div class="specify_choice_solar">
+									<input type="radio" id="select" name="solar_panels" value="select" required="required" t-att-checked="'checked' if rec_id.solar_type == 'select' else None">Please specify choice of your solar panels brand</input>
+								</div>
+								<div class="specify_panels">
+									<t t-if="rec_id.type_box">
+										<input type="text" name="panel_brand" id="specify_panels" placeholder="Please specify choice of your solar panels brand" class="text_input_only" t-att-value="rec_id.type_box"/>
+									</t>
+									<t t-else="">
+										<input type="text" name="panel_brand" id="specify_panels" placeholder="Please specify choice of your solar panels brand" style="display:none;" class="text_input_only"/>
+									</t>
+								</div>
+								</div>
+									
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<t t-if="rec_id.add_panels == 'yes'">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/add/panels/?record_id=#{record_id}';"/>
+									</t>
+									<t t-if="rec_id.property_select and rec_id.solar_system == 'no'">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/property/?record_id=#{record_id}';"/>
+									</t>
+									<t t-if="rec_id.upgrade_system == 'yes' and rec_id.property_select">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/battery/storage/?record_id=#{record_id}';"/>
+									</t>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_5">Next</button>
+								</div>	
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:55%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 55%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que6" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/property/type">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_inverter">
+									<div class="inverter_type_question">
+										<p>What type of inverter are you looking for?</p>
+									</div>
+									<t t-foreach="img_data" t-as="img">
+									<div class="inverter_type_option">
+										<div class="top_quality_most_expensive">
+											<input type="radio" id="top" name="inverter_type" t-att-value="img.inverter_type" required="required" t-att-checked="'checked' if rec_id.inverter_type == img.inverter_type else None">
+												<t t-esc="dict(img.fields_get(allfields=['inverter_type'])['inverter_type']['selection'])[img.inverter_type]"/>
+											</input><br></br>
+										</div>
+										<div class="inverter_brand_img">
+										<t t-foreach="img.choose_img_id" t-as="data">
+											<div class="inverter_brand_img_top_quality">
+												<img t-attf-src="data:image/png;base64,#{data.datas}"/>
+											</div>
+										</t>
+										</div>
+										</div>
+									</t>
+									<div class="inverter_brand">
+										<input type="radio" id="select" name="inverter_type" value="select" required="required" t-att-checked="'checked' if rec_id.inverter_type == 'select' else None">Please specify choice of your solar Inverter brand</input>
+									</div>
+									<div class="specify_choice_inverter_brand">
+										<t t-if="rec_id.brand_box">
+											<input type="text" name="inverter_brand" id="specify_inverter" placeholder="Please specify choice of your solar Inverter brand" class="text_input_only"/>
+										</t>
+										<t t-else="">
+											<input type="text" name="inverter_brand" id="specify_inverter" placeholder="Please specify choice of your solar Inverter brand" style="display:none;" class="text_input_only"/>
+										</t>
+									</div>
+								</div>
+
+								<div class="inverter_brand_border"></div>
+
+								
+							<div id="que_backup">
+								<div class="backup_question">
+									<p>Are you looking for battery back up ?</p>
+								</div>
+								<div class="backup_option">
+									<input type="radio" id="battery_backup_yes" name="battery_backup" value="yes" required="required" t-att-checked="'checked' if rec_id.battery_backup == 'yes' else None">Yes</input>
+									<input type="radio" id="battery_backup_no" name="battery_backup" value="no" required="required" t-att-checked="'checked' if rec_id.battery_backup == 'no' else None">No</input><br></br>
+									
+								</div>
+
+								<div class="inverter_brand_storage_size">
+									<label for="specify_size" id="specify_size" style="display:none;">Specify the battery storage size?</label>
+								</div>
+								<div class="battery_storage_inverter_brand">
+									<t t-if="rec_id.backup_box">
+										<input type="text" id="specify_size_box" name="battery_box" placeholder="Specify the battery storage size" class="number_input_only" t-att-value="rec_id.backup_box"/>
+									</t>
+									<t t-else="">
+										<input type="text" id="specify_size_box" name="battery_box" style="display:none;" placeholder="Specify the battery storage size" class="number_input_only"/>
+									</t>
+								</div>
+
+
+							</div>
+							
+							<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+							<input type="hidden" name="record_id" t-att-value="record_id"/>
+							<div class="previous_btn">
+								<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/panels/type/?record_id=#{record_id}';"/>
+							</div>
+							<div class="next_btn">
+								<button type="submit" class="btn" id="next_6">Next</button>
+							</div>
+							<!-- ++++++++++Progress Bar++++++++++++++++ -->
+							<br></br>
+							<br></br>
+							<br></br>
+							<br></br>
+							<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 60%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							
+						</div>
+						</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que7" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/story/number" enctype="multipart/form-data">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_property">
+								<div class="property_type_question">
+									<p>Type of the property</p>
+								</div>
+							<div class="property_type_option">
+								<div class="row">
+								    <t t-foreach="img_data" t-as="img">
+									<div class="column col-md-4" style="margin: 0 -10px !important;">
+								    <label class="image-radio">
+								        <img class="img-responsive type_home_image" t-attf-src="data:image/png;base64,#{img.choose_img_id.datas}"/>
+								        <input type="radio" id="home" name="property_type" t-att-value="img.property_type" required="required" t-att-checked="'checked' if rec_id.property_type == img.property_type else None">
+								        <span class="type_property" id="stand_alone_home" t-esc="dict(img.fields_get(allfields=['property_type'])['property_type']['selection'])[img.property_type]"></span>
+								        </input>
+								    </label>
+									</div>
+								    </t>
+								</div>
+								</div>
+
+								</div>
+								
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/inverter/type/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_7">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:65%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 65%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que8" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/roof/type">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_story">
+								<div class="story_number_question">
+									<p>Number of story</p>
+								</div>
+								<div class="story_number_option">
+									<div class="row">
+									<t t-foreach="img_data" t-as="img">
+										<div class="column col-md-4" style="margin: 0 -10px !important;">
+									    <label class="image-radio">
+									    <img class="img-responsive type_home_image" t-attf-src="data:image/png;base64,#{img.choose_img_id.datas}"/>
+									    <input type="radio" id="single" name="story_no" t-att-value="img.story_no" required="required" t-att-checked="'checked' if rec_id.story_no == img.story_no else None">
+									    <span class="type_property"  t-esc="dict(img.fields_get(allfields=['story_no'])['story_no']['selection'])[img.story_no]"></span>
+									    </input>
+									    </label>
+										</div>
+									</t>
+								</div>
+								</div>
+								</div>
+								
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/property/type/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_8">Next</button>
+								</div>
+									<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:70%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 70%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que9" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/electricity/pay">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_roof">
+								<div class="roof_type_question">
+									<p>Type of roof</p>
+								</div>
+								<div class="roof_type_option">
+									<div class="row">
+									<t t-foreach="img_data" t-as="img">
+										<div id="column_images" class="column_images column col-md-3" style="margin: 0 -10px !important;">
+									    <label class="image-radio" id='roof_label'>
+									        <!-- <img class="img-responsive type_home_image" src="/airbid_master/static/src/image/Rectangle 98 (10).png"/> -->
+									        <img class="img-responsive type_home_image" t-attf-src="data:image/png;base64,#{img.choose_img_id.datas}"/>
+									        <input type="radio" id="tin" name="roof" t-att-value="img.roof_type" required="required" t-att-checked="'checked' if rec_id.roof_type == img.roof_type else None">
+									        <span class="type_property"  t-esc="dict(img.fields_get(allfields=['roof_type'])['roof_type']['selection'])[img.roof_type]"></span>
+									        </input>
+									    </label>
+									    
+										</div>
+									</t>
+									<div id="rood_div" style="display:none;">
+								    	<label>Specify Roof Type</label>
+								    	<input type="text" name="roof_text_box" placeholder="Roof Type" id="roof_box"/>
+								    </div>
+								</div>
+								</div>
+								</div>
+								
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/story/number/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_9">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:75%">75%</div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 75%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que10" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/solar/size">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_electricity">
+								<div class="electricity_pay_question">
+									<p>How much you pay quarterly for electricity</p>
+								</div>
+								<div class="electricity_pay_option">
+									<div class="electricity_price">
+										<div class="less_ele">
+											<input type="radio" id="less" name="electricity_pay" value="less"  required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.pay_quarterly == 'less' else None"><span class="type_property_electricity">Less Than $500</span></input>
+										</div>
+										<div class="less_ele_prize">
+											<input type="radio" id="over" name="electricity_pay" value="over"  required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.pay_quarterly == 'five' else None"><span class="type_property_electricity">Over $2000</span></input>
+										</div>
+									</div>
+									<br></br>
+									<div class="electricity_price_1">
+										<div class="less_ele_2">
+											<input type="radio" id="five" name="electricity_pay" value="five"  required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.pay_quarterly == 'nine' else None"><span class="type_property_electricity">$500 - $900</span></input>
+										</div>
+
+										<div class="less_ele_prize_1">
+											<input type="radio" id="unknown" name="electricity_pay" value="no"  required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.pay_quarterly == 'over' else None"><span class="type_property_electricity">Don't Know</span></input>
+										</div>
+										<br></br>
+									</div>
+									<div class="electricity_price_2">
+										<div class="less_ele_3">
+											<input type="radio" id="nine" name="electricity_pay" value="nine" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.pay_quarterly == 'no' else None"><span class="type_property_electricity">$900 - $2000</span></input>
+										</div>
+									</div>
+								</div>
+								</div>
+								
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/roof/type/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_10">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:80%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 80%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que11" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/cash/finance">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_looking">
+								<div class="solar_size_question">
+									<p>What size solar system are you looking for?</p>
+								</div>
+								<div class="solar_size_option">
+									<div class="electricity_price_looking">
+										<div class="less_ele_lokking">
+											<input type="radio" id="five" name="system_size" value="five" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.solar_size == 'five' else None"><span class="type_property_electricity">5KW</span></input>
+										</div>
+										<div class="less_ele_prize_looking">
+											<input type="radio" id="six" name="system_size" value="six" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.solar_size == 'six' else None"><span class="type_property_electricity">6.6KW</span></input><br></br>
+										</div>
+									</div>
+
+
+									<div class="electricity_price_looking1">
+										<div class="less_ele_lokking2">
+											<input type="radio" id="ten" name="system_size" value="ten" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.solar_size == 'ten' else None"><span class="type_property_electricity">10KW</span></input>
+										</div>
+
+										<div class="less_ele_prize_looking1">
+											<input type="radio" id="not" name="system_size" value="not" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.solar_size == 'not' else None"><span class="type_property_electricity">Not Sure</span></input><br></br>
+										</div>
+										<br></br>
+									</div>
+
+
+									<div class="electricity_price_looking2">
+										<div class="less_ele_lokking_3">
+											<input type="radio" id="size" name="system_size" value="specify" required="required" class="quarterly_for_electricity" t-att-checked="'checked' if rec_id.solar_size == 'specify' else None"><span class="type_property_electricity">Specify System Size</span></input><br></br>
+											<t t-if="rec_id.specify_box">
+												<input type="text" name="systemsize" id="systemsize" placeholder="Specify system size" class="number_input_only" t-att-value="rec_id.specify_box"/>
+											</t>
+											<t t-else="">
+												<input type="text" name="systemsize" id="systemsize" placeholder="Specify system size" style="display:none;" class="number_input_only" />
+											</t>
+										</div>
+									</div>									
+								</div>
+								</div>
+								
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/electricity/pay/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_11">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:85%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 85%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que12" name="Solar System">
+			<t t-call="web.login_layout">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+					<form class="oe_solar_form" method="post" action="/comment/box">
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_finance">
+								<div class="cash_question">
+									<p>Are you looking to buy cash or finance ?</p>
+								</div>
+								<div class="cash_option">
+									<input type="radio" id="cash" name="payment" value="cash" t-att-checked="'checked' if rec_id.cash_fin == 'cash' else None"/>
+									<label for="cash" required="required"><span class="redio_rext">Cash</span></label>
+									<input type="radio" id="finance" name="payment" value="finance" t-att-checked="'checked' if rec_id.cash_fin == 'finance' else None"/>
+									<label for="finance" required="required"><span class="redio_rext">Finance</span></label><br></br>
+									
+								</div>
+								</div>
+								
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<t t-if="rec_id.add_panels == 'yes' or rec_id.add_battery_new == 'yes' ">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/battery/storage/?record_id=#{record_id}';"/>
+									</t>
+									<t t-else="">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/size/?record_id=#{record_id}';"/>
+									</t>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_12">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:90%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 90%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	<template id="customer_project_form_que13" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/upload/documents">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+								<div id="que_comment">
+								<div class="comment_question">
+									<p>Anything else would you like to tell us?</p>
+								</div>
+								<div class="comment_option">
+									<t t-if="rec_id.comment_box">
+										<textarea id="comment" name="comment" rows="4" cols="50" placeholder="Tell us" t-esc="rec_id.comment_box"></textarea>
+									</t>
+									<t t-else="">
+										<textarea id="comment" name="comment" rows="4" cols="50" placeholder="Tell us"></textarea>
+									</t>
+								</div>
+								</div>
+
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/cash/finance/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_13">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:95%"></div>
+								<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 95%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+
+	<template id="customer_project_form_que14" name="Solar System">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/project/details" enctype="multipart/form-data">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+
+							<div class="container">
+								<div class="project_header">
+									<h3>Post a project</h3>
+								</div>
+							<div id="upload_document">
+								<div class="upload_img_question">
+									<p>Upload Images (Max.50mb size)</p>
+								</div>
+							<div class="upload_img">
+								<div class="row">
+
+									<div id="UploadHouse" class="column col-sm-4">
+					                    <img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+					                    <span class="large">
+								          <img src="/airbid_master/static/src/image/Rectangle 98 (2).png" class="large-image" alt="adventure" />
+								      	</span></img>
+					                    <label for="house_attachment" class="custom-file-upload form-control profile_detail_supplier_house">
+					                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of House</span>
+					                    </label>
+					                    <input type="file" name="house_attachment" id="house_attachment" onchange="javascript:uploadimagehouse()" style="display:none" required="required"/>
+
+					                    <input type="text" id="house_name" name="house_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+					                    <div id="house_attachment_file">
+					                  	</div>
+
+					                  	<t t-if="rec_id.house">
+						                  	<div id="house_visible">
+						                  		<img t-attf-src="data:image/png;base64,#{rec_id.house}" style="height: 45px;width: 45px;" id="house_image"/>
+
+						                  		<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.house_name" id="house_image_name" style="color: #424958 !important;"/>
+						                  	</div>
+					                  	</t>
+	                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+				                    </div>
+
+
+				                    <t t-if="rec_id.add_battery == 'yes'">
+					                    <div id="UploadHouse" class="column col-sm-4">
+					                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+						                    <span class="inverter_wall_large">
+									          <img src="/airbid_master/static/src/image/Rectangle 98 (5).png" class="large-image" alt="adventure" />
+									      	</span></img>
+
+						                    <label for="inverter_wall" class="custom-file-upload form-control profile_detail_supplier_house">
+						                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload inverter wall picture</span>
+						                    </label>
+						                    <input type="file" name="inverter_wall" id="inverter_wall" onchange="javascript:uploadimageinverter()" style="display:none" required="required"/>
+
+						                    <input type="text" id="inverter_wall_name" name="inverter_wall_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    <div id="inverter_attachment_file">
+						                    </div>
+						                    <t t-if="rec_id.inverter_wall">
+						                    	<div id="inverter_wall_visible">
+								                    <img t-attf-src="data:image/png;base64,#{rec_id.inverter_wall}" style="height: 45px;width: 45px;" id="inverter_img"/>
+
+								                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.inverter_wall_name" id="inverter_img_name" style="color: #424958 !important;"/>
+							                  </div>
+							                  </t>
+		                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                </div>
+				                	</t>
+				                	<t t-else="">
+					                    <div id="UploadHouse" class="column col-sm-4">
+					                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+						                    <span class="large_roof">
+									          <img src="/airbid_master/static/src/image/Rectangle 98 (1).png" class="large-image" alt="adventure" />
+									      	</span></img>
+
+						                    <label for="image_of_roof" class="custom-file-upload form-control profile_detail_supplier_house">
+						                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof</span>
+						                    </label>
+						                    <input type="file" name="image_of_roof" id="image_of_roof" onchange="javascript:uploadimageroof()" style="display:none" required="required"/>
+
+						                    <input type="text" id="roof_name" name="roof_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+
+						                    <div id="roof_attachment_file">
+						                    </div>
+						                    <t t-if="rec_id.roof_name">
+						                    	<div id="roof_visible">
+								                    <img t-attf-src="data:image/png;base64,#{rec_id.roof}" style="height: 45px;width: 45px;" id="roof_img"/>
+
+								                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_name" id="roof_img_name" style="color: #424958 !important;"/>
+							                  </div>
+							                </t>
+		                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+				                	</t>
+				                </div>
+			                
+				                <div class="row">
+				                    <div id="UploadHouse" class="column col-sm-4">
+				                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+					                    <span class="meter_large">
+								          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+								      	</span></img>
+
+					                    <label for="image_of_meter_box" class="custom-file-upload form-control profile_detail_supplier_house">
+					                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Meter-Box</span>
+					                    </label>
+					                    <input type="file" name="image_of_meter_box" id="image_of_meter_box" onchange="javascript:image_of_meter_box_filelist()" style="display:none" required="required"/>
+
+					                    <input type="text" id="meter_name" name="meter_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+					                    <div id="image_of_meter_box_file">
+					                    </div>
+					                    <t t-if="rec_id.meter_box">
+					                    	<div id="meter_box_visible">
+							                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box}" style="height: 45px;width: 45px;" id="meter_img"/>
+
+							                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_name" id="meter_img_name" style="color: #424958 !important;"/>
+						                  </div>
+						                </t>
+	                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+				                    </div>
+
+				                    <div id="UploadHouse" class="column col-sm-4">
+				                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+					                    <span class="electricity_large">
+								          <img src="/airbid_master/static/src/image/Rectangle 98 (5).png" class="large-image" alt="adventure" />
+								      	</span></img>
+
+					                    <label for="image_of_electricity_bill" class="custom-file-upload form-control profile_detail_supplier_house">
+					                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Electricity-Bill</span>
+					                    </label>
+					                    <input type="file" name="image_of_electricity_bill" id="image_of_electricity_bill" onchange="javascript:image_of_electricity_billlist()" style="display:none" required="required"/>
+
+					                    <input type="text" id="electricity_bill_name" name="electricity_bill_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+					                    <div id="image_of_electricity_bill_list">
+					                    </div>
+					                    <t t-if="rec_id.electricity_bill">
+					                    	<div id="electricity_bill_visible">
+							                    <img t-attf-src="data:image/png;base64,#{rec_id.electricity_bill}" style="height: 45px;width: 45px;" id="electricity_img"/>
+
+							                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.electricity_bill_name" id="electricity_img_name" style="color: #424958 !important;"/>
+						                  	</div>
+						                </t>
+	                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+				                    </div>
+				                </div>
+
+			                <div class="row" t-if="rec_id.add_battery == 'yes'">
+			                    <div id="UploadHouse" class="column col-sm-4">
+			                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+				                    <span class="meter_box_large">
+							          <img src="/airbid_master/static/src/image/Rectangle 98 (5).png" class="large-image" alt="adventure" />
+							      	</span></img>
+
+				                    <label for="meter_box_2" class="custom-file-upload form-control profile_detail_supplier_house">
+				                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Meter-Box-2</span>
+				                    </label>
+				                    <input type="file" name="meter_box_2" id="meter_box_2" onchange="javascript:image_of_meter_box_2_filelist()" style="display:none" required="required"/>
+
+				                    <input type="text" id="meter_box_2_name" name="meter_box_2_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+				                    <div id="image_of_meter_box_2_file">
+				                    </div>
+
+				                    <t t-if="rec_id.meter_box_2">
+				                    	<div id="meter_box_2_visible">
+						                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box_2}" style="height: 45px;width: 45px;" id="meter2_img"/>
+
+						                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_box_2_name" id="meter2_img_name" style="color: #424958 !important;"/>
+					                  </div>
+					                </t>
+                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+			                    </div>
+			                </div>
+
+			                </div>
+							</div>
+								
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<div class="previous_btn">
+									<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/comment/box/?record_id=#{record_id}';"/>
+								</div>
+								<div class="next_btn">
+									<button type="submit" class="btn" id="next_14">Next</button>
+								</div>
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+									<!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:97%">100%</div>
+									<hr/> -->
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 97%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+
+									<!-- <div class="complate_pro"><h4>Complate</h4></div> -->
+								
+							</div>
+					</section>
+					</div>
+				</form>
+			</t>
+	</template>
+	</data>
+</odoo>

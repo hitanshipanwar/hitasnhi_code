@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sh_customer_statement_doc">
+        <t t-set="o" t-value="o.with_context(lang=o.lang)" />
+        <div class="header">
+            <t t-set="company" t-value="res_company"></t>
+            <div class="row">
+                <div class="col-3 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                </div>
+                <br/>
+            </div>
+            <div class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <span style="width: 50%;"><t t-if="company.name" t-esc="company.name"/></span><br/>
+                    <span style="width: 50%;"><t t-if="company.street" t-esc="company.street"/></span><br/>
+                    <span><t t-if="company.city" t-esc="company.city"/> <t t-if="company.state_id" t-esc="company.state_id.name"/> <t t-if="company.zip" t-esc="company.zip"/></span><br/>
+                    <span style="width: 50%;">ABN: <t t-if="company.vat" t-esc="company.vat"/></span><br/>
+                    <span style="width: 50%;"><t t-if="company.email" t-esc="company.email"/></span><br/>
+                    <span style="width: 50%;"><t t-if="company.phone" t-esc="company.phone"/></span><br/>
+                    <span>Bank details: &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;</span><span style="width: 100%;">BSB: 015-660&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;A/C: 4557-35089</span><br/>
+                </div>
+            </div>
+        </div>
+            <!-- <span>Bank details: </span>
+            <t t-foreach="o.bank_ids" t-as="b">
+                <span style="width: 100%;">BSB: <t t-if="b.aba_bsb" t-esc="b.aba_bsb"/>&#160;&#160;&#160;&#160;A/C: <t t-if="b.acc_number" t-esc="b.acc_number"/></span><br/> 
+            </t> -->
+
+        <t t-call="web.external_layout">
+            <br/>
+            <div class="page">
+            <div class="oe_structure"/>
+                <div class="mb-4" style="padding-top:-100px;">
+                    <div class="row" style="width: 100%;">
+                        <div style="width: 73%;"></div>
+                        <div style="font-size:22px;font-weight:bold;width: 27%;text-align: right;">
+                            Statement of Accounts
+                        </div>
+                    </div>
+                </div>
+                <t t-set="amount_new" t-value="0.0" />
+                <t t-set="paid_amount_new" t-value="0.0" />
+                <t t-set="balance_new" t-value="0.0" />
+                <t t-set="balance_due_new" t-value="0.0" />
+                <t t-foreach="o.sh_customer_statement_ids" t-as="line">
+                    <t t-if="line.name == 'Opening Balance'">
+                        <t t-set="balance_new" t-value="line.sh_customer_balance" />
+                    </t>
+                    <t t-else="">
+                        <t t-set="amount_new" t-value="amount_new+line.sh_customer_amount" />
+                        <t t-set="paid_amount_new" t-value="paid_amount_new+line.sh_customer_paid_amount" />
+                        <t t-set="paid_amount_new_amt" t-value="paid_amount_new/2"/>
+                        <t t-set="balance_due_new" t-value="balance_due_new+line.sh_customer_balance" />
+                    </t>                    
+                </t>
+                <div class="row mb-4">
+                    <div class="col-6"></div>
+                    <div class="col-6">
+                        <table class="table table-sm o_main_table">
+                            <thead style="background: #f5f5f5; display: table-row-group">
+                                <tr>
+                                    <th style="padding: 5px;width: 50%;font-weight: normal;border: 0px;">Account Summary</th>
+                                    <th style="padding: 5px;width: 50%;border: 0px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="text-align: left;width: 45%;padding: 5px;border: 0px;">Opening Balance</td>
+                                    <td style="text-align: right;width: 55%;padding: 5px;border: 0px;">AU$ <t t-esc="'%.2f'%balance_new" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;width: 45%;padding: 5px;border: 0px;">Invoiced Amount</td>
+                                    <td style="text-align: right;width: 55%;padding: 5px;border: 0px;">AU$ <t t-esc="'%.2f'%amount_new" /></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;width: 45%;padding: 5px;border: 0px;">Amount Paid</td>
+                                    <td style="text-align: right;width: 55%;padding: 5px;border: 0px;">AU$ <t t-esc="'%.2f'%paid_amount_new" /></td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td style="text-align: left;width: 45%;padding: 5px;border: 0px;border-top: 1px solid #212121;">Balance Due</td>
+                                    <td style="text-align: right;width: 55%;padding: 5px;border: 0px;border-top: 1px solid #212121;">AU$ <t t-esc="'%.2f'%balance_due_new" /></td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+                <div class="oe_structure" />
+                <center>
+                    <h2><span t-field="o.name" /></h2>
+                </center>
+                <t t-if="o.sh_customer_statement_ids">
+                    <table class="table table-sm o_main_table">
+                        <thead style="display: table-row-group;">
+                            <tr>
+                                <th>Number</th>
+                                <th>Customer Reference</th>
+                                <th>Date</th>
+                                <th>Due Date</th>
+                                <th>Total Amount</th>
+                                <th>Paid Amount</th>
+                                <th>Balance</th>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody">
+                            <t t-set="amount" t-value="0.0" />
+                            <t t-set="paid_amount" t-value="0.0" />
+                            <t t-set="balance" t-value="0.0" />
+                            <t t-foreach="o.sh_customer_statement_ids" t-as="line">
+                                <t t-set="amount" t-value="amount+line.sh_customer_amount" />
+                                <t t-set="paid_amount" t-value="paid_amount+line.sh_customer_paid_amount" />
+                                <t t-set="balance" t-value="balance+line.sh_customer_balance" />
+                                <!-- Sunen Changes Start-->
+                                <t t-if="line.display_type != 'line_section'">
+                                    <t t-if="line.sh_customer_amount == line.sh_customer_balance and line.sh_customer_balance &gt; 0.0 or line.sh_customer_amount == line.sh_customer_balance and line.sh_customer_balance &lt; 0.0">
+                                        <tr style="color: #0a8ea4;">
+                                            <td><span t-field="line.name" /></td>
+                                            <td><span t-field="line.ref" /></td>
+                                            <td><span t-field="line.sh_customer_invoice_date" /></td>
+                                            <td><span t-field="line.sh_customer_due_date" /></td>
+                                            <td><span t-field="line.sh_customer_amount" /></td>
+                                            <td><span t-field="line.sh_customer_paid_amount" /></td>
+                                            <td><span t-field="line.sh_customer_balance" /></td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="line.sh_customer_balance == 0.0">
+                                        <tr style="color: green;">
+                                            <td><span t-field="line.name" /></td>
+                                            <td><span t-field="line.ref" /></td>
+                                            <td><span t-field="line.sh_customer_invoice_date" /></td>
+                                            <td><span t-field="line.sh_customer_due_date" /></td>
+                                            <td><span t-field="line.sh_customer_amount" /></td>
+                                            <td><span t-field="line.sh_customer_paid_amount" /></td>
+                                            <td><span t-field="line.sh_customer_balance" /></td>
+                                        </tr>
+                                    </t>
+                                    <t t-if="line.sh_customer_amount != line.sh_customer_balance and line.sh_customer_balance &gt; 0.0 or line.sh_customer_amount != line.sh_customer_balance and line.sh_customer_balance &lt; 0.0">
+                                        <tr style="color: red;">
+                                            <td><span t-field="line.name" /></td>
+                                            <td><span t-field="line.ref" /></td>
+                                            <td><span t-field="line.sh_customer_invoice_date" /></td>
+                                            <td><span t-field="line.sh_customer_due_date" /></td>
+                                            <td><span t-field="line.sh_customer_amount" /></td>
+                                            <td><span t-field="line.sh_customer_paid_amount" /></td>
+                                            <td><span t-field="line.sh_customer_balance" /></td>
+                                        </tr>
+                                    </t>
+                                </t>
+                                <!-- Sunen Changes End -->
+                            </t>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <b><span t-esc="'%.2f'%amount" /></b>
+                                </td>
+                                <td>
+                                    <b><span t-esc="'%.2f'%paid_amount" /></b>
+                                </td>
+                                <td>
+                                    <b><span t-esc="'%.2f'%balance" /></b>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm o_main_table">
+                        <thead style="display: table-row-group;">
+                            <tr>
+                            	<th>Aging Summary</th>
+                                <th>Current</th>
+                                <th>1-30(Days)</th>
+                                <th>31-60(Days)</th>
+                                <th>61-90(Days)</th>
+                                <th>Older Than 90(Days)</th>
+                                <th>Total</th>
+                            </tr>
+                            <t t-set="total" t-value="o.sh_customer_current + o.sh_customer_zero_to_thiry + o.sh_customer_thirty_to_sixty + o.sh_customer_sixty_to_ninety + o.sh_customer_ninety_plus" />
+                            <tr>
+                            	<td><strong>Balance Amount</strong></td>
+                                <td><t t-esc="'%.2f'%o.sh_customer_current" /></td>
+                                <td><t t-esc="'%.2f'%o.sh_customer_zero_to_thiry" /></td>
+                                <td><t t-esc="'%.2f'%o.sh_customer_thirty_to_sixty" /></td>
+                                <td><t t-esc="'%.2f'%o.sh_customer_sixty_to_ninety" /></td>
+                                <td><t t-esc="'%.2f'%o.sh_customer_ninety_plus" /></td>
+                                <td><t t-esc="'%.2f'%total" /></td>
+                            </tr>
+                        </thead>
+                    </table>
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="sh_customer_statement_template">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-call="sh_customer_statement.sh_customer_statement_doc" t-lang="o.lang" />
+            </t>
+        </t>
+    </template>
+
+    <record id="customer_statment_paperformat_id" model="report.paperformat">
+        <field name="name">Customer Statment</field>
+        <field name="default" eval="True"/>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">55</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">5</field>
+        <field name="margin_right">5</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">48</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_sh_customer_statement" model="ir.actions.report">
+        <field name="name">Customer Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_customer_statement.sh_customer_statement_template</field>
+        <field name="report_file">sh_customer_statement.sh_customer_statement_template</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="customer_statment_paperformat_id"/>
+    </record>
+
+
+
+    <!-- <record id="action_report_sh_customer_statement" model="ir.actions.report">
+        <field name="name">Customer Statement</field>
+        <field name="model">res.partner</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sh_customer_statement.sh_customer_statement_template</field>
+        <field name="report_file">sh_customer_statement.sh_customer_statement_template</field>
+        <field name="binding_model_id" ref="model_res_partner" />
+        <field name="binding_type">report</field>
+    </record> -->
+</odoo>

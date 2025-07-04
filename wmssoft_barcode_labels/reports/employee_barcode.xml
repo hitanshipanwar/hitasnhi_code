@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_employee_barcode">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-foreach="doc.order_line" t-as="o">
+                    <div class="page" t-if="o.employee_name">
+                        <table style="width:100%;">
+                            <tr>
+                                <td>
+                                    <div style="text-align: center; font-size: 1.5rem;">
+                                        <span>Picked &amp; packed for:</span>
+                                    </div>
+                                    <div style="text-align: center; font-size: 1.8rem; margin-top: 10px; margin-bottom: 11px;">
+                                        <strong><span t-esc="o.employee_name" /></strong>
+                                    </div>
+                                    <div>
+                                        <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 27px; margin-left: 85px;" alt="Logo" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <record id="paperformat_employee_barcode" model="report.paperformat">
+        <field name="name">Custom Paperformat Employee Allocation Barcode</field>
+        <field name="default" eval="True" />
+        <field name="disable_shrinking" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">48</field>
+        <field name="page_width">104</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">5</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">2</field>
+        <field name="margin_right">2</field>
+        <!-- <field name="header_spacing">5</field> -->
+        <field name="dpi">90</field>
+    </record>
+    <record id="action_report_employee_barcode" model="ir.actions.report">
+        <field name="name">Employee Allocation Barcode</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wmssoft_barcode_labels.report_employee_barcode</field>
+        <field name="report_file">wmssoft_barcode_labels.report_employee_barcode</field>
+        <field name="print_report_name">'Sale - %s' % object.name</field>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="paperformat_employee_barcode" />
+    </record>
+</odoo>

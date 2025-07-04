@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="res_partner_form_view_inherit" model="ir.ui.view">
+			<field name="name">res.partner.form.view.inherit</field>
+	        <field name="model">res.partner</field>
+	        <field name="inherit_id" ref="base.view_partner_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//notebook/page[@name='internal_notes']" position="after">
+	            	<page string="Certificate" name="vendor_certificate">
+                        <group>
+                           <field name="vendor_certificate" widget="many2many_binary" string="Attach a Certificate" colspan="8" readonly="0"/> 
+                        </group>
+	                </page>
+	            </xpath>
+	            <field name="phone" position="after">
+	                <field name="customer_rank" invisible="1"/>
+	                <field name="supplier_rank" invisible="1"/>
+	            </field>
+
+	            <!-- Phone Field Mandtory For Customer -->
+	            <field name="phone" position="attributes">
+	              <attribute name="attrs">{'required': [('customer_rank', '>', 0)]}</attribute>
+	            </field>
+
+	            <!-- Tax Id Compulsory For Vendor -->
+	            <field name="vat" position="attributes">
+	            	<attribute name="attrs">{'required': [('supplier_rank', '>', 0)]}</attribute>
+	            </field>
+	        </field>
+		</record>
+	</data>
+</odoo>

@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_report_company_user,access.report.company.user,model_report_company,,1,0,0,0
+access_report_company_manager,access.report.company.manager,model_report_company,base.group_erp_manager,1,1,1,1

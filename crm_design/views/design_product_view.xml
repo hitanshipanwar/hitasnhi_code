@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <record id="product_product_tree_view_add_class" model="ir.ui.view">
+        <field name="name">product.product.tree.view.add.class</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="attributes">
+                <attribute name="style">width:250px;</attribute>
+            </xpath>
+        </field>
+    </record> -->
+
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="name">product.product.product.tree.inherit.add.class</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="attributes">
+                <attribute name="class">larger_field_on_search</attribute>
+            </xpath>
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="description_sale" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="design_product_view_form_inherited" model="ir.ui.view">
+        <field name="name">design.product.view.form.inherited</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+<!--            Replaced for setting the format of field label-->
+            <xpath expr="//field[@name='additional_product_tag_ids']" position="replace">
+                <field name="additional_product_tag_ids" widget="many2many_tags" options="{'color_field': 'color', 'no_edit_color': 1}"/>
+            </xpath>
+            <xpath expr="//h1" position="after">
+                <label for="thai_product_name" string="Thai Product Name"/>
+                <h1>
+                    <div class="d-flex">
+                        <field class="text-break" name="thai_product_name" placeholder="e.g. Cheese Burger"/>
+                    </div>
+                </h1>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="inside">
+                <group>
+                    <group string="Thai Sales Description" name="thai_description">
+                        <field colspan="2" name="thai_sale_description" nolabel="1" placeholder="This note is added to sales orders and invoices."/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//label[@for='purchase_ok']" position="after">
+                <field name="is_design_product" invisible="1"/>
+                <field name="is_site_visit_product" invisible="0"/>
+                <label for="is_site_visit_product" string="Site Visit"/>
+            </xpath>
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="product_type" />
+            </xpath>
+        </field>
+
+    </record>
+
+    <record id="design_product_template_view_form_inherited" model="ir.ui.view">
+        <field name="name">design.product.template.view.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="standardize_type" />
+            </xpath>
+        </field>
+
+    </record>
+
+    <record id="view_template_property_form_inherited" model="ir.ui.view">
+        <field name="name">view.product.template.view.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="stock.view_template_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='stock_property']" position="replace">
+                <group string="Counterpart Locations" name="stock_property" >
+                    <field name="property_stock_production"/>
+                    <field name="property_stock_inventory"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="stock.label_product_product_view">
+		<t t-foreach="quantity.items()" t-as="barcode_and_qty_by_product">
+                <t t-set="product" t-value="barcode_and_qty_by_product[0]"/>
+                <t t-foreach="barcode_and_qty_by_product[1]" t-as="barcode_and_qty">
+                    <t t-set="barcode" t-value="barcode_and_qty[0]"/>
+                    <t t-foreach="range(barcode_and_qty[1])" t-as="qty">
+                        <t t-translation="off">
+^XA
+<t t-if="product.default_code and len(product.default_code) &gt; 15">
+^FT100,80^A0N,40,34^FDSKU:<t t-esc="product.default_code[:15]"/>^FS
+^FT100,115^A0N,30,24^FD<t t-esc="product.default_code[15:30]"/>^FS
+</t>
+<t t-else="">
+^FT100,115^A0N,30,24^FDSKU:<t t-esc="product.default_code"/>^FS
+</t>
+^FT100,150^A0N,40,30^FD<t t-esc="product.name"/>^FS
+<t t-if="price_included">
+^FO600,100,1
+^CI28
+<t t-if="product.currency_id.position == 'after'">
+^A0N,66,48^FH^FD<t t-esc="product.list_price" t-options='{"widget": "float", "precision": 2}'/><t t-esc="product.currency_id.symbol"/>^FS
+</t>
+<t t-if="product.currency_id.position == 'before'">
+^A0N,66,48^FH^FD<t t-esc="product.currency_id.symbol"/><t t-esc="product.list_price" t-options='{"widget": "float", "precision": 2}'/>^FS
+</t>
+</t>
+<t t-if="barcode">
+^BY3,3,70^FT100,255^BCN,Y,N^FD>;<t t-esc="barcode"/>^FS
+</t>
+^XZ
+                        </t>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </odoo>

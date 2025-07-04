@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_approval_review_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Approvals To Review" class="o_sale_order" sample="1" decoration-info="state in ['draft', 'sent']" decoration-muted="state == 'cancel'">
+                    <field name="name" string="Number" readonly="1" decoration-bf="1"/>
+                    <field name="create_date" string="Creation Date" widget="date" optional="show"/>
+                    <field name="commitment_date" widget="date" optional="hide"/>
+                    <field name="expected_date" widget="date" optional="hide"/>
+                    <field name="partner_id" readonly="1"/>
+                    <field name="user_id" widget="many2one_avatar_user" optional="show"/>
+                    <field name="activity_ids" widget="list_activity" optional="show"/>
+                    <field name="team_id" optional="hide"/>
+                    <field name="tag_ids" optional="hide" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="company_id" groups="base.group_multi_company" optional="show" readonly="1"/>
+                    <field name="amount_untaxed" sum="Total Tax Excluded" widget="monetary" optional="hide"/>
+                    <field name="amount_tax" sum="Tax Total" widget="monetary" optional="hide"/>
+                    <field name="amount_total" sum="Total Tax Included" widget="monetary" decoration-bf="1" optional="show"/>
+                    <field name="state" decoration-success="state == 'sale' or state == 'done'" decoration-info="state == 'draft' or state == 'sent'" widget="badge" optional="show"/>
+                    <field name="invoice_status" optional="hide"/>
+                    <field name="message_needaction" invisible="1"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+		<!-- My Approvals -->
+		<record id="approval_request_action" model="ir.actions.act_window">
+	        <field name="name">My Requests</field>
+	        <field name="res_model">sale.order</field>
+	        <field name="view_mode">kanban,tree,form</field>
+	        <field name="domain">[('create_uid','=',uid)]</field>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                No Approvals Requests
+	            </p>
+	        </field>
+    	</record>
+
+    	<!-- Approvals to review -->
+    	<record id="approval_request_action_to_review" model="ir.actions.act_window">
+	        <field name="name">Approvals to Review</field>
+	        <field name="res_model">sale.order</field>
+	        <field name="view_mode">tree,form,kanban</field>
+	        <field name="domain">[('state','in',('approve_pending','final_approve_pending'))]</field>
+	        <field name="view_id" ref="view_approval_review_tree"/>
+	        <field name="help" type="html">
+	            <p class="o_view_nocontent_smiling_face">
+	                No new approvals to review
+	            </p>
+	        </field>
+    	</record>
+
+		<!--MenuItem-->
+
+	    <menuitem
+	        id="approvals_menu_root"
+	        name="Approvals"
+	        action="crm_design.approval_request_action"
+	        sequence="255"/>
+
+	    <menuitem
+	        id="approvals_approval_menu"
+	        parent="approvals_menu_root"
+	        name="My Approvals"
+	        sequence="10"/>
+
+	    <menuitem
+	        id="approvals_approval_menu_to_review"
+	        parent="approvals_approval_menu"
+	        name="Approvals to Review"
+	        action="crm_design.approval_request_action_to_review"
+	        sequence="10"
+	        />
+
+	    <menuitem
+	        id="approvals_request_menu_my"
+	        parent="approvals_approval_menu"
+	        name="My Requests"
+	        action="crm_design.approval_request_action"
+	        sequence="20"/>
+
+
+	</data>
+</odoo>

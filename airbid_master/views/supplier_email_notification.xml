@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>        
+
+		<template id="supplier_notification_email_template">
+        		<div class="header">
+        		</div>
+        		<div class="footer">
+        		</div>
+            	<t t-call="web.external_layout">
+            		<div class="page">
+            			<table style="border-collapse: collapse; width: 100%;text-align:center;margin:-40px 0 0 0">
+							<tbody>
+								<tr>
+									<td>
+										<img src="/airbid_master/static/src/image/logo_header.png" style="height:120px;width:120px;"></img>
+									</td>
+					        	</tr>
+					        </tbody>
+					    </table>
+					    
+					    <table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.bid_desc">Description</td>
+									<td style="width: 70%;padding: 15px 0 15px 0;"><span t-if="doc.bid_desc" t-esc="doc.bid_desc"></span></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Panel Details</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+					    <table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.system_size">System Size</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.system_size"><t t-esc="doc.system_size"/>kw</span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.panels_no">No of panels</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.panels_no"><t t-esc="doc.panels_no"/></span></td>
+								</tr>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.panels_brand">Panel Brand</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.panels_brand"><t t-esc="doc.panels_brand"/></span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.power_class">Panel power class</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.power_class"><t t-esc="doc.power_class"/></span></td>
+								</tr>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.made_country">Made in</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.made_country"><t t-esc="doc.made_country"/></span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.solar_type">Type</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.solar_type"><t t-esc="doc.solar_type"/></span></td>
+								</tr>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.manu_year">Manufacturer’s  Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.manu_year"><t t-esc="doc.manu_year"/></span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.per_year">Performance Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.per_year"><t t-esc="doc.per_year"/></span></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Inverter Details</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_brand">Inverter Brand</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.inverter_brand"><t t-esc="doc.inverter_brand"/></span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_size">Inverter Size</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.inverter_size"><t t-esc="doc.inverter_size"/>kw</span></td>
+								</tr>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.manu_country">Made in</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.manu_country"><t t-esc="doc.manu_country"/></span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.warranty">Manufacturer’s  Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.warranty"><t t-esc="doc.warranty"/> Years</span></td>
+								</tr>
+
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.work_warranty">Workmanship Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.work_warranty"><t t-esc="doc.work_warranty"/> Years</span></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" ></td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"></td>
+								</tr>
+
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Other Details</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- Battery -->
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Battery Description</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.battery_size_kwh">Battery Size (kwh)</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.battery_size_kwh"><t t-esc="doc.battery_size_kwh"/></span></td>
+								</tr>
+								<tr></tr>
+								<tr></tr>
+							</tbody>
+						</table>
+
+						<br/>
+						<br/>
+
+						<table style="border-collapse: collapse; width: 100%;" border="1">
+			                <tbody>
+			                <tr t-if="doc.battery_doc_attachment_ids">
+			                <td style="width: 20%;" id="panel_details">product Brand</td>
+			                <td style="width: 20%;" id="panel_details">product model no</td>
+			                <td style="width: 20%;" id="panel_details">product warranty</td>
+			                <td style="width: 20%;" id="panel_details">Made in</td>
+			                <td style="width: 20%;" id="panel_details">upload datasheet</td>
+			                </tr>
+			                <t t-foreach="doc.battery_doc_attachment_ids" t-as="img">
+			                  <tr>
+			                    <td style="width: 20%;text-align: center;" t-if="img.battery_product_Brand">
+			                      <t t-esc="img.battery_product_Brand"/>
+			                    </td>
+			                    <td style="width: 20%;text-align: center;" t-if="img.battery_product_model_no">
+			                      <t t-esc="img.battery_product_model_no"/>
+			                    </td>
+			                    <td style="width: 20%;text-align: center;" t-if="img.battery_product_warranty">
+			                      <t t-esc="img.battery_product_warranty"/>
+			                    </td>
+			                    <td style="width: 20%;text-align: center;" t-if="img.battery_made_in">
+			                      <t t-esc="img.battery_made_in"/>
+			                    </td>
+			                    <td style="width: 20%;text-align: center;" t-if="img.battery_attch_img">
+			                      <img t-attf-src="data:image/png;base64,#{img.battery_attch_img}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" id="electricity_img" t-att-value="img.battery_attch_img"/>
+			                    </td>
+			                  </tr>
+			                </t>
+			                </tbody>
+                		</table>
+
+                		<br/>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Inbuilt in box</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;" >
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inbuilt_product_Brand">product Brand</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.inbuilt_product_Brand"><t t-esc="doc.inbuilt_product_Brand"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inbuilt_product_model_no">product model no</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.inbuilt_product_model_no"><t t-esc="doc.inbuilt_product_model_no"/></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inbuilt_product_warranty">product warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.inbuilt_product_warranty"><t t-esc="doc.inbuilt_product_warranty"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inbuilt_made_in">Made in</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.inbuilt_made_in"><t t-esc="doc.inbuilt_made_in"/></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;" >
+							<tbody>
+								<t t-foreach="doc.inbuilt_doc_attachment_ids" t-as="supbrand">
+	                                <tr>
+                                    	<t t-foreach="supbrand" t-as="brand">
+											<div style="float:left;width:25%;" >
+												<img t-attf-src="data:image/png;base64,#{brand.datas}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px;" id="electricity_img" t-att-value="brand.datas"/>
+											</div>
+										</t>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+
+						<br/>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Supplied sepretly</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.supplied_product_Brand">sepretly Product Brand</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.supplied_product_Brand"><t t-esc="doc.supplied_product_Brand"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.supplied_product_model_no">sepretly Product Model</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.supplied_product_model_no"><t t-esc="doc.supplied_product_model_no"/></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.supplied_product_warranty">sepretly Product Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.supplied_product_warranty"><t t-esc="doc.supplied_product_warranty"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.supplied_made_in">sepretly Made in</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.supplied_made_in"><t t-esc="doc.supplied_made_in"/></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<br/>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.battery_brand">Supplied Battery Brand</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.battery_brand"><t t-esc="doc.battery_brand"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.battery_model_no">Supplied Model</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.battery_model_no"><t t-esc="doc.battery_model_no"/></td>
+								</tr>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.battery_warranty">Supplied Warranty</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.battery_warranty"><t t-esc="doc.battery_warranty"/></td>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.battery_supplied_made_in">Supplied Made in</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;" t-if="doc.battery_supplied_made_in"><t t-esc="doc.battery_supplied_made_in"/></td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;" >
+							<tbody>
+								<t t-foreach="doc.battery_doc_attachment_supplied_ids" t-as="supbrand">
+	                                <tr>
+                                    	<t t-foreach="supbrand" t-as="brand">
+											<div style="float:left;width:25%;" >
+												<img t-attf-src="data:image/png;base64,#{brand.datas}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px;" id="electricity_img" t-att-value="brand.datas"/>
+											</div>
+										</t>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;" >
+							<tbody>
+								<t t-foreach="doc.supplied_doc_attachment_ids" t-as="supbrand">
+	                                <tr>
+                                    	<t t-foreach="supbrand" t-as="brand">
+											<div style="float:left;width:25%;" >
+												<img t-attf-src="data:image/png;base64,#{brand.datas}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px;" id="electricity_img" t-att-value="brand.datas"/>
+											</div>
+										</t>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+                		<br/>
+		                <br/>
+
+		                <table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr t-if='doc.inverter_doc_attachment_ids'>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">Inventar Battery Information</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+		                <table style="border-collapse: collapse; width: 100%;" border="1">
+			                <tbody>
+				                <tr t-if='doc.inverter_doc_attachment_ids'>
+					                <td style="width: 20%;" id="panel_details" >product Brand</td>
+					                <td style="width: 20%;" id="panel_details" >product model no</td>
+					                <td style="width: 20%;" id="panel_details" >product warranty</td>
+					                <td style="width: 20%;" id="panel_details" >Made in</td>
+					                <td style="width: 20%;" id="panel_details" >upload datasheet</td>
+				                </tr>
+				                <t t-foreach="doc.inverter_doc_attachment_ids" t-as="inv">
+				                  <tr>
+				                    <td style="width: 20%;text-align: center;" t-if="inv.inverter_product_Brand">
+				                      <t t-esc="inv.inverter_product_Brand"/>
+				                    </td>
+				                    <td style="width: 20%;text-align: center;" t-if="inv.inverter_product_model_no">
+				                      <t t-esc="inv.inverter_product_model_no"/>
+				                    </td>
+				                    <td style="width: 20%;text-align: center;" t-if="inv.inverter_product_warranty">
+				                      <t t-esc="inv.inverter_product_warranty"/>
+				                    </td>
+				                    <td style="width: 20%;text-align: center;" t-if="inv.inverter_made_in">
+				                      <t t-esc="inv.inverter_made_in"/>
+				                    </td>
+				                    <td style="width: 20%;text-align: center;" t-if="inv.inverter_attch_img"> 
+				                      <img t-attf-src="data:image/png;base64,#{inv.inverter_attch_img}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" id="electricity_img" t-att-value="inv.inverter_attch_img"/>
+				                    </td>
+				                  </tr>
+				                </t>
+			                </tbody>
+		                </table>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 100%;padding: 15px 0 15px 0;"> 
+										<h3 id="panel_details">How it will look like ?</h3>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table style="border-collapse: collapse; width: 100%;" >
+							<t t-set="index" t-value='0'/>
+							<t t-set="total_img" t-value="len(doc.how_it_attachment_supplied_ids)"/>
+							<tbody>
+								<t t-foreach="doc.how_it_attachment_supplied_ids" t-as="attc">
+	                                <tr>
+                                    	<t t-foreach="attc" t-as="column">
+											<t t-if="index &lt;= total_img-1">
+												<div style="float:left;width:25%;" >
+													<img t-attf-src="data:image/png;base64,#{column.datas}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px;" id="electricity_img" t-att-value="attc.datas"/>
+												</div>
+												<t t-set="index" t-value='index+1'/>
+											</t>
+										</t>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+
+		                <table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.full_price">Full Price after STC discount Incl.GST</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span class="panel_details_answer" t-if="doc.full_price"><t t-esc="doc.full_price"/></span></td>
+
+									<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.final_price">Finance Price</td>
+									<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;" t-if="doc.final_price">$<span class="panel_details_answer" t-if="doc.final_price"><t t-esc="doc.final_price"/>p/w for</span><t t-if="doc.months" t-esc="doc.months"/></td>
+								</tr>
+							</tbody>
+						</table>
+
+            		</div>
+            	</t>
+        </template>
+
+		<template id="supplier_email_notification">
+			<t t-call="web.html_container">
+			    <t t-foreach="docs" t-as="doc">
+			        <t t-call="airbid_master.supplier_notification_email_template"/>
+			    </t>
+			</t>
+		</template>
+
+		<record id="action_report_supplier_system" model="ir.actions.report">
+			<field name="name">Email Notification</field>
+			<field name="model">solar.supplier</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">airbid_master.supplier_email_notification</field>
+			<field name="report_file">airbid_master.supplier_email_notification</field>
+			<field name="binding_model_id" ref="solar_system.model_solar_supplier"/>
+			<field name="binding_type">report</field>
+		</record>
+	</data>
+</odoo>

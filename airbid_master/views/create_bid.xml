@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+	<data>
+		<template id="cretae_bid" name="Create Bid">
+			<t t-call="web.login_layout">
+				<div class="oe_structure section_wrap oe_empty" id="oe_structure_website_sale_products_1"/>
+				<div class="container">
+					<form class="address_form" method="post" t-attf-action="/create/bid/submit?record_id={{record_id}}">
+						<input type='hidden' name='record_id' t-att-value='record_id'/>
+						<div class="row" id="row_field">
+							<div class="col-sm-12">
+								<h3 id="post_header">Create Bid</h3>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">	
+								<div id="field_3" class="column col-sm-12">
+									<label id="price" for="Price">Bid Price (Project Price)</label>
+									<t t-if='bid_id'>
+										<input type="text" id="Price" name="Price" class="form-control form-control-md" t-att-value='bid_id.price'/>
+									</t>
+									<t t-else=''>
+										<input type="text" id="Price" name="Price" class="form-control form-control-md" value='$'/>
+									</t>
+								</div>
+
+								<div id="field_1" class="column col-sm-12">
+									<label for="description" id="description">Comment</label>
+									<t t-if='bid_id'>
+										<input type='hidden' name='bid_id' t-att-value='bid_id.id'/>
+										<input type="text" id="description" name="description" class="form-control form-control-md" required="required" t-att-value='bid_id.bid_description'/>
+									</t>
+									<t t-else=''>
+										<input type="text" id="description" name="description" class="form-control form-control-md" required="required"/>
+									</t>
+								</div>
+			        </div>
+							
+						</div>
+
+						<br></br>
+					<!-- ++++++++++Progress Bar++++++++++++++++ -->
+						<input type="hidden" name="record_id" t-att-value="record_id"/>
+
+						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+						<t t-if='bid_id'>
+							<button type="submit" id="next_page" class="btn" name="next">Submit bid</button>
+							<a href='/supplier/dashboard' id="next_page" class="btn" name="back" style="
+						    float: left;background:#aba3a3;padding:11px;">Previous</a>
+						</t>
+						<t t-else=''>
+							<button type="button" id="next_page" class="btn bid_btn" name="next">Submit bid</button>
+							<a href='/supplier/dashboard' id="next_page" class="btn" name="back" style="
+						    float: left;background:#aba3a3;padding:11px;
+						    ">Previous</a>
+							<div id="bidModal" class="modal">
+							    <div class="modal-content text-center questation_popup">
+							      <form class="oe_solar_form" method="POST" t-attf-action="/create/bid/submit?record_id={{record_id}}">
+							        <span>
+							          <!-- <img src="/airbid_master/static/src/image/Union.png" class="sad_img" loading="lazy"/> -->
+							        </span>
+							        <h2><strong>Do you want to submit your bid ?</strong></h2>
+
+							        
+							        <div class="delete_view">
+							          <a role="button" id="return_btn" class="close btn">NO</a>
+
+							          <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+							          <input type="hidden" name="record_id" t-att-value="record_id"/>
+
+							          <input type="submit" class="btn" id="discard_btn" value="Submit Bid"/>
+							        </div>
+							      </form>
+							    </div>
+							</div>
+						</t>
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:5%"></div>
+						<hr/> -->
+					</form>
+				</div>
+			</t>
+		</template>
+	</data>
+</odoo>

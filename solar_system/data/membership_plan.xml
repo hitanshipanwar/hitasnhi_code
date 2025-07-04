@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="1">
+
+		<record model="product.template" id="per_bid_product">
+	        <field name="name">Pay Per Bid</field>
+	        <field name="default_code">PPB001</field>
+	        <field name="type">service</field>
+	        <field name="standard_price">20.0</field>
+            <field name="list_price">20.0</field>
+	        <field name="sale_line_warn">no-message</field>
+	        <field name="bid_product">True</field>
+	        <field name="is_published">True</field>
+      	</record>
+
+		<record model="product.template" id="10_bid_product">
+	        <field name="name">10 Bid Bulk</field>
+	        <field name="default_code">BB10</field>
+	        <field name="type">service</field>
+	        <field name="standard_price">190.0</field>
+            <field name="list_price">190.0</field>
+	        <field name="sale_line_warn">no-message</field>
+	        <field name="bid_product">True</field>
+	        <field name="is_published">True</field>
+      	</record>
+
+		<record model="product.template" id="20_bid_product">
+	        <field name="name">20 Bid Bulk</field>
+	        <field name="default_code">BB20</field>
+	        <field name="type">service</field>
+	        <field name="standard_price">360.0</field>
+            <field name="list_price">360.0</field>
+	        <field name="sale_line_warn">no-message</field>
+	        <field name="bid_product">True</field>
+	        <field name="is_published">True</field>
+      	</record>
+
+		<record model="product.template" id="30_bid_product">
+	        <field name="name">30 Bid Bulk</field>
+	        <field name="default_code">BB30</field>
+	        <field name="type">service</field>
+	        <field name="standard_price">525.0</field>
+            <field name="list_price">525.0</field>
+	        <field name="sale_line_warn">no-message</field>
+	        <field name="bid_product">True</field>
+	        <field name="is_published">True</field>
+      	</record>
+
+		<record model="product.template" id="monthly_bid_product">
+	        <field name="name">Monthly Billing Plan</field>
+	        <field name="default_code">MBP001</field>
+	        <field name="type">service</field>
+	        <field name="standard_price">785.0</field>
+            <field name="list_price">785.0</field>
+	        <field name="sale_line_warn">no-message</field>
+	        <field name="bid_product">True</field>
+	        <field name="is_published">True</field>
+      	</record>
+
+      	<menuitem id='member_plan_menu' name='Membership plan' parent='solar_system.solar_system_view' action="solar_system.action_product_template_bid_data"/>
+
+	</data>
+</odoo>

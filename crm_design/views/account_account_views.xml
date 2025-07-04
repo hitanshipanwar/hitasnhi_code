@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="account_tree_view_inherited" model="ir.ui.view">
+            <field name="name">account.account.tree.view.inherit</field>
+            <field name="model">account.account</field>
+            <field name="inherit_id" ref="account.view_account_list"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//field[@name='name']" position="after">
+            		<field name="thai_account_name"/>
+            	</xpath>
+            </field>
+        </record>
+
+        <record id="account_tax_tree_view_inherited" model="ir.ui.view">
+            <field name="name">account.tax.tree.view.inherit</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="thai_tax_name"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_tax_form_view_inherited" model="ir.ui.view">
+            <field name="name">account.tax.form.view.inherit</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="thai_tax_name"/>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

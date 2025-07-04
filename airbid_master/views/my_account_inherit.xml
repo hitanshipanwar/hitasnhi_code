@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="my_account_link" name="Link to frontend portal" inherit_id="portal.my_account_link">
+            <xpath expr="//*[@href='/my/home']" position="replace" >
+                <t t-if="request.env.user.partner_id.is_supplier == 'supplier'">
+                    <a href="/supplier/dashboard" role="menuitem" class="dropdown-item">View As Solar Provider</a>
+                    <a href="/installer/customer" role="menuitem" class="dropdown-item">View As Customer</a>
+                    <a href="/my/profile" role="menuitem" class="dropdown-item">My Account</a>
+                </t>
+
+                <t t-if="request.env.user.partner_id.is_supplier == 'customer'">
+                    <a href="/user" role="menuitem" class="dropdown-item">My Account</a>
+                </t>
+
+                <t t-if="request.env.user.partner_id.is_supplier == 'installer'">
+                    <a href="/user" role="menuitem" class="dropdown-item">My Account</a>
+                </t>
+            </xpath>
+        </template>
+        <template id="sale_order_portal_template_inherit_airbid" inherit_id="sale.sale_order_portal_template">
+            <xpath expr="//div[@id='sale_order_communication']" position="replace">
+                <t t-set='paid_order_id' t-value="request.env['installation.solar.system'].sudo().search_count([('paid_order_id','=',sale_order.id)])"/>
+                <t t-set='bid_paid_order_id' t-value="request.env['installation.solar.system'].sudo().search_count([('bid_paid_order_id','=',sale_order.id)])"/>
+                <t t-if='paid_order_id or bid_paid_order_id'>
+
+                </t>
+                <t t-else=''>
+                    <div id="sale_order_communication" class="mt-4">
+                        <h2>History</h2>
+                        <t t-call="portal.message_thread">
+                            <t t-set="object" t-value="sale_order"/>
+                        </t>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="inprogress_supplier_dashboard_page" name="Supplier In Progress Dashboard">
+			<t t-call="web.login_layout">
+				<div id="wrap" class="oe_structure section_wrap">
+	      		  <section id="open_project_dashboard">
+		            <div class="container">
+		              <div class="row">
+		                <div class="col-sm-12">
+		                  <div class="project_filter">
+		                    <div class="row">
+		                      <div class="col-sm-3">
+		                        <div class="project_des_inprogress">
+		                          <h3>In Progress Projects</h3>
+		                        </div>
+		                      </div>
+
+		                      <!-- =========================================== -->
+		                      <div class="col-sm-9">
+		                      	<form class="address_form" method="post"  action="/inprogress">
+		                        <ul class="short_ul_filter">
+		                          <li class="dropdown" id="short_by_date_filter">
+			                            <a href="#" data-toggle="dropdown" class="short_by_date">Sort by: Remaining Days <i class="icon-arrow"></i></a>
+			                            <ul class="dropdown-menu dropdown_filter">
+			                              <li>
+										   <tr>
+									        <td class="text-right">
+							      			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+							      			 <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+							    			 <input type="submit" class="btn" t-attf-value="Least to Most"></input>
+								        </td> 
+									   </tr>
+			                              </li>
+			                            </ul>
+			                          </li>
+		                        </ul>
+		                      </form>
+		                      </div>
+		                    </div>
+		                  </div>
+		                  </div>
+		              </div>
+		          </div>
+		      </section>
+
+		      <section class="recent_bid_on_this_project">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                	<script>
+	                		$(document).ready(function() {
+									    $('#supplier_recent_bid_view').DataTable( {
+									        "pagingType": "full_numbers"
+									    } );
+									} );
+	                	</script>
+	                	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" />
+	                	<script type="text/javascript" src="/airbid_master/static/src/js/jquery.dataTables.min.js" />
+	                	
+	                	<link rel='stylesheet' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+
+	                  <table id="supplier_recent_bid_view">
+	                  	<thead>
+		                    <tr class="table_menu_sup_open">
+		                      <th>No,</th>
+		                      <th>Project Name</th>
+		                      <th>Time remaining<br/>(HH:MM:SS)</th>
+		                      <th>Bid count</th>
+		                      <th>Your Bid</th>
+		                      <th>Edit Bid</th>
+		                      <th>View Project</th>
+		                      <th>View Bid</th>
+		                    </tr>
+		                </thead>
+		                <body>
+	                    <div class="bid_on_this_project_tr">
+                    	<t t-set="index" t-value="0"/>
+                    	<t t-foreach="data" t-as="rec">
+
+	                    	<t t-set="index" t-value="index+1"/>
+	                      <tr class="supplier_review_open_border">
+	                      	<form class="address_form" method="post" action="/supplier/review">
+	                      	<td>
+	                      		<span class="dash_supplier_open_no"><t t-esc="index"/></span>
+	                      	</td>
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['supplier_project_state'])['supplier_project_state']['selection'])[rec.supplier_project_state]"/>
+
+	                            <input type="submit" class="btn btn-link dash_supplier_inprogress_name" t-att-value="rec.customer_project_name"></input>
+	                          </div>
+	                        </td>
+
+	                        <!-- <t t-if="rec.project_create_date" t-set="remaining_date" t-value="(rec.project_create_date +relativedelta(days =+ 3)) - datetime.date.today()"/> -->
+
+	                        <t t-if="rec.hour" t-set="remaining_date" t-value="(rec.hour - rec.con_hour) // 24"/>
+	                        <td>
+	                        	<div class="dash_bid_review_price">
+	                        		<span>
+	                        			<!-- <t t-if="remaining_date">
+				                            <t t-if="rec.hour &gt; rec.con_hour">0</t>
+			                              	<t t-else="">
+			                                	<t t-esc="abs(remaining_date)"/>
+			                              	</t>
+			                            </t> -->
+			                            <t t-call="airbid_master.display_timer_widget_project">
+					                        <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+					                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+					                        
+					                        <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+					                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+					                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+										</t>
+	                        		</span>
+	                        	</div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+	                        <t t-set="sup_id" t-value="0"/>
+	                        <t t-set="finance_val" t-value="0"/>
+	                          <t t-foreach="rec.supplier_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                            <t t-if="count.supplier_id.id == request.env.user.partner_id.id">
+	                        		<t t-set="sup_id" t-value="count.id"/>
+	                            	<t t-if="count.final_price">
+	                            		<t t-set="finance_val" t-value="count.finance_cal"/>
+	                            	</t>
+
+	                        		<t t-else="count.full_price">
+	                            		<t t-set="finance_val" t-value="count.full_price"/>
+	                        		</t>
+
+	                            </t>
+	                        </t>
+	                        <td><div class="bid_open_count"><span><t t-esc="total"/></span></div></td>
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		<span>$
+	                        			<t t-esc="finance_val"/>
+	                        		</span>
+	                        	</div>
+	                        </td>
+							<td>
+								<div class="inprogress_edit_bid">
+									<a t-attf-href="#{'/supplier/edit/bid?bid_id=%s'%(rec.id)}">Edit</a>
+								</div>
+							</td>
+							<td>
+								<div class="open_view_detail">
+									<input type="submit" class="btn btn-link" value="View"></input>
+								</div>
+							</td>
+							<td>
+								<div class="inprogress_edit_bid">
+									<a t-attf-href="#{'/supplier/details?bid_id=%s'%(sup_id)}">View Bid</a>
+								</div>
+							</td>
+							</form>
+	               			</tr>
+	                	</t>
+	                 </div>
+	             	</body>
+	                    
+	                </table>
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+	      	</div>
+	        </t>
+	    </template>
+
+	    <template id="inprogress_installer_dashboard_page" name="Installer In Progress Dashboard">
+			<t t-call="web.login_layout">
+				<div id="wrap" class="oe_structure section_wrap">
+	      		  <section id="open_project_dashboard">
+		            <div class="container">
+		              <div class="row">
+		                <div class="col-sm-12">
+		                  <div class="project_filter">
+		                    <div class="row">
+		                      <div class="col-sm-3">
+		                        <div class="project_des_inprogress">
+		                          <h3>In Progress Projects</h3>
+		                        </div>
+		                      </div>
+
+		                      <!-- =========================================== -->
+		                      <div class="col-sm-9">
+		                      	<form class="address_form" method="post" action="/inprogress/installer">
+		                        <ul class="short_ul_filter">
+		                          <li class="dropdown" id="short_by_date_filter">
+			                            <a href="#" data-toggle="dropdown" class="short_by_date">Sort by: Remaining Days <i class="icon-arrow"></i></a>
+			                            <ul class="dropdown-menu dropdown_filter">
+			                              <li>
+										   <tr>
+									        <td class="text-right">
+							      			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+							      			 <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+							    			 <input type="submit" class="btn" t-attf-value="Least to Most"></input>
+								        </td> 
+									   </tr>
+			                              </li>
+			                            </ul>
+			                          </li>
+		                        </ul>
+		                      </form>
+		                      </div>
+		                    </div>
+		                  </div>
+		                  </div>
+		              </div>
+		          </div>
+		      </section>
+
+		      <section class="recent_bid_on_this_project">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                	<!-- <script>
+	                		$(document).ready(function() {
+							    $('#supplier_recent_bid_view').DataTable( {
+							        "pagingType": "full_numbers"
+							    } );
+							} );
+	                	</script> -->
+	                	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" />
+	                	<script type="text/javascript" src="/airbid_master/static/src/js/jquery.dataTables.min.js" />
+	                	
+	                	<link rel='stylesheet' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+
+	                  <table id="supplier_recent_bid_view" class="supplier_recent_bid_view_inprogres">
+	                  	<thead>
+		                    <tr class="table_menu_sup_open">
+		                      <th>No,</th>
+		                      <th>Project Name</th>
+		                      <th>Time remaining<br/>(HH:MM:SS)</th>
+		                      <th>Bid count</th>
+		                      <th>Your Bid</th>
+		                      <th>Edit Bid</th>
+		                      <th>View Project</th>
+		                      <th>View Bid</th>
+		                    </tr>
+		                </thead>
+		                <body>
+	                    <div class="bid_on_this_project_tr">
+                    	<t t-set="index" t-value="0"/>
+                    	<t t-foreach="data" t-as="rec">
+
+	                    	<t t-set="index" t-value="index+1"/>
+	                      <form class="address_form" method="post" action="/installer/review">
+	                      	<tr class="supplier_review_open_border supplier_review_inprogress_border">
+	                      	<td>
+	                      		<span class="dash_supplier_open_no"><t t-esc="index"/></span>
+	                      	</td>
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+	                            
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['installer_project_state'])['installer_project_state']['selection'])[rec.installer_project_state]"/>
+
+	                            <a t-attf-href="#{'/installer/review/bid/?record_id=%s'%(rec.id)}" class="btn btn-link dash_supplier_review_name"><t t-esc='rec.customer_project_name'/></a>
+	                          </div>
+	                        </td>
+
+	                        <t t-if="rec.hour" t-set="remaining_date" t-value="(rec.hour - rec.con_hour) // 24"/>
+	                        <td>
+	                        	<div class="bid_review_day">
+	                        		<t t-if="rec.installer_project_state == 'open'">
+		                        		<span>
+			                            	<t t-call="airbid_master.display_timer_widget_project">
+						                        <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+						                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+						                        
+						                        <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+						                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+						                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+											</t>
+		                        		</span>
+	                        		</t>
+	                        		<t t-else="">
+	                        			<span>0</span>
+	                        		</t>
+	                        	</div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+		                    <t t-foreach="rec.installer_bids_ids" t-as="count"> 
+		                      <t t-set="total" t-value="total+1"/>
+		                    </t>
+	                        <td><div class="bid_open_count"><span><t t-esc="total"/></span></div></td>
+	                        <t t-set='bid_price' t-value='request.env["installer.bid"].sudo().search([("project_id.id","=",rec.id),("customer_id","=",request.env.user.partner_id.id)],limit=1)'/>
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		 
+	                        		<t t-if='bid_price'>
+	                        			<span><t t-esc='bid_price.price'/></span>
+	                        		</t>
+	                        		<t t-else=''>
+	                        			<span>$ 0
+	                        			</span>
+	                        		</t>
+	                        	</div>
+	                        </td>
+							<td>
+								<div class="inprogress_edit_bid">
+									
+									<t t-if='bid_price'>
+										<a t-attf-href="#{'/create/bid?is_alredy_bid=%s'%(bid_price.id)}">Edit</a>
+									</t>
+									<t t-else=''>
+										<a href="#">Edit</a>
+									</t>
+								</div>
+							</td>
+							<td>
+								<div class="open_view_detail">
+									 <a t-attf-href="#{'/installer/review/bid/?record_id=%s'%(rec.id)}" class="btn btn-link dash_supplier_review_name">View</a>
+									<!-- <input type="submit" class="btn btn-link" value="View"></input> -->
+								</div>
+							</td>
+							<td>
+	                        	<div class="open_view_detail">
+	                        		
+	                        		<div class="inprogress_edit_bid">
+	                        			<t t-if='bid_price'>
+											<a t-attf-href="#{'/bid/details/?record_id=%s'%(bid_price.id)}">View Bid</a>
+										</t>
+										<t t-else=''>
+											<a href="#">View Bid</a>
+										</t>
+									</div>
+	                        		
+	                        	</div>
+	                        </td>
+	               			</tr>
+							</form>
+	                	</t>
+	                 </div>
+	             	</body>
+	                    
+	                </table>
+	                <section id="supplier_dashboard_view_button">
+				        <div class="container">
+				            <div class="row">
+				                <div class="col-sm-12">
+				                    <div class="project_view_sup_btn">
+					                    <div class="row">
+					                      	<div class="col-sm-12">
+						                        <div class="project_des_sup_view_all_less">
+						                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project_less_inp">View Less</button>
+						                        </div>
+					                      	</div>
+
+					                      	<div class="col-sm-12">
+						                        <div class="project_des_sup_view_all">
+						                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project_open_inp">View All</button>
+						                        </div>
+					                      	</div>
+					                    </div>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					</section>
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+	      	</div>
+	        </t>
+	    </template>
+	</data>
+</odoo>

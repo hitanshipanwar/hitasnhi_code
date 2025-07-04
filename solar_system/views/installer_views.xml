@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_installer_bid_tree_display" model="ir.ui.view">
+        <field name="name">installer.bid.tree.display</field>
+        <field name="model">installer.bid</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence_no" />
+                <field name="customer_id" />
+                <field name="project_id" />
+                <field name="installer_create_date"/>
+                <field name="bid_description" />
+                <field name="price" />
+                <field name="project_state"/>
+                <button name="approved_bid_installer" class="btn-primary" string="Approve" type="object" attrs="{'invisible':[('project_state','in',('won','lost'))]}"></button>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_installer_bid_form_display" model="ir.ui.view">
+        <field name="name">installer.bid.form.display</field>
+        <field name="model">installer.bid</field>
+        <field name="arch" type="xml">
+            <form string="Tags">
+                <header>
+                    <field name="project_state" widget="statusbar" statusbar_visible="open,inprogress,won,lost"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="sequence_no" readonly="1"/>
+                            <field name="customer_id" />
+                            <field name="project_id" />
+                            <field name="bid_description" />
+                            <field name="price" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_installer_bid" model="ir.actions.act_window">
+        <field name="name">Installer</field>
+        <field name="res_model">installer.bid</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    
+    <menuitem id='installer_bid_customer_menu' name='Installer' parent='solar_system.installation_solar_system_supplier_menu' action='solar_system.action_installer_bid' sequence="0"/>
+
+</odoo>

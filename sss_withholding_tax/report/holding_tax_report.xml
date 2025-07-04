@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="paperformat_letter" model="report.paperformat">
+        <field name="name">Letter</field>
+        <field name="default" eval="True"/>
+        <field name="format">Letter</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">0</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">7</field>
+        <field name="margin_right">7</field>
+        <field name="header_line" eval="False"/>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <template id="custom_layout_standard">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+        </div>
+
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_report_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }}"
+             t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+             t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-out="0"/>
+        </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+        </div>
+    </template>
+
+
+    <template id="custom_layout">
+        <t t-if="not o" t-set="o" t-value="doc"/>
+
+        <t t-if="not company">
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id"/>
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()"/>
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company"/>
+            </t>
+        </t>
+
+        <t t-if="company.external_report_layout_id" t-call="{{company.external_report_layout_id.sudo().key}}">
+            <t t-out="0"/>
+        </t>
+        <t t-else="else" t-call="sss_withholding_tax.custom_layout_standard">
+            <t t-out="0"/>
+        </t>
+
+    </template>
+
+
+    <template id="report_holding_tax">
+        <t t-call="web.html_container">
+            <t t-call="sss_withholding_tax.custom_layout">
+                <t t-foreach="docs" t-as="data">
+                    <table class="table o_main_table" style="width: 100%;">
+                        <tr style="border: 1px solid black;">
+                            <td>
+                                <span class="text-center">
+                                    <h3>
+                                        <strong>Withholding tax certificate</strong>
+                                    </h3>
+                                </span>
+                                <span class="text-center">
+                                    <h4>
+                                        According to Section 50 Bis of the Revenue Code
+                                    </h4>
+                                </span>
+                            </td>
+                            <td>
+                                <span>เล่มที่</span>
+                                <br/>
+                                <span>
+                                    <b>No.
+                                        <span style="color: blue">
+                                            <t t-esc="data.move_id.name"/>
+                                        </span>
+                                    </b>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table style="width:100%; border: 1px solid black; ">
+                        <tr>
+                            <td>
+                                <span style="font-size: 20px;">
+                                    <b>Person who is responsible for withholding tax :-</b>
+                                </span>
+                            </td>
+                            <td>ID number
+                                <span style="text-align:left; color: blue;">
+                                    <t t-esc="data.supplier_taxid"/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <span style="margin-left: 25px;">
+                                        <b>name :-</b>
+                                    </span>
+                                    <div style="margin-left: 25px;border-bottom: 3px dashed #f00;
+                                        text-decoration: none;
+                                        width: 400px; color:blue;">
+                                        <t t-esc="data.company_partner_id.name"/>
+                                    </div>
+                                    (Specify as a person, juristic person, company, association or group of
+                                    persons)
+                                </div>
+                            </td>
+                            <td>taxpayer identification number :
+                                <span style="color: blue;">
+                                    <t t-esc="data.company_taxid"/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr style="border: 1px solid black;">
+                            <td colspan="2" style="border: 1px solid black;">
+                                <div class="row">
+                                    <span style="margin-left: 25px;">
+                                        <b>Address</b>
+                                    </span>
+                                    <div style="margin-left: 25px; border-bottom: 3px dashed #f00;
+                                        text-decoration: none;
+                                        width: 600px;">
+                                        <span style="color: blue;">
+                                            <t t-esc="data.company_partner_id.street"/>
+                                            <t t-esc="data.company_partner_id.street2"/>
+                                            <t t-esc="data.company_partner_id.city"/>
+                                            <t t-esc="data.company_partner_id.state_id.name"/>
+                                            <t t-esc="data.company_partner_id.country_id.name"/>
+                                        </span>
+                                    </div>
+                                    (Specify the number of alleys/alleys, villages, roads,
+                                    sub-districs,
+                                    districts/districts province)
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table style="width:100%; border: 1px solid black;">
+                        <tr>
+                            <td>
+                                <span style="font-size: 20px;">
+                                    <b>Person subject to withholding tax :-</b>
+                                </span>
+                            </td>
+                            <td>ID number
+                                <span style="text-align:left; color: blue;">
+                                    <t t-esc="data.supplier_taxid"/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="row">
+                                    <span style="margin-left: 20px;">
+                                        <b>name :-</b>
+                                    </span>
+                                    <div style="margin-left: 25px; border-bottom: 3px dashed #f00;
+                                        text-decoration: none;
+                                        width: 400px;">
+                                        <span style="color: blue;">
+                                            <t t-esc="data.supplier_partner_id.name"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>taxpayer identification number
+                                <span style="text-align:right; color: blue;">
+                                    <t t-esc="data.company_taxid"/>
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="row">
+                                    <span style="margin-left: 20px;">
+                                        <b>Address</b>
+                                    </span>
+                                    <div style="margin-left: 25px; border-bottom: 3px dashed #f00;
+                                        text-decoration: none;
+                                        width: 800px;">
+                                        <span style="color: blue;">
+                                            <t t-esc="data.supplier_partner_id.street"/>
+                                            <t t-esc="data.supplier_partner_id.street2"/>
+                                            <t t-esc="data.supplier_partner_id.city"/>
+                                            <t t-esc="data.supplier_partner_id.state_id.name"/>
+                                            <t t-esc="data.supplier_partner_id.country_id.name"/>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span style="margin-left: 80px;">(Specify the number of alleys/alleys, villages, roads,
+                                    sub-districs,
+                                    districts/districts province)
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                No. ในแบบ
+                                <br/>
+                                <span>(ให้สามารถอ้างอิงหรือสอบยันกันได้ระหว่างลำดับที่ตาม หนังสือรับรองฯ
+                                    กับแบบยื่นรายการภาษีหักที่จ่าย)
+                                </span>
+                            </td>
+                            <td>
+                                <input type="checkbox" id="check1" name="check1" value="check1"/>
+                                <label for="check1">(1) ภ.ง.ด. 1ก.</label>
+                                <input type="checkbox" id="check2" name="check2" value="check2"/>
+                                <label for="check2">(2) ภ.ง.ด. 1ก.พิเศษ</label>
+                                <br/>
+                                <input type="checkbox" id="check3" name="check3" value="check3"/>
+                                <label for="check3">(3) ภ.ง.ด. 2</label>
+                                <input type="checkbox" id="check4" name="check4" value="check4"/>
+                                <label for="check4">(4) ภ.ง.ด. 2ก.</label>
+                                <br/>
+                                <input type="checkbox" id="check5" name="check5" value="check5"/>
+                                <label for="check5">(5) ภ.ง.ด. 3</label>
+                                <input type="checkbox" id="check6" name="check6" value="check6"/>
+                                <label for="check6">(6) ภ.ง.ด. 3ก.</label>
+                                <br/>
+                                <input type="checkbox" id="check7" name="check7" value="check7"/>
+                                <label for="check7">(7) ภ.ง.ด. 53</label>
+                            </td>
+                        </tr>
+                    </table>
+                    <br/>
+                    <table class="table o_main_table"
+                           style="width: 100%; border: 1px solid black; border-bottom: none;">
+                        <tr>
+                            <td style="width: 60%; text-align:center;">ประเภทเงินได้พึงประเมินที่จ่าย</td>
+                            <td style="width: 20%; text-align:center;">วัน เดือน หรือปีภาษี ที่จ่าย</td>
+                            <td style="width: 20%; text-align:center;">จำนวนเงินที่จ่าย</td>
+                            <td style="width: 20%; text-align:center;">ภาษีที่หัก และนำส่งไว้</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <ol>
+                                    <li>
+                                        เงินเดือน ค่าจ้าง เบี้ยเลี้ยง โบนัส ฯลฯ ตามมาตรา 40 (1)
+                                    </li>
+                                    <li>
+                                        ค่าธรรมเนียม ค่านายหน้า ฯลฯ ตามมาตรา 40 (2)
+                                    </li>
+                                    <li>ค่าแห่งลิขสิทธิ์ ฯลฯ ตามมาตรา 40 (3)</li>
+                                    <li>(ก) ค่าดอกเบี้ย ฯลฯ ตามมาตรา 40 (4) (ก) (ข) เงินปันผล ส่วนแบ่งของกำไร ฯลฯ
+                                        ตามมาตรา 40 (4) (ข)
+                                    </li>
+                                    <ol>
+                                        <li>กรณีผู้ด้รับเงินปันผลได้รับเครดิตภาษี โดยจ่ายจาก
+                                            <ol>
+                                                <li>อัตราร้อยละ 30 ของกำไรสุทธิ</li>
+                                                <li>อัตราร้อยละ 25 ของกำไรสุทธิ</li>
+                                                <li>อัตราร้อยละ 20 ของกำไรสุทธิิ</li>
+                                                <li>อัตราอื่น ๆ ( ระบุ )________________ของกำไรสุทธิิ</li>
+                                            </ol>
+                                        </li>
+                                        <li>กิจการที่ได้รับยกเว้นภาษีเงินได้นิติบุคคลซึ่ง
+                                            ผู้รับเงินปันผลไม่ได้รับเครดิตภาษี
+                                            <ol>
+                                                <li>กำไรสุทธิของกิจการที่ได้รับยกเว้นภาษีเงินได้นิติบุคคล</li>
+                                                <li>เงินปันผลหรือเงินส่วนแบ่งของกำไรที่ได้รับยกเว้นไม่ต้องนำมารวม
+                                                    คำนวณเป็นรายได้เพื่อเสียภาษีนิติบุคคล
+                                                </li>
+                                                <li>กำไรสุทธิส่วนที่ได้หักผลขาดทุนสุทธิยกมาไม่เกิน 5 ปี
+                                                    ก่อนรอบระยะเวลาบัญชีปัจจุบัน
+                                                </li>
+                                                <li>กำไรที่รับรู้ทางบัญชีโดยวิธีส่วนได้เสีย (equity method)</li>
+                                                <li>อัตราอื่น ๆ ( ระบุ ) ____________________________</li>
+                                            </ol>
+                                        </li>
+                                    </ol>
+                                    <li>
+                                        การจ่ายเงินได้ที่ต้องหักภาษี ณ. ที่จ่าย ตามคำสั่งกรมสรรพากรที่ออกตาม
+                                        มาตรา 3 เตรส เช่น รางวัล ส่วนลดหรือประโยชน์ใดๆ เนื่องจากการส่งเสริมการขาย
+                                        รางวัลในการประกวด การแข่งขัน การชิงโชค ค่าแสดงของนักแสดงสาธารณะ
+                                        ค่าบริการ ค่าขนส่ง ค่าจ้างทำของ ค่าจ้างโฆษณา ค่าเช่า ค่าเบี้ยประกันวินาศภัย ฯลฯ
+                                    </li>
+                                    <li>อื่นๆ(ระบุ) _______________________</li>
+                                </ol>
+                            </td>
+                            <td>
+                                <t t-esc="data.move_id.date"/>
+                            </td>
+                            <td>Test 3</td>
+                            <td>Test 4</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 60%; text-align:right; border-bottom: none; border-right: none; border-left: none;">
+                                รวมเงินที่จ่าย และ ภาษีที่นำส่ง
+                            </td>
+                            <td style="width: 20%; text-align:center; border-bottom: none; border-right: none; border-left: none;"></td>
+                            <td style="width: 20%; text-align:right;">1000</td>
+                            <td style="width: 20%; text-align:right;">1000</td>
+                        </tr>
+                    </table>
+                    <div class="row pt-2">
+                        <div style="width: 25%; text-align: center;">
+                            <span>รวมเงินภาษีที่นำส่ง (ตัวอักษร)</span>
+                        </div>
+                        <div style="width: 75%; text-align: center; border: 3px solid black;">
+                            -- ห้าสิบบาทถ้วน --
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="row" style="border: 1px solid black;">
+                        <div style="width: 35%;">
+                            <input type="checkbox" id="check8" name="check8" value="check8"/>
+                            <label for="check8">เงินสะสมจ่ายเข้ากองทุนสำรองเลี้ยงชีพ ใบอนุญาตเลขที่</label>
+                            <input type="checkbox" id="check9" name="check9" value="check9"/>
+                            <label for="check9">เงินสมทบจ่ายเข้ากองทุนประกันสังคม จำนวน ใบอนุญาตเลขที่</label>
+                        </div>
+                        <div style="width: 35%;">
+                            <hr style="border-bottom: 5px solid black;
+                                  height: 1px;
+                                  width: 50%;"/>
+                            บาท เลขที่บัตรประกันสังคม ของผู้ถูกหักภาษี ณ ที่จ่าย
+                        </div>
+                        <div style="width: 30%;">
+                            <div class="row">
+                                จำนวนเงิน<span style="margin: 40px;"></span> บาท
+                            </div>
+                        </div>
+                    </div>
+
+                    <table style="width: 100%;">
+                        <tr>
+                            <td style="width: 20%;">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            ผู้จ่ายเงิน
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="check10" name="check10" value="check10"/>
+                                            <label for="check10">หักภาษี ณ ที่จ่าย</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="check11" name="check11" value="check11"/>
+                                            <label for="check11">ออกภาษีให้ตลอดไป</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="check12" name="check12" value="check12"/>
+                                            <label for="check12">ออกภาษีให้ครั้งเดียว</label>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" id="check13" name="check13" value="check13"/>
+                                            <label for="check13">อื่นๆ (ระบุ)</label>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 53%;">
+                                <table>
+                                    <tr>
+                                        <td style="text-alidn: center;">ขอรับรองว่าข้อความและตัวเลขดังกล่าวข้างต้น
+                                            ถูกต้องตรงกับความจริงทุกประการ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ลงชื่อ<hr style="border: none;
+                                  border-top: 5px dotted #f00;
+                                  color: #fff;
+                                  background-color: #fff;
+                                  height: 1px;
+                                  width: 50%;"/>ผู้มีหน้าที่หักภาษี ณ ที่จ่าย
+                                            <hr style="border: none;
+                                  border-top: 5px dotted #f00;
+                                  color: #fff;
+                                  background-color: #fff;
+                                  height: 1px;
+                                  width: 50%;"/>วัน เดือน ปี ที่ออกหนังสือรับรองฯ
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="width: 27%;">
+                                <table>
+                                    <tr>
+                                        <td>stamp</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="row pt-2">
+                        <div style="width: 50%;">
+                            <b>คำเตือน</b>
+                            <span style="margin: 30px;"></span>
+                            ผู้มีหน้าที่ออกหนังสือรับรองการหักภาษี ณ. ที่จ่าย
+                            ฝ่าฝืนไม่ปฏิบัติตามมาตรา 50 ทวิ แห่งประมวลรัษฎากร
+                            ต้องรับโทษทางอาญา ตามมาตรา 35 แห่งประมวลรัษฎากร
+                        </div>
+                        <div style="width: 50%;">
+                            <b>หมายเหตุ</b>
+                            เลขประจำตัวผู้เสียภาษีอากร (13 หลัก)* หมายถึง
+                            1.กรณีบุคคลธรรมดาไทย ให้ใช้เลขประจำตัวประชาชนของกรมการปกครอง
+                            2.กรณีนิติบุคคล ให้ใช้เลขทะเบียนนิติบุคคลของกรมพัฒนาธุรกิจการค้า
+                            3.กรณีอื่น ๆ นอกเหนือจาก 1.และ 2.ให้ใช้เลขประจำตัวผู้เสียภาษีอากร(13 หลัก)
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <record id="action_report_holding_tax" model="ir.actions.report">
+        <field name="name">Holding Tax</field>
+        <field name="model">withholding.tax.cert</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">sss_withholding_tax.report_holding_tax</field>
+        <field name="report_file">sss_withholding_tax.report_holding_tax</field>
+        <field name="binding_model_id" ref="sss_withholding_tax.model_withholding_tax_cert"/>
+        <field name="paperformat_id" ref="paperformat_letter"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

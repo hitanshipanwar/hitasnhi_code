@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="stock_product_tree_view_inherited" model="ir.ui.view">
+			<field name="name">product.product.tree.inherited</field>
+			<field name="model">product.product</field>
+			<field name="inherit_id" ref="stock.product_product_stock_tree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='uom_id']" position="after">
+					<field name="property_stock_inventory"/>
+					<field name="property_stock_production"/>
+				</xpath>
+			</field> 
+		</record>
+
+		<record id="view_picking_form_inherited" model="ir.ui.view">
+			<field name="name">view.picking.form.inherited</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.view_picking_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="tag_job_sale_ref" context="{'sale_show_partner_name': True}"/>
+					<field name="remarks" />
+				</xpath>
+			</field> 
+		</record>
+
+		<record id="view_picking_tree_inherited" model="ir.ui.view">
+			<field name="name">view.picking.tree.inherited</field>
+			<field name="model">stock.picking</field>
+			<field name="inherit_id" ref="stock.vpicktree"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='origin']" position="after">
+					<field name="tag_job_sale_ref" context="{'sale_show_partner_name': True}"/>
+					<field name="remarks" />
+				</xpath>
+			</field> 
+		</record>
+
+	</data>
+</odoo>

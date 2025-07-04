@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data> 
+        <record id="design_tax_ids" model="account.tax">
+            <field name="name">Tax 7% Excl</field>
+            <field name="description">Tax 7% Excluding Price</field>
+            <field name="amount_type">percent</field>
+            <field name="active">true</field>
+            <field name="amount" eval="7.0"/>
+            <field name="type_tax_use">sale</field>
+            <field name="country_id" ref="base.th"/>
+        </record>
+
+        <record id="design_tax_ids_included_price" model="account.tax">
+            <field name="name">Tax 7% Incl</field>
+            <field name="description">Tax 7% Including Price</field>
+            <field name="amount_type">percent</field>
+            <field name="active">true</field>
+            <field name="amount" eval="7.0"/>
+            <field name="type_tax_use">sale</field>
+            <field name="price_include">true</field>
+            <field name="country_id" ref="base.th"/>
+        </record>
+
+        <record id="design_tax_ids_purchase" model="account.tax">
+            <field name="name">Tax 7% Excl(Purchase)</field>
+            <field name="description">Tax 7% Excluding Price</field>
+            <field name="amount_type">percent</field>
+            <field name="active">true</field>
+            <field name="amount" eval="7.0"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="country_id" ref="base.th"/>
+        </record>
+
+        <record id="design_tax_ids_included_price_purchase" model="account.tax">
+            <field name="name">Tax 7% Incl(Purchase)</field>
+            <field name="description">Tax 7% Including Price</field>
+            <field name="amount_type">percent</field>
+            <field name="active">true</field>
+            <field name="amount" eval="7.0"/>
+            <field name="type_tax_use">purchase</field>
+            <field name="price_include">true</field>
+            <field name="country_id" ref="base.th"/>
+        </record>
+
+        <record id="product_site_visit_1" model="product.product">
+            <field name="name">Site Visit</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="standard_price">55.0</field>
+            <field name="list_price">1000.0</field>
+            <field name="detailed_type">consu</field>
+            <field name="is_site_visit_product">False</field>
+            <field name="active">False</field>
+            <field name="default_code">visit_8181</field>
+            <field name="taxes_id" eval="[(6,0, [ref('crm_design.design_tax_ids')])]"/>
+        </record>
+        
+        <record id="product_site_visit_2" model="product.product">
+            <field name="name">Site Visit</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="standard_price">55.0</field>
+            <field name="list_price">1000.0</field>
+            <field name="detailed_type">service</field>
+            <field name="is_site_visit_product">False</field>
+            <field name="default_code">visit_8182</field>
+            <field name="description_sale">Site Visit</field>
+            <field name="taxes_id" eval="[(6,0, [ref('crm_design.design_tax_ids')])]"/>
+        </record>
+
+        <record id="product_design_1" model="product.product">
+            <field name="name">Design</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="standard_price">55.0</field>
+            <field name="list_price">1000.0</field>
+            <field name="detailed_type">consu</field>
+            <field name="is_design_product">False</field>
+            <field name="default_code">design_3636</field>
+            <field name="active">False</field>
+            <field name="taxes_id" eval="[(6,0, [ref('crm_design.design_tax_ids')])]"/>
+        </record>
+
+        <record id="product_design_2" model="product.product">
+            <field name="name">Design</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="standard_price">55.0</field>
+            <field name="list_price">1000.0</field>
+            <field name="detailed_type">service</field>
+            <field name="is_design_product">True</field>
+            <field name="default_code">design_3636</field>
+            <field name="taxes_id" eval="[(6,0, [ref('crm_design.design_tax_ids')])]"/>
+        </record>
+
+        <record id="mail_activity_data_approval" model="mail.activity.type">
+            <field name="name">Approval</field>
+            <field name="icon">fa-check-circle</field>
+            <field name="sequence">4</field>
+            <field name="active">False</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="mail_activity_design_upload" model="mail.activity.type">
+            <field name="name">Design Upload</field>
+            <field name="icon">fa-line-chart</field>
+            <field name="sequence">8</field>
+            <field name="active">True</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="mail_activity_design_send" model="mail.activity.type">
+            <field name="name">Send Design</field>
+            <field name="icon">fa-line-chart</field>
+            <field name="sequence">8</field>
+            <field name="active">True</field>
+            <field name="res_model">sale.order</field>
+        </record>
+
+        <record id="mail_activity_data_approval_appointmnet" model="mail.activity.type">
+            <field name="name">Appointment Approval</field>
+            <field name="icon">fa-check-circle</field>
+            <field name="sequence">4</field>
+            <field name="active">False</field>
+            <field name="res_model">appointment.visit</field>
+        </record>
+
+    </data>
+</odoo>

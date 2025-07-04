@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="user_profile_form" name="Profile Page">
+			<t t-call="web.login_layout">
+				<!-- <div class="container"> -->
+					<div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+				        <div id="wrap" class="oe_structure section_wrap">
+				        	<section id="project_post_sec">
+				            <div class="container">			            	
+				              <div class="row">
+				                <div class="col-sm-6">					                
+									<form class="address_form" method="post" enctype="multipart/form-data" action="/user">
+										<div class="column col-sm-12">
+											<div class="form-group hirehide is-empty is-fileinput width100">
+											    <div class="socialmediaside2">
+											        <input class="fileUpload" accept="image/jpeg, image/jpg,image/png" name="profile_supp" type="file" value="Choose a file" id="profile_edit_view" style="display:none"/>
+											    </div>
+											</div>
+											<div class="upload-demo">
+											    <div class="upload-demo-wrap">
+											    	<img alt="your image" class="portimg" src="#" />
+												</div>
+											</div>
+											<h1 id="user_name"><t t-esc="request.env.user.name"/><br></br><t t-esc="request.env.user.user_lastname"/></h1>
+											<input type='hidden' name='is_detele'/>
+											<t t-if="user_id.image_1920">
+												<img t-attf-src="data:image/png;base64,#{user_id.image_1920}" id="profile_img"></img>
+												<img src="/airbid_master/static/src/image/profile.png" id="profile_img_default" class="hidden"></img>
+												
+											</t>
+											<t t-else="">
+												<img src="/airbid_master/static/src/image/profile.png" id="profile_img_default"></img>
+											</t>
+											<div class="edit_dlt">
+												<label for="profile_edit_view" style="cursor: pointer;"><i class="fa fa-edit" id="edit_img" data-toggle="tooltip" data-original-title="Edit"/></label>
+												<i id="clean" class="fa fa-trash delbtn removebtn" value="remove" data-toggle="tooltip" data-original-title="Delete"/>
+											</div>
+										</div>
+								
+				            		<br></br>
+				            		<br></br>
+
+						                <h3 id="personal_detail">Personal Details</h3> 
+										<div class="column col-sm-6">
+											<label for="name" id="user_detail_labels">First Name</label>
+											<input type="text" id="first_name" name="name" class="form-control form-control-md" t-att-value="request.env.user.name"/>
+										</div>
+										<div class="column col-sm-6">
+											<label for="user_lastname" id="user_detail_labels">Last Name</label>
+											<input type="text" id="second_name" name="user_lastname" class="form-control form-control-md" t-att-value="request.env.user.user_lastname"/>
+										</div>
+
+									<div id="field_2" class="column col-sm-12">
+										<!-- <label id="user_detail_labels" for="email">Email Address</label>
+										<input type="email" id="user_email_id" name="email" class="form-control form-control-md" t-att-value="request.env.user.email"/> -->
+										<div class="form-group field-login col-md-8" style="padding:0;">
+											<label for="login" id="f_name">Email Address</label>
+											<label for="validate_email" id="validate_email" class="alert-success text-center" style="display:none;">Your Email Address is validated</label>
+											<a href="#" class="myBtnEmail email_no_verify_hidden" id="email_no_verify_hidden">Verify Email</a>
+											<input type="text" name="login" id="login_sign" class="form-control form-control-md" placeholder="Enter your email here" required="required" t-att-readonly="'readonly' if only_passwords else None" t-att-value="request.env.user.email"></input>
+										</div>
+
+											<div class="form-group field-number column col-md-4">
+												<t t-if="request.env.user.email">
+													<button type="button" class="btn email_changes" id="email_changes" style="margin-left: 0px !important;">Change Email</button>
+													<button type="button" class="myBtnEmail btn email_verify" id="email_verify" style="display:none;margin-left: 0px !important;" disabled='disabled'>Verify Email</button>
+												</t>
+											</div>
+
+
+										<!-- Modal content -->
+										<div id="myModalemail" class="modal" style="display: none;">
+										<div class="modal-content text-center questation_popup">
+										<span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+										<div class="text-center" id="test_id">
+										<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+										<br></br>
+										<h3 id="mobile_header"><strong>Please verify your Email Address</strong></h3>
+										<h6 id="h6_mobile">You're almost there! We sent an Email to</h6>
+										<p id="user_email">airbid2022@gmail.com</p>
+										<label for="emailcode" id="code_label">Please enter verification code below</label><br></br>
+										<input type="text" class="form-control" name="emailcode" id="emailcode" placeholder="Enter here"/>
+										<br></br>
+										<label for="notification_email" id="notification_email" class="alert-danger text-center" style="display:none;">Your otp is not valid</label>
+										<br></br>
+										<a id="confirm_email" name="confirm"  class="btn btn-block btn-md" >Verify &amp; continue</a>
+										<br></br>
+										<label id="for_receive" for="need" >Didn't receive the verification code?</label>
+										<a href="#" id="resend_otp" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;">Resend again</a>
+										</div>
+										</div>
+									</div>
+								</div>
+									<div id="field_3" class="column col-sm-12">
+										<div id="field_no" class="column col-sm-8" style="padding:0;">
+											<label id="user_detail_labels" for="phone">Phone No.</label>
+											<label for="validate" id="validate" class="alert-success text-center" style="display:none;">  Your mobile number is validated</label>
+											<a href="#" class="myBtn" id="new_mobile_no_verify_res">Verify Mobile No.</a>
+											<!-- <input type="text" id="phone_no_sign" name="phone" class="form-control form-control-md" minlength="8" maxlength="13" t-att-value="request.env.user.phone"/> -->
+
+											<input type="text" name="phone" id="phone_no_sign" class="form-control form-control-md number_input_only" placeholder="Enter your mobile number here" minlength="10" maxlength="10" t-att-value="request.env.user.phone"></input>
+										</div>
+										<!-- <div id="verify_no" class="column col-sm-4">
+											<button type="button" class="myBtn btn" id="new_mobile_no_verify">Verify Mobile No.</button>
+										</div> -->
+
+										<div id="verify_no" class="column col-sm-4">
+											<t t-if="request.env.user.phone">
+												<button type="button" class="btn mobile_changes" id="mobile_changes" style="margin-left: 0px !important;">Change Mobile No.</button>
+												<button type="button" class="myBtn btn mobile_no_verify_profile" id="mobile_no_verify" disabled='disabled' style="display:none;">Verify Mobile No.</button>
+											</t>
+										</div>
+
+										<div id="myModal" class="modal" style="display: none;">
+
+								<!-- Modal content -->
+
+								<div class="modal-content text-center questation_popup">
+								<span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+								<div class="text-center" id="test_id">
+								<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+								<br></br>
+								<h3 id="mobile_header"><strong>Please verify your new phone number</strong></h3>
+								<p id="user_number">+91 9857382940</p>
+								<label for="code" id="code_label">Please enter verification code below:</label><br></br>
+								<input type="text" class="form-control" name="code" id="code" placeholder="Enter here"/>
+								<br></br>
+								<label for="notification" id="notification" class="alert-danger text-center">Your otp is not valid</label>
+								<br></br>
+								<a id="confirm_no" name="confirm"  class="btn btn-block btn-md">Verify &amp; continue</a>
+								<br></br>
+							
+							<!-- <label id="for_receive" for="need" >Didn't receive the verification code?</label>
+							<a href="#" id="resend_otp_cu" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;" >Resend again</a> -->
+									</div>
+								</div>
+							</div>
+						</div>
+							<div id="field_4" class="column col-sm-12">
+						    	<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+								<button type="submit" id="save_change" class="form-control form-control-md">Save Changes</button>
+							</div>
+						</form>
+				        	</div>
+				        		<div class = "vertical"></div>
+
+								<div class="column col-sm-6">
+									<form class="address_form" method="post"  action="/user">
+									<h3 id="change_paswd">Change Password</h3>
+								
+										<div id="field_line1" class="column col-sm-12">
+											<label id="user_detail_labels" for="current_paswd">Current Password</label>
+											<input type="password" id="current_paswd" name="current_paswd" class="form-control form-control-md" required="required"/>
+										</div>
+										<div id="field_line2" class="column col-sm-12">
+											<label id="user_detail_labels" for="new_paswd">New Password</label>
+											<input type="password" id="new_paswd" name="new_paswd" class="form-control form-control-md" required="required"/>
+										</div>
+										<div id="field_line2" class="column col-sm-12">
+											<label id="user_detail_labels" for="confirm_paswd">Confirm New Password</label>
+											<input type="password" id="confirm_paswd" name="confirm_paswd" class="form-control form-control-md" required="required"/>
+										</div>
+										<div id="field_line2" class="column col-sm-12">
+											<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+											<button type="submit" id="update_paswd" class="form-control form-control-md" >Update Password</button>
+										</div>
+									</form>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>
+				<!-- </div> -->
+			</t>
+		</template>
+	</data>
+</odoo>

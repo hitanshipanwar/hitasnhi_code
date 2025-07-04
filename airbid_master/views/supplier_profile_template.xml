@@ -1,0 +1,638 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="supplier_profile" name="Supplier Profile">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section id="project_post_sec">
+            <div class="container">
+            <form class="oe_solar_form" method="post" enctype="multipart/form-data" action="/supplier/profile">
+              
+              <div class="alert alert-danger text-center" t-if="request.env.user.partner_id.supplier_validate == 'draft' ">
+                <span>Your Profile Is In Under Review</span>
+              </div>
+
+              <div class="alert alert-danger text-center" t-if="request.env.user.partner_id.supplier_validate == 'reject' ">
+                <span>Your Profile Is Rejected by the Administrator</span>
+              </div>
+
+              <div class="row">
+                <div class="column col-sm-12">
+                  <div class="form-group hirehide is-empty is-fileinput width100">
+                      <div class="socialmediaside2">
+                          <input class="fileUpload" accept="image/jpeg, image/jpg" name="profile_supp" type="file" value="Choose a file" id="profile_edit_view" style="display:none"/>
+                      </div>
+                  </div>
+                  <div class="upload-demo">
+                      <div class="upload-demo-wrap">
+                        <img alt="your image" class="portimg" src="#" />
+                    </div>
+                  </div>
+                  <h1 id="user_name_supplier"><t t-esc="request.env.user.name"/><br></br><t t-esc="request.env.user.user_lastname"/></h1>
+                  <input type='hidden' name='is_detele'/>
+                  <t t-if="user_id.image_1920">
+                    <img t-attf-src="data:image/png;base64,#{user_id.image_1920}" id="profile_img"></img>
+                    <img src="/airbid_master/static/src/image/profile.png" id="profile_img_default" class="hidden"></img>
+
+                  </t>
+                  <t t-else="">
+                    <img src="/airbid_master/static/src/image/profile.png" id="profile_img_default"></img>
+                  </t>
+                  <div class="edit_dlt">
+                    <label for="profile_edit_view" style="cursor: pointer;"><i class="fa fa-edit" id="edit_img" data-toggle="tooltip" data-original-title="Edit"/></label>
+                    <i id="clean" class="fa fa-trash delbtn removebtn" value="remove" data-toggle="tooltip" data-original-title="Delete"/>
+                  </div>
+                </div>
+              </div>
+
+                <div class="row">
+                  <div class="col-sm-6 supplier_profile_mobile">                          
+                    <h3 id="personal_detail">Supplier Profile</h3>
+                          
+                    <div class="column col-sm-6">
+                      <label for="name" id="user_detail_labels">First Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="supplier_firstname" name="name" class="form-control form-control-md profile_detail_supplier" placeholder="Tara" t-att-value="request.env.user.name" required="required"/>
+                    </div>
+                    <div class="column col-sm-6">
+                      <label for="user_lastname" id="user_detail_labels">Last Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="supplier_lastname" name="user_lastname" class="form-control form-control-md profile_detail_supplier" placeholder="Patterson" t-att-value="request.env.user.user_lastname" required="required"/>
+                    </div>
+
+
+                    <div class="column col-sm-12">
+                    <!-- <label id="user_detail_labels" for="email">Email Address</label>
+                    <input type="email" id="user_email_id" name="email" class="form-control form-control-md" t-att-value="request.env.user.email"/> -->
+                    <div class="form-group field-login col-md-8" style="padding:0;">
+                      <label for="login" id="f_name">Email Address</label>
+                      <label for="validate_email" id="validate_email" class="alert-success text-center" style="display:none;">Your Email Address is validated</label>
+                      <a href="#" class="myBtnEmail email_no_verify_hidden" id="email_no_verify_hidden">Verify Email</a>
+                      <input type="text" name="login" id="login_sign" class="form-control form-control-md" placeholder="Enter your email here" required="required" t-att-readonly="'readonly' if only_passwords else None" t-att-value="request.env.user.email"></input>
+                    </div>
+
+                      <div class="form-group field-number column col-md-4">
+                        <t t-if="request.env.user.email">
+                          <button type="button" class="btn email_changes" id="email_changes" style="margin-left: 0px !important;">Change Email</button>
+                          <button type="button" class="myBtnEmail btn email_verify" id="email_verify" style="display:none;margin-left: 0px !important;" disabled='disabled'>Verify Email</button>
+                        </t>
+                      </div>
+
+
+                    <!-- Modal content -->
+                    <div id="myModalemail" class="modal" style="display: none;">
+                    <div class="modal-content text-center questation_popup">
+                    <span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+                    <div class="text-center" id="test_id">
+                    <img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+                    <br></br>
+                    <h3 id="mobile_header"><strong>Please verify your Email Address</strong></h3>
+                    <h6 id="h6_mobile">You're almost there! We sent an Email to</h6>
+                    <p id="user_email">airbid2022@gmail.com</p>
+                    <label for="emailcode" id="code_label">Please enter verification code below</label><br></br>
+                    <input type="text" class="form-control" name="emailcode" id="emailcode" placeholder="Enter here"/>
+                    <br></br>
+                    <label for="notification_email" id="notification_email" class="alert-danger text-center" style="display:none;">Your otp is not valid</label>
+                    <br></br>
+                    <a id="confirm_email" name="confirm"  class="btn btn-block btn-md" >Verify &amp; continue</a>
+                    <br></br>
+                    <label id="for_receive" for="need" >Didn't receive the verification code?</label>
+                    <a href="#" id="resend_otp" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;">Resend again</a>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="column col-sm-12">
+                    <div id="field_no" class="column col-sm-8" style="padding:0;">
+                      <label id="user_detail_labels" for="phone">Phone No.</label>
+                      <label for="validate" id="validate" class="alert-success text-center" style="display:none;">  Your mobile number is validated</label>
+                      <a href="#" class="myBtn" id="new_mobile_no_verify_res">Verify Mobile No.</a>
+                      <!-- <input type="text" id="phone_no_sign" name="phone" class="form-control form-control-md" minlength="8" maxlength="13" t-att-value="request.env.user.phone"/> -->
+
+                      <input type="text" name="phone" id="phone_no_sign" class="form-control form-control-md number_input_only" placeholder="Enter your mobile number here" minlength="10" maxlength="10" t-att-value="request.env.user.phone"></input>
+                    </div>
+                    <!-- <div id="verify_no" class="column col-sm-4">
+                      <button type="button" class="myBtn btn" id="new_mobile_no_verify">Verify Mobile No.</button>
+                    </div> -->
+
+                    <div id="verify_no" class="column col-sm-4">
+                      <t t-if="request.env.user.phone">
+                        <button type="button" class="btn mobile_changes" id="mobile_changes" style="margin-left: 0px !important;">Change Mobile No.</button>
+                        <button type="button" class="myBtn btn mobile_no_verify_profile" id="mobile_no_verify" disabled='disabled' style="display:none;">Verify Mobile No.</button>
+                      </t>
+                    </div>
+
+                    <div id="myModal" class="modal" style="display: none;">
+
+                <!-- Modal content -->
+
+                      <div class="modal-content text-center questation_popup">
+                      <span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+                      <div class="text-center" id="test_id">
+                      <img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+                      <br></br>
+                      <h3 id="mobile_header"><strong>Please verify your new phone number</strong></h3>
+                      <p id="user_number">+91 9857382940</p>
+                      <label for="code" id="code_label">Please enter verification code below:</label><br></br>
+                      <input type="text" class="form-control" name="code" id="code" placeholder="Enter here"/>
+                      <br></br>
+                      <label for="notification" id="notification" class="alert-danger text-center">Your otp is not valid</label>
+                      <br></br>
+                      <a id="confirm_no" name="confirm"  class="btn btn-block btn-md">Verify &amp; continue</a>
+                      <br></br>
+                    
+                    <!-- <label id="for_receive" for="need" >Didn't receive the verification code?</label>
+                    <a href="#" id="resend_otp_cu" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;" >Resend again</a> -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                    
+
+                    <div id="field_2" class="column col-sm-12">
+                      <label id="user_detail_labels">Category<span style="color: red; padding-left: 6px;">*</span></label>
+                       <select id="category" class="form-control form-control-md profile_detail_supplier">
+                        <option>Choose Category</option>
+                        <option t-att-value="company" name="category">Company</option>
+                        <option t-att-value="person" name="category">Self</option>
+                      </select>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">ABN<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="ABN" name="ABN" class="form-control form-control-md profile_detail_supplier number_input_only" t-att-value="request.env.user.abn" required="required" maxlength="11" minlength="11"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Company Established in<span style="color: red; padding-left: 6px;">*</span></label>
+                      <select name="yearpicker" id="yearpicker" class="form-control form-control-md profile_detail_supplier" t-att-selected="request.env.user.year"></select>
+
+                      <script type="text/javascript">
+                        let startYear = 1950;
+                        let endYear = new Date().getFullYear();
+                        for (i = endYear; i > startYear; i--)
+                        {
+                          $('#yearpicker').append($('<option />').val(i).html(i));
+                        }
+                      </script>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Trading Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="trading_name" name="trading_name" class="form-control form-control-md profile_detail_supplier text_input_only" t-att-value="request.env.user.trading_name" required="required"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Company Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="company_name" name="company_name" class="form-control form-control-md profile_detail_supplier text_input_only" t-att-value="request.env.user.company_name" required="required"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Website<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="website" name="website" class="form-control form-control-md profile_detail_supplier" t-att-value="request.env.user.website" required="required"/>
+                      <span class="website">WWW</span>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6 certificate_cec">
+                      <label id="user_detail_labels">Company Logo<span style="color: red; padding-left: 6px;">*</span></label>
+                      <label for="comapany_logo" class="custom-file-upload form-control profile_detail_supplier" id="company_logo_hide">
+                        <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="cec_retailer">Upload Logo</span>
+                      </label>
+                      <input type="file"  accept=".jpg,.png,.jpeg" name="comapany_logo" id="comapany_logo" onchange="javascript:company_logo()" style="display:none" />
+                      <div id="profile_company"><input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" style="display:none; color: #424958 !important;"/></div>
+
+                      <input type="text" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.company_logo_name" id="attchment_company_name" style="color: #424958 !important;"/>
+
+                      <input type="text" id="company_logo_name" name="company_logo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+                    </div>
+
+                    
+
+                    <div id="field_2" class="column col-sm-12">
+                      <label id="user_detail_labels">About the company</label>
+                      <textarea id="about_the_company" name="about_the_company" class="form-control form-control-md" rows="4" cols="50"><t t-esc="request.env.user.about_com"/></textarea>
+                    </div>
+
+                    <div class="column col-sm-12">
+                      <h3 id="headind_profile_area">Area Operates In</h3>
+                    </div>
+
+
+                   <t t-set="count" t-value="1"/>
+                   <t t-if="request.env.user.area_operates_ids">
+                    <t t-foreach="request.env.user.area_operates_ids" t-as="rec">
+                      <div class="area_operates_remove">
+                        <div id="field_2" class="column col-sm-3">
+                          <label id="user_detail_labels">City<span style="color: red; padding-left: 6px;">*</span></label>
+                          <input type="text" t-attf-id="area_operates_city{{count}}" t-attf-name="area_operates_city{{count}}" class="form-control form-control-md profile_detail_supplier text_input_only" required="required" t-att-value="rec.city_area_name" />
+                          
+                        </div>
+
+                         <div id="field_2" class="column col-sm-3">
+                          <label id="user_detail_labels">Postcode<span style="color: red; padding-left: 6px;">*</span></label>
+                          <input type="text" t-attf-id="zip_code_no{{count}}" t-attf-name="zip_code_no{{count}}" class="form-control form-control-md profile_detail_supplier number_input_only" t-att-value="rec.zip_code" required="required"  minlength="4" maxlength="4" />
+                        </div>
+
+                        <div id="field_2" class="column col-sm-3">
+                          <label id="user_detail_labels">Radius<span style="color: red; padding-left: 6px;">*</span></label>
+                          <input type="text" t-attf-id="redius_profile{{count}}" t-attf-name="redius_profile{{count}}" class="form-control form-control-md profile_detail_supplier number_input_only" t-att-value="rec.radius_name" required="required"/>
+                          <span class="km">KM<span style="font-size: 10px;">S</span></span>
+                        </div>
+
+                        <div id="field_2" class="column col-sm-3">
+                          <!-- <label id="user_detail_labels"></label> -->
+                          <img src="/airbid_master/static/src/image/delete.png" class="delete_icon" id="delete_icon_area" t-attf-name="delete_icon{{count}}"></img>
+                        </div>
+
+                       
+                      </div>
+
+                        <input type="checkbox" id="is_saved{{count}}" t-attf-name="is_saved{{count}}" checked='checked' hidden="hidden"/>
+
+                        <t t-set="count" t-value="count+1" hidden="hidden"/>
+                    </t>
+                  </t>
+
+                  <t t-if="not request.env.user.area_operates_ids">
+                    <div class="area_operates_remove">
+                      <div id="field_2" class="column col-sm-3">
+                        <input type="number" value="1" name="area_operates_counter" id="area_operates_counter" hidden="hidden"/>
+                        <label id="user_detail_labels">City<span style="color: red; padding-left: 6px;">*</span></label>
+                        <input type="text" id="area_operates_city1" name="area_operates_city1" class="form-control form-control-md profile_detail_supplier text_input_only" required="required"/>
+                        
+                        <t t-set="area_operates_counter" value="area_operates_counter++" hidden="hidden"/>
+                      </div>
+
+                      <div id="field_2" class="column col-sm-3">
+                          <label id="user_detail_labels">Postcode<span style="color: red; padding-left: 6px;">*</span></label>
+                          <input type="text" id="zip_code_no1" name="zip_code_no1" class="form-control form-control-md profile_detail_supplier number_input_only" required="required"  minlength="4" maxlength="4"/>
+                      </div>
+
+                      <div id="field_2" class="column col-sm-3">
+                        <label id="user_detail_labels">Radius<span style="color: red; padding-left: 6px;">*</span></label>
+                        <input type="text" id="redius_profile1" name="redius_profile1" class="form-control form-control-md profile_detail_supplier number_input_only" required="required"/>
+                        <span class="km">KM<span style="font-size: 10px;">S</span></span>
+                      </div>
+
+                      <div id="field_2" class="column col-sm-3">
+                        <!-- <label id="user_detail_labels"></label> -->
+                          <img src="/airbid_master/static/src/image/delete.png" class="delete_icon" id="delete_icon" name="delete_icon1"></img>
+                      </div>
+
+                      
+                    </div>
+                      <input type="checkbox" id="is_saved1" name="is_saved1" hidden="hidden"/>
+                  </t>
+                  
+                  <input type="number" t-attf-value="{{count-1}}" name="area_operates_counter" id="area_operates_counter" hidden="hidden"/>
+
+
+                    <div class="column col-sm-12" style="padding: 0 20px 0 20px !important;">
+                      <button type="button" id="add_area_operates" class="add_area_operates" style="float:left;">Add</button>
+
+                      <!-- <button type="button" id="add_area_operates" class="remove_area_operates" style="float:right;">Remove</button> -->
+                      <button type="button" id="add_area_operates" class="save_area_operates" style="float:right;">Save</button>
+                    </div>
+
+                    <div  class="column col-sm-12">
+                      <div id="map" class='form-control form-control-md'></div>
+                      <br></br>
+                    </div>
+
+                    <div class="column col-sm-12">
+                      <h3 id="headind_profile_area">Certificate<span style="color: red; padding-left: 6px;">*</span></h3>
+                    </div>
+
+                    <div id="certification" class="column col-sm-6 certificate_cec">
+                      <label for="cec_retailer" class="custom-file-upload form-control profile_detail_supplier">
+                        <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="cec_retailer">CEC Retailer</span>
+                      </label>
+                      <t t-if="not request.env.user.retailer_name">
+                        <input type="file"  accept=".jpg,.png,.jpeg" name="cec_retailer" id="cec_retailer" onchange="javascript:updateList()" style="display:none" required="required"/>
+                        <div id="fileList" style="display:none"></div>
+                      </t>
+                      <t t-if="request.env.user.retailer_name">
+                        <input type="file"  accept=".jpg,.png,.jpeg" name="cec_retailer" id="cec_retailer" onchange="javascript:updateList()" style="display:none"/>
+                        <div id="fileList" style="display:none"></div>
+                      </t>
+                      <t t-if="request.env.user.retailer_name">
+                          <input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.retailer_name" style="color: #424958 !important;"/>
+                      </t>
+
+                      <input type="text" id="input_name_value" name="input_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+
+                    </div>
+
+                     <div id="certification" class="column col-sm-6 certificate_cec">
+                      <label for="cec_member" class="custom-file-upload form-control profile_detail_supplier">
+                        <img src="/airbid_master/static/src/image/Download.png"  style="margin: -4px 0 0 0;"></img> <span class="cec_retailer">CEC member</span>
+                      </label>
+                      <input type="file"  accept=".jpg,.png,.jpeg" name="cec_member" id="cec_member" onchange="javascript:cecmemberteList()" style="display:none" />
+                     <div id="redius_profile_list" style="display:none">
+                    </div>
+                    <t t-if="request.env.user.member_name">
+                      <input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.member_name" style="color: #424958 !important;"/>
+                    </t>
+                      <input type="text" id="member_name" name="member_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+                    </div>
+
+
+                    <div id="field_2" class="column col-sm-6 certificate_cec">
+                      <label for="ios_certification" class="custom-file-upload form-control profile_detail_supplier">
+                        <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0; "></img> <span class="cec_retailer">ISO Certification</span>
+                      </label>
+                      <input type="file"  accept=".jpg,.png,.jpeg" name="ios_certification" id="ios_certification" onchange="javascript:ios_certificationList()" style="display:none" />
+                     <div id="ios_certification_list" style="display:none">
+                      </div>
+                      <t t-if="request.env.user.iso_name">
+                        <input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.iso_name" style="color: #424958 !important;"/>
+                      </t>
+
+                      <input type="text" id="iso_name" name="iso_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6 certificate_cec" >
+                      <label for="other_certification" class="custom-file-upload form-control profile_detail_supplier">
+                        <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="cec_retailer">Other Certificates</span>
+                      </label>
+                      <input type="file"  accept=".jpg,.png,.jpeg" name="other_certification" id="other_certification" onchange="javascript:other_certificationList()" style="display:none" />
+                      <div id="other_certification_list" style="display:none">
+                      </div>
+                      <t t-if="request.env.user.document_name">
+                        <input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.document_name" style="color: #424958 !important;"/>
+                      </t>
+
+                      <input type="text" id="document_name" name="document_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+                    </div>
+
+                </div>
+
+                <div class="column col-sm-6 supplier_profile_mobile">
+                  <!-- <form class="address_form" method="post"  action="/user"> -->
+                  <h3 id="head_office">Head Office Address</h3>
+                
+                    <div id="field_line1" class="column col-sm-12">
+                      <label id="user_detail_labels">Head Office Address<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="head_office_address" name="head_office_address" class="form-control form-control-md profile_detail_supplier_col_12" placeholder="Address Line 1" t-att-value="request.env.user.street" required="required"/>
+                    </div>
+                    <div class="column col-sm-12 head_office_address_more">
+                      <label></label>
+                      <input type="text" id="head_office_address_more" name="head_office_address_more" class="form-control form-control-md profile_detail_supplier_col_12" placeholder="Address Line 2" t-att-value="request.env.user.street2"/>
+                    </div>
+
+                    <div class="column col-sm-6">
+                      <label></label>
+                      <input type="text" id="profile_city" name="profile_city" class="form-control form-control-md profile_detail_supplier text_input_only" placeholder="City" t-att-value="request.env.user.city" required="required"/>
+                    </div>
+
+                    <div class="column col-sm-6">
+                      <label></label>
+
+                      <input type="text" id="profile_state" name="profile_state" class="form-control form-control-md profile_detail_supplier_state" required="required" placeholder="State" t-att-value="request.env.user.state_id.name"/>
+
+                      <!-- <select name="profile_state" id="profile_state" class="form-control form-control-md profile_detail_supplier_state">
+                        <option>State</option>  
+                        <t t-foreach="states" t-as="state">
+                           <option t-att-value="state.id">
+                            <t t-esc="state.name"/>
+                           </option>
+                        </t>
+                      </select> -->
+                    </div>
+
+                    <div class="column col-sm-6">
+                      <label></label>
+                      <input type="text" id="profile_postal_code" name="profile_postal_code" class="form-control form-control-md profile_detail_supplier number_input_only" placeholder="Postal Code" t-att-value="request.env.user.zip"  required="required"/>
+                    </div>
+
+                    <div class="column col-sm-12" style="padding: 0;">
+                      <h3 id="headind_profile">Directors Profile</h3>
+                    </div>
+
+                    <div class="column col-sm-6">
+                      <label for="name" id="user_detail_labels">First Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="directors_supplier_firstname" name="directors_supplier_firstname" class="form-control form-control-md profile_detail_supplier" t-att-value="request.env.user.director_fname"  required="required"/>
+                    </div>
+                    <div class="column col-sm-6">
+                      <label id="user_detail_labels">Last Name<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="directors_supplier_lastname" name="directors_supplier_lastname" class="form-control form-control-md profile_detail_supplier" t-att-value="request.env.user.director_lname"  required="required"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Date of Birth<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="date" placeholder="DD/MM/YYYY" id="date_of_birth" name="date_of_birth" class="form-control form-control-md profile_detail_supplier" style="text-transform: uppercase;" t-att-value="request.env.user.birth_date" required="required"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Mobile<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="directors_mobile" name="directors_mobile" class="form-control form-control-md profile_detail_supplier number_input_only" t-att-value="request.env.user.mobile_no" maxlength="10" minlength="10" required="required"/>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6 certificate_cec">
+                      <label id="user_detail_labels">Photo<span style="color: red; padding-left: 6px;">*</span></label>
+                      <label for="directors_photo" class="custom-file-upload form-control profile_detail_supplier" id="company_photo_hide">
+                        <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> 
+                        <span class="cec_retailer">Upload Photo</span>
+                      </label>
+                      <input type="file"  accept=".jpg,.png,.jpeg" name="directors_photo" id="directors_photo" onchange="javascript:company_photo_logo()" style="display:none"/>
+                      <div id="profile_company_photo"><input type="text" placeholder="Certificate1.pdf" class="attchment_photo" readonly="readonly" style="display:none;"/></div>
+
+                      <input type="text" class="attchment_photo" readonly="readonly" t-att-value="request.env.user.photo_name" id="attchment_photo_name" style="color: #424958 !important;"/>
+                      <input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+                    </div>
+
+                    <div class="column col-sm-12" style="padding: 0;">
+                      <h3 id="headind_profile">How many installations done ?</h3>
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Residential<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="number" id="directors_residential" name="directors_residential" class="form-control form-control-md profile_detail_supplier number_input_only" t-att-value="request.env.user.residential if request.env.user.residential > 0 else '0' " required="required" />
+                    </div>
+
+                    <div id="field_2" class="column col-sm-6">
+                      <label id="user_detail_labels">Commercial<span style="color: red; padding-left: 6px;">*</span></label>
+                      <input type="text" id="directors_commercial" name="directors_commercial" class="form-control form-control-md profile_detail_supplier number_input_only"  t-att-value="request.env.user.commercial if request.env.user.commercial > 0 else '0' " required="required" />
+                    </div>
+                  </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="column col-sm-12">
+                      <div class="profile_save">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <input type="submit" class="profile_save_button"  value="Save Changes"/>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                   <div class="row">
+                        <div class="column col-sm-6">
+                          <form class="address_form" method="post"  action="/supplier/profile">
+                          <h3 id="supplier_change_pass">Change Password</h3>
+                        
+                            <div id="field_line1" class="column col-sm-12">
+                              <label id="user_detail_labels" for="current_paswd">Current Password</label>
+                              <input type="password" id="current_paswd" name="current_paswd" class="form-control form-control-md" required="required" t-att-data-current='request.env.user.old_password'/>
+                              <label for="current_paswd" id="current_paswd_id" class="alert-danger text-center" style="display:none;">Your Current password is not valid</label>
+                            </div>
+                            <div id="field_line2" class="column col-sm-12">
+                              <label id="user_detail_labels" for="new_paswd">New Password</label>
+                              <input type="password" id="new_paswd" name="new_paswd" class="form-control form-control-md" required="required"/>
+                            </div>
+                            <div id="field_line2" class="column col-sm-12">
+                              <label id="user_detail_labels" for="confirm_paswd">Confirm New Password</label>
+                              <input type="password" id="confirm_paswd" name="confirm_paswd" class="form-control form-control-md" required="required"/>
+                            </div>
+                            <div id="field_line2" class="column col-sm-12">
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                              <button type="submit" id="update_paswd" class="form-control form-control-md" >Update Password</button>
+                            </div>
+                          </form>
+                      </div>
+                      <div class="col-sm-6"> 
+                    </div>
+                </div> 
+            </div>
+          </section>
+
+          <section id="bid_membership_detail">
+            <div class="container">
+              <div class="row">
+
+                <div class="col-sm-12">
+                  <div class="subscription_plans_project">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="subscription_plans">
+                          <span t-if="user_id.bid_count > 0">Number of Remaining Bids: <t t-esc="user_id.bid_count"/></span>
+                          <span t-if="user_id.monthly_bid">Monthly Plan Expiration Date: <t t-esc="user_id.plan_end_date"/></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                 <div class="col-sm-12">
+                  <div class="subscription_plans_project">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="subscription_plans">
+                          <span>Purchase History</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <table id="supplier_bid" style="width:100%;">
+                    <tr class="table_menu">
+                      <th>Purchase Date</th>
+                      <th>Subscription Plan Name</th>
+                      <th>Plan Amount</th>
+                    </tr>
+                  <div class="bid_data">
+                    <t t-foreach="sale_order" t-as="sale">
+                      <tr class="supplier_membership" style="height:40px;">
+                        <td><t t-esc="sale.date_order.strftime('%d %B %Y')"/></td>
+                        <td><!-- <t t-esc="sale.order_line[0].sudo().product_id.name"/> --></td>
+                        <td><!-- <t t-esc="sale.order_line.price_subtotal"/> --></td>
+                      </tr>
+                    </t>
+                  </div>
+                </table>
+              </div>
+
+
+              <div class="col-sm-12">
+                <div class="subscription_plans_project">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div class="subscription_plans">
+                        <span>biding History</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- ALL BID DETAIL NAME -->
+              <div class="col-sm-12">
+                  <table id="supplier_bid" style="width:100%;">
+                    <tr class="table_menu">
+                      <th>Project Name</th>
+                      <!-- <th>View project</th> -->
+                      <th>View</th>
+                      <th>Bid</th>
+                      <th>Time</th>
+                      <th style="text-align: right;padding: 0 80px 0 0px;">Stages</th>
+                    </tr>
+                  <div class="bid_data">
+                    <form class="address_form" method="post" action="/supplier/review">
+                      <t t-foreach="data" t-as="data">
+                        <tr class="supplier_membership" style="height:40px;">
+                          <td><t t-esc="data.solar_project_id.customer_project_name"/></td>
+                          <!-- <td>
+                            <div class="open_view_detail">
+                              <input type="submit" class="btn btn-link " value="View"></input>
+                            </div>
+                          </td> -->
+                          <td>
+                            <div class="inprogress_edit_bid">
+                              <a t-attf-href="#{'/supplier/details?bid_id=%s'%(data.id)}">View Bid</a>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="open_view_detail">
+                              <span>$
+                                <t t-if="data.full_price" t-esc="data.full_price"/>
+                                <t t-if="data.final_price">
+                                  <t t-esc="data.final_price"/> p/w for <t t-esc="data.months"/> Months
+                                </t>
+                              </span>
+                            </div>
+                          </td>
+                          <td>
+                            <div class="bid_review_day">
+                              <t t-if="data.project_state == 'open' and data.project_state == 'inprogress'">
+                                <span>
+                                    <t t-call="airbid_master.display_timer_widget_project">
+                                    <t t-set="pre_remaining_time" t-value="int(data.solar_project_id.track_start_remaining)"/>
+                                    <t t-set="pre_countdown_display" t-value="bool(False)"/>
+                                    
+                                    <t t-set="main_remaining_time" t-value="int(data.solar_project_id.website_cta_start_remaining)"/>
+                                    <t t-set="main_countdown_display" t-value="bool(False)"/>
+                                    <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+                      </t>
+                                </span>
+                              </t>
+                              <t t-else="">
+                                <span>0</span>
+                              </t>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <button class="choose_supplier_status_inprogress" t-if="data.project_state == 'inprogress'">In Progress</button>
+                              <button class="choose_supplier_status_won" t-if="data.project_state == 'won'">Won</button>
+                              <button class="choose_supplier_status_lost" t-if="data.project_state == 'lost'">Lost</button>
+                            </div>
+                          </td>
+                          <!-- <td><t t-esc="sale.order_line.price_subtotal"/></td> -->
+                        </tr>
+                      </t>
+                    </form>
+                  </div>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </section>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

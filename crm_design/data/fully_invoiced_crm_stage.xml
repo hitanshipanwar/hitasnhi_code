@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="crm.stage" id="stage_lead_fully_invoiced">
+        <field name="name">Fully Paid</field>
+        <field name="sequence">1000</field>
+    </record>
+</odoo>

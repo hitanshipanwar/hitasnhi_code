@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <record id="purchase_department_PD" model="hr.department">
+            <field name="name">Purchase Department</field>
+        </record>
+
+    </data>
+</odoo>

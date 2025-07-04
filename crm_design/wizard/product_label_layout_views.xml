@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="product_label_layout_form_inherits" model="ir.ui.view">
+	        <field name="name">product.label.layout.form.inherits</field>
+	        <field name="model">product.label.layout</field>
+	        <field name="inherit_id" ref="product.product_label_layout_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='custom_quantity']" position="before">
+	        		<field name="is_priced_label" invisible="1"/>
+	        		<field name="price_list" attrs="{'invisible': [('is_priced_label', '!=', True)]}" domain="[('labels_reports_ok', '=', True)]"/>
+	        		<field name="vat_to_add" invisible="1"/>
+	        	</xpath>
+	        	<xpath expr="//field[@name='extra_html']" position="replace">
+	        		<field name="extra_html" widget="html" attrs="{'invisible': [('print_format', 'not in', ('dymo', '2x7xprice','4x12xshelf_talker','4x12xshelf_talker_price','4x12xshelf_talker_price_desc'))]}"/>
+	        	</xpath>
+        	</field>
+       </record>
+	</data>
+</odoo>

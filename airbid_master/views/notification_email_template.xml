@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>        
+
+		<template id="notification_data_solar_system">
+			<!-- <t t-call="web.html_container"> -->
+        		<div class="header">
+        		</div>
+        		<div class="footer">
+        		</div>
+            	<t t-call="web.external_layout">
+            		<div class="page">
+				        <table style="border-collapse: collapse; width: 100%;text-align:center;margin:-40px 0 0 0">
+							<tbody>
+								<tr>
+									<td>
+										<img src="/airbid_master/static/src/image/logo_header.png" style="height:120px;width:120px;"></img>
+									</td>
+					        	</tr>
+					        </tbody>
+					    </table>
+				        <table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.solar_size">Size of solar system</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.solar_size" t-esc="dict(doc.fields_get(allfields=['solar_size'])['solar_size']['selection'])[doc.solar_size]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;">Do you own or rent your property?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.property_option_new" t-esc="dict(doc.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[doc.property_option_new]"></span></td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.upgrade_system">Do you want to upgrade existing system?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.upgrade_system" t-esc="dict(doc.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[doc.upgrade_system]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.roof_type">Type of roof</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;">
+									<span t-if="doc.roof_type" t-esc="dict(doc.fields_get(allfields=['roof_type'])['roof_type']['selection'])[doc.roof_type]"></span>
+									<br></br>
+			                        <div t-if="doc.roof_text_box">
+			                          <h5>Specify Roof Type</h5>
+			                          <span t-esc="doc.roof_text_box"></span>
+			                        </div>
+			                    </td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.shading_issue">Do you have any shading issues?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.shading_issue" t-esc="dict(doc.fields_get(allfields=['shading_issue'])['shading_issue']['selection'])[doc.shading_issue]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.property_select">About your proposed installation property</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.property_select" t-esc="dict(doc.fields_get(allfields=['property_select'])['property_select']['selection'])[doc.property_select]"></span></td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.pay_quarterly">How much you pay quarterly for electricity?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.pay_quarterly" t-esc="dict(doc.fields_get(allfields=['pay_quarterly'])['pay_quarterly']['selection'])[doc.pay_quarterly]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;">Do you already have a solar system?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.solar_system" t-esc="dict(doc.fields_get(allfields=['solar_system'])['solar_system']['selection'])[doc.solar_system]"></span></td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.solar_type">What type of solar panels are you looking for?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.solar_type" t-esc="dict(doc.fields_get(allfields=['solar_type'])['solar_type']['selection'])[doc.solar_type]"></span><br></br>
+								<span t-if="doc.type_box" t-esc="doc.type_box"></span>
+								</td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;">What size solar system are you looking for?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;" t-if="doc.solar_size">
+									<span t-if="doc.solar_size" t-esc="dict(doc.fields_get(allfields=['solar_size'])['solar_size']['selection'])[doc.solar_size]"></span>
+					                <br></br>
+					                <span t-if="doc.specify_box" t-esc="doc.specify_box"></span>
+					            </td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.remove_panels">Do you want to Remove existing Panels?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.remove_panels" t-esc="dict(doc.fields_get(allfields=['remove_panels'])['remove_panels']['selection'])[doc.remove_panels]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_type">What type of inverter are you looking for?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.inverter_type" t-esc="dict(doc.fields_get(allfields=['inverter_type'])['inverter_type']['selection'])[doc.inverter_type]"></span><br></br>
+								<span t-if="doc.brand_box" t-esc="doc.brand_box"></span>
+								</td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.cash_fin">Looking to buy cash or finance</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.cash_fin" t-esc="dict(doc.fields_get(allfields=['cash_fin'])['cash_fin']['selection'])[doc.cash_fin]"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;">Type of the property</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;" t-if="doc.property_type"><span t-esc="dict(doc.fields_get(allfields=['property_type'])['property_type']['selection'])[doc.property_type]"></span></td>
+							</tr>
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.comment_box">Anything else would you like to tell us?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.comment_box" t-esc="doc.comment_box"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.story_no">Number of story</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.story_no" t-esc="dict(doc.fields_get(allfields=['story_no'])['story_no']['selection'])[doc.story_no]"></span></td>
+							</tr>
+							<!-- ++++++++++++++++++++++++++++++++ -->
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.no_panels">How many existing panels You want to remove?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.no_panels" t-esc="doc.no_panels"></span></td>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.add_panels">Do you want to add more panels?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.add_panels" t-esc="dict(doc.fields_get(allfields=['add_panels'])['add_panels']['selection'])[doc.add_panels]"></span></td> 
+							</tr>
+
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.add_battery">Do you need to add battery storage?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.add_battery" t-esc="dict(doc.fields_get(allfields=['add_battery'])['add_battery']['selection'])[doc.add_battery]"></span></td>
+
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.existing_solar">Size of the existing solar system</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.existing_solar" t-esc="doc.existing_solar"></span></td> 
+							</tr>
+
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_brand">Inverter Brand</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.inverter_brand" t-esc="doc.inverter_brand"></span></td>
+
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_phase">Inverter phase</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.inverter_phase" t-esc="doc.inverter_phase"></span></td> 
+							</tr>
+
+							<tr>
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.inverter_capacity">Inverter capacity</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.inverter_capacity" t-esc="doc.inverter_capacity"></span></td>
+
+								<td style="width: 30%;padding: 15px 0 15px 0;font-weight:700;" t-if="doc.storage_size">Specify the battery storage size?</td>
+								<td style="width: 20%;padding: 15px 0 15px 0;text-align: center;"><span t-if="doc.storage_size" t-esc="doc.storage_size"></span></td> 
+							</tr>
+							<!-- ++++++++++++++++++++++++++++++++ -->
+							</tbody> 
+						</table>
+
+						<div class="row" style="margin-top:-20px;">
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.house">
+			                  <span>House</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.house}" class="house_images" style="height:150px;width:150px;"></img>   
+			                  </div>
+			                </div>
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.roof">
+			                  <span>Roof</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.roof}" class="house_images" style="height:150px;width:150px;"></img>   
+			                  </div>
+			                </div>
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.inverter_wall">
+			                  <span>Inverter Wall</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.inverter_wall}" class="house_images" style="height:150px;width:150px;"></img>   
+			                  </div>
+			                </div>
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.meter_box">
+			                  <span>MeterBox</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.meter_box}" class="house_images" style="height:150px;width:150px;"></img>   
+			                  </div>
+			                </div>
+
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.meter_box_2">
+			                  <span>MeterBox-2</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.meter_box_2}" class="house_images" style="height:150px;width:150px;"></img>   
+			                  </div>
+			                </div>
+			                
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.electricity_bill">
+			                  <span>Electricity bill</span>
+			                  <div class="house_img" t-if="doc.electricity_bill">
+			                        <t t-set="extension" t-value="doc.electricity_bill_name.rsplit('.', 1)[1]"/>
+			                        <div t-if="extension == 'pdf' or extension == 'docx'" class="o_portal_chatter_attachment mb-2 position-relative text-center">
+			                            <a t-attf-href="/web/content/solar.system/#{doc.id}/electricity_bill?download=true&amp;" target="_blank">
+			                                <img src="/airbid_master/static/src/image/pdf_logo.png" class="house_images" style="height:150px;width:150px;"></img>  
+			                            </a>
+			                        </div>
+			                        <div t-else="">
+			                          <img t-attf-src="data:image/png;base64,#{doc.electricity_bill}" class="house_images" style="height:150px;width:150px;"></img>
+			                        </div>
+			                  </div>
+			                </div>
+			                <div class="image_column" style="width:25%;float:left:padding: 0 15px;" t-if="doc.other_img">
+			                  <span>Roof Layout</span>
+			                  <div class="house_img">
+			                    <img t-attf-src="data:image/png;base64,#{doc.other_img}" class="house_images" style="height:150px;width:150px;"></img>
+			                  </div>
+			                </div>
+			             </div>
+		            </div>
+            	</t>
+		</template>
+
+
+	    <template id="notification_email_template">
+		    <t t-call="web.html_container">
+		        <t t-foreach="docs" t-as="doc">
+		            <t t-call="airbid_master.notification_data_solar_system" />
+		        </t>
+		    </t>
+		</template>
+
+
+	    <record id="action_report_solar_system" model="ir.actions.report">
+			<field name="name">Email Notification</field>
+			<field name="model">solar.system</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">airbid_master.notification_email_template</field>
+			<field name="report_file">airbid_master.notification_email_template</field>
+			<field name="binding_model_id" ref="solar_system.model_solar_system"/>
+			<field name="binding_type">report</field>
+		</record>
+	</data>
+</odoo>

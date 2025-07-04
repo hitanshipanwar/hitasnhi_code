@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_payment_register_form" model="ir.ui.view">
+        <field name="name">account.payment.register.form</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form" />
+        <field name="arch" type="xml">
+            <!-- <field name="payment_difference_handling" position="after">
+                <div attrs="{'invisible': [('payment_difference_handling', '!=', 'reconcile')]}">
+                    <label
+                        for="wt_tax_id"
+                        class="oe_edit_only"
+                        string="Withholding Tax"
+                    />
+                    <field
+                        name="wt_tax_id"
+                        placeholder="Withholding Tax"
+                        options="{'no_create': True, 'no_open': True}"
+                    />
+                    <label
+                        for="wt_amount_base"
+                        class="oe_edit_only"
+                        string="Withholding Base"
+                    />
+                    <field name="wt_amount_base" />
+                </div>
+            </field> -->
+            
+            <xpath expr="/form/group/group[@name='group3']" position="replace">
+                <group name="group3"
+                   attrs="{'invisible': ['|', ('payment_difference', '=', 0.0), '|', ('can_edit_wizard', '=', False), '&amp;', ('can_group_payments', '=', True), ('group_payment', '=', False)]}">
+                <label for="payment_difference"/>
+                <div>
+                    <field name="payment_difference"/>
+                    <field name="payment_difference_handling" widget="radio" nolabel="1"/>
+
+                    <div attrs="{'invisible': [('payment_difference_handling', '!=', 'reconcile')]}">
+                        <label
+                            for="wt_tax_id"
+                            class="oe_edit_only"
+                            string="Withholding Tax"
+                        />
+                        <field
+                            name="wt_tax_id"
+                            placeholder="Withholding Tax"
+                            options="{'no_create': True, 'no_open': True}"
+                        />
+                        <label
+                            for="wt_amount_base"
+                            class="oe_edit_only"
+                            string="Withholding Base"
+                        />
+                        <field name="wt_amount_base" />
+                    </div>
+
+                    <div attrs="{'invisible': ['|', ('hide_writeoff_section', '=', True), ('payment_difference_handling','in',['open','reconcile_multi_deduct'])]}">
+                        <label for="writeoff_account_id" string="Post Difference In" class="oe_edit_only"/>
+                        <field name="writeoff_account_id"
+                               string="Post Difference In"
+                               options="{'no_create': True}"
+                               attrs="{'required': [('payment_difference_handling', '=', 'reconcile'), ('early_payment_discount_mode', '=', False)]}"/>
+                        <label for="writeoff_label" class="oe_edit_only" string="Label"/>
+                        <field name="writeoff_label" attrs="{'required': [('payment_difference_handling', '=', 'reconcile')]}"/>
+                    </div>
+                </div>
+            </group>
+            </xpath>
+
+            <xpath expr="/form/group/group[@name='group3']" position="after">
+                <group
+                    colspan="4"
+                    attrs="{'invisible': [('payment_difference_handling', '!=', 'reconcile_multi_deduct')]}"
+                >
+                    <field name="deduct_residual" invisible="1" />
+                    <field
+                        name="deduction_ids"
+                        nolabel="1"
+                        colspan="2"
+                        context="{'default_amount': deduct_residual}"
+                    >
+                        <tree editable="bottom">
+                            <field name="currency_id" invisible="1" />
+                            <field name="_open" invisible="1"/>
+                            <field
+                                name="account_id"
+                                attrs="{'required': [('_open', '=', False)]}"
+                            />
+                            <field name="name" />
+                            <field name="wt_tax_id" invisible="1"/>
+                            <field name="amount" sum="Total Deduction" />
+                        </tree>
+                    </field>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

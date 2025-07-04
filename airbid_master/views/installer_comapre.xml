@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="compare_installer" name="Compare inverter">
+      <t t-call="website.layout">
+        <div class="oe_structure section_wrap oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section class="compare_supplier">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="compare_supplier_detail">
+                    <span>Compare and choose</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="u-align-center u-clearfix u-section-2" id="carousel_4427">
+              <div style="overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">
+               <div style="" class="sup_bid_header">
+                  <table>
+                    <tr><td style="width:32%; height:120px;"></td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer"></span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer no_of_panels">Bid Description </span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Bid Price</span>
+                    </td></tr>
+                    
+                  </table>
+                </div>
+                  <t t-set="count" t-value="0"/>
+                  <t t-foreach="data" t-as="bid">
+                    <t t-set="count" t-value="count + 1"/>
+                   <div id="supplier_bid_data" t-att-value="bid.id">
+                      <table>
+                        <tr>
+                          <td style="width:23%;border-left: 1px solid #D8DADD !important;border-top: 1px solid #D8DADD !important;border-right: 1px solid #D8DADD !important;background: #fff;text-align: center;" scope="col" abbr="Starter">
+                            <span class="compair_show_more show_less" style="display:none">show less <img src="/airbid_master/static/src/image/vector_less.png"/></span>
+                            <br/>
+                              <form class="oe_solar_form" method="POST" action="/bid/details">
+                               
+
+                                  <t  data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                    <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                      <button type="submit" class="choose_supplier_compair" >Choose Installer</button>
+                                    </i>
+                                  </t>
+                                  <!-- <button type="submit" class="choose_supplier_compair" t-if="bid.solar_project_id.is_finsh_time">Choose Supplier</button>
+
+                                  <t t-if="not bid.solar_project_id.is_finsh_time" data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                    <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                      <button type="submit" class="choose_supplier_compair" disabled="disabled">Choose Supplier</button>
+                                    </i>
+                                  </t> -->
+
+                                  <script>
+                                    $(document).ready(function(){
+                                      $('[data-toggle="tooltip"]').tooltip();   
+                                    });
+                                    </script>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                  <input type="hidden" name="project_img" id="project_id" t-att-value="bid.id"/>
+                                  <input type="hidden" name="record_id" t-att-value="bid.id"/>
+                                  <input type="hidden" name="is_installer" t-att-value="bid.id"/>
+                              </form>
+
+                              <!-- <h4 class="compair_name"> 
+                                <t t-esc='bid.customer_id.name'/>
+                              </h4> -->
+                              <span class="supplier_review_name">Installer<t t-esc='count'/></span><br/>
+                              Residential : <t t-esc='request.env.user.residential'/><br />
+                              Commercial  : <t t-esc='request.env.user.commercial'/><br />
+                              
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td class="compair_price_list">
+                            <t t-esc='bid.bid_description'/>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="compair_price_list">
+                            <t t-esc='bid.price'/>
+                          </td>
+                        </tr>
+                        
+                        
+
+                        <tr>
+                          <td class="compair_price_list">
+                            <form class="oe_solar_form" method="POST" action="/bid/details">
+                              
+                              <t data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                  <button type="submit" class="choose_supplier_compair">Choose Installer</button>  
+                                </i>
+                              </t>  
+
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                              <input type="hidden" name="project_img" id="project_id" t-att-value="bid.id"/>
+
+                              <input type="hidden" name="record_id" t-att-value="bid.id"/>
+                               <input type="hidden" name="is_installer" t-att-value="bid.id"/>
+                             <!--  <input type='hidden' name='is_installer' value='True'/> -->
+                              <!-- <button type="submit" class="choose_supplier_compair" t-if="bid.solar_project_id.is_finsh_time">
+                                Choose Supplier
+                              </button>
+                              <t t-if="not bid.solar_project_id.is_finsh_time" data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                  <button type="submit" class="choose_supplier_compair" disabled="disabled">Choose Supplier</button>  
+                                </i>
+                              </t>  
+
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                              <input type="hidden" name="project_img" id="project_id" t-att-value="bid.id"/>
+
+                              <input type="hidden" name="record_id" t-att-value="bid.id"/> -->
+                            </form>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="compair_price_list_remove">
+                            <button class="remove_from_compate_list" t-att-value="bid.id">Remove from compare list</button>
+                          </td>
+                        </tr>
+                    </table>
+                  </div>
+                </t>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>
+
+
+

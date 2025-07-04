@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="platform_tree_view" model="ir.ui.view">
+	        <field name="name">platform.crm.tree</field>
+	        <field name="model">platform.crm</field>
+	        <field name="arch" type="xml">
+	        	<tree>
+	        		<field name="name"/>
+	        	</tree>
+	        </field>
+	    </record>
+
+	    <record id="platform_form_view" model="ir.ui.view">
+	        <field name="name">platform.crm.form</field>
+	        <field name="model">platform.crm</field>
+	        <field name="arch" type="xml">
+	        	<form>
+	        		<sheet>
+	        			<group>
+	        				<group>
+		        				<field name="name"/>
+		        			</group>
+		        		</group>
+	        		</sheet>
+	        	</form>
+	        </field>
+	    </record>
+
+	    <record id="platform_action_view" model="ir.actions.act_window">
+	        <field name="name">Platform</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">platform.crm</field>
+	        <field name="view_mode">tree,form</field>
+	        <!-- <field name="view_id" ref="purchase_conformation_form"/> -->
+	        <!-- <field name="target">new</field> -->
+	    </record>
+
+	    <menuitem
+        id="platform_menu"
+        name="Platform"
+        parent="crm.crm_menu_config"
+        action="crm_design.platform_action_view"
+        sequence="5"/>
+	</data>
+</odoo>

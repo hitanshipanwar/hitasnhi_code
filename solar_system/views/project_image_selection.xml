@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id='image_selection_tree_view' model='ir.ui.view'>
+			<field name='name'>image.selection.tree.view</field>
+			<field name='model'>image.selection</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name="ques_id"/>
+					<field name="solar_type" attrs="{'invisible':[('ques_id','!=','five')]}"/>
+					<field name="inverter_type" attrs="{'invisible':[('ques_id','!=','six')]}"/>
+					<field name="property_type" attrs="{'invisible':[('ques_id','!=','seven')]}"/>
+					<field name="story_no" attrs="{'invisible':[('ques_id','!=','eight')]}"/>
+					<field name="roof_type" attrs="{'invisible':[('ques_id','!=','nine')]}"/>
+				</tree>	
+			</field>
+		</record>
+		<record id='image_selection_form_view' model='ir.ui.view'>
+		<field name='name'>image.selection.form.view</field>
+		<field name='model'>image.selection</field>
+		<field name='arch' type='xml'>
+			<form>
+				<group>
+					<field name="ques_id"/>
+					<field name="solar_type" attrs="{'invisible':[('ques_id','!=','five')]}"/>
+					<field name="inverter_type" attrs="{'invisible':[('ques_id','!=','six')]}"/>
+					<field name="property_type" attrs="{'invisible':[('ques_id','!=','seven')]}"/>
+					<field name="story_no" attrs="{'invisible':[('ques_id','!=','eight')]}"/>
+					<field name="roof_type" attrs="{'invisible':[('ques_id','!=','nine')]}"/>
+					<field name="choose_img_id"  widget="many2many_binary"/>
+				</group>
+			</form>
+		</field>	
+		</record>
+		
+		<record id='image_selection_action_view' model='ir.actions.act_window'>
+			<field name='name'>Image Selection</field>
+			<field name='type'>ir.actions.act_window</field>
+			<field name='res_model'>image.selection</field>
+			<field name='view_mode'>tree,form</field>
+		</record>
+
+		<menuitem id='image_selection_menu' name='Project Images' parent='solar_system.solar_system_view' />
+		<menuitem id='image_selection_sub_menu' name='Required Image' parent='image_selection_menu' action='image_selection_action_view'/>
+	</data>
+</odoo>

@@ -1,0 +1,6 @@
+/*Product Column in SaleOrderLine*/
+th[data-name="wt_tax_id"]
+{
+    max-width: 260px !important;
+    width: 350px !important;
+}

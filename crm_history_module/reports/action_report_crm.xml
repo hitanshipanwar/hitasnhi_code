@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="crm_report_fromate_activity">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page" style='margin-top: 30px;'>
+                    <center>
+
+                    <!-- <div class="text-center"> -->
+                        <h4>Filter Date: <t t-esc='start'/> to <t t-esc='end'/></h4>
+
+                    <!-- </div> -->
+                    
+                        <t t-if='data'>
+                            <style>
+                                table, th, td {
+                                  border: 1px solid black;
+                                  border-collapse: collapse;
+                                  text-align: center;
+                                }
+                            </style>
+                            <table  class="table" style="width:90%;" >
+                                <thead>
+                                   <tr>
+                                        <th t-foreach='data[0]' t-as='head' style='border:1px solid black;'><t t-esc='head'/></th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-set='index' t-value='1'/>
+                                   <t t-set='length' t-value='len(data[1 : None])'/>
+                                   <t t-set='length_td' t-value='len(data[1 : None][0])'/>
+                                    <tr t-foreach='data[1 : None]' t-as='tr' >
+                                        <t t-if='index == length'>
+                                            <th t-foreach='tr' t-as='th' >
+                                                <p t-esc='th'/>
+                                            </th>
+                                        </t>
+                                        <t t-else=''>
+                                            <t t-set='index_td' t-value='1'/>
+                                            <t t-foreach='tr' t-as='td' >
+                                                <t t-if='index_td == length_td'>
+                                                    <th>
+                                                        <p t-esc='td'/>
+                                                    </th>
+                                                </t>
+                                                <t t-else=''>
+                                                    <td>
+                                                        <p t-esc='td'/>
+                                                    </td>
+                                                </t>
+                                                <t t-set='index_td' t-value='index_td+1'/>
+                                            </t>
+                                        </t>
+                                        <t t-set='index' t-value='index+1'/>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+                        <t t-else=''>
+                            <p>Data is not available</p>
+                        </t>
+                    </center>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="crm_activity_details_report" model="ir.actions.report">
+        <field name="name">CRM Activities</field>
+        <field name="model">crm.activity.report</field>
+        <field name="report_type">qweb-html</field>
+        <field name="report_name">crm_history_module.crm_report_fromate_activity</field>
+    </record>
+
+</odoo>

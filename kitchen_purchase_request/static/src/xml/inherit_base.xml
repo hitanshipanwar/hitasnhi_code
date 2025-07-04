@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+<t t-inherit="web.Many2ManyBinaryField.attachment_preview" t-inherit-mode="extension" owl="1">
+    <xpath expr="//div[hasclass('o_attachment_delete')]" position="replace">
+    </xpath>
+</t>
+</templates>

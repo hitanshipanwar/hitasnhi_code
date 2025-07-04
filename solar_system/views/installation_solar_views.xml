@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- <record id="solar_system_supplier_group_view" model="ir.ui.view">
+			<field name="name">solar.system.supplier.group.view</field>
+			<field name="model">installation.solar.system</field>
+			<field name="arch" type="xml">
+			<search string="Search Move">
+				<field name="project_state"/>
+				<group expand="0" string="Group By">
+					<filter string="Project" name="group_by_solar_project_id" domain="[]" context="{'group_by': 'solar_project_id'}"/>
+					<separator/>
+				</group>
+			</search>
+			</field>
+	  </record> -->
+		<record id='installation_solar_system_supplier_tree_view' model='ir.ui.view'>
+			<field name='name'>installation.solar.system.supplier.tree.view</field>
+			<field name='model'>installation.solar.system</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name="sequence_pro_no" readonly="1"/>
+					<field name="supplier_customer_id"/>
+					<field name="customer_project_name"/>
+					<field name="remove_existing_solar" readonly="1"/>
+					<field name="installer_project_state" readonly="1"/>
+					<field name="project_state" readonly="1"/>
+					<!-- JAYDEEP -->
+					<field name='project_create_date'/>
+					<field name='hour' invisible="1"/>
+					<field name='con_hour' invisible="1"/>
+					<field name='project_end_date' invisible="1"/>
+					<field name='track_start_remaining' invisible="1"/>
+					<field name='track_start_relative' invisible="1"/>
+					<field name='website_cta_start_remaining' invisible="1"/>
+					<field name='project_datetime' force_save="1" invisible="1"/>
+
+					<button name="installer_validate_to_open_state" class="btn-primary" string="Validate" type="object" attrs="{'invisible':[('installer_project_state','!=','draft')]}"></button>
+				</tree>	
+			</field>
+		</record>
+
+		<record id='installation_solar_system_supplier_form_view' model='ir.ui.view'>
+			<field name='name'>installation.solar.system.supplier.form.view</field>
+			<field name='model'>installation.solar.system</field>
+			<field name='arch' type='xml'>
+				<form>
+					<header>
+						<field name="installer_project_state" widget="statusbar" statusbar_visible="saveasdraft,draft,open,inprogress,close"/>
+					</header>
+					<sheet>
+						<group>
+							<group>
+								<field name="sequence_pro_no" readonly="1"/>
+								<field name="supplier_customer_id"/>
+							</group>
+						</group>
+
+						<notebook>
+							<page string="installer Customer">
+								<label for='remove_existing_solar' string='Do you want to remove existing solar panels ?'/>
+								<div>
+									<field name="remove_existing_solar" widget='radio' options="{'horizontal': true}" style="width: 80%"/>
+								</div>
+
+								<!-- <label for='panels_remove' string='How many panels you want to remove?'/>
+								<div>
+									<field name="panels_remove" style="width: 80%"/>
+								</div> -->
+								<group>
+									<group>
+										<field name="panels_remove" attrs="{'invisible':[('remove_existing_solar', '=', 'no')]}"/>
+									</group>
+								</group>
+
+								<label for='size_of_solar_system' string='Size of solar system'/>
+								<div>
+									<field name="size_of_solar_system" widget='radio' options="{'horizontal': true}" style="width: 80%"/>
+								</div>
+
+								<label for='remove_inverter_solar' string='Do you want to remove inverter ?'/>
+								<div>
+									<field name="remove_inverter_solar" widget='radio' options="{'horizontal': true}" style="width: 80%"/>
+								</div>
+
+								<label for='pv_system_solar' string='Do you want to upgrade PV system ?'/>
+								<div>
+									<field name="pv_system_solar" widget='radio' options="{'horizontal': true}" style="width: 80%"/>
+								</div>
+								<group>
+									<group>
+										<field name="house_pic" widget="image" options="{'size': [100, 100]}" />
+										<field name="roof_title_pic" widget="image" options="{'size': [100, 100]}" />
+									</group>
+									<group>
+										<field name="roof_layout" widget="image" options="{'size': [100, 100]}" />
+									</group>
+								</group>
+
+								<label for='new_pv_system_installation' string='NEW PV System Installation' attrs="{'invisible':[('pv_system_solar', '=', 'no')]}"/>
+								<div>
+									<field name="new_pv_system_installation" widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('pv_system_solar', '=', 'no')]}" style="width: 80%" />
+								</div>
+
+								<group>
+									<group>
+										<field name="panels_need" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+										<field name="panels_power_class" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+									</group>
+									<group>
+										<field name="inverter_size" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+										<field name="single_three_ph" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+									</group>
+								</group>
+
+								<label for='export_device' string='Export Device' attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								<div>
+									<field name="export_device" widget='radio' options="{'horizontal': true}" style="width: 80%" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								</div>
+
+								<label for='panels_tilts' string='Panels Tilts' attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								<div>
+									<field name="panels_tilts" widget='radio' options="{'horizontal': true}" style="width: 80%" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								</div>
+
+								<group>
+									<group>
+										<field name="how_many_tilts" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+									</group>
+									<group>
+
+									</group>
+								</group>
+
+								<label for='clip_locks' string='Clip Locks' attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								<div>
+									<field name="clip_locks" widget='radio' options="{'horizontal': true}" style="width: 80%" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+								</div>
+
+								<group>
+									<group>
+										<field name="how_many_clip_locks" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+									</group>
+									<group>
+										<field name="storey" attrs="{'invisible':['|',('new_pv_system_installation', '=', 'no'),('pv_system_solar', '=', 'no')]}"/>
+									</group>
+								</group>
+
+								<label for='battery_backup' string='Battery Backup'/>
+								<div>
+									<field name="battery_backup" widget='radio' options="{'horizontal': true}" style="width: 80%"/>
+								</div>
+
+								<group>
+									<group>
+										<field name="battery_backup_second" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="battery_size" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+									</group>
+									<group>
+										<field name="battery_brand" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="battery_model_no" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+									</group>
+								</group>
+
+							</page>
+							<!-- <page string="Document Upload">
+								<group>
+									<group>
+										<field name="tin_doc" widget="image" options="{'size': [100, 100]}" />
+										<field name="tile_doc" widget="image" options="{'size': [100, 100]}" />
+									</group>
+									<group>
+										<field name="flat_doc" widget="image" options="{'size': [100, 100]}" />
+										<field name="terracotta_doc" widget="image" options="{'size': [100, 100]}" />
+									</group>
+								</group>
+							</page> -->
+
+							<page string="Battery Document Upload">
+								<group>
+									<group>
+										<field name="house" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}" />
+										<field name="roof" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="meter_box" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="battery_need_install" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+									</group>
+									<group>
+										<field name="meter_box_2" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="roof_tile_pic" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+										<field name="inverter_wall" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('battery_backup', '=', 'no')]}"/>
+									</group>
+								</group>
+							</page>
+
+							<page string="Customer Address">
+								<br></br>
+									<h2> Address</h2>
+									<!-- <field name="multiple_address"/> -->
+								<group>
+								<group>
+									<label for="customer_project_name" string="Project Name:"/>
+									<div>
+										<field name='customer_project_name' placeholder="project Name"/>
+									</div>
+									<label for="phone" string="Mobile No:" />
+									<div>
+										<field name="default_no" widget="checkbox" style='width:7%; height:30px;'/>
+										<field name='phone' placeholder="Mobile No" style='width:90%; height:30px;'/>
+
+										<!-- <field name='let'/>
+										<field name='leng'/> -->
+									</div>
+
+									<label for="email_id" string="Email Id:" />
+									<div>
+										<field name='email_id' widget="email" placeholder="Eg. abc@123gmail.com" />
+									</div>
+								</group>
+			                 <group>
+									<label for="street" string="Address"/>
+			                     <div class="o_address_format" >
+			                      <field name="street" placeholder="Street" class="o_address_street"/>
+			                      <field name="house_number_or_name" placeholder="House number or name" class="o_address_street"/>
+			                      <field name="city" placeholder="City" class="o_address_city"/>
+			                      <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"
+			                          attrs="{'required': [('country_code', 'in', ['AU', 'CA', 'IT', 'US'])]}"/>
+			                      <field name="state_code" invisible="1"/>
+			                      <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+			                      <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}" />
+			                      <field name="country_code" invisible="1"/>
+			                     </div>
+				               	</group>
+				                </group>	
+							</page>
+
+							<page string="Bids">
+								<field name="installer_bids_ids"/>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="o_attachment_preview"/>
+					  <!-- Chatter -->
+				  	<div class="oe_chatter">
+						<field name="message_follower_ids"/>
+						<field name="activity_ids"/>
+						<field name="message_ids"/>
+				  	</div>
+				</form>
+			</field>	
+		</record>
+		
+		<record id='installation_solar_systemsupplier_action_view' model='ir.actions.act_window'>
+			<field name='name'>Installation Supplier</field>
+			<field name='type'>ir.actions.act_window</field>
+			<field name='res_model'>installation.solar.system</field>
+			<field name='view_mode'>tree,form</field>
+			<field name="view_id" ref="installation_solar_system_supplier_tree_view"/>
+		</record>
+
+		<menuitem id='installation_solar_system_supplier_menu' name='Installation' parent='solar_system_view'/>
+		<menuitem id='installation_supplier_menu' name='Installation Supplier' parent='installation_solar_system_supplier_menu' action='installation_solar_systemsupplier_action_view' sequence = '2'/>
+	</data>
+</odoo>

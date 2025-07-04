@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_payment_term_30_percent" model="account.payment.term">
+            <field name="name">30%</field>
+            <field name="note">Payment terms: 30% Advance</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 30.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_creadit_all" model="account.payment.term">
+            <field name="name">Credit All</field>
+            <field name="note">Payment terms: Credit All</field>
+            <field name="line_ids" eval="[Command.clear(), Command.create({'value': 'balance', 'value_amount': 0.0})]"/>
+        </record>
+
+        <record id="account_payment_term_70_percent" model="account.payment.term">
+            <field name="name">70%</field>
+            <field name="note">Payment terms: 70% Advance</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 70.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_100_confirmation" model="account.payment.term">
+            <field name="name">100% Confirmation</field>
+            <field name="note">Payment terms: 100% Confirmation</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 100.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_30_deposit_70_delivery" model="account.payment.term">
+            <field name="name">30% Deposit / 70% Before Delivery</field>
+            <field name="note">Payment terms: 30% Deposit / 70% Before Delivery</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 30.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 70.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_30_deposit_60_delivery_10_installation" model="account.payment.term">
+            <field name="name">30% Deposit / 60% Before Delivery / 10% After Installation</field>
+            <field name="note">Payment terms: 30% Deposit / 60% Before Delivery / 10% After Installation</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 30.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 60.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 10.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_50_deposit_50_delivery" model="account.payment.term">
+            <field name="name">50% Deposit / 50% Before Delivery</field>
+            <field name="note">Payment terms: 50% Deposit / 50% Before Delivery</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 50.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 50.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_50_deposit_40_delivery_10_installation" model="account.payment.term">
+            <field name="name">50% Deposit / 40% Before Delivery / 10% After Installation</field>
+            <field name="note">Payment terms: 50% Deposit / 40% Before Delivery / 10% After Installation</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'percent', 'value_amount': 50.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 40.0, 'days': 0}),
+                Command.create({'value': 'percent', 'value_amount': 10.0, 'days': 0}),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 31})]"/>
+        </record>
+
+        <record id="account_payment_term_7_days_credit" model="account.payment.term">
+            <field name="name">7days Credit</field>
+            <field name="note">Payment terms: 7days Credit</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 7})]"/>
+        </record>
+
+        <record id="account_payment_term_14_days_credit" model="account.payment.term">
+            <field name="name">14days Credit</field>
+            <field name="note">Payment terms: 14days Credit</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 14})]"/>
+        </record>
+
+        <record id="account_payment_term_30_days_credit" model="account.payment.term">
+            <field name="name">30days Credit</field>
+            <field name="note">Payment terms: 30days Credit</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 30})]"/>
+        </record>
+
+        <record id="account_payment_term_45_days_credit" model="account.payment.term">
+            <field name="name">45days Credit</field>
+            <field name="note">Payment terms: 45days Credit</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 45})]"/>
+        </record>
+
+        <record id="account_payment_term_60_days_credit" model="account.payment.term">
+            <field name="name">60days Credit</field>
+            <field name="note">Payment terms: 60days Credit</field>
+            <field name="line_ids" eval="[
+                Command.clear(),
+                Command.create({'value': 'balance', 'value_amount': 0.0, 'days': 60})]"/>
+        </record>
+
+    </data>
+</odoo>

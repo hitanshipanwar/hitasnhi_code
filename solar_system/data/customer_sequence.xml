@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+	    <record id="solar_system_project_seq" model="ir.sequence">
+            <field name="name">Sequence Order</field>
+            <field name="code">solar.system</field>
+            <field name="prefix">PRJ/%(year)s/%(month)s/00</field>
+            <field name="padding">001</field>
+        </record>
+
+        <record id="installation_solar_system_project_seq" model="ir.sequence">
+            <field name="name">Installation Order</field>
+            <field name="code">installation.solar.system</field>
+            <field name="prefix">INS/%(year)s/%(month)s/00</field>
+            <field name="padding">001</field>
+        </record>
+
+        <record id="installation_bid_project_seq" model="ir.sequence">
+            <field name="name">Installation Bid</field>
+            <field name="code">installer.bid</field>
+            <field name="prefix">BID/%(year)s/%(month)s/00</field>
+            <field name="padding">001</field>
+        </record>
+	</data>
+</odoo>

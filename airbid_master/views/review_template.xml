@@ -1,0 +1,725 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="review_page" name="Dashboard Project">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section id="review_page_main">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12" style="padding: 0;">
+                  <div class="col-sm-4" style="padding: 0;">
+                    <div class="review_project_heading_name">
+                      <h3><t t-esc="data.customer_project_name"/></h3>
+                    </div>
+                  </div>
+                    <div class="col-sm-8" style="padding: 0;">
+                      <div class="review_main_div_button">
+                        <div class="review_project_all_btn" t-if="data.customer_project_state == 'saveasdraft'">
+                          <a t-attf-href="#{'/address/data?record_id=%s'%(data.id)}" class="edit_btn">Edit</a>
+                        </div>
+                        <t t-if="data.customer_project_state == 'draft' or data.customer_project_state == 'open'">
+                          <div class="review_project_request_btn" >
+                            <!-- <a t-attf-href="#{'/request/edit?record_id=%s'%(data.id)}" class="request_btn">Request Edit</a> -->
+                            <a class="request_btn" style="cursor:pointer">Request Edit</a>
+                          </div>
+                        </t>
+
+                        <!-- +++++ REQUEST EDIT BUTTON ++++++++++ -->
+                        <div id="req_myModal" class="modal">
+
+                        <!-- Modal content -->
+                            <div class="modal-content text-center questation_popup">
+                                <span>
+                                </span>
+                                <h2><strong>Request project</strong></h2>
+                                <div class="container">
+                                  <div class="row">
+                                    <form class="oe_solar_form" method="post" enctype="multipart/form-data" action="/request/project" >
+                                    <div class="column col-sm-10">
+                                      <div class="column col-sm-3">
+
+                                        <input type="text" name="record_id" t-att-value="data.id" hidden="hidden"/>
+
+                                        <label for="name" id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Name of Project<span style="color: red; padding-left: 6px;">*</span></label>
+                                        <input type="text" id="project_name" name="req_project_name" class="form-control form-control-md project_detail_supplier" readonly="readonly" t-att-value="data.customer_project_name">
+                                        </input>
+                                      </div>
+
+                                      <div class="column col-sm-3">
+                                        <label for="name" id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Name<span style="color: red; padding-left: 6px;">*</span></label>
+                                        <input type="text" id="customer_project_name" name="req_customer_name" class="form-control form-control-md project_detail_supplier" readonly="readonly" t-att-value="request.env.user.name"/>
+                                      </div>
+                                    </div>
+                                    <div class="column col-sm-10">
+                                      <div class="column col-sm-3">
+                                        <label for="login" id="f_name" style="width: 100% !important;text-align: left !important;">Email Address</label>
+                                        <input type="text" name="login_name" id="login_sign_email" class="form-control form-control-md" placeholder="Enter your email here" readonly="readonly" t-att-value="request.env.user.email"></input>
+                                      </div>
+
+                                      <div class="column col-sm-3">
+                                        <label id="user_detail_labels_no" for="phone" style="width: 100% !important;text-align: left !important;">Phone No.</label>
+                                        <input type="text" name="phone_cust_no" id="phone_no_sign_customer" class="form-control form-control-md number_input_only" t-att-value="request.env.user.phone" readonly="readonly"></input>
+                                      </div>
+                                    </div>
+
+                                    <div class="column col-sm-10">
+                                      <div class="column col-sm-6">
+                                        <label id="user_detail_labels" style="width: 100% !important;text-align: left !important;">Comment</label>
+                                        <textarea id="about_the_project_comment" name="about_the_project_comment" class="form-control form-control-md" rows="4" cols="50"></textarea>
+                                      </div>
+                                    </div>
+
+                                    <div class="column col-sm-10" data-type="binary" data-name="Field">
+                                      <div class="column col-sm-6" style="width: 100% !important;text-align: left !important;">
+                                        <label id="user_detail_labels">Attchment</label>
+                                        <input type="file" accept=".jpg,.png,.jpeg" name="attchment_photo_multi" id="attchment_photo_multi" multiple="multiple" onchange="javascript:multiple_files()" />
+                                        <div id="fileList"></div>
+                                      </div>
+                                    </div>
+
+                                    <div class="column col-sm-10">
+                                      <div class="column col-sm-6">
+                                        <div class="close_view" style="margin: 30px 0 0 0;">
+                                          <button type="submit" id="request_return_btn" class="request_req_model btn">Submit</button>
+                                          <!-- <a role="button" id="request_return_btn" class="request_req_model btn">Request</a> -->
+                                          <a role="button" id="close_return_btn" class="close_req_model btn">Cancle</a>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </form>
+                                    <!-- </div> -->
+                                  </div>
+                                </div>
+                              <!-- </form> -->
+                            </div>
+
+                        </div>
+                        <!-- +++++ REQUEST EDIT BUTTON ++++++++++ -->
+                        <div class="review_project_delete_btn" t-if="data.customer_project_state == 'saveasdraft'">
+                          <button type="button" class="myBtn delete_btn">Delete</button>
+                        </div>
+                        <!-- Trigger/Open The Modal -->
+
+                        <!-- The Modal -->
+                        <div id="myModal" class="modal">
+
+                        <!-- Modal content -->
+                            <div class="modal-content text-center questation_popup">
+                              <form class="oe_solar_form" method="post" action="/delete/project">
+                                <span>
+                                  <img src="/airbid_master/static/src/image/Union.png" class="sad_img"/>
+                                </span>
+                                <h2><strong>Delete project</strong></h2>
+
+                                <p>Once you delete this project it can’t be undone &amp; you lost all the details you have added to this project. Are you sure to delete this project?</p>
+                                <div class="delete_view">
+                                  <a role="button" id="return_btn" class="close btn">Cancle</a>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                  <input type="hidden" name="record_id" t-att-value="data.id"/>
+
+                                  <input type="submit" class="btn" id="discard_btn" value="Delete"></input>
+                                </div>
+                              </form>
+                            </div>
+
+                        </div>
+
+                        <div class="review_project_publish_project_btn" t-if="data.customer_project_state == 'saveasdraft'">
+                          <form class="oe_solar_form" method="post" action="/submit/data">
+                            <!-- <a href="/submit/data" class="publish_project_btn">Publish Project</a> -->
+
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <input type="hidden" name="record_id" t-att-value="data.id"/>
+
+                            <input type="submit" class="btn publish_project_btn" value="Publish Project"></input>
+
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="review_page_all_detail">
+            <div class="secion_review">
+              <div class="container secion_review">
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-3">
+                        <div class="project_name_review">
+                          <h5>Address</h5>
+                          <span><t t-esc="data.street"/>  <t t-esc="data.house_number_or_name"/>,<br></br><t t-esc="data.city"/>  <t t-esc="data.state_id.name"/>,  <t t-esc="data.zip"/></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="project_size_solar_review">
+                          <h5>Size of solar system</h5>
+                          <span t-if="data.solar_size" t-esc="dict(data.fields_get(allfields=['solar_size'])['solar_size']['selection'])[data.solar_size]"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="project_status_review">
+                          <h5>Status</h5>
+                          <span><t t-esc="dict(data.fields_get(allfields=['customer_project_state'])['customer_project_state']['selection'])[data.customer_project_state]"/></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="project_bid_count_review">
+                          <t t-set="total" t-value="0"/>
+                          <t t-foreach="data.supplier_bids_ids" t-as="count"> 
+                            <t t-set="total" t-value="total+1"/>
+                          </t>
+                          <span><t t-esc="total"/></span>
+                          <h5>Bid Count</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <div class="col-sm-12">
+                        <t t-if="data.customer_project_state != 'saveasdraft' ">
+                          <div class="project_remaining_days">
+                            <!-- <t t-if="data.project_create_date" t-set="remaining_date" t-value="(data.project_create_date +relativedelta(days =+ 3)) - datetime.date.today()"/> -->
+                                <span>
+                                  <t t-if="data.hour" t-set="remaining_date" t-value="(data.hour - data.con_hour) // 24"/>
+
+                                  <t t-if="data.customer_project_state != 'saveasdraft' and data.customer_project_state != 'draft' and data.customer_project_state != 'close' ">
+                                    <t t-if="remaining_date">
+                                      <h5>Remaining Days :
+                                          <t t-if="data.hour &gt; data.con_hour">0</t>
+                                          <t t-else="">
+                                            <t t-esc="abs(remaining_date)"/>
+                                          </t>
+                                      </h5>
+                                    </t>
+                                  </t>
+                                </span>
+                          </div>
+                        </t>
+                      </div>
+                  <div class="col-sm-12">
+                    <div class="other_details_review">
+                      <span>Other details</span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                  <div class="project_all_view">
+                    <div class="col-sm-4" t-if="data.property_option_new">
+                      <div class="project_name_ques_review">
+                        <h5>Do you own or rent your property?</h5>
+                        <span t-esc="dict(data.fields_get(allfields=['property_option_new'])['property_option_new']['selection'])[data.property_option_new]"></span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4" t-if="data.upgrade_system">
+                      <div class="project_name_ques_review">
+                        <h5>Do you want to upgrade existing system?</h5>
+                        <span t-esc="dict(data.fields_get(allfields=['upgrade_system'])['upgrade_system']['selection'])[data.upgrade_system]"></span>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4" t-if="data.roof_type">
+                      <div class="project_name_ques_review">
+                        <h5>Type of roof</h5>
+                        <span t-esc="dict(data.fields_get(allfields=['roof_type'])['roof_type']['selection'])[data.roof_type]"></span>
+                        <div t-if="data.roof_text_box">
+                          <h5>Specify Roof Type</h5>
+                          <span t-esc="data.roof_text_box"></span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-4" t-if="data.shading_issue">
+                        <div class="project_name_ques_review">
+                          <h5>Do you have any shading issues?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['shading_issue'])['shading_issue']['selection'])[data.shading_issue]"></span>
+                          
+                        </div>
+                      </div>
+                      
+                      <div class="col-sm-4" t-if="data.property_select">
+                        <div class="project_name_ques_review">
+                          <h5>About your proposed installation property</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['property_select'])['property_select']['selection'])[data.property_select]"></span>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4" t-if="data.pay_quarterly">
+                        <div class="project_name_ques_review">
+                          <h5>How much you pay quarterly for electricity?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['pay_quarterly'])['pay_quarterly']['selection'])[data.pay_quarterly]"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-4" t-if="data.solar_system">
+                        <div class="project_name_ques_review">
+                          <h5>Do you already have a solar system?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['solar_system'])['solar_system']['selection'])[data.solar_system]"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.solar_type">
+                        <div class="project_name_ques_review">
+                          <h5>What type of solar panels are you looking for?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['solar_type'])['solar_type']['selection'])[data.solar_type]"></span>
+
+                          <t t-foreach="img_data" t-as="img">
+                            <t t-if="img.ques_id == 'five' ">
+                              <div class="solar_panels_img">
+                                <t t-if="data.solar_type == img.solar_type">
+                                  <t t-foreach="img.choose_img_id" t-as="rec">
+                                    <div class="standard_quality_img type_solar_panels">
+                                      <img t-attf-src="data:image/png;base64,#{rec.datas}"/>
+                                    </div>
+                                  </t>
+                                </t>
+                              </div>
+                            </t>
+                          </t>
+
+                          <span t-if="data.type_box" t-esc="data.type_box"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.solar_size">
+                        <div class="project_name_ques_review">
+                          <h5>What size solar system are you looking for?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['solar_size'])['solar_size']['selection'])[data.solar_size]"></span>
+
+                          <span t-if="data.specify_box" t-esc="data.specify_box"></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- ++3 +++ -->
+                <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-4" t-if="data.remove_panels">
+                        <div class="project_name_ques_review">
+                          <h5>Do you want to Remove existing Panels?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['remove_panels'])['remove_panels']['selection'])[data.remove_panels]"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.inverter_type">
+                        <div class="project_name_ques_review">
+                          <h5>What type of inverter are you looking for?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['inverter_type'])['inverter_type']['selection'])[data.inverter_type]"></span>
+
+                          <t t-foreach="img_data" t-as="img">
+                            <t t-if="img.ques_id == 'six' ">
+                              <div class="solar_panels_img_top_inverter">
+                                <t t-if="data.inverter_type == img.inverter_type">
+                                  <t t-foreach="img.choose_img_id" t-as="rec">
+                                    <div class="standard_quality_img type_solar_panels">
+                                      <img t-attf-src="data:image/png;base64,#{rec.datas}"/>
+                                    </div>
+                                  </t>
+                                </t>
+                              </div>
+                            </t>
+                          </t>
+
+                          <span t-if="data.brand_box" t-esc="data.brand_box"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.cash_fin">
+                        <div class="project_name_ques_review">
+                          <h5>Looking to buy cash or finance</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['cash_fin'])['cash_fin']['selection'])[data.cash_fin]"></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- +++4+++ -->
+                <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-4" t-if="data.no_panels">
+                        <div class="project_name_ques_review">
+                          <h5>How many existing panels You want to remove?</h5>
+                          <span t-esc="data.no_panels"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.property_type">
+                        <div class="project_name_ques_review">
+                          <h5>Type of the property</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['property_type'])['property_type']['selection'])[data.property_type]"></span>
+                        </div>
+                      </div>
+                      <div class="col-sm-4" t-if="data.comment_box">
+                        <div class="project_name_ques_review">
+                          <h5>Anything else would you like to tell us?</h5>
+                          <span t-esc="data.comment_box"></span>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                <!-- +++ 5 +++ -->
+                <div class="col-sm-12">
+                    <div class="project_all_view">
+                      <div class="col-sm-4" t-if="data.add_panels">
+                        <div class="project_name_ques_review">
+                          <h5>Do you want to add more panels?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['add_panels'])['add_panels']['selection'])[data.add_panels]"></span>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4" t-if="data.story_no">
+                        <div class="project_name_ques_review">
+                          <h5>Number of story</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['story_no'])['story_no']['selection'])[data.story_no]"></span>
+                        </div>
+                      </div>
+
+                      <div class="col-sm-4" t-if="data.add_battery">
+                        <div class="project_name_ques_review">
+                          <h5>Do you need to add battery storage?</h5>
+                          <span t-esc="dict(data.fields_get(allfields=['add_battery'])['add_battery']['selection'])[data.add_battery]"></span>
+                        </div>
+                      </div>
+                  </div> 
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="project_all_view">
+                  <div class="col-sm-4" t-if="data.add_battery">
+                    <div class="project_name_ques_review">
+                      <h5 t-if="data.existing_solar">Size of the existing solar system</h5>
+                      <span t-if="data.existing_solar" t-esc="data.existing_solar"></span>
+                    </div>
+                  </div>
+                      
+                  <div class="col-sm-4" t-if="data.add_battery">
+                    <div class="project_name_ques_review">
+                      <h5 t-if="data.inverter_brand">Inverter Brand</h5>
+                      <span t-if="data.inverter_brand" t-esc="data.inverter_brand"></span>
+                    </div>
+                  </div>
+                      
+                  <div class="col-sm-4" t-if="data.add_battery">
+                    <div class="project_name_ques_review">
+                      <h5 t-if="data.inverter_phase">Inverter phase</h5>
+                      <span t-if="data.inverter_phase" t-esc="data.inverter_phase"></span>
+                    </div>
+                  </div>
+                </div>
+                </div>
+
+                  <div class="col-sm-12">
+                      <div class="project_all_view">
+                        <div class="col-sm-4" t-if="data.add_battery">
+                          <div class="project_name_ques_review">
+                            <h5 t-if="data.inverter_capacity">Inverter capacity</h5>
+                            <span t-if="data.inverter_capacity" t-esc="data.inverter_capacity"></span>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-4" t-if="data.add_battery">
+                          <div class="project_name_ques_review">
+                            <h5 t-if="data.storage_size">Specify the battery storage size?</h5>
+                            <span t-if="data.storage_size" t-esc="data.storage_size"></span>
+                          </div>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+
+              <div class="row">
+                <div class="col-sm-12" style="padding: 0;">
+                  <div class="review_project_heading_border_customer">
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-sm-12" style="padding: 0;">
+                  <div class="review_project_heading">
+                    <h3>Project Images</h3>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="image_column" t-if="data.house">
+                  <span>House</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.house}" class="house_images" alt="House"></img>   
+                  </div>
+                </div>
+                <div class="image_column" t-if="data.roof">
+                  <span>Roof</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.roof}" class="house_images" alt='Roof'></img>   
+                  </div>
+                </div>
+                <div class="image_column" t-if="data.inverter_wall">
+                  <span>Inverter Wall</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.inverter_wall}" class="house_images" alt='Inverter Wall'></img>   
+                  </div>
+                </div>
+                <div class="image_column" t-if="data.meter_box">
+                  <span>MeterBox</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.meter_box}" class="house_images" alt='MeterBox'></img>   
+                  </div>
+                </div>
+
+                <div class="image_column" t-if="data.meter_box_2">
+                  <span>MeterBox-2</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.meter_box_2}" class="house_images" alt='MeterBox-2'></img>   
+                  </div>
+                </div>
+                
+                <div class="image_column" t-if="data.electricity_bill">
+                  <span>Electricity bill</span>
+                  <div class="house_img" t-if="data.electricity_bill">
+                        <t t-set="extension" t-value="data.electricity_bill_name.rsplit('.', 1)[1]"/>
+                        <div t-if="extension == 'pdf' or extension == 'docx'" class="o_portal_chatter_attachment mb-2 position-relative text-center">
+                            <a t-attf-href="/web/content/solar.system/#{data.id}/electricity_bill?download=true&amp;" target="_blank">
+                                <img src="/airbid_master/static/src/image/pdf_logo.png" class="house_images" alt='Electricity bill'></img>  
+                            </a>
+                        </div>
+                        <div t-else="">
+                          <img t-attf-src="data:image/png;base64,#{data.electricity_bill}" class="house_images" alt='Electricity bill'></img>
+                        </div>
+                  </div>
+                </div>
+                <div class="image_column" t-if="data.other_img">
+                  <span>Roof Layout</span>
+                  <div class="house_img">
+                    <img t-attf-src="data:image/png;base64,#{data.other_img}" class="house_images" alt='Roof Layout'></img>
+                  </div>
+                </div>
+              </div>
+              <div id="ImgModal" class="modal" tabindex="-1" role="dialog">
+                  <div class="" role="document">
+                    <div class="modal-content" style='margin-top: -50px;'>
+                      <div class="modal-header" style='padding:0px'>
+                        <h3 class="modal-title" style='margin-left: 20px;'></h3>
+                        <button type="button" class="close" style='background-image: url(https://img.icons8.com/ios/120/close-window--v1.png);background-repeat: no-repeat;background-size: contain;position: absolute;cursor: pointer;width: 45px;height: 40px;position: inherit;margin-right: 4px;margin-top: -6px;'>
+                          
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="image--zoom" style='display: inline-flex;justify-content: center;align-items: center;'>
+                          <img class="modal-content panzoomimg" id="img01"  />
+                        </div>
+                        
+                      </div>
+                      <div class="modal-footer">
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <div class="customer_repost_project" t-if="data.customer_project_state == 'inprogress' and total == 0">
+                <form class="oe_solar_form" method="post" action="/submit/data">
+
+                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                  <input type="hidden" name="record_id" t-att-value="data.id"/>
+
+                  <input type="submit" class="repost_project" value="Repost Project"></input>
+                    
+                </form>
+              </div>
+            </div>
+          </div>
+        </section>
+
+          <section class="bid_on_this_project" t-if="data.supplier_bids_ids and data.customer_project_state != 'close'">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="col-sm-6">
+                    <div class="bid_on_this_project_sup">
+                      <span>Bids on this project</span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <div class="bid_on_this_project_sup_compare">
+                      <form class="oe_solar_form" method="POST" action="/compair/supplier">
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                        <input type="hidden" name="supplier_data" id="supplier_data"/>
+
+                        <input type="hidden" id="pro_id" name="pro_id" value=""/>
+
+                        <input type="submit" class="btn compare_bid_ss" t-attf-value="Compare"></input>
+                      </form>
+                    </div>
+
+                    <ul class="short_ul_filter">
+                      <form class="address_form" method="post"  action="/review">
+                        <li id="short_by_date_filter_1">
+                          <a href="#" data-toggle="dropdown" class="short_by_date">Sort by-System Size <i class="icon-arrow"></i></a>
+                            <ul class="dropdown-menu dropdown_filter">
+                              <li>
+                                <tr>
+                                  <td class="text-right">
+                                    <input type="hidden" name="record_id" t-att-value="data.id"/>
+
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                   <!-- <input type="hidden" name="high_size" t-attf-value="high_size"/> -->
+                                   <!-- <input type="hidden" name="low_size" t-attf-value="low_size"/> -->
+
+                                    <a t-attf-href="#{'/review?sort=low_to_high&amp;record_id=%s'%(data.id)}" class="btn" name="low_to_high" t-attf-value="lowest to highest">lowest to highest</a>
+                                    <br></br>
+                                   
+                                    <a t-attf-href="#{'/review?sort=high_to_low&amp;record_id=%s'%(data.id)}" class="btn" name="high_to_low"  t-attf-value="high to low">high to low</a>
+                                  </td> 
+                                </tr>
+                              </li>
+                            </ul>
+                        </li>
+                      </form>
+
+                      <form class="address_form" method="post"  action="/review">
+                        <li id="short_by_date_filter_1">
+                          <a href="#" data-toggle="dropdown" class="short_by_date">Sort by-Price<i class="icon-arrow"></i></a>
+                            <ul class="dropdown-menu dropdown_filter">
+                              <li>
+                                <tr>
+                                  <td class="text-right">
+                                  <input type="hidden" name="record_id" t-att-value="data.id"/>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                  <input type="hidden" name="high_price" t-attf-value="high_price"/>
+                                   
+                                  <!--  <input type="hidden" name="low_price" t-attf-value="by_date"/> -->
+
+                                  <a t-attf-href="#{'/review?sort=low_price&amp;record_id=%s'%(data.id)}" name='low_price' class="btn" t-attf-value="lowest to highest">lowest to highest</a>
+                                  <br></br>
+                                   
+                                  <a t-attf-href="#{'/review?sort=high_price&amp;record_id=%s'%(data.id)}" name='high_price' class="btn" t-attf-value="high to low">high to low</a>
+                                  </td> 
+                                </tr>
+                              </li>
+                            </ul>
+                          </li>
+                        </form>
+                      </ul>
+                  </div>
+                </div>  
+              </div>
+            </div>
+          </section>
+
+          <!-- t-if="bid_ids and data.customer_project_state != 'close'" -->
+          <section class="bid_on_this_project" t-if="bid_ids and data.customer_project_state != 'close'">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <table id="customers">
+                    <tr class="table_menu">
+                      <th class="checkbox_value"></th>
+                      <th>Supplier Details</th>
+                      <th>Bid Details</th>
+                      <th>Bid Price</th>
+                      <!-- <th>Bid Description</th> -->
+                      <th>Choose Supplier</th>
+                    </tr>
+                    <div class="bid_on_this_project_tr">
+                      <t t-foreach="bid_ids" t-as="bid">
+                      <form class="oe_solar_form" method="POST" action="/supplier/details">
+                        
+                      <tr class="supplier_review_border">
+                        <td><input type="checkbox" name="compare_supplier_bid" t-att-value="bid.id"></input></td>
+                        <td>
+                          <div class="project_name_review_bid_detail">
+                            <img t-attf-src="data:image/png;base64,#{bid.supplier_id.company_logo}" class="supplier_logo"/><br></br>
+                            <span class="supplier_review_name">Since:<t t-esc="bid.supplier_id.year"/></span><br></br>
+                            <span class="supplier_review_name">Numer of installation <t t-esc="bid.supplier_id.residential + bid.supplier_id.commercial"/></span><br></br>
+                            <span class="supplier_review_name">Cerfiticates</span><br></br>
+                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid.supplier_id.retailer}"/>
+                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid.supplier_id.member}"/><br></br>
+                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid.supplier_id.iso}"/>
+                              <img class="supplier_cer" t-attf-src="data:image/png;base64,#{bid.supplier_id.document}"/><br></br>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="bid_description">
+                          <p class="supplier_info"><b>System Size- <t t-esc="bid.system_size"/>kw</b></p>
+                          <p class="supplier_info"><b>Panels info</b></p>
+                          <t t-esc="bid.panels_no"/> X <t t-esc="bid.panels_brand"/>  <t t-esc="bid.power_class"/> w, Type <t t-esc="bid.solar_type"/> , Made in <t t-esc="bid.made_country"/> <br></br>
+                          <t t-esc="bid.manu_year"/> years Manufacture warranty,  <t t-esc="bid.per_year"/> years Performace warranty
+                          <p class="supplier_info"><b>Inverter info</b></p>
+                          <t t-esc="bid.inverter_size"/>kw <t t-esc="bid.inverter_brand"/>, Made in <t t-esc="bid.manu_country"/><br></br>
+                          <span>Manufacture Warranty <t t-esc="bid.warranty"/> years</span><br></br>
+                          <span>Workmanship Warranty <t t-esc="bid.work_warranty"/> years</span>
+                        </div>
+                        </td>
+
+                        <td>
+                          <div class="bid_review_price">
+                            <p t-if="bid.full_price"><b>Full Price after STC discount Incl.GST</b></p>
+                            <p t-if="bid.final_price"><b>Finance Availalble</b></p>
+                            <span>
+                              $ <t t-if="bid.full_price" t-esc="bid.full_price"/>
+                               <t t-if="bid.final_price">
+                                  <t t-esc="bid.final_price"/> p/w for <t t-esc="bid.months"/> Months
+                                </t>
+                          </span>
+                        </div>
+                      </td>
+                        
+
+                        <input type="hidden" name="record_id" t-att-value="bid.id"/>
+
+                        <input type="hidden" name="project_img" id="project_id" t-att-value="data.id"/>
+                        <td>
+
+
+                          <div class="choose_supplier_review" >
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <t t-if="bid.solar_project_id.is_finsh_time">
+                              <input type="submit" class="btn" t-attf-value="Choose Supplier"></input>
+                            </t>
+                            <t t-if="not bid.solar_project_id.is_finsh_time" data-toggle="tooltip" data-original-title="Button Enable After Project Time finish">
+                              <i data-toggle="tooltip" data-original-title="Button Enable After Project Time finish">
+                                <input type="submit" class="btn" t-attf-value="Choose Supplier" disabled="disabled" ></input>
+                              </i>
+                            </t>
+                          </div>
+                        </td>
+                      </tr>
+                      </form>
+                      <form class="oe_solar_form" method="POST" action="/supplier/view/bid">
+                        <input type="hidden" name="record_id" t-att-value="bid.id"/>
+
+                        <input type="hidden" name="project_img" id="project_id" t-att-value="data.id"/>
+                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                        <div class="choose_supplier_review" >
+                          <input type="submit" class="btn" t-attf-value="View Bid"></input>
+                        </div>
+                      </form>
+                    </t>
+                    </div>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+</odoo>

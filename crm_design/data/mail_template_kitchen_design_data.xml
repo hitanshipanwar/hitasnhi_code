@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<odoo>
+	<data>
+        <template id="portal_my_design" name="My Sales Designs">
+                <t t-call="portal.portal_layout">
+                    <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+                    <t t-call="portal.portal_searchbar">
+                        <t t-set="title">Sales Designs</t>
+                    </t>
+                    <t t-if="not designs">
+                        <p>There are currently no design for your account.</p>
+                    </t>
+                    <t t-if="designs" t-call="portal.portal_table">
+                        <h3>Designs</h3>
+                        <table class="table table-sm">
+                            <thead class="bg-100">
+                                <tr>
+                                    <td><b>Design</b></td>
+                                    <td><b>Comment</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </thead>
+                        <tbody class="sale_tbody design_table">
+                      <t t-foreach="designs" t-as="design">
+                        
+                          <tr>
+                              <td>
+                                    <a t-attf-href="/web/content/#{design.id}?download=true&amp;access_token=#{design.access_token}" target="_blank">
+                                        <table>
+                                            <tr>
+                                                <td colspan="5">
+                                                    <div class='oe_attachment_embedded o_image' t-att-title="design.name" t-att-data-mimetype="design.mimetype" t-attf-data-src="/web/image/#{design.id}/100x80"/>
+                                                </td>
+                                                    <td>
+                                                        <div class='oe_attachment_name'><t t-raw='design.name' /></div>
+                                                    </td>
+                                            </tr>
+                                        </table>
+                                    </a>
+                                </td> 
+
+                                <!-- <td><t t-esc="design.comment"/></td> -->
+                                <td>
+                                    <textarea id="description" class="textarea o_web_design_comment_input" name="design.comment" cols="50" rows="4" required="required" ></textarea>
+                                </td> 
+                                <td>
+                                    <button  type="button" id="btn_approve_sign" class="btn     btn-primary" data-toggle="modal" t-att-data-target="'#designApproveShareModal_%s' % design.id" href="#">Approve</button>
+                                </td>
+                                <td>
+                                    <button type="button" id="btn_reject_sign" class="btn btn-danger" data-toggle="modal" t-att-data-target="'#designRejectShareModal_%s' % design.id" href="#">Reject</button>
+                                </td>
+                          </tr> 
+                      </t>
+                  </tbody>
+                  </table>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

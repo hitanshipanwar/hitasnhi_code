@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<!-- Signup Screen -->
+	<template id="signup_inherited" inherit_id="auth_signup.signup" name="Airbid Signup">
+		<xpath expr="." position="replace">
+			<t t-call="web.login_layout">
+				<form t-attf-action="/web/signup{{ '?debug' if debug else '' }}" method='POST' class="oe_signup_form">
+					<input type='hidden' name='token'/>
+					<input type='hidden' name='redirect'/>
+					<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+					<div class='text-center'>
+					<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+					</div>
+					<br></br>
+					<h2 id="header_signup" class="text-center"><strong>Hi, Welcome!</strong></h2>
+					<h6 class="text-center" id="sub_title_sign">Best platform for your Solar solutions.</h6><br></br>
+
+					<div class="row" style="margin-bottom: 20px;">	  
+						<div class="form-group field-name column col-md-6" style="width:50%;">
+							<label id="f_name" for="name">First Name</label>
+							<input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-md" placeholder="John" required="required" t-att-readonly="'readonly' if only_passwords else None" autofocus="autofocus"/>
+						</div>
+
+						<div class="form-group field-name column col-md-6" style="width:50%;">
+							<label for="last_name" id="f_name">Last Name</label>
+							<input type="text" id="input_last_name" name="last_name" t-att-value="last_name"  class="form-control form-control-md" placeholder="Smith" required="required"/>
+						</div>  
+					</div>
+					<div class="row" style="margin-bottom: 20px;">
+						<div class="form-group field-login col-md-8">
+							<label for="login" id="f_name">Email Address</label>
+							<label for="validate_email" id="validate_email" class="alert-success text-center" style="display:none;">Your Email Address is validated</label>
+							<a href="#" class="myBtnEmail email_no_verify_hidden" id="email_no_verify_hidden">Verify Email</a>
+							<input type="text" name="login" t-att-value="login" id="login_sign" class="form-control form-control-md" placeholder="Enter your email here" required="required" t-att-readonly="'readonly' if only_passwords else None"></input>
+						</div>
+
+						<div class="form-group field-number column col-md-4">
+							<button type="button" class="myBtnEmail btn email_verify" id="email_verify" disabled='disabled'>Verify Email</button>
+						</div>
+
+						<!-- Modal content -->
+						<div id="myModalemail" class="modal" style="display: none;">
+						<div class="modal-content text-center questation_popup">
+						<span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+						<div class="text-center" id="test_id">
+						<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+						<br></br>
+						<h3 id="mobile_header"><strong>Please verify your Email Address</strong></h3>
+						<h6 id="h6_mobile">You're almost there! We sent an Email to</h6>
+						<p id="user_email">airbid2022@gmail.com</p>
+						<label for="emailcode" id="code_label">Please enter verification code below</label><br></br>
+						<input type="text" class="form-control" name="emailcode" id="emailcode" placeholder="Enter here"/>
+						<br></br>
+						<label for="notification_email" id="notification_email" class="alert-danger text-center" style="display:none;">Your otp is not valid</label>
+						<br></br>
+						<a id="confirm_email" name="confirm"  class="btn btn-block btn-md" >Verify &amp; continue</a>
+						<br></br>
+						<label id="for_receive" for="need" >Didn't receive the verification code?</label>
+						<a href="#" id="resend_otp" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;">Resend again</a>
+						</div>
+						</div>
+					</div>
+					</div>  
+				 
+				 <div class="row" style="margin-bottom: 20px;"> 
+					<div class="field-login column col-md-8">
+						<label for="phone" id="phone">Mobile Number</label>
+						<label for="validate" id="validate" class="alert-success text-center" style="display:none;">  Your mobile number is validated</label>
+							<a href="#" class="myBtn mobile_no_verify_hidden" id="mobile_no_verify_hidden">Verify Mobile No.</a>
+							<input type="text" name="phone" id="phone_no_sign" t-att-value="phone" class="form-control form-control-md number_input_only" placeholder="Enter your mobile number here" required="required" minlength="10" maxlength="10"></input>
+
+					</div> 
+
+					<div class="form-group field-number column col-md-4">
+						<button type="button" class="myBtn btn mobile_no_verify" id="mobile_no_verify" disabled='disabled'>Verify Mobile No.</button>
+					</div>
+
+					<div id="myModal" class="modal" style="display: none;">
+						<!-- Modal content -->
+						<div class="modal-content text-center questation_popup">
+						<span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+						<div class="text-center" id="test_id">
+						<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+						<br></br>
+						<h3 id="mobile_header"><strong>Please verify your phone number</strong></h3>
+						<h6 id="h6_mobile">You're almost there! We sent an text message to</h6>
+						<p id="user_number">+91 9857382940</p>
+						<label for="code" id="code_label">Please enter verification code below</label><br></br>
+						<input type="text" class="form-control" name="code" id="code" placeholder="Enter here"/>
+						<br></br>
+						<label for="notification" id="notification" class="alert-danger text-center">Your otp is not valid</label>
+						<br></br>
+						<a id="confirm_no" name="confirm"  class="btn btn-block btn-md" >Verify &amp; continue</a>
+						<br></br>
+						<label id="for_receive" for="need" >Didn't receive the verification code?</label>
+
+						<a href="#" id="resend_otp" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;" >Resend again</a>
+						</div>
+						</div>
+					</div>
+				</div>
+					 
+					<div class="form-group field-login" style="margin-bottom: 35px;">
+						<label for="select_one" id="f_name">Select Account Type</label>
+						<select id="select_one" name="select_one" class="form-control form-control-md">
+							<option selected="selected">Select one</option>
+							<option value="customer">Customer</option>
+							<option value="supplier">Solar Provider</option>
+							<option value="installer">Installer</option>
+						</select>
+					</div>
+
+					<!-- <div class="row" style="margin-bottom: 20px;">
+						<div class="form-group field-password column col-md-6" style="width:50%;">
+						<label for="password" id="f_name">Password</label>
+						<input type="password" name="password" id="password_sign" class="form-control form-control-md" required="required" placeholder="Enter password"/>
+						<i class="fa fa-eye" id="eye"></i>
+						</div>
+
+						<div class="form-group field-confirm_password column col-md-6" style="width:50%;">
+						<label for="confirm_password" id="f_name">Confirm Password</label>
+						<input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-md" placeholder="Re-enter password here" required="required"/>
+						<i class="fa-solid fa-eye" id="eye"></i>
+						</div>
+					</div> -->
+
+					<div class="row" style="margin-bottom: 20px;">
+						<div class="form-group field-password column col-md-6" style="width:50%;">
+							<label for="password" id="f_name">Password</label>
+								<input type="password" name="password" id="password_sign" class="form-control form-control-md " required="required" placeholder="Enter password"/>
+								<span class="fa-solid fa-eye" id="eye" ></span>
+						</div>
+
+						<div class="form-group field-confirm_password column col-md-6 " style="width:50%;">
+							<label for="confirm_password" id="f_name">Confirm Password</label>
+								<input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-md fa-solid fa-eye" placeholder="Re-enter password here" required="required"/>
+								<span class="fa-solid fa-eye" id="eyec"></span>						
+						</div>
+					</div>
+					
+					<div id ="captcha" class="imageContainer">
+					<div class="form-group">
+						<!-- specify your site  in data-sitekey attribute-->
+						<div class="g-recaptcha" data-sitekey="6Le5nMQUAAAAALpK02mtPPGnpjVlnq6orhz4Zj0u" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback">
+                      </div>
+						<input class="form-control d-none" data-recaptcha="true"/>
+						<div class="help-block with-errors" id="err" style='color: red'></div>
+					</div>
+				</div>
+					<script>
+							$("form").submit(function(event) {
+							var recaptcha = $("#g-recaptcha-response").val();
+								if (recaptcha === "") {
+									event.preventDefault();
+									document.getElementById('err').innerHTML="Please verify Captcha";
+								}
+								else{
+									return true;
+								}
+							});
+					 </script>
+					 <div class="checkbox_agreement">
+						<input type="checkbox" name="condition" id="condition" required="required"><span id="term_text"> I Agree To The Airbid </span><a href="#" style="font-weight: 450;font-size: 15px; color:#F16363; text-decoration: underline;">User Agreement</a><span id="term_text"> and </span><a href="#" style="font-weight: 450;font-size: 15px; color:#F16363; text-decoration: underline;">Privacy Policy</a></input>
+					 </div>
+
+					<div class="text-center oe_login_buttons pt-3">
+						<button id="sign_up_btn" type="submit" class="btn btn-block" disabled="disabled">Sign Up</button><br></br>
+		
+						<label for="account" style="font-weight: 450;font-size: 14px; line-height: 19px; font-family: Nunito Sans;">Already have an account?</label> 
+						<a t-attf-href="/web/login?{{ keep_query() }}" style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline; margin-left:-10px;" class="btn btn-link btn-sm" role="button">Login Now</a>
+						<div class="o_login_auth"/>
+					</div>
+				</form> 
+			</t>       
+		</xpath>
+
+	</template>
+
+	
+	<!-- SignIn Screen -->
+	<template id="signin_inherited" inherit_id="web.login" name="Airbid SignIn">
+		
+		<xpath expr="//label[@for='login']" position="replace">
+		</xpath>
+
+		<xpath expr="//input[@name='login']" position="replace">
+			<div class='text-center'>
+			<img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+			</div><br></br>
+			<br></br> 
+			<h6 id="header_login"><strong>Hi, Welcome Back!</strong></h6>
+			<p id="sub_title" >Best platform for your Solar solutions.</p><br></br>
+			<label for="login" id="email_label">Email Address</label>
+			<input type="text" placeholder="example@domain.com" name="login" t-att-value="login" id="login" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autofocus="autofocus" autocapitalize="off"/>
+		</xpath>
+		<xpath expr="//label[@for='password']" position="replace">
+		</xpath>
+
+		<!-- <xpath expr="//input[@name='password']" position="replace">
+			<div>
+			<label for="password" style="color: #545F77; font-size: 14px; font-family: Nunito Sans">Password</label>
+			 <input type="password" placeholder="Enter your password here" name="password" id="password" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"></input>
+			</div>
+		</xpath> -->
+		<xpath expr="//input[@name='password']" position="replace">
+			<div>
+			<label for="password" style="color: #545F77; font-size: 14px; font-family: Nunito Sans">Password</label>
+			 <input type="password" placeholder="Enter your password here" name="password" id="password_sign" t-attf-class="form-control #{'form-control-sm' if form_small else ''}" required="required" autocomplete="current-password" t-att-autofocus="'autofocus' if login else None" maxlength="4096"></input>
+			 <i class="fa-solid fa-eye" id="eye" ></i>
+			</div>
+		</xpath>
+		<xpath expr="//input[@name='password']" position="after">
+			<div>
+				<div>
+					<a id="forgot_link" t-attf-href="/web/reset_password?{{ keep_query() }}" >Forgot Your Password?</a>
+				</div>
+			</div>
+		</xpath>
+
+		 <xpath expr="//t/button[@name='redirect']" position="replace">
+		</xpath> 
+
+		
+		<xpath expr="//div/button[@type='submit']" position="after">
+			<div class="form-group">
+				<br></br>  
+				<label for='for_account' style="font-weight: 600;font-size: 14px; color:#545F77; font-family: Nunito Sans; line-height: 19px; margin:0 0 30px;">Don't have an account?</label> 
+				<a t-if="signup_enabled" style="font-weight: 600;font-size: 14px; color:#F16363; text-decoration: underline; font-family: Nunito Sans;" t-attf-href="/web/signup?{{ keep_query() }}">Register Now</a> 
+			</div>
+		</xpath>
+	</template>
+
+	<template id="signin_replace_inherited" inherit_id="auth_signup.login" name="Airbid SignIn">
+		<xpath expr="//div/a" position="replace">
+		</xpath>
+		
+		<xpath expr="//div/a[1]" position="replace">
+		</xpath>
+	</template>
+
+		<template id="assets_frontend_extend" inherit_id="website.assets_frontend" name="Website">
+			<xpath expr="." position="inside">
+				<link rel="preconnect" href="https://fonts.googleapis.com"/>
+				<link rel="preconnect" href="https://fonts.gstatic.com"/>
+				<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+				<!-- zoom lib start -->
+				<script src="/airbid_master/static/src/js/panzoom_scroll.js"></script> 
+				<!-- <script src="/airbid_master/static/src/js/panzoom.min.js"></script> -->
+				<!-- zoom lib end -->
+				<link rel='stylesheet' href='/airbid_master/static/src/css/style.css'/>
+				<link rel='stylesheet' href='/airbid_master/static/src/css/responsive.css'/>
+				<link rel='stylesheet' href='/airbid_master/static/src/css/bootstrap.min.css'/>
+
+				<link rel='stylesheet' href='/airbid_master/static/src/css_slider/animate.css'/>
+				<link rel='stylesheet' href='/airbid_master/static/src/css_slider/media.css'/>
+				<link rel='stylesheet' href='/airbid_master/static/src/css_slider/owl.carousel.min.css'/>
+				<link rel='stylesheet' href='/airbid_master/static/src/css_slider/owl.theme.default.min.css'/>
+				<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
+				<script type="text/javascript" src="/airbid_master/static/src/js/image_selection.js"></script>
+				<link rel='stylesheet' href='/airbid_master/static/src/css_slider/style.css'/>
+
+
+				<script type="text/javascript" src="/airbid_master/static/src/js/signup.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js/membership_option.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js/project_display.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js/user_profile.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js/area_operates.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js/wheelzoom.js"></script>
+				<script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+				<script type="text/javascript" src="/airbid_master/static/src/js_slider/owl.carousel.min.js"></script>
+				<script type="text/javascript" src="/airbid_master/static/src/js_slider/main.js"></script>
+
+				<script type="text/javascript" src="/airbid_master/static/src/js/autocomplete_address.js"></script>
+				<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+				<script asyncsrc="https://maps.googleapis.com/maps/api/js?key=2ba54190-7205-11ec-b69a-c5c4609dd831&amp;libraries=places&amp;callback=initMap">
+				</script>
+				<!-- <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&amp;libraries=places&amp;language=en-AU">
+		        </script> -->
+		        <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdYZSYOOVaX9l9fx6VTuDLuLrF2LukjFk&amp;libraries=places"></script> -->
+				
+				<!-- This is for Map Circle Based on Address and Postal,KM -->
+				<link rel="stylesheet" type="text/css" href="/airbid_master/static/src/css/area_radius.css" />
+				<script type="text/javascript" src="/airbid_master/static/src/js/area_radius.js"></script>
+				<!-- ____our api key____ -->
+				<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDFjzYcJsLOaFyJW4TdyZ_oW36tVQQcx7E&amp;v=weekly&amp;channel=2"/>
+				<script type="text/javascript" src="/airbid_master/static/src/js/count_down_time.js"></script>
+
+				<!-- This is for Map Circle Based on Address and Postal,KM -->
+			</xpath>
+		</template>
+
+	<!-- project data submit...................... -->
+	<template id="submit_project_form" name="Project">
+		<t t-call="web.login_layout">
+			<form class="project_form" method="post">
+				<div class="submit_details">
+					<h1 id="submit_details">Thank You</h1>
+					<h3 id="submit_details">Your project is submitted.</h3>
+					<p id="submit_details">Your Refrence Number is <t t-esc="ref_no"/></p>
+				</div>
+			</form>
+		</t>
+	</template> 
+
+	<!-- bid data submit......................... -->
+	<template id="submit_bid_form" name="Bid">
+		<t t-call="web.login_layout">
+			<form class="bid_form" method="post">
+				<div class="submit_bid_details">
+					<h1 id="submit_details">Thank You</h1>
+					<h3 id="submit_details">Your Bid is submitted.</h3>
+					<p id="submit_details">Your Refrence Number is <t t-esc="ref_sup_no"/></p>
+				</div>
+			</form>
+		</t>
+	</template> 
+</odoo>

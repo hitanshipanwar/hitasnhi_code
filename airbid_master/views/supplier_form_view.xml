@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="solar_system_supplier_form_view" name="Supplier Details Form">
+			<t t-call="web.login_layout">
+				<form class="bid_form" method="post" action="/bid/submit">
+					<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+					<div class="container" style="width:100%; ">
+						<div class="row">
+					<div class="col-sm">
+					<h2 id="Bid_header">Panel</h2>		
+					<div id="que_no_1">
+						<p class="supplier_details">System Size</p>
+						<input type="text" id="system_size" name="system" />
+						<label for="system_size">KW</label>
+					</div>
+
+					<div id="que_no_2">
+						<p class="supplier_details">No Of Panels</p>
+						<input type="text" id="panels_no" name="no_panel"/>
+					</div>
+
+					<div id="que_no_3">
+						<p class="supplier_details">Panel Brand</p>
+						<input type="text" id="panels_brand" name="brand_panel"/>
+					</div>
+
+					<div id="que_no_4">
+						<p class="supplier_details">Panel Power Class</p>
+						<input type="text" id="panel_power" name="power" />
+						<label for="panel_power">W</label>
+					</div>
+
+					<div id="que_no_5">
+						<p class="supplier_details">Panel Made In Country</p>
+						<input type="text" id="panels_country" name="country_panel"/>
+					</div>
+
+					<div id="que_no_6">
+						<p class="supplier_details">Type Of Panel</p>
+						<input type="text" id="panels_type" name="type_panel"/>
+					</div>
+
+					<div id="que_no_7">
+						<p class="supplier_details">Manufacture's Warranty For Panel</p>
+						<input type="text" id="panel_manu" name="manu_panel" />
+						<label for="panel_manu">/Years</label>
+					</div>
+
+					<div id="que_no_8">
+						<p class="supplier_details">Performance Warranty For Panel</p>
+						<input type="text" id="panel_per" name="panel_per" />
+						<label for="panel_per">/Years</label>
+					</div>
+				</div>
+
+				<div class="col-sm">
+					<h2 id="Bid_header">Inverter</h2>
+					<div id="que_no_9">
+						<p class="supplier_details">Inverter Brand</p>
+						<input type="text" id="inverter_brand" name="brand_inverter"/>
+					</div>
+
+					<div id="que_no_10">
+						<p class="supplier_details">Inverter Size</p>
+						<input type="text" id="inverter_size" name="size_int" />
+						<label for="inverter_size">KW</label>
+					</div>
+
+					<div id="que_no_11">
+						<p class="supplier_details">Inverter Made In Country</p>
+						<input type="text" id="inverter_country" name="country_inverter"/>
+					</div>
+
+					<div id="que_no_12">
+						<p class="supplier_details">Manufacture's Warranty For Inverter</p>
+						<input type="text" id="panel_manu" name="manu_inverter"/>
+						<label for="inverter_manu">/Years</label>
+					</div>
+
+					<div id="que_no_13">
+						<p class="supplier_details">Performance Warranty For Inverter</p>
+						<input type="text" id="panel_per" name="inverter_per"/>
+						<label for="inverter_per">/Years</label>
+					</div>
+				</div>
+				</div>
+				<div>
+					<h2 id="Bid_header">Pricing</h2>
+
+					<div id="que_no_14">
+					<p class="supplier_details">Full Price after STC discount Incl.GST
+						(This price includes Double storey, 3ph, meter upgrade etc.
+						Customer will pay you after installation.)</p>
+					<label for="full_price" class="supplier_details">$</label>
+					<input type="text" id="full_price" name="price"/>
+					</div>
+
+					<div id="que_no_14">
+					<p class="supplier_details">Finance Price</p>
+					<label for="finance_pri" class="supplier_details">$</label>
+					<input type="text" id="finance_pri" name="price_finance"/>
+					<label for="month" class="supplier_details">p/w for</label>
+					<input type="text" id="month" name="months"/>
+					<label for="month" class="supplier_details">/months</label>
+					</div>
+					
+					<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+					<div id="que_submit_bid">
+						<button type="submit" id="submit_form_bid" class="btn">Submit</button>
+					</div>
+				</div>
+			</div>
+				</form>
+			</t>
+		</template>
+	</data>
+</odoo>

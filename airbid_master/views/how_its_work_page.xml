@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="how_its_work_form" name="About Us">
+			<t t-call="web.login_layout">
+	            <section class="hm-banner">
+		            <div class="bannerInner minBannerSlider">
+		                <div class="sliderWrap">
+		                    <img src="/airbid_master/static/src/image/abount_banner.png" alt="Banner Images" class="about_us_temp"/>
+		                    <img src="/airbid_master/static/src/image/abount_back.png" alt="Banner Back Images" class="about_us_back_temp"/>
+		                    <div class="bannerMinTitle">
+		                        <div class="container">
+		                            <h1 class="about_airbid_heading">How AirBid works</h1>
+		                            <h4 class="who_we_are">Know our work process</h4>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </section>
+
+		        <section class="about_content">
+		            <div class="about_content_page">
+                        <div class="container">
+                            <p class="about_content_headind_first">
+						        Fast, secure and simple steps helping you find your reliable and trusted dealers using our online portal, saves you your time without<br></br> having to speak to many different sales consultant. All you need is a computer or a mobile devise and register your detail clicking on<br></br> the link https://www.airbid.com.au and our experienced team will work on your requirements with the most reliable solar providers<br></br> and installers to get you the best deal in the market.
+						    </p>
+
+						    <div class="row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Login or register</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">Login to <a href="#" class="airbid_link">https://www.airbid.com.au</a> and register your details.</p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">List your job detail</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">List your job detail and our team will verify the project first. Once verified they will get in touch with you with the roof layout design to confirm if the design meets your expectation or not. Once you are 100% confident of the solar installation design and agree to list your project, the project will be uploaded for bidding.</p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Both the party agrees for installation</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">Your personal detail remains highly confidential throughout the bidding process and will only be shared once you nominate any of the solar providers for further installation. Note, there is no commitment to proceed with the winning bidder should there be any concern. The job will only commence once both the party agrees for installation.</p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Receive a free quotation</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">Only your job detail will be shared with our network of CEC (Clean Energy Council of Australia) authorized solar installers and will be requested to bid on your project. You can select the duration of the days (3 – 10 days) to bid so you have full control of bidding duration. You will receive a free quotation on your portal helping you to compare the budget, type and size of equipment, unbiased advice and financing option. </p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Decide on the preferred bidder</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">You will be connected to our experienced solar system advisor before being directed to your preferred bidder should you have any query before proceeding. Choose your preferred bidder for great savings and trusted work. Bidders will be able to see your details only when you decide on the preferred bidder.</p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Get your job done</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                <p class="how_its_work_content">Your every job status will be updated to you from start to completion. The report and images during each stage of the work will be uploaded in your portal. This will keep you informed about the job progress, keeping you in control to make any changes if required.</p>
+	                            </div>
+	                        </div>
+                            <div class="howitswork_content_row row">
+	                            <div class="col-md-4">
+	                                <p class="how_its_work_label">Bidding and fees</p>
+	                            </div>
+	                            <div class="col-md-8">
+	                                
+	                            </div>
+	                        </div>
+                            <div class="row">
+	                            <div class="col-md-12">
+	                                <p class="how_its_work_content">This is a free and secured portal to register. There is no fee for registering for all our valued clients. We are paid by the solar companies for any task acquired through our portal.  
+									</p>
+	                            </div>
+	                        </div>
+                            
+                        </div>
+		            </div>
+		        </section>
+		        <section class="our_about_blog">
+		            <div class="container">
+		              <div class="blogs_heading">
+		                <h5>Our Blogs</h5>
+		                <span>Our Clients send us bunch of smilies with our services and we love them</span>
+		              </div>
+		              <div class="row" style="text-align: center;">
+		                  <div class="find_blog_att">
+		                    <img src="/airbid_master/static/src/image/blog3.png"/>
+		                    <div class="blog_opp">
+		                      <div class="find_blogs_content">
+		                          <span><span>WHAT IS THE BEST</span><br/><span> ROOF FOR SOLAR</span><br/><span> PANELS?</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                    </div>
+		                    </div>
+		                    <div class="find_blog_att">
+		                      <img src="/airbid_master/static/src/image/blog2.png"/>
+		                      <div class="blog_opp">
+		                        <div class="find_blogs_content">
+		                          <span class="blog_desc"><span>GUIDE TO</span><br/><span> FEDERAL SOLAR</span><br/><span> PANEL INCENTIVES</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                      </div>
+		                    </div>
+		                    <div class="find_blog_att">
+		                      <img src="/airbid_master/static/src/image/blog1.png"/>
+		                      <div class="blog_opp">
+		                        <div class="find_blogs_content">
+		                          <span><span>THREE OPTIONS</span><br/><span> TO GO SOLAR IN</span><br/><span> DENVER</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                    </div>
+		                </div>
+		              </div>
+		            </div>
+		        </section>
+
+		        <section class="ftco-section">
+					<div class="container">
+						<div class="row">
+			                <div class="col-md-12" style="margin: 0 0 60px 0;">
+			                  <div class="our_client_says">
+			                    <h5>What Our Client Says</h5>
+			                    <span>Our Clients send us bunch of smilies with our services and we love them</span>
+			                  </div>
+			                </div>
+			            </div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="featured-carousel owl-carousel">
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+			</t>
+		</template>
+	</data>
+</odoo>

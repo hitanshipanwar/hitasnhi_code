@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_request_tree" model="ir.ui.view">
+        <field name="name">purchase.request.tree</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" width="700px"/>
+                <field name="request_date"/>
+                <field name="employee_id"/>
+                <field name="employee_department_id"/>
+                <field name="urgency"/>
+                <field name="state" />
+                <!-- <field name="notes"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_purchase_request_kanban" model="ir.ui.view">
+      <field name="name">purchase.request.kanban</field>
+      <field name="model">purchase.request</field>
+      <field name="arch" type="xml">
+        <kanban class="o_kanban_mobile" sample="1" js_class="account_bills_kanban">
+          <field name="name"/>
+          <field name="request_date"/>
+          <field name="employee_id"/>
+          <field name="employee_department_id"/>
+          <field name="state"/>
+            <templates>
+                <t t-name="kanban-box">
+                    <div t-attf-class="oe_kanban_global_click">
+                        <div class="row mb4">
+                            <div class="col-6 o_kanban_record_headings">
+                                <strong>
+                                    <span>
+                                        <field name="name"/>
+                                    </span>
+                                </strong>
+                            </div>
+                            <div class="col-6 text-right">
+                                <strong><i class="fa fa-clock-o" aria-label="Date" role="img" title="Date"/> <t t-esc="record.request_date.value"/></strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <span><field name="employee_id"/></span>
+                            </div>
+                            <div class="col-6">
+                                <span class="float-right">
+                                    <!-- <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'confirm': 'primary','validate': 'success'}}"/> -->
+                                    <field name="state" widget="label_selection" options="{'classes': {'draft': 'default', 'draft': 'primary', 'rejected': 'danger', 'to_approve': 'warning',
+                                            'approved': 'success'}}"/>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <b><field name="urgency"/></b>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </templates>
+          </kanban>
+      </field>
+    </record>
+
+    <record id="view_purchase_request_form" model="ir.ui.view">
+        <field name="name">purchase.request.form</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+            <form string="Tags">
+                <header>
+                  
+                  <field name="state" widget="statusbar" statusbar_visible="draft,to_approve,approved,rejected,rfq,done"/>
+
+                  <button string="Send Request" class="btn-primary" type = "object" name="action_send_request" attrs="{'invisible': [('state','not in',['draft'])]}"/>
+                  <button string="Approve" class="btn-primary" type = "object" name="action_approve" attrs="{'invisible': ['|',('is_manager_login','=',False),'&amp;',('state','in',['draft','rejected','approved','rfq','done']),('is_manager_login','=',True)]}"/>
+                  <button string="Reject" class="btn-primary" type = "object" name="action_reject" attrs="{'invisible': ['|',('is_manager_login','=',False),'&amp;',('state','in',['draft','rejected','approved','rfq','done']),('is_manager_login','=',True)]}"/>
+                  <button string="Create Combine RFQ" class="btn-primary" type = "object" name="make_purchase_order" groups="purchase.group_purchase_user" attrs="{'invisible': [('state','in',['draft' ,'to_approve', 'rejected'])]}"/>
+                </header>
+                <sheet>
+                      <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" 
+                            name="open_purchase_order"
+                            type="object" icon="fa-user"
+                            attrs="{'invisible': [('po_count', '=', 0)]}">
+                            <field name="po_count" widget="statinfo" string="Purchase Order"/>
+                  </button>
+                <!--   <button class="oe_stat_button" name="open_purchase_order"
+                            type="object" icon="fa-user" attrs="{'invisible': [('state','not in',['done'])]}">
+                        <span class="o_stat_text">Purchase Order</span>
+                  </button> -->
+                      </div>
+                  <div class="oe_title">
+                      <span class="o_form_label">Purchase Request</span>
+                      <h1>
+                          <field name="name" readonly="1"/>
+                          <field name="combine_rfq" invisible="1"/>
+                      </h1>
+                  </div>
+                  <group>
+                      <group>
+                          <field name="request_date" attrs="{'readonly': [('state','in',['to_approve','approved','rejected'])]}" />
+                          <field name="assigned_to" required="1" />
+
+                          <field name="current_user_id" invisible="1" />
+                          <field name="is_manager_login" invisible="1" />
+                          <field name="employee_id" invisible="0" />
+                          <field name="is_thai" widget="boolean_toggle" invisible="0" />
+                          <field name="employee_department_id" invisible="1" />
+                          <field name="purchase_id" invisible="1" readonly="1" />
+                      </group>
+                      <group>
+                        <field name="urgency"/>
+                        <field name="sale_order_ref_id" context="{'sale_show_partner_name': True}"  />
+                        <field name="remarks"/>
+                          <!-- <field name="employee_id" attrs="{'readonly': [('state','in',['to_approve','approved','rejected'])]}"/> -->
+                          <!-- <field name="employee_department_id" attrs="{'readonly': [('state','in',['to_approve','approved','rejected'])]}"/> -->
+                          <!-- <field name="manager_signature" widget="signature" attrs="{'readonly': [('state','in',['to_approve','approved','rejected'])]}" invisible="0"/> -->
+                      </group>
+                  </group>
+                  <br/>
+                    <field name="product_request_ids" context="{'is_thai':is_thai}">
+                      <tree string="Product Request Check" editable="bottom">
+                        <field name="product_request_id" invisible="1"/>
+                        <field name="is_editable" invisible="1"/>
+                        <field name="item_no"/>
+                        <field name="partner_name" attrs="{'readonly': [('product_id', '=', False)]}"/>
+                        <field name="partner_id" invisible="1"/>
+                        <!-- <field name="partner_ids" invisible="1"/> -->
+                        <!-- <field name="partner_id" attrs="{'column_invisible': [('parent.state', '!=', 'approved')]}" domain="[('id', 'in', partner_ids)]"/> -->
+                        <!-- <field name="partner_id" attrs="{'column_invisible': [('parent.state', 'in', ['to_approve','draft','rejected'])]}" domain="[('id', 'in', partner_ids)]"/> -->
+                        <field name="product_type" />
+                        <field name="product_id" options="{'no_create': True}" domain="[('product_type','=', product_type)]" context="{'partner_id':partner_id,'quantity':amount_required,'uom':uom_id, 'is_thai': parent.is_thai}"/>
+                        <field name="is_thai" invisible="1"/>
+                        <field name="product_name" attrs="{'readonly': ['&amp;',('is_editable', '=', False), ('product_type', '=', 'standard')]}"/>
+                        <field name="uom_id" options="{'no_create': True}"/>
+                        <field name="uom_category_id" invisible="1"/>
+                        <field name="amount_required"/>
+                        <field name="urgency" invisible="1"/>
+                        <field name="remark"/>
+                        <field name="combine_rfq_done" invisible="0" readonly="1" attrs="{'column_invisible': [('parent.state','in',['draft' ,'to_approve', 'rejected'])]}"/>
+                        <field name="combine_rfq" attrs="{'column_invisible': [('parent.state','in',['draft' ,'to_approve', 'rejected'])], 'readonly': [('combine_rfq_done', '=', True)]}"/>
+                        <button string="Create RFQ" class="btn-primary" type = "object" name="make_purchase_order" groups="purchase.group_purchase_user" attrs="{'invisible': ['|', '|', ('parent.state','in',['draft' ,'to_approve', 'rejected']),('combine_rfq', '=', True), ('combine_rfq_done', '=', True)]}"/>
+                      </tree>
+                    </field>
+                  <notebook>
+                    <page string="Notes" name="description">
+                      <field name="notes" attrs="{'readonly': [('state','in',['to_approve','approved','rejected'])]}"/>
+                    </page>
+                    <page string="Approver Signature" name="approver_signature" attrs="{'invisible': [('state','not in',['approved','rejected','done'])]}">
+                          <field name="manager_signature" widget="signature" />
+                    </page>
+                    <page string="Attachments" name="attachments">
+                        <field name="attachment_ids" widget="many2many_binary" nolabel="1" colspan="6" />
+                    </page>
+                  </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="view_purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.view.form</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+          <!-- <div class="oe_button_box" name="button_box">
+              <button class="oe_stat_button" name="open_request_order"
+                        type="object" icon="fa-user" attrs="{'invisible': [('count_purchase_req', '!=' , 1)]}">
+                <span class="o_stat_text">Request Order</span>
+              </button>
+          </div> -->
+          <xpath expr="//field[@name='partner_id']" position="after"> 
+            <field name="mark_as_sent" /> 
+            <field name="mark_po_as_sent"/>
+            <field name="purchase_request_id" invisible="0" readonly="1"/> 
+            <field name="count_purchase_req" invisible="1"/> 
+          </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="view_purchase_request_form_signature" model="ir.ui.view">
+        <field name="name">purchase.request.form.signature</field>
+        <field name="model">purchase.request</field>
+        <field name="arch" type="xml">
+          <form>
+            <sheet>
+              <group>
+                <field name="manager_signature" widget="signature" invisible="0"/>
+              </group>
+            </sheet>
+          </form>
+        </field>
+    </record> -->
+
+    <record id="action_purchase_request" model="ir.actions.act_window">
+        <field name="name">Request For Purchase</field>
+        <field name="res_model">purchase.request</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+    <menuitem id="menu_purchase_request" name="Purchase Request" action="action_purchase_request" sequence="90" web_icon="kitchen_purchase_request,static/images/purchase_req.png"/>
+</odoo>

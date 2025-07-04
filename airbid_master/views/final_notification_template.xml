@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="chosse_supplier_template">
+		<t t-call="website.layout">
+	        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+	        <div id="wrap" class="oe_structure">
+				<form class="supplier_selected" method="post">
+					<div class="container">
+						<div class="supplier_selection">
+							<h3 id="supplier_selection">
+								Thanks you so Much your Project is Accepted<br></br>
+								Airbid will send One Email Notification to you.<br></br>
+								Which Gives the Project Details, Bid Amount And Details of Supplier.
+							</h3>
+						</div>
+					</div>
+				</form>
+			</div>
+		</t>
+	</template>
+</odoo>

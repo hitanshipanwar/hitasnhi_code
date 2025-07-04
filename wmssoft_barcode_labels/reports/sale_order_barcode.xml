@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_sale_barcode">
+        <t t-call="web.html_container">
+            <t t-if="len(docs) % 2 == 0">
+                <t t-set='nRows' t-value='int(len(docs) / 2)' />
+            </t>
+            <t t-else="">
+                <t t-set='nRows' t-value='int((len(docs) / 2) + 1)' />
+            </t>
+            <t t-set='nCols' t-value='2' />
+            <div t-foreach="[docs[x:x + nRows * nCols] for x in range(0, len(docs), nRows * nCols)]" t-as="page_docs" class="page article">
+                <!-- <t t-if="title">
+                    <h2 style="text-align: center; font-size: 3em">
+                        <t t-esc="title" />
+                    </h2>
+                </t> -->
+                <table>
+                    <t t-foreach="range(nRows)" t-as="row">
+                        <tr>
+                            <t t-foreach="range(nCols)" t-as="col">
+                                <t t-set="barcode_index" t-value="(row * nCols + col)" />
+                                <t t-if="barcode_index &lt; len(page_docs)">
+                                    <t t-set="o" t-value="page_docs[barcode_index]" />
+                                    <td style="width: 410px !important;height: 170px !important;max-width: 410px !important;max-height: 181px !important;">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div>
+                                                    <h4 style="font-size: 27px;">
+                                                        <strong>
+                                                            <span t-esc="o.name" />
+                                                        </strong>
+                                                    </h4>
+                                                </div>
+                                                
+                                                <div>
+                                                    <h4 style="font-size: 15px;">Date : <span t-esc="o.date_order" t-options="{'widget': 'date'}"/></h4>
+                                                </div>
+                                                <div>
+                                                    <h4 style="font-size: 15px;">QTY : <span t-esc="sum(l.product_uom_qty for l in o.order_line) "/></h4>
+                                                </div>
+                                                <br/>
+                                                <div t-if="o.name">
+                                                    <img style="margin-left: -40px; margin-top:-14px;" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 200, 40)" />
+                                                </div>
+                                                <!-- <img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" style="max-height: 30px; margin-left: 115px;" alt="Logo" /> -->
+                                            </div>
+                                            <div class="col-6">
+                                                <div t-if="o.partner_id.company_name">
+                                                    <h4 style="font-size: 18px;"><strong><span t-esc="o.partner_id.company_name"/></strong></h4>
+                                                    <!-- <h4 style="font-size: 19px;"><strong><span t-esc="o.partner_shipping_id.parent_id.name"/></strong></h4> -->
+                                                </div>
+                                                <div t-else="o.partner_id.parent_id.name">
+                                                    <h4 style="font-size: 18px;"><strong><span t-esc="o.partner_id.parent_id.name"/></strong></h4>
+                                                </div>
+                                                <div>
+                                                    <h4 style="font-size: 15px;">
+                                                        <strong>
+                                                            <span t-esc="o.partner_shipping_id.name" />
+                                                        </strong>
+                                                    </h4>
+                                                </div>
+                                                <div>
+                                                    <h4 style="font-size: 14px;">
+                                                        <span t-field="o.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' />
+                                                    </h4>
+                                                </div>
+
+                                                <div>
+                                                    <h4 style="font-size: 13px;">
+                                                        <strong>ROUTES:&#160;
+                                                            <t t-esc="o.rount_code()" />
+                                                        </strong>
+                                                    </h4>
+                                                </div>
+
+                                                <!--  <div>
+                                                    <h3>Date:<span t-esc="o.date_order" /></h3>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                    </td>
+                                </t>
+                            </t>
+                        </tr>
+                    </t>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <record id="sale_paperformat_sale_barcode" model="report.paperformat">
+        <field name="name">Sale Paperformat Sale Barcode</field>
+        <field name="default" eval="True" />
+        <field name="disable_shrinking" eval="True" />
+        <field name="format">custom</field>
+        <field name="page_height">48</field>
+        <field name="page_width">102</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <!-- <field name="header_spacing">5</field> -->
+        <field name="dpi">96</field>
+    </record>
+
+
+   <!--  <record id="paperformat_label_shekf_talker" model="report.paperformat">
+            <field name="name">Shelf Talker Label Sheet</field>
+            <field name="default" eval="True" />
+            <field name="format">A4</field>
+            <field name="page_height">0</field>
+            <field name="page_width">0</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">0</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="disable_shrinking" eval="True"/>
+            <field name="dpi">96</field>
+        </record> -->
+
+
+
+    <!--  <template id="report_employee_barcode">
+        <t t-set="title">Locations</t>
+        <t t-call="stock.report_generic_barcode" />
+    </template> -->
+
+
+    <record id="action_report_sale_barcode" model="ir.actions.report">
+        <field name="name">Sales Order Barcode</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wmssoft_barcode_labels.report_sale_barcode</field>
+        <field name="report_file">wmssoft_barcode_labels.report_sale_barcode</field>
+        <field name="print_report_name">'Sale - %s' % object.name</field>
+        <field name="binding_model_id" ref="sale.model_sale_order" />
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="sale_paperformat_sale_barcode" />
+
+    </record>
+
+</odoo>

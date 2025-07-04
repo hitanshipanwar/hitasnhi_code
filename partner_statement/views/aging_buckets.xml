@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="aging_buckets">
+        <!--  <p>
+            Aging Report at <span t-esc="d['end']" /> in <span t-esc="display_currency.name" />:
+        </p> -->
+        <!-- <table class="table table-sm table-statement">
+            <thead>
+                <tr>
+                    <t t-foreach="bucket_labels" t-as="bl">
+                        <th class="amount">
+                            <span t-esc="bl" />
+                        </th>
+                    </t>
+                </tr>
+            </thead>
+            <t t-set="buckets" t-value="currency['buckets']" />
+            <tbody>
+                <tr>
+                    <td class="amount">
+                        <span t-esc="buckets.get('current', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_1_30', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_30_60', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_60_90', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_90_120', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_over_120', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('balance', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                </tr>
+            </tbody>
+        </table> -->
+        <style type="text/css">
+        .table1 td {
+            border-top: hidden !important;
+            padding-top: 0px !important;
+        }
+
+        .table1 th {
+            border-top: 1px solid black !important;
+            padding-bottom: 0px !important;
+        }
+
+        .th_line {
+            border-top: 1px solid black !important;
+            border-bottom: 1px solid black !important;
+        }
+
+        .td_line {
+            border: 1px solid black !important;
+        }
+
+        .td_font {
+            font-weight: bold;
+        }
+        </style>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <t t-foreach="bucket_labels" t-as="bl">
+                        <!-- <th class="amount"> -->
+                        <th class="text-center td_line td_font">
+                            <span t-esc="bl" />
+                        </th>
+                    </t>
+                </tr>
+            </thead>
+            <t t-set="buckets" t-value="currency['buckets']" />
+            <tbody>
+                <tr>
+                    <td class="text-right td_line">
+                        <span t-esc="buckets.get('current', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="text-right td_line">
+                        <span t-esc="buckets.get('b_1_30', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="text-right td_line">
+                        <span t-esc="buckets.get('b_30_60', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="text-right td_line">
+                        <span t-esc="buckets.get('b_60_90', 0.0) + buckets.get('b_90_120', 0.0)+buckets.get('b_over_120', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <!-- <td class="amount">
+                        <span t-esc="buckets.get('b_90_120', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                    <td class="amount">
+                        <span t-esc="buckets.get('b_over_120', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td> -->
+                    <td class="text-right td_line">
+                        <span t-esc="buckets.get('balance', 0.0)" t-options="{'widget': 'monetary', 'display_currency': display_currency}" />
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </template>
+</odoo>

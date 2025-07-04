@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="wmssoft_report_purchase_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="wmssoft_report.header_template_purchase">
+                        <div class="page" style="padding-left:30px;padding-right:30px; padding-top:-1050px;">
+                            <div class="row" style="padding-left:0px; padding-right:0px; padding-top=45px;">
+                                <div t-if="doc.rep_template_id" class="col-12" style="text-align:left">
+                                    <span t-field="doc.rep_template_id.address_purchase"/>
+                                </div>
+                            </div>
+                            <br/>
+                            <table style="border-collapse: collapse; width: 100%; padding-left:0px; padding-right:0px;" border="0">
+                                <tbody>
+                                <tr>
+                                <td style="width: 33.3333%; text-align:center; border-right:1px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Vendor</strong></td>
+                                <td style="width: 33.3333%; text-align:center; border-right:1px solid #fff !important; border-left:1px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Bill To</strong></td>
+                                <td style="width: 33.3333%; text-align:center; border-left:1px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Ship To</strong></td>
+                                </tr>
+                                 <tr>
+                                <td style="width: 33.3333%; text-align:left; border-right:1px solid #fff !important;">
+                                <p><b><span t-field="doc.partner_id.name"></span></b></p><p>
+                                  <!-- <span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> --><span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "email"], "no_marker": True}' /></p><!-- <p><b><span class="text-o-color-1" style="box-sizing:border-box;color:#35979c;" t-field="doc.partner_invoice_id.email"></span></b></p> -->
+                                </td>
+                                <td style="width: 33.3333%; text-align:left;border-right:1px solid #fff !important; border-left:1px solid #fff !important;"><p><b><span t-field="doc.company_id.partner_id.name"></span></b></p><p><span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /></p></td>
+                                <t t-if="doc.dest_address_id">
+                                <td style="width: 33.3333%; text-align:left;border-right:1px solid #fff !important; border-left:1px solid #fff !important;"><p><b><span t-field="doc.dest_address_id.name"></span></b></p><p><span t-field="doc.dest_address_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /></p></td></t><t t-if=" not doc.dest_address_id">
+                                <td style="width: 33.3333%; text-align:left;border-right:1px solid #fff !important; border-left:1px solid #fff !important;"><p><b><span t-field="doc.picking_type_id.warehouse_id.partner_id.name"></span></b></p><p><span t-field="doc.picking_type_id.warehouse_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /></p></td></t>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="row" style="border:1px solid grey; padding-left:0px;">
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Vendor</strong></p>
+                                    <p><span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Bill to</strong></p>
+                                    <p><span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <t t-if="doc.dest_address_id">
+                                        <p><strong>Ship to</strong></p>
+                                        <p><span t-field="doc.dest_address_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/></p>
+                                    </t>
+                                    <t t-if=" not doc.dest_address_id">
+                                        <p><strong>Ship to</strong></p>
+                                        <p><span t-field="doc.picking_type_id.warehouse_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/></p>
+                                    </t>
+                                </div>
+                            </div> -->
+                            <br/>
+                            <div class="row o_table_row" style="padding-left:13px; padding-right:13px;">
+                                <table class="o_table_row" style="width: 100%;">
+                                    <thead style="background-color:#000000;">
+                                        <tr style="background-color:#000000;color:#FFFFFF;">
+                                            <!-- <th class="text-left" width="10%" style="padding-left:3px; font-size:15px;"><span>Supplier Code</span></th> -->
+                                            <th width="15%" class="text-left" style="padding-left:3px;font-size:15px;"><span>Item Code</span></th>
+                                            <th class="text-left" width="30%" style="font-size:15px;padding-left:3px;"><span>Item Description</span></th>
+                                            <t t-if="any(additional_infos for additional_infos in doc.order_line.mapped('additional_info'))">
+                                            <th width="10%" class="text-right" style="font-size:15px; padding-left:3px;"><span>Additional Info</span></th>
+                                            </t>
+                                            <th width="10%" class="text-right" style="font-size:15px; padding-left:3px;"><span>Qty Ordered</span></th>
+                                            <th width="10%" class="text-right" style="font-size:15px; padding-left:3px;"><span>Unit Price</span></th>
+                                            <th width="10%" class="text-right" style="font-size:15px; padding-left:3px;"><span>Sub Total</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="purchase_tbody" style="border-bottom: 1px solid black;">
+                                        <t t-foreach="doc.order_line" t-as="line">
+                                            <tr style="font-size:15px;">
+                                                <!-- <td name="supplier_code" style="padding-left:3px;">
+                                                    <span t-if="line.product_id.variant_seller_ids" t-esc="line.product_id.variant_seller_ids[0].product_code" t-options="{'widget': 'text'}"/>
+                                                </td> -->
+                                                <td name="product_code" style="padding-left:3px;">
+                                                    <span t-field="line.product_id.default_code" t-options="{'widget': 'text'}"/>
+                                                </td>
+                                                <td name="purchase_line_name" style="padding-left:3px;"><span t-field="line.name" t-options="{'widget': 'text'}"/></td>
+                                                <t t-if="any(additional_infos for additional_infos in doc.order_line.mapped('additional_info'))">
+                                                <td name="td_additional_info" style="padding-left:3px;" class="text-right"><span t-field="line.additional_info" t-options="{'widget': 'text'}"/></td>
+                                                </t>
+                                                <td name="qty_ordered" style="padding-left:3px;" class="text-right"><span t-field="line.product_qty"/></td>
+                                                <td name="unit_price" style="padding-left:3px;" class="text-right">
+                                                    <span t-esc="'{:.2f}'.format(round(line.price_unit, 2))"/>
+                                                </td>
+                                                <td name="sub_total" style="padding-left:3px;" class="text-right">
+                                                    <!-- <span t-esc="line.price_subtotal"/> -->
+                                                    <t t-if="doc.currency_id.position == 'before'">
+                                                        <span t-esc="doc.currency_id.symbol[-1]" />
+                                                    </t>
+                                                    <span t-esc="'%.2f'% line.price_subtotal"/>
+                                                    <t t-if="doc.currency_id.position == 'after'">
+                                                        <span t-esc="doc.currency_id.symbol[-1]" />
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-7 o_table_row" style="padding-left:13px;">
+                                    <br/>
+                                    <table class="o_table_row" style="width: 100%;">
+                                        <thead style="background:#000000;color:#FFFFFF;">
+                                            <tr>
+                                                <th class="text-left" style="width:62%;"><span>Shipping Information</span></th>
+                                                <th class="text-left" style="width:38%;"><span>Order Notes</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td class="text-left">
+                                                <p t-if="doc.partner_id.property_delivery_carrier_id">Courier: <span t-field="doc.partner_id.property_delivery_carrier_id"/></p>
+                                                <p t-if="not doc.partner_id.property_delivery_carrier_id">Courier: Best Method</p>
+                                            </td>
+                                            <td class="text-left">
+                                                
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-5 mt-2" style="text-align:right; padding-right:14px;">
+                                    <table class="table table-sm" style="page-break-inside: avoid;">
+                                        <tr>
+                                            <td class="text-right">Subtotal</td>
+                                            <td class="text-right">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_untaxed"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right">GST</td>
+                                            <td class="text-right">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_tax"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right" style="border-top: 1px solid grey!important;">Total</td>
+                                            <td class="text-right" style="border-top: 1px solid grey!important;">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_total"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_purchase_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.partner_id.lang"/>
+                    <t t-call="wmssoft_report.wmssoft_report_purchase_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="purchase_order_report" model="ir.actions.report">
+            <field name="name">Badger Purchase Order (PDF)</field>
+            <field name="model">purchase.order</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">wmssoft_report.report_purchase_order</field>
+            <field name="report_file">wmssoft_report.report_purchase_order</field>
+            <field name="print_report_name">'Purchase Order - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="purchase.model_purchase_order"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="wmssoft_report.invoice_format"/>
+        </record>
+    </odoo>

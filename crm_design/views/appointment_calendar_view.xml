@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="appointment_calendar_view" model="ir.ui.view">
+            <field name="name">appointment.calendar.view</field>
+            <field name="model">sale.order</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Appointment" create="0" mode="month" date_start="appointment_date" color="designer_id" hide_time="true" event_limit="5">
+                    <field name="visitor_id" avatar_field="avatar_128"/>
+                </calendar>
+            </field>
+        </record>
+	</data>
+</odoo>

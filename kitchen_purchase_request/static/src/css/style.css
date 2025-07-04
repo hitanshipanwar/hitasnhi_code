@@ -1,0 +1,12 @@
+/*Product Code Column in PurchaseRequestLine*/
+th[data-name="product_id"]
+{
+    max-width: 160px !important;
+    width: 250px !important;
+}
+
+th[data-name="product_name"]
+{
+    max-width: 160px !important;
+    width: 250px !important;
+}

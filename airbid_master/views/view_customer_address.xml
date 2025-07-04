@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="supplier_customer_address_form" name="Customer Address Form">
+			<t t-call="web.login_layout">
+				<div class="oe_structure section_wrap oe_empty" id="oe_structure_website_sale_products_1"/>
+				<div class="container">
+					<form class="address_form" method="post" action="/solar/panels">
+						<div class="row" id="row_field">
+							<div class="col-sm-12">
+								<h3 id="post_header">Post a project</h3>
+								<!-- <h3 id="post_header"><t t-esc="customer_project_name"/></h3> -->
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">					                
+								<h6 id="Post_sub_header">Basic Project Details</h6>
+								<div id="field_1" class="column col-sm-12">
+									<label for="project_name" id="project_label">Project Name</label>
+									<t t-if="rec_id">
+
+										<input type="text" id="project_name" name="project_name" class="form-control form-control-md" required="required" t-att-value="rec_id.customer_project_name"/>
+									</t>
+									<t t-else="">
+										<input type="text" id="project_name" name="project_name" class="form-control form-control-md" required="required"/>
+									</t>
+								</div>
+
+								<div id="field_3" class="column col-sm-12">
+									<label id="project_label" for="customer_email">Email Address</label>
+									<input type="email" id="customer_email" name="customer_email" class="form-control form-control-md" t-att-value="request.env.user.email" readonly="1"/>
+								</div>
+
+								<div id="field_3" class="column col-sm-12">
+									<label id="project_label" for="phone">Phone No.</label>
+									<input type="text" id="user_phone_no" name="phone" class="form-control form-control-md" t-att-value="request.env.user.phone" readonly="1"/>
+								</div>
+								
+			        		</div>
+							<div class="column col-sm-6">
+								<h6 id="Post_sub_header">Project Location</h6>
+								<div id="fatch_address" class="column col-sm-12">
+									<t t-if="rec_id">
+										<input type="text" id="pac-input" name="multiple_address" class="form-control form-control-md" t-att-value="request.session.get('address')"></input>
+									</t>
+									
+
+									<iframe class="form-control form-control-md" id="my_map" src="https://maps.google.com/maps?q=Australia,%20country,%20Australia&amp;t=k&amp;z=3&amp;output=embed" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" height="450" width="600"></iframe>
+									<br></br>
+
+									<input type="text" id="long_address" name="long_address"  class="form-control form-control-md" t-att-value="rec_id.leng" hidden="hidden"></input>
+									<input type="text" id="let_address" name="let_address"  class="form-control form-control-md" t-att-value="rec_id.let" hidden="hidden"></input>
+
+								
+								</div>
+
+								<div id="manual_address" class="column col-sm-12">
+									<label id="project_label">Not able to find address?</label>&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;
+									<a href="#" id="enter_manually" class="btn" role="button">Enter Manually</a>
+								</div>
+								<div id="field_line1" class="column col-sm-12" style="display:none;">
+									<label id="project_label" for="address_line_1">Address Line 1</label>
+									<t t-if="rec_id">
+										<input type="search" id="addrs_1" name="address_line_1" class="form-control form-control-md " required="required" t-att-value="rec_id.street"/>
+										
+									</t>
+									<t t-else="">
+										<input type="search" id="addrs_1" name="address_line_1" class="form-control form-control-md" required="required"/>
+									</t>
+								</div>
+
+
+								<div id="field_line2" class="column col-sm-12" style="display:none;">
+									<label id="project_label" for="address_line_2">Address Line 2</label>
+									<t t-if="rec_id">
+										<input type="text" id="addrs_2" name="address_line_2" class="form-control form-control-md" t-att-value='rec_id.address_line_2'/>
+									</t>
+									<t t-else="">
+										<input type="text" id="addrs_2" name="address_line_2" class="form-control form-control-md"/>
+									</t>
+								</div>
+								<div id="city_state" class="column col-sm-12" style="display:none;">
+									<div class="column col-sm-4">
+										<label id="project_label" for="customer_city">City</label>
+										<t t-if="rec_id">
+											<input type="text" id="city" name="customer_city" class=" form-control" required="required" t-att-value='rec_id.city'/>
+										</t>
+										<t t-else="">
+											<input type="text" id="city" name="customer_city" class=" form-control" required="required"/>
+										</t>
+									</div>
+									<div class="column col-sm-4">
+										<label id="project_label" for="customer_state">State</label>
+										<t t-if="rec_id">
+											<input type="text" id="state" name="state" class=" form-control" required="required" t-att-value="rec_id.state_id.name"/>
+										</t>
+										<t t-else="">
+											<input type="text" id="state" name="state" class=" form-control" required="required"/>
+										</t>
+									</div>
+									<div class="column col-sm-4">
+										<label id="project_label" for="customer_zip">Zip</label>
+										<t t-if="rec_id">
+											<input type="text" id="postcode" name="customer_zip" class=" form-control" required="required" t-att-value='rec_id.zip'/>
+										</t>
+										<t t-else="">
+											<input type="text" id="postcode" name="customer_zip" class=" form-control" required="required"/>
+										</t>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<br></br>
+					<!-- ++++++++++Progress Bar++++++++++++++++ -->
+						<input type="hidden" name="record_id" t-att-value="record_id"/>
+
+						<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+						<button type="submit" id="next_page" class="btn" name="next">Next</button>
+						<br></br>
+						<br></br>
+						<br></br>
+						<br></br>
+						  <!-- <div id="myBar" class="w3-container w3-green w3-center" style="width:5%"></div>
+						<hr/> -->
+						<div class="progress_bar">
+						    <div id="myBar" class="w3-container w3-green w3-center" style="width: 2%;"></div>
+						</div>
+						<hr/>
+
+						<table style="border-collapse: collapse; width: 100%;">
+							<tbody>
+								<tr>
+									<td style="width: 50%;">
+										<div class="start_pro">
+											<h4>Start</h4>
+										</div>
+									</td>
+									<td style="width: 50%;">
+										<div class="complate_pro">
+											<h4>Complate</h4>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+				</div>
+			</t>
+		</template>
+	</data>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="zoho_crm_history_form_view" model="ir.ui.view">
+            <field name="name">zoho.crm.history.form.view</field>
+            <field name="model">zoho.crm.history</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='partner_id'/>
+                                <field name='activity_type_id'/>
+                                <field name='subject'/>
+                            </group>
+                            <group>
+                                <field name='company_id'/>
+                                <field name='user_id'/>
+                                <field name='date_of_note'/>
+                                <field name='date_completed'/>
+                            </group>
+                        </group>
+                        <label for="note"/>
+                        <field name="note"/>                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="zoho_crm_history_tree_view" model="ir.ui.view">
+            <field name="name">zoho.crm.history.tree.view</field>
+            <field name="model">zoho.crm.history</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name='partner_id' optional='show'/>
+                    <field name='subject'/>
+                    <field name='activity_type_id'/>
+                    <field name='company_id' optional='hide'/>
+                    <field name='note'  optional='show'/>
+                    <field name='date_of_note' optional='show'/>
+                    <field name='date_completed' optional='show'/>
+                    <field name='user_id' optional='hide'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_zoho_crm_history" model="ir.actions.act_window">
+            <field name="name">Zoho CRM History</field>
+            <field name="res_model">zoho.crm.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No mismatch details are found.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="mainmenu_zoho_crm_history" name="Zoho CRM History" action="action_zoho_crm_history"
+              parent="crm.crm_menu_sales" sequence="6"/>
+	</data>
+</odoo>

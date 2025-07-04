@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="wmssoft_report_invoice">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="wmssoft_report.header_template">
+                        <!-- <div class="page" style="padding-left:30px;padding-right:30px;"> -->
+                        <div class="page" style="padding-left:30px;padding-right:30px;padding-top:60px;position: relative;top: 20px;font-size:15px;">
+                            <div class="row" style="padding-left:0px; padding-right:0px;;margin-bottom: 10px;">
+                                <div class="col-6" style="width:50%;">
+                                    <div t-if="doc.rep_template_id" style="text-align:left;width:50%;" >
+                                        <span t-field="doc.rep_template_id.address" style="position:absolute;top: -80px;line-height: 23px;"/>
+                                    </div>
+                                </div>
+                                <div class="col-6" style="width:50%;">
+                                    <div style="text-align:right;position: relative;top: -83px;">
+                                        <p><span style="text-muted;margin-right: -90px;"><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.name, 600, 100)" style="width:300px;height:50px;"/></span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <table style="border-collapse: collapse; width: 100%; padding-left:0px; padding-right:0px;" border="1">
+                                <tbody>
+                                <tr>
+                                <td style="width: 33.3333%; text-align:center; border-right:12px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Bill To</strong></td>
+                                <td style="width: 33.3333%; text-align:center; border-right:12px solid #fff !important; border-left:1px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Ship To</strong></td>
+                                <td style="width: 33.3333%; text-align:center; border-left:1px solid #fff !important; background-color:#000000;color:#FFFFFF;"><strong>Order Details</strong></td>
+                                </tr>
+                                <tr style="">
+                                <td style="width: 33.3333%; text-align:left; border-right:12px solid #fff !important;"><p><b><span t-field="doc.partner_id.display_name"></span></b></p><p>
+                                <span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "email"], "no_marker": True}' /><!-- <span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> --></p>
+                                <!-- <p><b><span class="text-o-color-1" style="box-sizing:border-box;color:#35979c;" t-field="doc.partner_id.email"></span></b></p> --></td>
+                                <td style="width: 33.3333%; text-align:left;border-right:12px solid #fff !important; border-left:1px solid #fff !important;"><p><b><span t-field="doc.partner_shipping_id.display_name"></span></b></p><p><span t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}' /></p></td>
+                                <td style="width: 33.3333%; text-align:left;border-left:1px solid #fff !important;">
+                                    <p><strong>Sale Order Reference: </strong><span t-field="doc.invoice_origin"/></p>
+                                    <p><strong>Customer Reference: </strong><span t-field="doc.ref"/></p>
+                                    <p><strong>Payment Terms: </strong><span t-field="doc.invoice_payment_term_id"/></p></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div class="row" style="border:1px solid grey">
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Bill to</strong></p>
+                                    <p><span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /><span t-field="doc.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Ship to</strong></p>
+                                    <p><span t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>SO Reference: </strong><span t-field="doc.invoice_origin"/></p>
+                                    <p><strong>PO Number: </strong><span t-field="doc.ref"/></p>
+                                    <p><strong>Payment terms: </strong><span t-field="doc.invoice_payment_term_id"/></p>
+                                </div>
+                            </div> -->
+                            <br/>
+                            <t t-set="sale_order" t-value="doc.env['sale.order'].search([('name', '=', doc.invoice_origin)])"/>
+                            <div class="row o_table_row" style="padding-left:13px; padding-right:13px;">
+                                <table class="o_table_row" style="width: 100%;">
+                                    <thead style="background-color:#000000;">
+                                        <tr style="background-color:#000000;color:#FFFFFF;">
+                                            <th class="text-left" style="width:16%;adding-left:3px"><span>Item Code</span></th>
+                                            <th class="text-left" style="padding-left:3px:"><span>Item Description</span></th>
+                                            <t t-if="any(additional_info for additional_info in doc.invoice_line_ids.sale_line_ids.mapped('x_studio_additional_information'))">
+                                            <th class="text-left" style="width:12%;padding-left:3px:"><span>Additional Info</span></th></t>
+                                            <th class="text-left" style="width:10%;padding-left:3px:"><span>Qty Ordered</span></th>
+                                            <th class="text-left" style="width:9%;padding-left:3px:"><span>Shipped</span></th>
+                                            <th class="text-left" style="width:10%;padding-left:3px:"><span>Back<br/>ordered</span></th>
+                                            <th class="text-left" style="width:8%;padding-left:3px:"><span>Unit Price</span></th>
+                                            <th class="text-right" style="width:11%;padding-left:3px:"><span>Subtotal</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="invoice_tbody" style="border-bottom: 1px solid black; ">
+                                        <t t-foreach="doc.invoice_line_ids" t-as="line">
+                                            <t t-set="employee" t-value="line.get_employee_names()"/>
+                                            <t t-set="add_info" t-value="line.get_additional_info()"/>
+                                            
+                                            <tr>
+
+
+                                                <!-- Sunen Changes To Display Lines Based on It's Types -->
+                                                <t t-if="not line.display_type" name="account_invoice_line_accountable">
+                                                    <!-- My Changes End -->
+
+                                                    <td name="account_invoice_line_code" style="padding-left:3px">
+                                                        <span t-field="line.product_id.default_code" t-options="{'widget': 'text'}"/>
+                                                    </td>
+                                                    <td name="account_invoice_line_name" style="padding-left:3px;">
+                                                        <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/>
+                                                        <!-- <span t-field="line.product_id.name" t-options="{'widget': 'text'}"/> -->
+                                                        <t t-if="employee">
+                                                            <br/><i>Associated to <span t-esc="employee" t-options="{'widget': 'text'}"/></i>
+                                                        </t>
+                                                    </td>
+                                                    <t t-set="qty_delivered" t-value="0" />
+                                                    <t t-set="qty_to_deliver" t-value="0" />
+                                                    <t t-set="qty_ordered" t-value="0" />
+                                                    <t t-foreach="sale_order.order_line" t-as="order_lines">
+                                                        <t t-if="order_lines.product_template_id.name == line.product_id.name">
+                                                            <t t-set="qty_delivered" t-value="qty_delivered + order_lines.qty_delivered" />
+                                                            <t t-set="qty_ordered" t-value="order_lines.product_uom_qty" />
+                                                            <t t-set="qty_to_deliver" t-value="order_lines.qty_to_deliver" />
+                                                            <t t-set="employee_name" t-value="order_lines.employee_name" />
+                                                        </t>
+                                                    </t><t t-if="any(additional_info for additional_info in doc.invoice_line_ids.sale_line_ids.mapped('x_studio_additional_information'))">
+                                                   <td name="additional_info" style="padding-left:3px;"><span t-esc="add_info"/></td>
+                                                    </t>
+                                                    <td name="qty_ordered" class="text-left" style="padding-left:3px;"><span t-esc="line.sale_line_ids.product_uom_qty"/></td>
+                                                    
+                                                    <!-- Qty Delieverd Sunen Changes Start -->
+
+                                                    <!-- <td name="qty_delivered" class="text-left" style="padding-left:3px;"><span t-esc="line.sale_line_ids.qty_delivered" /></td> -->
+                                                    <td name="qty_delivered" class="text-left" style="padding-left:3px;"><span t-esc="line.quantity" /></td>
+                                                    
+                                                    <!-- Sunen Changes End -->
+
+                                                     <t t-set="bo_qty" t-value="0" />
+                                                     <t t-if="line.find_bo_status(sale_order,line.product_id) =='yes'">
+                                                         <t t-set="bo_qty" t-value="qty_to_deliver" />
+                                                    </t>
+                                                    <t t-if="line.product_id.type !='product'">
+                                                         <t t-set="bo_qty" t-value="0" />
+                                                    </t>
+                                                    <!-- <td name="qty_bo" class="text-left" style="padding-left:3px;"><span t-esc="bo_qty" /></td> -->
+                                                   
+                                                   <td name="qty_bo" class="text-left" style="padding-left:3px;"><span t-esc="line.sale_line_ids.product_uom_qty-line.sale_line_ids.qty_delivered" /></td>
+
+                                                    <td name="unit_price" style="padding-left:3px;" t-attf-class="text-left {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                                                        <span t-esc="'{:.2f}'.format(round(line.price_unit, 2))"/>
+                                                        <!-- <span class="text-nowrap" t-field="line.price_unit"/> -->
+                                                    </td>
+                                                    <td name="qty_bo" class="text-right" style="padding-left:3px;">
+                                                        <!-- <span t-field="doc.currency_id.symbol" style="text-align:left;"/> -->
+                                                        <t t-if="doc.currency_id.position == 'before'">
+                                                            <span t-esc="doc.currency_id.symbol[-1]" />
+                                                        </t>
+
+                                                        <!-- Sunen Start -->
+                                                         <!-- <span t-esc="'{:.2f}'.format(round(line.sale_line_ids.qty_delivered*line.price_unit))" /> -->
+                                                         <span t-esc= "'{:.2f}'.format(line.price_subtotal)" groups="account.group_show_line_subtotals_tax_excluded"/>
+                                                        <span t-esc="'{:.2f}'.format(line.price_total)" groups="account.group_show_line_subtotals_tax_included"/>
+                                                         <!-- Sunen End -->
+
+                                                        <t t-if="doc.currency_id.position == 'after'">
+                                                            <span t-esc="doc.currency_id.symbol[-1]" />
+                                                        </t>
+                                                       
+                                                    </td>
+                                                </t>
+
+                                                <t t-if="line.display_type == 'line_section'">
+                                                    <td colspan="99">
+                                                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                                    </td>
+                                                    <t t-set="current_section" t-value="line"/>
+                                                    <t t-set="current_subtotal" t-value="0"/>
+                                                </t>
+                                                <t t-if="line.display_type == 'line_note'">
+                                                    <td colspan="99">
+                                                        <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                                    </td>
+                                                </t>
+
+
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- <br/> -->
+                            <div class="row">
+                                <div class="col-7 o_table_row" style="padding-left:13px;">
+                                    <br/>
+                                    <table class="o_table_row" style="width: 100%;">
+                                        <thead style="background:#000000;color:#FFFFFF;">
+                                            <tr>
+                                                <th class="text-left" style="width:62%;padding-left:2px;"><span>Shipping Information</span></th>
+                                                <th class="text-left" style="width:38%;padding-left:2px;"><span>Order Notes</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <t t-set="courier_info" t-value="doc.get_courier_info()"/>
+                                            <td class="text-left" style="padding-left:2px;">
+                                                <p>Courier: <span t-esc="courier_info['courier']"/></p>
+                                                <p>Tracking Number: <span t-esc="courier_info['tracking']"/></p>
+                                                <p>Cartons: <span t-esc="courier_info['catons']"/></p>
+                                            </td>
+                                            <td class="text-left" style="padding-left:2px;">
+                                                <span t-field="doc.narration"/>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-5" style="text-align:right">
+                                    <table class="table table-sm" style="page-break-inside: avoid; padding-right:14px;">
+                                        <t t-set="total" t-value="0"/>
+                                        <t t-set="sub_total" t-value="(qty_delivered*line.price_unit)"/>
+                                        <t t-set="total" t-value="total+sub_total"/>
+                                        
+                                        <tr style="border-top:none !important">
+                                            <td class="text-right">Subtotal</td>
+                                            <td class="text-right">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_untaxed"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right"><t t-if="doc.amount_tax">GST</t></td>
+                                            <td class="text-right">
+                                                <t t-set="tax_totals" t-value="json.loads(doc.tax_totals_json)"/>
+                                                <t t-if="doc.amount_tax">
+                                                    <t t-foreach="tax_totals['groups_by_subtotal']['Untaxed Amount']" t-as="amount_by_group">
+                                                        <t t-if="doc.currency_id.position == 'before'">    
+                                                            <span t-esc="doc.currency_id.symbol[-1]" />
+                                                        </t>
+                                                        <span t-esc="'%.2f'% amount_by_group['tax_group_amount']"/>
+                                                        <t t-if="doc.currency_id.position == 'after'">
+                                                            <span t-esc="doc.currency_id.symbol[-1]" />
+                                                        </t>
+                                                    </t>
+                                                </t>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-right">Invoice Total</td>
+                                            <td class="text-right">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_total"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-right">Credit Used</td>
+                                            <td class="text-right">
+                                                <t t-set="payments_vals" t-value="doc.sudo()._get_reconciled_info_JSON_values()"/>
+                                                <t t-set="credit_payment_amount" t-value="0"/>
+                                                <t t-foreach="payments_vals" t-as="payment_vals">
+                                                    <t t-if="not payment_vals['account_payment_id']">
+                                                        <t t-set="credit_payment_amount" t-value="credit_payment_amount + payment_vals['amount']"/>
+                                                    </t>
+                                                </t>
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% credit_payment_amount"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-right">Payment</td>
+                                            <td class="text-right">
+                                                <t t-set="payment_amount" t-value="0"/>
+                                                <t t-foreach="payments_vals" t-as="payment_vals">
+                                                    <t t-if="payment_vals['account_payment_id']">
+                                                        <t t-set="payment_amount" t-value="payment_amount + payment_vals['amount']"/>
+                                                    </t>
+                                                </t>
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% payment_amount"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="text-right" style="border-top: 1px solid grey!important;">Balance Outstanding</td>
+                                            <td class="text-right" style="border-top: 1px solid grey!important;">
+                                                <t t-if="doc.currency_id.position == 'before'">    
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                                <span t-esc="'%.2f'% doc.amount_residual"/>
+                                                <t t-if="doc.currency_id.position == 'after'">
+                                                    <span t-esc="doc.currency_id.symbol[-1]" />
+                                                </t>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row" style="padding-left:13px;">
+                                <div t-if="doc.rep_template_id" class="col-12" style="text-align:left; padding-left:13px">
+                                    <p><strong>Payment Methods: </strong><br/><span t-field="doc.rep_template_id.bank"/></p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record id="account_invoices" model="ir.actions.report">
+            <field name="name">Invoice Format (PDF)</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">wmssoft_report.wmssoft_report_invoice</field>
+            <field name="report_file">wmssoft_report.invoice_format</field>
+            <field name="print_report_name">'Invoice Format - %s' % (object.name)</field>
+            <!-- <field name="attachment">(object.state == 'posted') and ((object.name or 'INV').replace('/','_')+'.pdf')</field> -->
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="wmssoft_report.invoice_format"/>
+        </record>
+    </odoo>

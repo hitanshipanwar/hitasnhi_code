@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="lost_supplier_dashboard_page" name="Supplier Lost Dashboard">
+			<t t-call="web.login_layout">
+			<div id="wrap" class="oe_structure section_wrap">
+          	<section id="open_project_dashboard">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="project_filter">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <div class="project_des_inprogress">
+                          <h3>Lost Projects</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+		     	</div>
+		    </div>
+		    </section>
+
+		     <section class="recent_bid_on_this_project">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                  <!-- <form class="address_form" method="post"  action="/supplier/review"> -->
+	                  	<script>
+			                		$(document).ready(function() {
+											    $('#supplier_recent_bid_view').DataTable( {
+											        "pagingType": "full_numbers"
+											    	} );
+													} );
+	                	</script>
+	                	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" />
+	                	<script type="text/javascript" src="/airbid_master/static/src/js/jquery.dataTables.min.js" />
+	                	
+	                	<link rel='stylesheet' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+	                  <table id="supplier_recent_bid_view">
+	                  	<thead>
+	                    <tr class="table_menu_sup_open">
+	                      <th>No,</th>
+	                      <th>Project Name</th>
+	                      <th>Bid count</th>
+	                      <th>Your Bid</th>
+	                      <th>View Project</th>
+	                      <th>View Bid</th>
+	                    </tr>
+	                  </thead>
+	                  <body>
+	                    <div class="bid_on_this_project_tr">
+	                    <t t-set="index" t-value="0"/>
+	                    <t t-foreach="data" t-as="rec">
+	                    	<t t-set="index" t-value="index+1"/>
+	                      <tr class="supplier_review_open_border">
+	                      	<form class="address_form" method="post"  action="/supplier/review">
+	                      	<td>
+	                      		<span class="dash_supplier_open_no"><t t-esc="index"/></span>
+	                      	</td>
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+
+	                            <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['project_state'])['project_state']['selection'])[rec.project_state]"/>
+
+	                            <input type="submit" class="btn btn-link dash_supplier_inprogress_name" t-att-value="rec.customer_project_name"></input>
+	                          </div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+	                        <t t-set="finance_val" t-value="0"/>
+	                          <t t-foreach="rec.supplier_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                            <t t-if="count.supplier_id.id == request.env.user.partner_id.id">
+	                            	<t t-if="count.final_price">
+	                            		<t t-set="finance_val" t-value="count.finance_cal"/>
+	                            	</t>
+
+                        			<t t-else="count.full_price">
+                            		<t t-set="finance_val" t-value="count.full_price"/>
+                        			</t>
+
+	                            </t>
+	                        </t>
+	                        <td><div class="bid_open_count"><span><t t-esc="total"/></span></div></td>
+
+	                        <td>
+	                        	<div class="dash_bid_review_price">
+	                        		<span>$
+		                        		<t t-esc="finance_val"/>
+		                        	</span>
+	                        	</div>
+	                        </td>
+													<td><div class="open_view_detail">
+														<!-- <a href="/supplier/review">View</a> -->
+														<input type="submit" class="btn btn-link " value="View"></input>
+													</div></td>
+													<td>
+														<div class="inprogress_edit_bid">
+															<a t-attf-href="#{'/supplier/details?bid_id=%s'%(rec.id)}">View Bid</a>
+														</div>
+													</td>
+												</form>
+	                      </tr>
+	                  	</t>
+	                    </div>
+	                  </body>
+	                  </table>
+	                    <!-- </form> -->
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+	        </div>
+	        </t>
+	    </template>
+
+	    <template id="lost_installer_dashboard_page" name="Installer Lost Dashboard">
+					<t t-call="web.login_layout">
+					<div id="wrap" class="oe_structure section_wrap">
+	          <section id="open_project_dashboard">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                  <div class="project_filter">
+	                    <div class="row">
+	                      <div class="col-sm-3">
+	                        <div class="project_des_inprogress">
+	                          <h3>Lost Projects</h3>
+	                        </div>
+	                      </div>
+	                  	</div>
+	                	</div>
+	               	</div>
+			     			</div>
+			    		</div>
+			    	</section>
+
+			    	<section class="recent_bid_on_this_project">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                  <!-- <form class="address_form" method="post"  action="/supplier/review"> -->
+	                  	<script>
+			                		$(document).ready(function() {
+											    $('#supplier_recent_bid_view').DataTable( {
+											        "pagingType": "full_numbers"
+											    	} );
+													} );
+	                	</script>
+	                	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js" />
+	                	<script type="text/javascript" src="/airbid_master/static/src/js/jquery.dataTables.min.js" />
+	                	
+	                	<link rel='stylesheet' href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+	                  <table id="supplier_recent_bid_view">
+	                  	<thead>
+	                    <tr class="table_menu_sup_open">
+	                      <th>No,</th>
+	                      <th>Project Name</th>
+	                      <th>Bid count</th>
+	                      <th>Your Bid</th>
+	                      <th>View Project</th>
+	                      <th>View Bid</th>
+	                    </tr>
+	                  </thead>
+	                  <body>
+	                    <div class="bid_on_this_project_tr">
+	                    <t t-set="index" t-value="0"/>
+	                    <t t-foreach="data" t-as="rec">
+	                    	<t t-set="index" t-value="index+1"/>
+	                      <tr class="supplier_review_open_border">
+	                      	<form class="address_form" method="post"  action="/lost/installer">
+	                      	<td>
+	                      		<span class="dash_supplier_open_no"><t t-esc="index"/></span>
+	                      	</td>
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+
+	                            <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['installer_project_state'])['installer_project_state']['selection'])[rec.installer_project_state]"/>
+
+	                            <input type="submit" class="btn btn-link dash_supplier_inprogress_name" t-att-value="rec.customer_project_name"></input>
+	                          </div>
+	                        </td>
+	                        <!-- <t t-set="total" t-value="0"/>
+	                        <t t-set="finance_val" t-value="0"/>
+	                          <t t-foreach="rec.solar_project_id.supplier_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                            <t t-if="count.supplier_id.id == request.env.user.partner_id.id">
+	                            	<t t-if="count.final_price">
+	                            		<t t-set="finance_val" t-value="count.finance_cal"/>
+	                            	</t>
+
+                        			<t t-else="count.full_price">
+                            		<t t-set="finance_val" t-value="count.full_price"/>
+                        			</t>
+
+	                            </t>
+	                        </t> -->
+	                        <t t-set="total" t-value="0"/>
+		                          <t t-foreach="rec.installer_bids_ids" t-as="count"> 
+		                            <t t-set="total" t-value="total+1"/>
+		                          </t>
+		                        <td><div class="dash_bid_review_price"><span><t t-esc="total"/></span></div></td>
+
+	                        <t t-set='bid_price' t-value='request.env["installer.bid"].sudo().search([("project_id.id","=",rec.id),("customer_id","=",request.env.user.partner_id.id)],limit=1)'/>
+			                        <td>
+			                        	<div class="open_view_detail">
+			                        		 
+			                        		<t t-if='bid_price'>
+			                        			<span>$ <t t-esc='bid_price.price'/></span>
+			                        		</t>
+			                        		<t t-else=''>
+			                        			<span>$ 0
+			                        			</span>
+			                        		</t>
+			                        	</div>
+			                        </td>
+													<td><div class="open_view_detail">
+														<!-- <a href="/supplier/review">View</a> -->
+														<input type="submit" class="btn btn-link " value="View"></input>
+													</div></td>
+													<td>
+			                        	<div class="open_view_detail">
+			                        		
+			                        		<div class="inprogress_edit_bid">
+			                        			<t t-if='bid_price'>
+													<a t-attf-href="#{'/bid/details/?record_id=%s'%(bid_price.id)}">View Bid</a>
+												</t>
+												<t t-else=''>
+													<a href="#">View Bid</a>
+												</t>
+											</div>
+			                        		
+			                        	</div>
+			                        </td>
+												</form>
+	                      </tr>
+	                  	</t>
+	                    </div>
+	                  </body>
+	                  </table>
+	                    <!-- </form> -->
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+
+			  	</div>
+				</t>
+			</template>
+	</data>
+</odoo>

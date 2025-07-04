@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id='installer_detail_tree_view' model='ir.ui.view'>
+	      <field name='name'>installater.detail.tree.view</field>
+	      <field name='model'>res.partner</field>
+	      <field name='arch' type='xml'>
+	        <tree>
+	          <field name="display_name"/>
+	          <field name="phone"/>
+	          <field name="email"/>
+	          <field name="profile_complete" invisible="1"/>
+	          <field name="state_id"/>
+	          <field name="supplier_validate"/>
+
+			  <button name="supplier_approve" class="btn-primary" string="Approve" type="object" attrs="{'invisible':['|',('supplier_validate','!=','draft'),('profile_complete','=',False)]}"></button>
+          		<button name="supplier_reject" class="btn-primary" string="Reject" type="object" attrs="{'invisible':['|',('supplier_validate','!=','draft'),('profile_complete','=',False)]}" ></button>
+	        </tree> 
+	      </field>
+	    </record>
+
+		<record id="installer_detail_kanban_view" model="ir.actions.act_window">
+	        <field name="name">Installer Profile</field>
+	        <field name="type">ir.actions.act_window</field>
+	        <field name="res_model">res.partner</field>
+	        <field name="view_mode">tree,form</field>
+	        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+	        <field name="view_id" ref="installer_detail_tree_view"/>
+	        <field name="context">{'default_is_company': True}</field>
+	        <field name="domain">[('is_supplier','=','installer')]</field>
+	    </record>
+		
+    		
+		<menuitem id='installater_customer_menu' name='Installer Profile' parent='solar_system.installation_solar_system_supplier_menu' action='solar_system.installer_detail_kanban_view' sequence="1"/>
+	
+	</data>
+</odoo>

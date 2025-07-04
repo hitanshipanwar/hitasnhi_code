@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+		<record id="import_finished_goods_wiz_view_form" model="ir.ui.view">
+			<field name="name">Import Finished Goods</field>
+			<field name="model">import.finished.goods</field> 
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="finished_goods" options="{'accepted_file_extensions': '.xlsx'}"/>
+								<field name="location_id" domain="[('usage','=','internal')]"/>
+							</group>
+							<group>
+								<field name="is_custom_selection" invisible="1"/>
+								<field name="ref_tag_id" context="{'sale_show_partner_name': True}" domain="[('is_custom_order', '=', True),('state','in',('sale','done'))]" attrs="{'invisible': [('is_custom_selection', '=', False)]}" />
+								<field name="location_dest_id"/>
+							</group>
+						</group>
+					</sheet>
+					<footer>
+						<button name="import_finished_goods" string="Import" type="object" class="btn btn-primary"/>
+					</footer>
+				</form>
+			</field>
+		</record>
+		<record id='import_finished_goods_menu_action' model='ir.actions.act_window'>
+			<field name="name">Import Finished Goods</field>
+			<field name="res_model">import.finished.goods</field>
+			<field name="view_mode">form</field>
+			<field name="target">new</field>
+		</record>
+		<menuitem name="Finished Goods" 
+			id="menu_import_finished_goods"  
+			action="import_finished_goods_menu_action"
+			web_icon="sss_finished_goods_script,static/images/kitchen_finished_goods.jpg"
+			groups="sss_finished_goods_script.groups_allows_finished_goods"
+			/>
+			<!-- parent="stock.menu_stock_warehouse_mgmt" -->
+	</data>
+</odoo>

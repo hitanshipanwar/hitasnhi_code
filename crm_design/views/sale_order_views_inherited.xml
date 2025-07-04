@@ -1,0 +1,688 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="sale.model_sale_order_action_share" model="ir.actions.server">
+        <field name="name">Share Quotation</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_share()</field>
+    </record>
+
+    <record id="model_sale_order_action_share_design" model="ir.actions.server">
+        <field name="name">Share Design</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_view_types">form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_share_design()</field>
+    </record>
+
+    <!-- <record id="sale_order_line_view_form_inherited_mobile_view" model="ir.ui.view">
+        <field name="name">sale.order.line.view.inherit.form.mobile.view</field>
+        <field name="model">sale.order.line</field>
+        <field name="inherit_id" ref="sale.sale_order_line_view_form_readonly"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='order_id']" position="after">
+                <field name="standard_type"/>
+            </xpath>
+        </field>
+    </record> -->
+
+    <!-- sale.order Inherited -->
+    <record id="sale_order_view_form_inherited" model="ir.ui.view">
+        <field name="name">sale.order.view.inherit.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//group[@name='note_group']" position="after">
+                <group name="calculator_group" col="6" class="mt-2 mt-md-0">
+                    <group colspan="4">
+                    </group>
+                    <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                        <field name="precent_digits" colspan="2"/>
+                        <field name="sale_per_amt" colspan="2"/>
+                    </group>
+                    <!-- <div class="clearfix"/> -->
+                </group>
+                <!-- <group>
+                    <group></group>
+                    <group>
+                        <group></group>
+                        <group>
+                            <group></group>
+                            <group>
+                                <field name="precent_digits" style="font-weight:bold;" />
+                                <field name="sale_per_amt" style="font-weight:bold;" />
+                            </group>
+                        </group>
+                    </group>
+                </group> -->
+            </xpath>
+
+            <xpath expr="//field[@name='validity_date']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="is_thai" widget="boolean_toggle" attrs="{'readonly': [('state', 'in', ['sale','done','cancel'])]}"/>
+                <field name="is_custom_order" widget="boolean_toggle" attrs="{'readonly': [('state', 'in', ['sale','done','cancel'])]}"/>
+            </xpath>       
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="is_thai" widget="boolean_toggle" invisible='1'/>
+            </xpath>
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_uom_qty']" position="before">
+                <field name="formula"/>
+            </xpath>
+
+            <xpath expr="//field[@name='partner_id']" position="attributes">
+                <attribute name="domain">[('customer_rank','>', 0)]</attribute>
+            </xpath>
+
+            <!-- <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'readonly': [('product_id.product_type', 'in', ['standard'])]}</attribute>
+            </xpath> -->
+
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <field name="standard_type"/>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/form/group/group/field[@name='product_id']" position="before">
+                <field name="standard_type"/>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='tax_id']" position="attributes">
+                <attribute name="context">{'is_thai':is_thai}</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']" position="attributes">
+                <attribute name="context">{'is_thai':is_thai}</attribute>
+            </xpath>
+
+            <xpath expr="//page[@name='order_lines']/field[@name='order_line']/form/group/group/field[@name='product_id']" position="replace">
+                <field name="product_id"
+                    domain="[('product_type','=',standard_type),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                    context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'uom':product_uom, 'company_id': parent.company_id, 'is_thai':parent.is_thai}"
+                    attrs="{
+                        'readonly': [('product_updatable', '=', False)],
+                        'required': [('display_type', '=', False)],
+                    }"
+                    force_save="1"
+                    widget="many2one_barcode"
+                    />
+            </xpath>
+
+             <xpath expr="//page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+                <field
+                    name="product_id"
+                    options="{'no_create': True}"
+                    attrs="{
+                        'readonly': [('product_updatable', '=', False)],
+                        'required': [('display_type', '=', False)],
+                    }"
+                    force_save="1"
+                    context="{
+                        'partner_id': parent.partner_id,
+                        'quantity': product_uom_qty,
+                        'pricelist': parent.pricelist_id,
+                        'uom':product_uom,
+                        'company_id': parent.company_id,
+                        'default_lst_price': price_unit,
+                        'default_description_sale': name,
+                    }"
+                    domain="[('product_type','=',standard_type),('sale_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"
+                    widget="product_configurator"
+                />
+            </xpath>
+            <xpath expr="//page[@name='customer_signature']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="groups"></attribute>
+            </xpath>
+
+            <xpath expr="//sheet/notebook/page[@name='customer_signature']" position="after">
+                <page string='Visitor Notes'>
+                    <field name="visiter_notes" readonly="True"/>
+                </page>
+            </xpath>
+
+            <xpath expr="//sheet/group[@name='sale_header']" position="after">
+                <div>
+                    <label for="extra_notes" name="Descriptions"/>
+                    <field name="extra_notes" placeholder="Any Descriptions Here ..."/>
+                </div>
+            </xpath>
+
+                <xpath expr="//div[@class='oe_button_box']" position="after">
+                    <widget name="web_ribbon" title="Paid" attrs="{'invisible': [('final_paid', '=', False)]}"/>
+                </xpath>
+
+                <xpath expr="//div[@class='oe_button_box']" position="inside">
+
+                        <button name="preview_design"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-globe icon" attrs="{'invisible': [('need_design', '=', False)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Design</span>
+                                <span class="o_stat_text">Preview</span>
+                            </div>
+                        </button>
+                </xpath>
+            <xpath expr="//header" position="inside">
+
+                <button name="notify_salesperson" string="Notify SalesPerson"
+                            type="object" class="btn-primary" groups="crm_design.group_allow_to_add_design"
+                             attrs="{'invisible': [('saleperson_notified','=',True),('need_design','=',True)]}"/>
+
+                <button name="notify_designer" string="Notify Designer"
+                            type="object" class="btn-primary"
+                            attrs="{'invisible': ['|','|','|',('state','not in',('site_visited','draft','design_confirm')),('current_login_id','!=',True),('designer_notified','=',True),('need_design','!=',True)]}"/>
+
+                <!-- <button name="send_design" string="Send Design" type="object"
+                            attrs="{'invisible': ['|',('need_design','=',False),('state','in',('final_approve_pending','final_approved','final_refused','sale','done','cancel'))]}"/> -->
+
+                    <button name="send_design" string="Send Design"
+                            type="object" class="btn-primary"
+                            attrs="{'invisible': ['|','|','|',('state','not in',('site_visited','draft','design_confirm')),('current_login_id','!=',True),('designer_notified','=',True),('need_design','!=',True)]}"/>
+
+                <!-- <button name="request_for_design_approval" string="Design Approve Request"
+                            type="object" class="btn-primary" data-hotkey="q" attrs="{'invisible': ['|',('state','in',('approve_pending','sale','approved','site_visit','site_visited','final_approved','design_confirm')),'|',('current_login_id','!=',True),('design_count','=',0)]}"/> -->
+
+                <button name="request_for_final_approval" string="Quotation Approve Request"
+                            type="object" class="btn-primary" attrs="{'invisible': ['|',('state','in',('final_approve_pending','sale','final_approved','cancel','done')),('current_login_id','!=',True)]}"/>
+
+                <!-- attrs="{'invisible':[('mark_as_sent','=',True)]}" -->
+                <button name="action_mark_as_send" string="Mark Send" type="object" />
+
+
+                <!-- <button name="action_approve" string="Approve" type="object" attrs="{'invisible':[('state','not in',('approve_pending','final_approve_pending'))]}" data-hotkey="q" groups="crm_design.group_manager_design" class="btn btn-primary"/>
+
+                <button name="action_refuse" string="Refuse" type="object" attrs="{'invisible':[('state','not in',('approve_pending','final_approve_pending'))]}" data-hotkey="x" groups="crm_design.group_manager_design" class="btn btn-primary"/>
+ -->
+                <button name="action_approve" string="Approve" type="object" attrs="{'invisible':[('state','not in',('approve_pending','final_approve_pending'))]}" data-hotkey="q" groups="crm_design.group_manager_quotation" class="btn btn-primary"/>
+
+                <button name="action_refuse" string="Refuse" type="object" attrs="{'invisible':[('state','not in',('approve_pending','final_approve_pending'))]}" data-hotkey="x" groups="crm_design.group_manager_quotation" class="btn btn-primary"/>
+
+            </xpath>
+
+            <button name="action_quotation_send" type="object" states="sent,sale" data-hotkey="g" position="replace">
+            </button>
+
+            <xpath expr="//button[@data-hotkey='g']" position="replace">
+                <button name="action_quotation_send" string="Send by Email" type="object" data-hotkey="g"
+                    attrs="{'invisible':[('state','not in',('final_approved'))]}"/>
+                 <!-- <button name="action_quotation_send" string="Send by Email" type="object" data-hotkey="g"
+                    attrs="{'invisible':['|','&amp;',('need_design','=',False),('state','not in',('final_approved')),
+                    '|','&amp;',('current_login_id','=',False),('state','in',('draft','final_approved')),
+                    '&amp;',('need_design','=',True),('state','in',('final_approve_pending','site_visit'))]}"/> -->
+            </xpath>
+
+
+
+            <!-- <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                    class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['sent'])]}" position="replace">
+
+                    <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                            string="Confirm" class="btn-primary" type="object"
+                            attrs="{'invisible': ['|','|',('confirmed_by_customer', '=',False),('current_login_id','!=',True),('state','not in',('final_approved',))]}"/>
+            </button> -->
+
+            <button name="action_confirm" data-hotkey="v" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['draft'])]}" position="replace">
+            </button>
+            <button name="action_confirm" id="action_confirm" data-hotkey="v"
+                        class="btn-primary" type="object"
+                        attrs="{'invisible': [('state', 'not in', ['sent'])]}" position="replace">
+            </button>
+
+
+            <button name="%(sale.action_view_sale_advance_payment_inv)d"
+                        type="action" class="btn-primary" data-hotkey="q"
+                        attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}" position="replace">
+            </button>
+
+            <!-- <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d"
+                    type="action" class="btn-primary" data-hotkey="q"
+                    attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}" position="replace">
+                    
+                    <button id="create_invoice" name="%(sale.action_view_sale_advance_payment_inv)d" string="Create Final Invoice"
+                    type="action" class="btn-primary" data-hotkey="q"
+                    attrs="{'invisible': [('invoice_status', '!=', 'to invoice')]}"/>
+
+            </button> -->
+
+            <button name="%(sale.action_view_sale_advance_payment_inv)d" 
+                type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
+                attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}" position="replace">
+                
+                <button id="create_invoice" class="btn-primary" name="%(sale.action_view_sale_advance_payment_inv)d" 
+                type="action" data-hotkey="q" string="Create Final Invoice" attrs="{'invisible': ['|',('state', 'not in',('sale',)),'|',('current_login_id','!=',True),('invoice_status', '!=', 'to invoice')]}" />
+                <!-- context="{'default_advance_payment_method': 'percentage'}" -->
+            </button>
+
+            <!-- <button name="%(sale.action_view_sale_advance_payment_inv)d"
+                        type="action" context="{'default_advance_payment_method': 'percentage'}" data-hotkey="q"
+                        attrs="{'invisible': ['|',('invoice_status', '!=', 'no'), ('state', '!=', 'sale')]}" position="replace"> -->
+
+                        <!-- name="create_final_invoice" -->
+                        <!-- name="%(sale.action_view_sale_advance_payment_inv)d" -->
+                        <!-- <button name="create_final_invoice" string="Create Final Invoice"
+                        type="object" class="btn-primary" data-hotkey="q"
+                        attrs="{'invisible': ['|',('state', 'not in',('sale',)),'|',('current_login_id','!=',True),('is_final_invoice_created','=',True)]}"/>
+            </button> -->
+
+            <button name="action_cancel" type="object" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale']), ('id', '=', False)]}" data-hotkey="z" position="replace">
+
+                <button name="action_cancel" type="object" string="Cancel" attrs="{'invisible': ['|', ('state', 'not in', ['draft', 'sent','sale','final_approved']), ('id', '=', False)]}" data-hotkey="z" /> 
+
+            </button>
+
+
+
+            <xpath expr="//sheet/div[@name='button_box']" position="inside">
+                <button name="action_view_appointments"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-calendar"  attrs="{'invisible': [('state', 'not in', ('site_visit','site_visited'))]}">
+                        Appointments
+                </button>
+
+            </xpath>
+
+            <xpath expr="//header/field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,design_confirm,site_visit,site_visited,final_approve_pending,final_approved,final_refused,sale"/>
+            </xpath>
+
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="action_create_appointment" type="object" string="Create Appointment" attrs="{'invisible': ['|',('appoinment_to_visit', '=', False),'|',('state','in',('site_visited','final_approve_pending','final_approved','final_refused','sale')),('current_login_id','!=',True)]}"/>
+            </xpath>
+
+            <xpath expr="//group[@name='partner_details']" position="inside">
+                <field name="partner_id" invisible="1"/>
+                <field name="platform_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
+                <field name="product_requirement" />
+                <field name="sizing"/>
+            </xpath>
+
+            <xpath expr="//group[@name='order_details']" position="inside">
+                <!-- Invisile Fields -->
+                <field name="mark_as_sent"/>
+                <field name="previous_state" invisible="1"/>
+                <field name="is_manager_login" invisible="1"/>
+                <field name="design_count" invisible="1"/>
+                <field name="is_final_invoice_created" invisible="1"/>
+                <field name="is_quotation_approved" force_save="1" invisible="1"/>
+                <field name="current_login_id" invisible="1"/>
+                <field name="create_uid" invisible="1"/>
+                <field name="is_designer_login" invisible="1"/>
+                <field name="final_paid" invisible="1"/>
+                <field name="designer_notified" invisible="1"/>
+                <field name="saleperson_notified" invisible="1"/>
+
+                <field name="need_design" force_save="1" attrs="{'readonly':[('state', 'in', ['sale', 'done', 'final_approve_pending', 'final_approved', 'cancel'])]}"/>
+                <field name="designer_id" attrs="{'invisible': [('need_design', '=', False)], 'readonly':[('state', 'in', ['sale', 'done', 'final_approve_pending', 'final_approved'])]}"/>
+
+                <field name="appoinment_to_visit" attrs="{'readonly':[('state', 'in', ['sale', 'done', 'final_approve_pending', 'final_approved', 'cancel'])]}"/>
+
+                <field name="appointment_date" attrs="{'invisible': [('state', 'not in', ('site_visit','site_visited'))]}" force_save="1"/>
+                <field name="visitor_id" attrs="{'invisible': [('state', 'not in', ('site_visit','site_visited'))]}" force_save="1"/>
+                <field name="visit_charge" invisible="1"/>
+                <field name="confirmed_by_customer" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='name']" position="after">
+                <field name="model_id" widget="product_configurator"  attrs="{'column_invisible':[('parent.product_requirement','!=','doors')]}"/>
+                <field name="thickness" attrs="{'column_invisible':[('parent.product_requirement','!=','doors')]}"/>
+                <field name="width" attrs="{'column_invisible':[('parent.product_requirement','!=','doors')]}"/>
+                <field name="height" attrs="{'column_invisible':[('parent.product_requirement','!=','doors')]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='customer_lead']" position="replace">
+                <field name="customer_lead" invisible="1"/>
+            </xpath>
+
+            <field name="order_line" position="attributes">
+                <attribute name="context">{'is_thai': is_thai}</attribute>
+            </field>
+
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']" position="attributes">
+
+                <!-- <attribute name="attrs">{'readonly': [('is_manager_login','=',False),'|',('state', 'not in', ['sale', 'done']),('is_manager_login','=',False),'|',('state', 'not in', ['draft',]),('is_manager_login','=',True),('state', 'not in', ['draft','final_approve_pending'])]}</attribute> -->
+
+                <!-- <attribute name="attrs">{'readonly': [('is_manager_login','=',False),'|',('state', 'in', ['sale', 'done','final_approve_pending','final_approved']),('is_manager_login','=',True),('state', 'in', ['sale', 'done','final_approved'])]}</attribute> -->
+
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_packaging_qty']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='product_packaging_id']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='payment_term_id']" position="attributes">
+                <attribute name="required">1</attribute>
+            </xpath>
+
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_unit']" position="attributes">
+                <attribute name="attrs">{'readonly': ['|',('qty_invoiced', '&gt;', 0),('standard_type', '=', 'standard')]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+
+            <!-- <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='price_unit']" position="replace"> -->
+                <!-- OLd Domain -->
+                 <!-- attrs="{'readonly': [('parent.is_manager_login','=',False),'|',('parent.state', 'not in', ['sale', 'done']),('parent.is_manager_login','=',False),'|',('parent.state', 'not in', ['draft',]),('parent.is_manager_login','=',True),('parent.state', 'not in', ['draft','final_approve_pending'])]}" -->
+               <!--  <field name="price_unit" attrs="{'readonly': [('parent.is_manager_login','=',False),('parent.state', 'in', ['sale', 'done','final_approve_pending','final_approved'])]}"/>
+            </xpath>
+            <xpath expr="//notebook/page[@name='order_lines']/field[@name='order_line']/tree/field[@name='tax_id']" position="replace">
+                <field
+                    name="tax_id"
+                    widget="many2many_tags"
+                    options="{'no_create': True}"
+                    domain="[('type_tax_use','=','sale'),('company_id','=',parent.company_id), ('country_id', '=', parent.tax_country_id)]"
+                    context="{'active_test': True}"
+                    attrs="{'readonly': [('parent.is_manager_login','=',False),'|',('parent.state', 'not in', ['sale', 'done']),('parent.is_manager_login','=',False),'|',('parent.state', 'not in', ['draft',]),('parent.is_manager_login','=',True),('parent.state', 'not in', ['draft','final_approve_pending'])]}"
+                    optional="show"
+                    />
+            </xpath> -->
+
+            <xpath expr="//notebook/page[@name='other_information']" position="after">
+                    <page name="materials" string="Material Specification" attrs="{'invisible':[('product_requirement','!=','doors')]}">
+                        <group>
+                            <group name="group1">
+                                <field name="material_specification" attrs="{'required': [('product_requirement','=','doors')]}"/>
+                                <field name="job_type" attrs="{'required': [('product_requirement','=','doors')]}"/>
+                            </group>
+                            <group name="group2">
+                                <field name="gloss" attrs="{'required': [('product_requirement','=','doors')]}"/>
+                                <field name="code" attrs="{'required': [('product_requirement','=','doors')]}"/>
+                            </group>
+                        </group>
+                    </page>
+
+                    <page name="design" string="Design" attrs="{'invisible':[('need_design','=',False)]}">
+                        <field name="attachment_ids">
+                            <tree delete="false">
+                                <field name="name" />
+                                <field name="create_uid" readonly="1" class="oe_inline" string="Uploaded By"/>
+                                 <field name="share_design"/>
+                                 <field name="is_approved" invisible="1"/>
+                                 <field name="is_rejected" invisible="1"/>
+                                 <field name="comment" attrs="{'invisible_column':[('approve_state','=','draft')]}"/>
+                                <field name="is_final_design" attrs="{'column_invisible':[('parent.state','not in',('site_visited','final_approved','sale'))]}"/>
+                                <field name="customer_signature" widget="image" attrs="{'column_invisible':[('parent.state','not in',('design_confirm','site_visit','site_visited','final_approve_pending','final_approved','final_refused','sale'))]}" style="height:80px;width:80px;"/>
+                                <field name="approve_state" readonly="True"/>
+                                <field name='datas' widget="binary" string='Download' filename="name"/>
+
+                                <button name="unlink"
+                                        type="object"
+                                        class="fa fa-trash-o"
+                                        attrs="{'invisible': [('approve_state', '!=', 'draft')]}"
+                                        aria-label="Delete row 1"
+                                        />
+                            </tree>
+                            <form string="Attachments">
+                                <header>
+                                        <field name="approve_state" widget="statusbar" statusbar_visible="draft,approve,pre_approved,rejected"/>
+                                </header>
+                               <sheet>
+                                <label for="name"/>
+                                <h1>
+                                    <field name="name" attrs="{'readonly':['|',('parent.state','in',('approved','approve_pending')),('approve_state', '!=', 'draft')]}"/>
+                                </h1>
+                                <group>
+                                    <group>
+                                        <!-- attrs="{'readonly':['|',('parent.state','=','approved'),('approve_state', '!=', 'draft')]}" -->
+                                        <!-- Disable Domain for share in every stages -->
+                                        <field name="share_design" />
+                                        <field name="is_final_design" attrs="{'readonly':[('approve_state','!=','draft')],'invisible':['|',('approve_state','!=','draft'),('parent.state','not in',('site_visited','final_approved','sale'))]}"/>
+
+                                        <field name="type" invisible="1"/>
+                                        <field name="datas" filename="name" options="{'accepted_file_extensions': '.pdf'}" attrs="{'readonly':['|',('parent.state','in',('approved','approve_pending')),('approve_state', '!=', 'draft')]}"/>
+
+                                        <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                                        <field name="mimetype" groups="base.group_no_one" invisible="1"/>
+
+                                        <field name="customer_signature" widget="image" attrs="{'invisible':['|',('approve_state','=','draft'),('parent.state','not in',('design_confirm','site_visit','site_visited','final_approve_pending','final_approved','final_refused','sale'))],'readonly':['|',('parent.state','=','approved'),('approve_state', '!=', 'draft')]}" force_save="1"/>
+
+                                    </group>
+                                    <group string="Attached To" groups="base.group_no_one" invisible="1">
+                                        <field name="res_model"/>
+                                        <field name="res_field"/>
+                                        <field name="res_id"/>
+                                        <field name="res_name"/>
+                                        <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                        <field name="public"/>
+                                    </group>
+                                    <group string="History" groups="base.group_no_one" attrs="{'invisible':[('create_date','=',False)]}" invisible="1">
+                                        <label for="create_uid" string="Creation"/>
+                                        <div name="creation_div">
+                                            <field name="create_uid" readonly="1" class="oe_inline"/> on
+                                            <field name="create_date" readonly="1" class="oe_inline"/>
+                                        </div>
+                                    </group>
+                                    <group name="description_group" string="Description" groups="base.group_no_one"  colspan="4" invisible="1">
+                                        <field name="description" nolabel="1"/>
+                                    </group>
+                                    <group groups="base.group_no_one" string="Indexed Content" colspan="4" invisible="1">
+                                        <field name="index_content" nolabel="1"/>
+                                    </group>
+                                </group>
+                              </sheet>
+                            </form>
+                        </field>
+                    </page>
+
+                    <page string="Attachments">
+                        <field name="multi_attachments" widget="many2many_binary" string="Attach a file" nolabel="1" colspan="2" invisible="1"/>
+                        <field name="multi_attachments_ids" >
+                            <tree delete="false">
+                                <field name="name" />
+                                <field name="create_uid" readonly="1" class="oe_inline" string="Uploaded By"/>
+                                <field name="create_date" readonly="1" class="oe_inline" string="Uploaded On" />
+                                <field name='datas' widget="binary" string='Download' filename="name"/>
+
+                                <!-- <button name="unlink"
+                                        type="object"
+                                        class="fa fa-trash-o"
+                                        attrs="{'invisible': [('approve_state', '!=', 'draft')]}"
+                                        aria-label="Delete row 1"
+                                        /> -->
+                            </tree>
+                            <form string="Attachments">
+                                <sheet>
+                                    <label for="name"/>
+                                    <h1>
+                                        <field name="name"/>
+                                    </h1>
+                                    <group>
+                                        <group>
+                                            <field name="type" invisible="1"/>
+                                            <field name="datas" filename="name"/>
+
+                                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                                            <field name="mimetype" groups="base.group_no_one" invisible="1"/>
+                                        </group>
+                                        <group string="Attached To" groups="base.group_no_one" invisible="1">
+                                            <field name="res_model"/>
+                                            <field name="res_field"/>
+                                            <field name="res_id"/>
+                                            <field name="res_name"/>
+                                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                                            <field name="public"/>
+                                        </group>
+                                        <group string="History" groups="base.group_no_one" attrs="{'invisible':[('create_date','=',False)]}" invisible="1">
+                                            <label for="create_uid" string="Creation"/>
+                                            <div name="creation_div">
+                                                <field name="create_uid" readonly="1" class="oe_inline"/> on
+                                                <field name="create_date" readonly="1" class="oe_inline"/>
+                                            </div>
+                                        </group>
+                                        <group name="description_group" string="Description" groups="base.group_no_one"  colspan="4" invisible="1">
+                                            <field name="description" nolabel="1"/>
+                                        </group>
+                                        <group groups="base.group_no_one" string="Indexed Content" colspan="4" invisible="1">
+                                            <field name="index_content" nolabel="1"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+
+                    <page string="Manager Signature">
+                        <field name="manager_info_ids" >
+                            <tree delete="0" create="0">
+                                <field name="manager_signature" widget="signature" style="height:80px;width:80px;" readonly="1"/>
+                                <field name="manager_name" readonly="1"/>
+                                <field name="manager_signed_on" readonly="1"/>
+                                <field name="state" readonly="1"/>
+                                <field name="is_approved"/>
+                            </tree>
+                            <form>
+                                <sheet>
+                                    <group>
+                                        <group>
+                                            <field name="manager_signature" widget="signature" style="height:80px;width:80px;" readonly="1"/>
+                                            <field name="manager_name" readonly="1"/>
+                                            <field name="manager_signed_on" readonly="1"/>
+                                            <field name="state" readonly="1"/>
+                                            <field name="is_approved"/>
+                                        </group>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+<!--                         <group>
+                            <field name="manager_signature" widget="signature"/>
+                            <field name="manager_name"/>
+                            <field name="manager_signed_on"/>
+                        </group> -->
+                    </page>
+                </xpath>
+        </field>
+    </record>
+
+
+
+    <!-- Create Domain Tree view for designer to display Quotation -->
+    <record id="action_quotations_my_desing_to_upload" model="ir.actions.act_window">
+            <field name="name">Design</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <field name="domain">[('designer_id', '=', uid)]</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+              </p><p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+              </p>
+            </field>
+        </record>
+
+
+    <!-- Menu to display Upload Design Sale Order -->
+    <menuitem id="my_design_upload_menu_item"
+            name="Design to Upload"
+            parent="sale.sale_order_menu"
+            action="action_quotations_my_desing_to_upload">
+    </menuitem>
+
+    <!-- Group wise Readonly Salr Order Line -->
+    <record id="sale_order_line_sales_person_group" model="ir.ui.view">
+            <field name="name">sale.order.line.sales.person.group</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="readonly"></attribute>
+                    <attribute name="attrs">{'readonly': [('is_manager_login', '=', False), ('state', 'in', ['sale', 'done', 'final_approve_pending', 'final_approved'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_order_line_sales_manager_group" model="ir.ui.view">
+            <field name="name">sale.order.line.sales.manager.group</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="groups_id" eval="[(4, ref('crm_design.group_manager_quotation'))]"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']" position="attributes">
+                    <attribute name="readonly"></attribute>
+                    <attribute name="attrs">{'readonly': [('is_manager_login','=',True),('state', 'in', ['sale', 'done','final_approved'])]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_quotations_with_onboarding_crm_lead" model="ir.actions.act_window">
+            <field name="name">Quotations</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_id" ref="sale.view_quotation_tree_with_onboarding"/>
+            <field name="view_mode">tree,kanban,form,calendar,pivot,graph,activity</field>
+            <field name="search_view_id" ref="sale.sale_order_view_search_inherit_quotation"/>
+            <!-- <field name="context">{'search_default_my_quotation': 1,'search_default_cancel':1}</field> -->
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create a new quotation, the first step of a new sale!
+              </p><p>
+                Once the quotation is confirmed by the customer, it becomes a sales order.<br/> You will be able to create an invoice and collect the payment.
+              </p>
+            </field>
+        </record>
+
+        <record id="sale_order_kpis_tree_inherit_rfq_sent" model="ir.ui.view">
+        <field name="name">sale.order.kpis.tree.inherit.rfq.sent</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="mark_as_sent"/>
+            </xpath>
+            <xpath expr="//field[@name='activity_ids']" position="after">
+                <field name="sizing"/>
+            </xpath>
+        </field>
+    </record>
+
+
+        <record id="sale.sale_order_view_search_inherit_quotation" model="ir.ui.view">
+            <field name="name">sale.order.search.inherit.quotation</field>
+            <field name="model">sale.order</field>
+            <field name="mode">primary</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='my_sale_orders_filter']" position="replace">
+                    <field name="campaign_id"/>
+                    <separator/>
+                    <filter string="My Quotations" name="my_quotation" domain="[('user_id', '=', uid)]"/>
+                    <separator/>
+                    <filter string="Quotations" name="draft" domain="[('state','in',('draft', 'sent'))]"/>
+                    <filter string="Sales Orders" name="sales" domain="[('state','in',('sale','done'))]"/>
+                    <filter string="Cancel Orders" name="cancel" domain="[('state','=','cancel')]"/>
+                    <separator/>
+                    <filter string="Create Date" name="filter_create_date" date="create_date"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+        <!-- <record id="visit_appointment_view_form_inherited_employee" model="ir.ui.view">
+            <field name="name">visit.appointment.view.form.inherited.employee</field>
+            <field name="model">appointment.visit</field>
+            <field name="inherit_id" ref="crm_design.visit_appointment_view_form"/>
+            <field name="groups_id" eval="[(4, ref('crm_design.group_employee'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='visitor_id']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+</odoo>

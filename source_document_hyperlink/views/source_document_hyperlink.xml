@@ -1,0 +1,48 @@
+<odoo>
+  <data>
+      <!-- explicit list view definition -->
+
+    <record model="ir.ui.view" id="stock_picking_form_view_inherit_hyper">
+      <field name="name">stock.picking.inherit</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_form"/>
+      <field name="arch" type="xml">
+        <button name="action_view_reception_report" position='after'>
+          <button name="po_number_smart_button" type="object" class="oe_stat_button" attrs="{'invisible': [('po_no_count', '=', 0)]}">
+            <i class="fa fa-fw o_button_icon fa-credit-card"></i>
+              <field name="po_no_count" widget="statinfo"/>
+          </button>
+        </button>
+        <field name="origin" position="after">
+          <field name="so_id" />
+          <field name="po_id" />
+          <field name='po_no' string='Related POs'/>
+          <field name="po_number" string="PO Number" attrs="{'invisible':[('picking_type_code', '!=', 'internal')]}"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="stock_picking_tree_view_inherit_hyper">
+      <field name="name">stock.picking.inherit</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.vpicktree"/>
+      <field name="arch" type="xml">
+        <field name="origin" position="after">
+          <field name="po_no" string="Related POs" optional="hide"/>
+          <field name="po_number" string="PO Number" optional="hide"/>
+        </field>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="stock_picking_search_view_inherit_hyper">
+      <field name="name">stock.picking.inherit</field>
+      <field name="model">stock.picking</field>
+      <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+      <field name="arch" type="xml">
+        <xpath expr="//search" position="inside">
+          <field name="po_no" string="Related POs" filter_domain="[('po_no','ilike',self)]"/>
+        </xpath>
+      </field>
+    </record>
+  </data>
+</odoo>

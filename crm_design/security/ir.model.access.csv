@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+crm_design.access_platform_crm_group_system,access_platform_crm_group_system,crm_design.model_platform_crm,base.group_system,1,1,1,1
+crm_design.access_platform_crm_group_erp_manager,access_platform_crm_group_erp_manager,crm_design.model_platform_crm,base.group_erp_manager,1,1,1,1
+crm_design.access_platform_crm_group_user,access_platform_crm_group_user,crm_design.model_platform_crm,base.group_user,1,0,0,0
+crm_design.access_design_attachment,access_design_attachment,crm_design.model_design_attachment,,1,1,1,1
+crm_design.access_appointment_visit,access_appointment_visit,crm_design.model_appointment_visit,,1,1,1,1
+crm_design.access_crm_lead_accessories,access_crm_lead_accessories,crm_design.model_crm_lead_accessories,,1,1,1,1
+crm_design.access_reject_quotation_wizard,access_reject_quotation_wizard,crm_design.model_reject_quotation_wizard,,1,1,1,1
+crm_design.access_approve_quotation_wizard,access_approve_quotation_wizard,crm_design.model_approve_quotation_wizard,,1,1,1,1
+crm_design.access_appointment_visit_reject,access_appointment_visit_reject,crm_design.model_appointment_visit_reject,base.group_user,1,1,1,1
+crm_design.access_saleorder_manager,access_saleorder_manager,crm_design.model_saleorder_manager,base.group_user,1,1,1,1

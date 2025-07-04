@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="header_template">
+            <div class="first-page">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_external_layout_standard"><t t-raw="0"/></t>
+                <t t-else="else" t-call="wmssoft_report.custom_external_layout_standard"><t t-raw="0"/></t>
+            </div>
+        </template>
+        
+        <template id="header_template_comm">
+            <div class="first-page">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_comm_external_layout_standard"><t t-raw="0"/></t>
+                <t t-else="else" t-call="wmssoft_report.custom_comm_external_layout_standard"><t t-raw="0"/></t>
+            </div>
+        </template>
+        
+        <template id="header_template_sale">
+            <div class="first-page">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_sale_external_layout_standard"><t t-raw="0"/></t>
+                <t t-else="else" t-call="wmssoft_report.custom_sale_external_layout_standard"><t t-raw="0"/></t>
+            </div>
+        </template>
+        
+        <template id="header_template_delivery">
+            <div class="first-page">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_delivery_external_layout_standard"><t t-raw="0"/></t>
+                <t t-else="else" t-call="wmssoft_report.custom_delivery_external_layout_standard"><t t-raw="0"/></t>
+            </div>
+        </template>
+        
+        <template id="header_template_purchase">
+            <div class="first-page">
+                <t t-if="not o" t-set="o" t-value="doc"/>
+                <t t-if="not company">
+                    <!-- Multicompany -->
+                    <t t-if="company_id">
+                        <t t-set="company" t-value="company_id"/>
+                    </t>
+                    <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                        <t t-set="company" t-value="o.company_id.sudo()"/>
+                    </t>
+                    <t t-else="else">
+                        <t t-set="company" t-value="res_company"/>
+                    </t>
+                </t>
+                <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_purchase_external_layout_standard"><t t-raw="0"/></t>
+                <t t-else="else" t-call="wmssoft_report.custom_purchase_external_layout_standard"><t t-raw="0"/></t>
+            </div>
+        </template>
+    </odoo>

@@ -1,0 +1,1109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+		<template id="replace_header" inherit_id="website.layout" name="Header">
+			<xpath expr="//header" position="replace">
+				<header id="top" data-anchor="true" data-name="Header" class="o_header_standard" t-if="website.user_id == user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier' and request.env.user.is_supplier != 'installer'">
+					<div class="container custom__navbarwrapper">
+						<div class="header home_menu">
+							<div class="headerInner headerInner_menu">
+								<div class="logo_header_out">
+									<a href="/">
+										<img src="/airbid_master/static/src/image/airbid_logo_white.png" alt="Logo" class="login_header_out_logo"/>
+									</a>
+								</div>
+								<div class="mobileMenuBtn">
+									<button type="button" id="menuBtn">
+										<img src="/airbid_master/static/src/image/header.png" class="menuIcon menuIcon_header" alt="Menu Icon" />
+										<img src="/airbid_master/static/src/image/close_header.jpg" class="closeIcon closeIcon_header" alt="Close Icon" />
+									</button>
+								</div>
+									<div id="mobileMenu" class="menuRight menu_out">
+										<div class="menuRow menu_header_out">
+											<ul class="menu" id="menu">
+												<li class="nav-item" t-if="website.user_id == user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier' and request.env.user.is_supplier != 'installer'">
+													<a role="menuitem" href="/" class="nav-link">
+														<span>Home</span>
+													</a>
+												</li>
+																<li class="nav-item" t-if="website.user_id == user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier' and request.env.user.is_supplier != 'installer'">
+																	<a role="menuitem" href="/Aboutus" class="nav-link">
+																		<span>About Us</span>
+																	</a>
+																</li>
+																<li class="nav-item" t-if="website.user_id == user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier' and request.env.user.is_supplier != 'installer'">
+																	<a role="menuitem" href="/Howitswork" class="nav-link">
+																		<span>How it Works</span>
+																	</a>
+																</li>
+																<li class="nav-item" t-if="website.user_id == user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier' and request.env.user.is_supplier != 'installer'">
+																	<a role="menuitem" href="/Faqs" class="nav-link">
+																		<span>Faqs</span>
+																	</a>
+																</li>
+																<li class="nav-item">
+																	<a role="menuitem" href="/contactus" class="nav-link">
+																		<span>Contact Us</span>
+																	</a>
+																</li>
+																<li class="nav-item hide_menu_main_ss" id="sign_up_view" t-if="website.user_id == user_id">
+																	<a class="nav-link" href="/web/signup">
+																		<span>
+																			Sign Up
+																		</span>
+																		</a>
+																</li>
+																<li class="nav-item hide_menu_main_ss" t-if="website.user_id == user_id">
+																	<a class="nav-link" href="/web/login">
+																		<span>
+																			Login
+																		</span>
+																		</a>
+																</li>
+																<!-- <li class="nav-item hide_menu_main_ss" t-if="website.user_id != user_id or request.env.user.is_supplier != 'customer' and request.env.user.is_supplier != 'supplier'">
+																	<a id="o_logout" class="dropdown-item dropdown-item-2" t-attf-href="/web/session/logout?redirect=/" role="menuitem">
+																		<span>
+																			Logout
+																		</span>
+																	</a>
+																</li> -->
+														</ul>
+													</div>
+												</div>
+												<div class="logo_header_sign">
+													<ul class="navbar-nav navcart navbar-collapse"  t-if="website.user_id == user_id">
+														<li class="nav-item" id="sign_up_view">
+															<a class="nav-link" href="/web/signup">
+																<span>
+																	Sign Up
+																</span>
+																</a>
+														</li>
+													</ul>
+														<ul class="navbar-nav navcart navbar-collapse" id="login_view" t-if="website.user_id == user_id">
+																<li class="nav-item">
+																	<a class="nav-link" href="/web/login">
+																		<span>
+																			Login
+																		</span>
+																		</a>
+																</li>
+														</ul>
+														<ul class="navbar-nav navcart navbar-collapse" id="login_view" t-if="website.user_id != user_id">
+																<li class="nav-item">
+																	<a id="o_logout" class="dropdown-item dropdown-item-2" t-attf-href="/web/session/logout?redirect=/" role="menuitem">
+																		<span>
+																			Logout
+																		</span>
+																	</a>
+																</li>
+														</ul>
+													</div>
+										</div>
+									</div>
+							</div>
+						</header>
+
+						<header class="headerMain" t-if="request.env.user.is_supplier == 'customer' or request.env.user.is_supplier == 'supplier' or request.env.user.is_supplier == 'installer'">
+							<div class="header" t-if="request.env.user.is_supplier == 'customer' or request.env.user.is_supplier == 'supplier' or request.env.user.is_supplier == 'installer'">
+								<div class="headerInner">
+									<div class="logo">
+										 <t t-if="request.env.user.is_supplier == 'customer'">
+											<a href="/dashboard">
+													<img src="/airbid_master/static/src/image/logo_header.png" alt="Logo" class="login_header"/>
+											</a>
+										</t>
+
+										<t t-if="request.env.user.is_supplier == 'supplier'">
+											<a href="/supplier/dashboard">
+													<img src="/airbid_master/static/src/image/logo_header.png" alt="Logo" class="login_header"/>
+											</a>
+										</t>
+										<t t-if="request.env.user.is_supplier == 'installer'">
+											<a href="/supplier/dashboard">
+													<img src="/airbid_master/static/src/image/logo_header.png" alt="Logo" class="login_header"/>
+											</a>
+										</t>
+									</div>
+									<div class="mobileMenuBtn">
+											<button type="button" id="menuBtn">
+													<img src="/airbid_master/static/src/image/menu-icon.svg" class="menuIcon" alt="Menu Icon" />
+													<img src="/airbid_master/static/src/image/close-icon.svg" class="closeIcon" alt="Close Icon" />
+											</button>
+									</div>
+											<div id="mobileMenu" class="menuRight" t-if="request.env.user.is_supplier == 'customer'">
+													<div class="menuRow">
+															<ul class="menu" id="menu">
+																<t t-if='menu_customer_dashboard'>
+																	<li class="menu_active active"><a href="/dashboard" >Dashboard</a></li>
+																</t>
+																<t t-else="">
+																	<li class="menu_active"><a href="/dashboard" >Dashboard</a></li>
+																</t>
+
+																<t t-if='menu_customer_user'>  
+																	<li class="menu_active active"><a href="/user">My Account</a></li>
+																</t>
+																<t t-else="">
+																	<li class="menu_active"><a href="/user">My Account</a></li>
+																</t>
+
+																<t t-if='menu_customer_project'>  
+																	<li class="menu_active active"><a href="/my/project">Post a Project</a></li>
+																</t>
+																<t t-else=''>  
+																	<li class="menu_active"><a href="/my/project">Post a Project</a></li>
+																</t>
+																	<t t-if="contact_us_detail">
+																		<li class="menu_active active"><a href="/contactus">Contact Us</a></li>
+																	</t>
+																	<t t-else="">
+																		<li class="menu_active"><a href="/contactus">Contact Us</a></li>
+																	</t>
+															</ul>
+													</div>
+											</div>
+											<div id="mobileMenu" class="menuRight" t-if="request.env.user.is_supplier == 'supplier'">
+												<div class="menuRow">
+													<ul class="menu" id="menu">
+														<t t-if='not is_customer and not request.params.get("is_customer")'>
+															<t t-if='menu_dashboard'>
+																<li class="menu_active active">
+																	<a href="/supplier/dashboard">Dashboard</a>
+																</li>
+															</t>
+															<t t-else="">
+																<li class="menu_active">
+																	<a href="/supplier/dashboard">Dashboard</a>
+																</li>
+															</t>
+														</t>
+														
+														<t t-if='is_customer or request.params.get("is_customer")'>
+															<t t-if='menu_dashboard'>
+																<li class="menu_active active">
+																	<a href="/installer/customer">Dashboard</a>
+																</li>
+															</t>
+															<t t-else="">
+																<li class="menu_active">
+																	<a href="/installer/customer">Dashboard</a>
+																</li>
+															</t>
+														</t>
+
+														<t t-if='not is_customer'>
+															<t t-if='menu_profile'>
+																<li class="menu_active active"><a href="/my/profile">My Profile</a></li>
+															</t>
+															<t t-else="">
+																<li class="menu_active"><a href="/my/profile">My Profile</a></li>
+															</t>
+														</t>
+
+														<t t-if='is_customer'>
+															<t t-if='menu_profile'>
+																<li class="menu_active active"><a href="/my/profile?type=customer">My Profile</a></li>
+															</t>
+															<t t-else="">
+																<li class="menu_active"><a href="/my/profile?type=customer">My Profile</a></li>
+															</t>
+														</t>
+
+														<t t-if='is_customer'>
+															<t t-if='menu_customer_project'>  
+																<li class="menu_active active"><a href="/customer/project">Post a Project</a></li>
+															</t>
+															<t t-else=''>  
+																<li class="menu_active"><a href="/customer/project">Post a Project</a></li>
+															</t>
+														</t>
+														
+														<t t-if='not is_customer'>
+															<t t-if='menu_sup_member'>
+																<li class="menu_active active"><a href="/membership">Membership</a></li>
+															</t>
+															<t t-else="">
+																<li class="menu_active"><a href="/membership">Membership</a></li>
+															</t>
+														</t>
+
+														<t t-if='not is_customer'>
+															<t t-if="contact_us_detail">
+																<li class="menu_active active"><a href="/contactus">Contact Us</a></li>
+															</t>
+															<t t-else="">
+																<li class="menu_active"><a href="/contactus">Contact Us</a></li>
+															</t>
+														</t>
+														<t t-if='is_customer'>
+															<t t-if="contact_us_detail">
+																<li class="menu_active active"><a href="/contactus?type=customer">Contact Us</a></li>
+															</t>
+															<t t-else="">
+																<li class="menu_active"><a href="/contactus?type=customer">Contact Us</a></li>
+															</t>
+														</t>
+														
+													</ul>
+												</div>
+											</div>
+
+											<!-- ++++++++++++++++++++++  INSTALLER START +++++++++++++++++++++++++++ -->
+
+											<div id="mobileMenu" class="menuRight" t-if="request.env.user.is_supplier == 'installer'">
+												<div class="menuRow">
+													<ul class="menu" id="menu">
+														<!-- <t t-if='is_customer'> -->
+														<t t-if='menu_dashboard'>
+															<li class="menu_active active">
+																<a href="/supplier/dashboard">Dashboard</a>
+															</li>
+														</t>
+														<t t-else="">
+															<li class="menu_active">
+																<a href="/supplier/dashboard">Dashboard</a>
+															</li>
+														</t>
+														<!-- </t> -->
+
+														<!-- <t t-if='is_customer'> -->
+														<t t-if='menu_profile'>
+															<li class="menu_active active"><a href="/my/profile">My Profile</a></li>
+														</t>
+														<t t-else="">
+															<li class="menu_active"><a href="/my/profile">My Profile</a></li>
+														</t>
+														<!-- </t> -->
+														
+														<t t-if='menu_sup_member'>
+															<li class="menu_active active"><a href="/membership">Membership</a></li>
+														</t>
+														<t t-else="">
+															<li class="menu_active"><a href="/membership">Membership</a></li>
+														</t>
+
+														<!-- <t t-if='not is_customer'> -->
+														<t t-if="contact_us_detail">
+															<li class="menu_active active"><a href="/contactus">Contact Us</a></li>
+														</t>
+														<t t-else="">
+															<li class="menu_active"><a href="/contactus">Contact Us</a></li>
+														</t>
+														<!-- </t> -->
+														
+													</ul>
+												</div>
+											</div>
+											<!-- ++++++++++++++++++++++  INSTALLER END   +++++++++++++++++++++++++++ -->
+											<div class="main_user_profile">
+												<t t-call="website.navbar_nav">
+													<t t-call="portal.user_dropdown">
+														<t t-set="_user_name" t-value="True"/>
+														<t t-set="_user_name_class" t-value="'font-weight-bold'"/>
+														<t t-set="_item_class" t-value="'nav-item dropdown ml-lg-auto'"/>
+														<t t-set="_link_class" t-value="'nav-link'"/>
+													</t>
+												</t>
+												<t t-if="request.env.user.partner_id.image_1920">
+													<img t-attf-src="data:image/*;base64,{{request.env.user.partner_id.image_1920}}" class="user_profile"/>
+												</t>
+												<t t-else="">
+													<img src="/airbid_master/static/src/image/profile.png" class="user_profile" loading="lazy"/>
+												</t>
+											</div>
+									</div>
+							</div>
+						</header>
+						<!-- </div> -->
+						<meta charset="UTF-8" />
+						<meta name="viewport" content="width=device-width, initial-scale=1" />
+				</xpath>
+				<xpath expr="//div[hasclass('o_footer_copyright')]" position="replace">
+					
+			 </xpath>
+		</template>
+
+		<template id="replace_footer" inherit_id="website.footer_custom" name="Footer">
+				<xpath expr="//div[@id='footer']" position="replace">
+					<footer class="bg-white">
+							<div class="container py-5">
+								<div class="row py-4">
+									<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+										<img src="/airbid_master/static/src/image/logo-img.png" alt="logo" loading="lazy" style="height: 53.94px;margin: 0px 0 10px 0;"/>
+										<p class="font-italic text-muted">Workers with solutions of all-inorg perovskite <br/>quantum dots, showing intense photolumin...</p>
+										<ul class="list-inline mt-4">
+											<li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
+											<li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+											<li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
+										</ul>
+									</div>
+									<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+										<h6 class="text-uppercase font-weight-bold mb-4">Quick Links</h6>
+										<ul class="list-unstyled mb-0">
+											<li class="mb-2"><a href="/Aboutus" class="text-muted">About Airbid</a></li>
+											<li class="mb-2"><a href="/Howitswork" class="text-muted">how it works</a></li>
+											<li class="mb-2"><a href="/Faqs" class="text-muted">faqs</a></li>
+											<li class="mb-2"><a href="/contactus" class="text-muted">contact us</a></li>
+										</ul>
+									</div>
+									<div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+										<h6 class="text-uppercase font-weight-bold mb-4">Legal Info</h6>
+										<ul class="list-unstyled mb-0">
+											<li class="mb-2"><a href="#" class="text-muted">Terms &amp; conditions</a></li>
+											<li class="mb-2"><a href="#" class="text-muted">Privacy policy</a></li>
+										</ul>
+									</div>
+									<div class="col-lg-4 col-md-6 mb-lg-0">
+										<h6 class="text-uppercase font-weight-bold mb-4">Contact Us</h6>
+										<ul class="list-unstyled mb-0">
+											<li class="mb-2"><span class="text-muted">Phone:  +91 9475738495</span> 
+										</li>
+											<li class="mb-2"><span class="text-muted">Email:</span> <a href="#"><span class="address_static_email_address">contact@airbid.com</span></a>
+											
+											 </li>
+											<li class="mb-2"><span class="text-muted">Address:  480 Illawarra Rd, Marrickville,NSW 2204</span> 
+										</li>
+										</ul> 
+									</div>
+								</div>
+							</div>
+
+							<!-- Copyrights -->
+							<div class="bg-light py-4">
+								<div class="container text-center">
+									<p class="text-muted mb-0 py-2">© 2021 Airbid. All Rights Reserved</p>
+								</div>
+							</div>
+						</footer>
+
+				</xpath>
+		</template>
+
+		<template id="new_homepage_inherit" inherit_id="website.homepage">
+				<xpath expr="//div[@id='wrap']" position="replace">
+						<div id="wrap" class="oe_structure respons_design">
+							<!-- style="display: block;overflow: hidden;" -->
+								<section id="features">
+									<div class="container">
+										<div class="row">
+											<div class="col-sm-6 wow fadeInLeft">
+												<p class="solar_experts">Connect With experts <br/>to get the job done <br/>on <span>Airbid</span></p>
+
+												<p class="solar_short_term">The time is now to stop renting electricity from the utility.Put solar panles on your<br/> house and make your own clean power to get short-term</p>
+
+												<div class="get_start_button">
+													<a href="/web/signup" class="btn btn-md btn-info get_start">Get Started Now</a>
+
+													<a href="/Howitswork" class="btn btn-md btn-info how_it_workes">How it Works</a>
+												</div>
+											</div>
+											<div class="col-sm-6">
+												<div class="banner_image">
+													<img src="/airbid_master/static/src/image/Rectangle_banner.png" alt="Rectangle Banner" class="banner_image_class"/>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+								<section id="features_banner">
+										<div class="container">
+												<div class="row">
+														<div class="col-sm-6" style="padding:0">
+																<div class="banner_image">
+																	 <img src="/airbid_master/static/src/image/Rectangle_banner.png" alt="Rectangle Banner" class="banner_image_class"/>
+																</div>
+														</div>
+														<div class="col-sm-6 wow fadeInLeft">
+																<p class="solar_experts">Connect With experts <br/>to get the job done <br/>on <span>Airbid</span></p>
+
+																<p class="solar_short_term">The time is now to stop renting electricity from the utility.Put solar panles on your<br/> house and make your own clean power to get short-term</p>
+
+																<div class="get_start_button">
+																		<a href="/web/signup" class="btn btn-md btn-info get_start">Get Started Now</a>
+
+																		<a href="/Howitswork" class="btn btn-md btn-info how_it_workes">How it Works</a>
+																</div>
+														</div>
+														
+												</div>
+										</div>
+								</section>
+
+
+								<section id="counter">
+									<div class="counter_img_overlay">
+										<div class="container">
+												<div class="s_panal">
+													<div class="row">
+														<div class="col-sm-6">
+															<div class="installation_solar">
+																<p>Why choose us for your solar <br/>panel installation needs?</p>
+															</div>
+														</div>
+														<div class="col-sm-6">
+															<div class="contact_header">
+																<a href="/contactus" class="btn btn-md btn-info contact_workes">Contact Us Now</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="counter_item counter_border">
+															<div class="learn_explore_compair">
+																<div class="learn_icon">
+																	 <img src="/airbid_master/static/src/image/Vector_Learn.png" alt="Vector Learn" />
+																</div>
+																<div class="learn_des">
+																		<h2>LEARN</h2>
+																		<span>Lorem ipsum dolor sit amet, <br/>consectetur adipiscing elit,sed do<br/>eiusmod tempor incididunt ut labore <br/>et dolore</span>
+																</div>
+															</div>
+														</div>
+												</div>
+												<div class="col-md-4">
+													<div class="counter_item counter_border">
+															<div class="learn_explore_compair">
+																<div class="learn_icon">
+																	 <img src="/airbid_master/static/src/image/Vector_Learn.png" alt="Vector Learn" />
+																</div>
+																<div class="learn_des">
+																		<h2>EXPLORE</h2>
+																		<span>Lorem ipsum dolor sit amet, <br/>consectetur adipiscing elit,sed do<br/>eiusmod tempor incididunt ut labore <br/>et dolore</span>
+																</div>
+															</div>
+															
+														</div>
+												</div>
+												<div class="col-md-4">
+
+													<div class="counter_item">
+														<div class="learn_explore_compair">
+																<div class="learn_icon">
+																	 <img src="/airbid_master/static/src/image/Vector_Learn.png" alt="Vector Learn" />
+																</div>
+																<div class="learn_des">
+																		<h2>COMPAIR</h2>
+																		<span>Lorem ipsum dolor sit amet, <br/>consectetur adipiscing elit,sed do<br/>eiusmod tempor incididunt ut labore <br/>et dolore</span>
+																</div>
+															</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+
+								<section class="airbid_works" style="">
+									<div class="container">
+										<div class="row align-items-center">
+											<div class="col-lg-6 pt16 pb16 o_colored_level" style="font-family: 'Nunito Sans', sans-serif;">
+												<h2 style="margin: 50px 0 20px 0;"><font style="color: #173e4b;font-weight: 700;">How Airbid works ?</font></h2>
+												<p class="o_default_snippet_text" style="font-size: 17px;color: #77899b;line-height: 30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed <br/>do eiusmod tempor incididunt ut labore et dolore.Ut enim<br/>ad minim veniam, quis nostrud exercitation ullamco laboris<br/>nisi ut aliquip ex ea commodo consequat</p>
+													<div class="get_start_button">
+														<a href="/web/signup" class="btn btn-md btn-info get_start">Get Started Now</a>
+													</div>
+											</div>
+											<div class="col-lg-6 pt16 pb16 o_colored_level">
+												<img src="/airbid_master/static/src/image/Group_1636.png" class="img img-fluid mx-auto" alt="" loading="lazy"/>
+											</div>
+										</div>
+									</div>
+								</section>
+
+								<section class="airbid_works_res">
+									<div class="container">
+										<div class="row align-items-center">
+											<div class="col-lg-6 pt16 pb16 o_colored_level">
+												<img src="/airbid_master/static/src/image/Group_1636.png" class="img img-fluid mx-auto" alt="" loading="lazy"/>
+											</div>
+											<div class="col-lg-6 pt16 pb16 o_colored_level" style="font-family: 'Nunito Sans', sans-serif;">
+												<h2 style="margin: -10px 0 20px 0;" class="how_airbid_works">How Airbid works ?</h2>
+												<p class="o_default_snippet_text" style="font-size: 17px;color: #77899b;line-height: 30px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed <br/>do eiusmod tempor incididunt ut labore et dolore.Ut enim<br/>ad minim veniam, quis nostrud exercitation ullamco laboris<br/>nisi ut aliquip ex ea commodo consequat</p>
+													<div class="get_start_button">
+													</div>
+														<a href="/web/signup" class="btn btn-md btn-info get_start get_start_now ">Get Started Now</a>
+											</div>
+											
+										</div>
+									</div>
+								</section>
+
+								<section class="airbid_solar_provider">
+									<div class="solar_provider_back">
+										<div class="solar_sliderWrap">
+												<img src="/airbid_master/static/src/image/solar_provider.jpeg" alt="Banner Images" class="solar_customer_banner"/>
+												<img src="/airbid_master/static/src/image/opcity_back.png" alt="Banner Back Images" class="solar_customer_banner_back"/>
+										</div>
+										<div class="container content_customer" >
+											<div class="row">
+													<div class="solar_provider">
+														<h3>For customers</h3>
+														<p>Find the best solar provider <br/>and best price in the town</p>
+													</div>
+											</div>
+											<div class="row">
+												<div class="project_explore">
+														<div class="project_explore_content">
+																<span>Post a project</span>
+														</div>
+														<div class="local_projects_des">
+																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br/> sed do eiusmod tempor.</p>
+														</div>
+														<div class="post_project">
+															<span><a href="/web/signup">Post Your Project Now! <img src="/airbid_master/static/src/image/vector_arrow.png"/></a></span>
+														</div>
+												</div>
+												<div class="project_explore">
+														<div class="project_explore_content">
+																<span>Explore airbid</span>
+														</div>
+														<div class="local_projects_des">
+																<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,<br/> sed do eiusmod tempor.</p>
+														</div>
+														<div class="post_project">
+														 <span><a href="/Aboutus">Learn More <img src="/airbid_master/static/src/image/vector_arrow.png"/></a></span>
+														</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</section>
+
+					<section class="hmMethodology">
+						<div class="container">
+								<div class="pageTitle">
+										<h2>Five steps of Airbid work flow</h2>
+										<span>Lorem ipsum dolor sit amet, consectetur adipiscing elit,sed
+											do eiusmod tempor incididunt<br/> ut labore et dolore.Ut enim
+											ad minim veniam, quis nostrud exercitation</span>
+										
+								</div>
+
+								<div class="methodologyRow">
+										<div class="methodologyCol">
+												<div class="methodologyIcon">
+														<img src="/airbid_master/static/src/image/sign_up.png" alt="Icon"/>
+												</div>
+												<div class="methodologyContent">
+														<span>1.</span>
+														<p>Sign up</p>
+												</div>
+												<div class="methodo_dis">
+														<p>Ut enim ad minim veniam, quis<br/>nostrud exercitation ullamco<br/>laboris nisi.</p>
+												</div>
+										</div>
+										<div class="methodologyCol">
+												<div class="methodologyIcon">
+														<img src="/airbid_master/static/src/image/project.png" alt="Icon"/>
+												</div>
+												<div class="methodologyContent">
+														<span>2.</span>
+														<p>Post project details</p>
+												</div>
+												<div class="methodo_dis">
+														<p>Ut enim ad minim veniam, quis<br/>nostrud exercitation ullamco<br/>laboris nisi.</p>
+												</div>
+										</div>
+										<div class="methodologyCol">
+												<div class="methodologyIcon">
+														<img src="/airbid_master/static/src/image/group.png" alt="Icon"/>
+												</div>
+												<div class="methodologyContent">
+														<span>3.</span>
+														<p>Wait for the Bids</p>
+												</div>
+												<div class="methodo_dis">
+														<p>Ut enim ad minim veniam, quis<br/>nostrud exercitation ullamco<br/>laboris nisi.</p>
+												</div>
+										</div>
+										<div class="methodologyCol">
+												<div class="methodologyIcon">
+														<img src="/airbid_master/static/src/image/compair_bids.png" alt="Icon"/>
+												</div>
+												<div class="methodologyContent">
+														<span>4.</span>
+														<p>Compare bids</p>
+												</div>
+												<div class="methodo_dis">
+														<p>Ut enim ad minim veniam, quis<br/>nostrud exercitation ullamco<br/>laboris nisi.</p>
+												</div>
+										</div>
+										<div class="methodologyCol">
+												<div class="methodologyIcon">
+														<img src="/airbid_master/static/src/image/sold.png" alt="Icon"/>
+												</div>
+												<div class="methodologyContent">
+														<span>5.</span>
+														<p>Select the supplier</p>
+												</div>
+												<div class="methodo_dis">
+														<p>Ut enim ad minim veniam, quis<br/>nostrud exercitation ullamco<br/>laboris nisi.</p>
+												</div>
+										</div>
+								</div>
+								</div>
+
+								<div class="airbid_work_flow">
+										<a href="/web/signup" class="btn btn-md btn-info get_start_now">Get Started Now</a>
+
+										<a href="/Howitswork" class="btn btn-md btn-info how_it_workes_btn">How it Works</a>
+								</div>
+				</section>
+
+						<section class="find_opportunities">
+						<div class="container">
+							<div class="row">
+								<div class="find_great_work">
+									<div class="for_suppliers">
+										<h3>For suppliers</h3>
+									</div>
+									<div class="find_great_work_opp">
+										<p>Find <br/>great work</p>
+									</div>
+									<div class="find_bid_work">
+										<p>Bid on the real projects publish by real customers</p>
+									</div>
+
+									<div class="border_opp">
+									</div>
+
+									<div class="find_opportunities_project">
+											<div class="find_opportunities_content">
+													<span>Find <br/> opportunities</span>
+											</div>
+											<div class="local_projects">
+													<p>Get local projects in <br/>your areas</p>
+											</div>
+									</div>
+									<div class="find_opportunities_project">
+											<div class="find_opportunities_content">
+													<span>Bid<br/>on a project</span>
+											</div>
+											<div class="local_projects">
+													<p>Give your best deal <br/>to the customers</p>
+											</div>
+									</div>
+									<div class="find_opportunities_project">
+											<div class="find_opportunities_content">
+													<span>Work with<br/>Client</span>
+											</div>
+											<div class="local_projects">
+													<p>Give your best deal <br/>to the customers</p>
+											</div>
+									</div>
+
+									<div class="find_opportunities_btn">
+										<span><a href="/web/signup" class="find_opportunities_btn_view">Find opportunities</a></span>
+										<span class="explore_airbid_btn"><a href="/Howitswork" class="explore_airbid">Explore Airbid</a></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						</section>
+
+						<section class="our_about_blog">
+								<div class="container-fluid">
+									<div class="blogs_heading">
+										<h5>Our Blogs</h5>
+										<span>Our Clients send us bunch of smilies with our services and we love them</span>
+									</div>
+									<div class="row" style="text-align: center;">
+											<div class="find_blog_att">
+												<img src="/airbid_master/static/src/image/blog3.png"/>
+												<div class="blog_opp">
+													<div class="find_blogs_content">
+															<span><span>WHAT IS THE BEST</span><br/><span> ROOF FOR SOLAR</span><br/><span> PANELS?</span></span>
+															<p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+															<h5>READ MORE</h5>
+															<div class="read_more_border"></div>
+													</div>
+												</div>
+												</div>
+												<div class="find_blog_att">
+													<img src="/airbid_master/static/src/image/blog2.png"/>
+													<div class="blog_opp">
+														<div class="find_blogs_content">
+															<span class="blog_desc"><span>GUIDE TO</span><br/><span> FEDERAL SOLAR</span><br/><span> PANEL INCENTIVES</span></span>
+															<p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+															<h5>READ MORE</h5>
+															<div class="read_more_border"></div>
+													</div>
+													</div>
+												</div>
+												<div class="find_blog_att">
+													<img src="/airbid_master/static/src/image/blog1.png"/>
+													<div class="blog_opp">
+														<div class="find_blogs_content">
+															<span><span>THREE OPTIONS</span><br/><span> TO GO SOLAR IN</span><br/><span> DENVER</span></span>
+															<p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+															<h5>READ MORE</h5>
+															<div class="read_more_border"></div>
+													</div>
+												</div>
+										</div>
+									</div>
+								</div>
+						</section>
+
+						<section class="ftco-section">
+					<div class="container">
+						<div class="row">
+											<div class="col-md-12" style="margin: 0 0 60px 0;">
+												<div class="our_client_says">
+													<h5>What Our Client Says</h5>
+													<span>Our Clients send us bunch of smilies with our services and we love them</span>
+												</div>
+											</div>
+									</div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="featured-carousel owl-carousel">
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+														<div class="our_client_info_1">
+															<img src="/airbid_master/static/src/image/client1.png"/>
+														</div>
+													</div>
+													<div class="col-md-8" style="text-align:center">
+														<div class="our_client_info_2">
+															<div class="dots_1"></div>
+															<img src="/airbid_master/static/src/image/client2.png"/>
+															
+															<h4>Philip Coleman 
+																<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/></h4>
+															<span>Sydney, Australia</span>
+															<div class="par_client_info">
+																<div class="dots_3"></div>
+																<p>
+																	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+																	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+															</p>
+																<div class="dots_4"></div>
+														</div>
+														</div>
+													</div>
+													<div class="col-md-2" style="text-align:end">
+														<div class="our_client_info_3">
+															<div class="dots_2"></div>
+															<img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+														<div class="our_client_info_1">
+															<img src="/airbid_master/static/src/image/client1.png"/>
+														</div>
+													</div>
+													<div class="col-md-8" style="text-align:center">
+														<div class="our_client_info_2">
+															<div class="dots_1"></div>
+															<img src="/airbid_master/static/src/image/client2.png"/>
+															
+															<h4>Philip Coleman 
+																<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+														</h4>
+															<span>Sydney, Australia</span>
+															<div class="par_client_info">
+																<div class="dots_3"></div>
+																<p>
+																	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+																	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+															</p>
+																<div class="dots_4"></div>
+														</div>
+														</div>
+													</div>
+													<div class="col-md-2" style="text-align:end">
+														<div class="our_client_info_3">
+															<div class="dots_2"></div>
+															<img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+														<div class="our_client_info_1">
+															<img src="/airbid_master/static/src/image/client1.png"/>
+														</div>
+														</div>
+															<div class="col-md-8" style="text-align:center">
+																<div class="our_client_info_2">
+																	<div class="dots_1"></div>
+																	<img src="/airbid_master/static/src/image/client2.png"/>
+																	
+																	<h4>Philip Coleman 
+																		<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+																</h4>
+																	<span>Sydney, Australia</span>
+																	<div class="par_client_info">
+																		<div class="dots_3"></div>
+																		<p>
+																			You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+																			<img src="/airbid_master/static/src/image/double.png" class="double"/>
+																	</p>
+																		<div class="dots_4"></div>
+																		</div>
+																		</div>
+																	</div>
+																	<div class="col-md-2" style="text-align:end">
+																		<div class="our_client_info_3">
+																			<div class="dots_2"></div>
+																			<img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+																		</div>
+																	</div>
+															</div>
+													</div>
+											</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+				</div>
+			</xpath>
+		</template>
+
+		<template id="dashboard_project" name="Dashboard Project">
+			<t t-call="website.layout">
+				<div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+				<div id="wrap" class="oe_structure">
+					<section id="features_customer" t-if="not data">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-8">
+									<div class="project_filter">
+										<div class="row">
+											<div class="col-sm-2">
+												<div class="project_des">
+													<h3>My Projects</h3>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="project_filter">
+										<div class="row">
+											<div>
+												<h3>No Project Yet!!</h3>
+											</div>
+										</div>
+										<div class="row">
+											<div>
+												<h3>Create a first <a href="/my/project" style="color: #ee6363;text-decoration: underline;">post a project</a></h3>
+											</div>
+										</div>
+									</div>                
+								</div>
+							</div>
+						</div>
+					</section>
+
+					<section id="features_c" t-if="data">
+						<div class="container">
+							<div class="row">
+								<div class="col-sm-8" id="oe_solar_dashboard">
+
+									<div class="project_filter">
+										<div class="row">
+											<div class="col-sm-2">
+												<div class="project_des">
+													<h3>My Projects</h3>
+												</div>
+											</div>
+
+											<!-- =========================================== -->
+											<div class="col-sm-10">
+												<form class="address_form" method="post"  action="/dashboard">
+													<ul class="short_ul_filter">
+														<li class="dropdown short_by_date_res" id="short_by_date_filter">
+														<a href="#" data-toggle="dropdown" class="short_by_date">Sort by: Remaining Days <i class="icon-arrow"></i></a>
+														<ul class="dropdown-menu dropdown_filter">
+															<li>
+															<tr>
+																<td class="text-right">
+																 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+																 <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+																 <input type="submit" class="btn" t-attf-value="Least to Most"></input>
+																</td> 
+															</tr>
+															</li>
+														</ul>
+													</li>                          
+													</ul>
+												</form>
+											</div>
+										</div>
+									</div>
+
+							<!-- =========================================== -->
+							<t t-foreach="data" t-as="rec">
+								<t t-if="rec.customer_project_name">
+									<form class="oe_solar_form" method="POST" action="/review">
+										<div class="main_project">
+											<div class="row">
+												<div class="col-sm-3">
+													<div class="project_name">
+														<h1><t t-esc="rec.customer_project_name"/></h1>
+													</div>
+												</div>
+												<div class="col-sm-3">
+													<div class="project_remaining_days" t-att-data-proid='rec.id' t-att-data-status='rec.customer_project_state'>
+														<t t-if="rec.customer_project_state != 'saveasdraft' and rec.customer_project_state != 'draft'and rec.customer_project_state != 'close' ">
+															<h5>Remaining Time :
+																<t t-call="airbid_master.display_timer_widget_project">
+																	<t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+																	<t t-set="pre_countdown_display" t-value="bool(False)"/>
+																	<t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+																	<t t-set="main_countdown_display" t-value="bool(False)"/>
+																	<t t-set="display_class" t-value="'.o_event_cta_action'"/>
+																</t>
+															</h5>
+														</t>
+													</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="main_view_btn">
+														<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+														<input type="hidden" name="record_id" t-att-value="rec.id"/>
+														<input type="submit" class="btn" id="view_detail" value="View Project Detail"></input>
+													</div>
+												</div>
+											</div>
+
+													<div class="row">
+														<div class="col-sm-12">
+															<div class="project_bor_ca">
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-sm-3">
+															<div class="project_name_address">
+																<h5>Address</h5>
+																<span><t t-esc="rec.street"/>  <t t-esc="rec.house_number_or_name"/>,<br></br><t t-esc="rec.city"/>  <t t-esc="rec.state_id.name"/>,  <t t-esc="rec.zip"/></span>
+															</div>
+														</div>
+														<div class="col-sm-3">
+															<div class="project_size_solar">
+																<h5>Size of solar system</h5>
+																<span t-if="rec.solar_size" t-esc="dict(rec.fields_get(allfields=['solar_size'])['solar_size']['selection'])[rec.solar_size]"></span>
+															</div>
+														</div>
+														<div class="col-sm-4">
+															<div class="project_status">
+																<h5>Status</h5>
+																<span><t t-esc="dict(rec.fields_get(allfields=['customer_project_state'])['customer_project_state']['selection'])[rec.customer_project_state]"/></span>
+															</div>
+														</div>
+														<div class="col-sm-2">
+															<div class="project_bid_count">
+																<t t-set="total" t-value="0"/>
+																<t t-foreach="rec.supplier_bids_ids" t-as="count"> 
+																	<t t-set="total" t-value="total+1"/>
+																</t>
+																<span><t t-esc="total"/></span>
+																<h5>Bid Count</h5>
+															</div>
+														</div>
+													</div>
+
+													<div class="row">
+														<div class="col-sm-12">
+															<div class="project_bor_ca_mobile">
+																	<input type="submit" class="btn project_bor_ca_mobile_btn" id="view_detail_res" value="View Project Detail"></input>
+																	<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+																	<input type="hidden" name="record_id" t-att-value="rec.id"/>
+															</div>
+														</div>
+													</div>
+													
+												</div>
+											</form>
+									</t>
+								</t>
+
+								</div>
+								<div class="col-sm-4">
+									<div class="project_des" t-if="data.supplier_bids_ids">
+										<h3>Recent Bids</h3>
+									</div>
+
+
+									<div class="pro_main_bids" t-if="data.supplier_bids_ids">
+										<div class="project_recent_bids">
+											<t t-set="index" t-value="0"/>
+											<t t-foreach="data" t-as="rec">
+											<t t-foreach="rec.supplier_bids_ids" t-as="supplier">
+												<div class="row" id="supplier_project_name_recent_bid">
+												<div class="col-sm-12">
+													<div class="project_name_recent_bid">
+														<span><t t-esc="rec.customer_project_name"/></span>
+													</div>
+													<div class="project_name_recent_bid_detail">
+															<t t-if="supplier.supplier_id.image_1920">
+															<img t-attf-src="data:image/png;base64,#{supplier.supplier_id.image_1920}" class="supplier_img"/>
+														</t>
+															<t t-else="">
+																<img src="/airbid_master/static/src/image/profile.png" class="supplier_img" loading="lazy"/>
+															</t>
+
+														<t t-if="rec.project_create_date" t-set="remaining_date" t-value="(rec.project_create_date +relativedelta(days =+ 3)) - datetime.date.today()"/>
+														<t t-set="index" t-value="index+1"/>
+														<t t-if="remaining_date.days &gt; 0">
+															<span class="supplier_name">Supplier <t t-esc="index"/>
+															<br/><img src="/airbid_master/static/src/image/Star1.png"/></span>
+														</t>
+
+														<t t-if="remaining_date.days &lt;= 0">
+															<span class="supplier_name">
+															<t t-esc="supplier.supplier_id.name"/>
+															<br/><img src="/airbid_master/static/src/image/Star1.png"/></span>
+														</t>
+
+														<p class="supplier_ammount" t-if="supplier.full_price">$<t t-esc="supplier.full_price"/><br/><span>Bid Amount</span></p>
+														<p class="supplier_ammount" t-if="supplier.final_price">$<t t-esc="supplier.final_price"/> p/w for <t t-esc="supplier.months"/> Months<br/><span>Bid Amount</span></p>
+													</div>
+													<div class="supp_bids_line"></div>
+												</div>
+											</div>
+										</t>
+									</t>
+										</div>
+										<div class="view_all_supplier" id="view_all_supplier">
+											<a href="#" class="view_sup_line" id="view_sup_line">View All</a>
+										</div>
+
+										<div class="view_all_supplier" id="view_less_supplier">
+											<a href="#" class="view_sup_line" id="view_sup_line">View Less</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</section>
+
+				</div>
+			</t>
+		</template>
+
+</odoo>

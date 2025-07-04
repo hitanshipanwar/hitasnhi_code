@@ -1,0 +1,12 @@
+.o_table_row {
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: #F2F2F2;
+            }
+            &:nth-child(even) {
+                background-color: #D9D8D8;
+            }
+        }
+    }
+}

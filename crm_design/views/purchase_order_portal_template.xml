@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="purchase_order_portal_content_thai_uom_inherit" inherit_id="purchase.purchase_order_portal_content">
+		<xpath expr="//section[@id='details']//div[@id='quote_qty']" position="replace">
+			<div id="quote_qty">
+				<span t-field="line.product_qty"/>
+				<t t-if="line.is_thai and line.product_uom.thai_uom_name">
+	            	<span t-field="line.product_uom.thai_uom_name" groups="uom.group_uom"/>
+	            </t>
+	            <t t-else="">
+	          		<span t-field="line.product_uom" groups="uom.group_uom"/>
+	          	</t>
+	        </div>
+		</xpath>
+	</template>
+
+</odoo>

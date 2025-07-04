@@ -1,0 +1,1013 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="my_solar_panals" name="Solar Panals">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/panals/inventer">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header; col-sm-12">
+									<h3 style="font-weight:bold;"><t t-esc="rec_id.customer_project_name"/></h3>
+								</div>
+								<div class="que1">
+									<div id="que_no_1" class="property_rent">
+										<p>Do you want to remove existing solar panels ?</p>
+									</div>
+									<div class="property_option">
+										<input type="radio" id="int_property_yes" name="int_remove_existing" value="yes" required="required" t-att-checked="'checked' if rec_id.remove_existing_solar == 'yes' else None">Yes</input>
+										
+										<input type="radio" id="int_property_no" class="myBtn" name="int_remove_existing" value="no" required="required" t-att-checked="'checked' if rec_id.remove_existing_solar == 'no' else None">No</input>
+									</div>
+								</div>
+
+								<input type="hidden" name="record_id" t-att-value="record_id"/>
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+								<div class="btn_next_pre">
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<input type="hidden" name="record_id" t-att-value="record_id"/>
+									<div class="previous_btn">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/customer/address?record_id=#{record_id}'"/>
+									</div>
+									<div class="next_btn">
+										<button type="submit" class="btn" id="next_1">Next</button>
+									</div>
+								</div>
+
+								<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 20%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>			
+		</template>
+
+		<!-- +++++++++++SECOND PAGE START ____+++++++++++ -->
+
+		<template id="my_solar_panals_inventer" name="Solar Panals">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/PV/installation" enctype="multipart/form-data">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header; col-sm-13">
+									<!-- <h3>Post a project</h3> -->
+									<h3 style="font-weight:bold;"><t t-esc="rec_id.customer_project_name"/></h3>
+								</div>
+								<div id="que_existing_remove_panels">
+									<div class="remove_panels_question">
+										<p style="margin-top: 2% !important;">*How many panels you want to remove?</p>
+									</div>
+									<div class="remove_panels_option_invener">
+										<t t-if="rec_id.panels_remove">
+											<input type="text" id="panels" name="panels_remove" required="required" class="number_input_only" t-att-value="rec_id.panels_remove"/>
+										</t>
+										<t t-else="">
+											<input type="text" id="panels" name="panels_remove" required="required" class="number_input_only"/>
+										</t>
+									</div>
+								</div>
+
+								<!-- <div id="que_existing_remove_panels">
+									<div class="remove_panels_question">
+										<p style="margin-top: 2% !important;">*Size of solar system</p>
+									</div>
+									<div class="remove_panels_option_invener">
+										<t t-if="rec_id.size_of_solar_system">
+											<input type="text" id="size_of_solar_system" name="size_of_solar_system" required="required" class="number_input_only" t-att-value="rec_id.size_of_solar_system"/>
+										</t>
+										<t t-else="">
+											<input type="text" id="size_of_solar_system" name="size_of_solar_system" required="required" class="number_input_only"/>
+										</t>
+									</div>
+								</div> -->
+
+								<div class="que1">
+									<div id="que_no_1" class="property_rent_remove">
+										<p>*Do you want to remove inverter ?</p>
+									</div>
+									<div class="property_option_pv">
+										<input type="radio" id="property_yes" name="inverter_property" value="yes" required="required" t-att-checked="'checked' if rec_id.remove_inverter_solar == 'yes' else None">Yes</input>
+										
+										<input type="radio" id="property_no" class="myBtn" name="inverter_property" value="no" required="required" t-att-checked="'checked' if rec_id.remove_inverter_solar == 'no' else None">No</input>
+									</div>
+
+								</div>
+
+								<div class="que1">
+									<div id="que_no_1" class="property_rent_remove">
+										<p>*Do you want to upgrade PV system ?</p>
+									</div>
+									<div class="property_option_pv">
+										<input type="radio" id="pv_system_yes" name="pv_system" value="yes" required="required" t-att-checked="'checked' if rec_id.pv_system_solar == 'yes' else None">Yes</input>
+										
+										<input type="radio" id="pv_system_no" class="myBtn" name="pv_system" value="no" required="required" t-att-checked="'checked' if rec_id.pv_system_solar == 'no' else None">No</input>
+									</div>
+
+								</div>
+
+								<div class="upload_img_supplier_customer_pv_image" id="upload_img_supplier_customer_pv_image" >
+									<div class="row">
+
+										<div id="UploadHouse" class="column col-sm-4">
+						                    <img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+						                    <span class="large">
+									          <img src="/airbid_master/static/src/image/Rectangle 98 (2).png" class="large-image" alt="adventure" />
+									      	</span></img>
+						                    <label for="house_attachment" class="custom-file-upload form-control profile_detail_supplier_house">
+						                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of House</span>
+						                    </label>
+						                    <input type="file" name="ins_house_attachment" id="house_attachment" onchange="javascript:uploadimagehouse()" style="display:none"/>
+
+						                    <input type="text" id="house_name" name="house_name" readonly="readonly" hidden="hidden" style="color: #424958;" />
+						                    <div id="house_attachment_file" >
+						                  	</div>
+
+						                  	<t t-if="rec_id.house_pic">
+							                  	<div id="house_visible">
+							                  		<img t-attf-src="data:image/png;base64,#{rec_id.house_pic}" style="height: 45px;width: 45px;" id="house_image"/>
+
+							                  		<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.house_name" id="house_image_name" style="color: #424958 !important;"/>
+							                  		<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="house_delete_certificate"/>
+							                  	</div>
+						                  	</t>
+		                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+					                    </div>
+
+					                    <div id="UploadHouse" class="column col-sm-4">
+					                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+						                    <span class="large_roof">
+									          <img src="/airbid_master/static/src/image/Rectangle 98 (1).png" class="large-image" alt="adventure" />
+									      	</span></img>
+
+						                    <label for="image_of_roof" class="custom-file-upload form-control profile_detail_supplier_house">
+						                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Tile</span>
+						                    </label>
+						                    <input type="file" name="ins_image_of_roof" id="image_of_roof" onchange="javascript:uploadimageroof()" style="display:none"/>
+
+						                    <input type="text" id="roof_name" name="roof_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+
+						                    <div id="roof_attachment_file">
+						                    </div>
+						                    <t t-if="rec_id.roof_layout">
+						                    	<div id="roof_visible">
+								                    <img t-attf-src="data:image/png;base64,#{rec_id.roof_layout}" style="height: 45px;width: 45px;" id="roof_img"/>
+
+								                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_name" id="roof_img_name" style="color: #424958 !important;"/>
+								                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="roof_delete_certificate"/>
+							                  </div>
+							                </t>
+		                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+					                	</div>
+				                
+					                <div class="row">
+					                    <div id="UploadHouse" class="column col-sm-4">
+					                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+						                    <span class="meter_large">
+									          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+									      	</span></img>
+
+						                    <label for="image_of_meter_box" class="custom-file-upload form-control profile_detail_supplier_house">
+						                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Layout</span>
+						                    </label>
+						                    <input type="file" name="ins_image_of_meter_box" id="image_of_meter_box" onchange="javascript:image_of_meter_box_filelist()" style="display:none"/>
+
+						                    <input type="text" id="meter_name" name="meter_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    <div id="image_of_meter_box_file">
+						                    </div>
+						                    <t t-if="rec_id.roof_title_pic">
+						                    	<div id="meter_box_visible">
+								                    <img t-attf-src="data:image/png;base64,#{rec_id.roof_title_pic}" style="height: 45px;width: 45px;" id="meter_img"/>
+
+								                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_name" id="meter_img_name" style="color: #424958 !important;"/>
+								                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate"/>
+							                  </div>
+							                </t>
+		                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+					                    </div>
+					                </div>
+					            </div>
+
+					            <div class="que1">
+					            	<div id="que_no_1" class="property_rent_remove">
+										<p>*Select Days</p>
+									</div>
+	                                <select name="hours_timer" id="battary_select" class="form-control" style='width:35%;' required="required">
+	                                  <option value=''>Select option...</option>
+	                                  <option value='1' t-att-selected="'selected' if rec_id.hours_timer == 1 else None">1</option>
+	                                  <option value='2' t-att-selected="'selected' if rec_id.hours_timer == 2 else None">2</option>
+	                                  <option value='3' t-att-selected="'selected' if rec_id.hours_timer == 3 else None">3</option>
+	                                </select>
+
+								</div>
+					            <input type="hidden" name="record_id" t-att-value="record_id"/>
+
+								<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+								<div class="btn_next_pre">
+									<!-- <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<input type="hidden" name="record_id" t-att-value="record_id"/> -->
+									<div class="previous_btn">
+										<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/solar/panels?record_id=#{record_id}'"/>
+									</div>
+									<div class="next_btn">
+										<button type="submit" class="btn" id="next_1">Next</button>
+									</div>
+								</div>
+								
+						<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 40%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>			
+		</template>
+
+		<!-- +++++++++++SECOND PAGE END ____+++++++++++ -->
+
+		<template id="my_solar_pv_installation" name="PV Installation">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/battery/backup" enctype="multipart/form-data">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+						<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header; col-sm-15">
+									<!-- <h3>Post a project</h3> -->
+									<h3 style="font-weight:bold;"><t t-esc="rec_id.customer_project_name"/></h3>
+								</div>
+								<div class="que1">
+									<div id="que_no_1" class="property_rent_remove">
+										<p>NEW PV System installation</p>
+									</div>
+									<div class="property_option_pv">
+										<input type="radio" id="pv_yes" name="pv_system_property" value="yes" t-att-checked="'checked' if rec_id.new_pv_system_installation == 'yes' else None" required='required'>Yes</input>
+										
+										<input type="radio" id="pv_no" class="myBtn" name="pv_system_property" value="no" t-att-checked="'checked' if rec_id.new_pv_system_installation == 'no' else None" required='required'>No</input>
+									</div>
+								</div>
+
+								<div id="pv_system_installation">
+
+									<div id="que_existing_remove_panels">
+										<div class="remove_panels_question">
+											<p style="margin-top: 2% !important;">*Size of solar system</p>
+										</div>
+										<div class="remove_panels_option_invener">
+											<t t-if="rec_id.size_of_solar_system">
+												<input type="text" id="size_of_solar_system" name="size_of_solar_system"  class="float_number_input_only" t-att-value="rec_id.size_of_solar_system"/>
+											</t>
+											<t t-else="">
+												<input type="text" id="size_of_solar_system" name="size_of_solar_system"  class="float_number_input_only"/>
+											</t>
+										</div>
+									</div>
+								
+									<div class="row">
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">How many panels you need</label>
+			                              <t t-if='rec_id.panels_need'>
+			                              	<input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="pv_system_need" id="system_size_name" t-att-value="rec_id.panels_need" ></input>
+			                              </t>
+			                              <t t-else=''>
+			                              	<input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="pv_system_need" id="system_size_name" ></input>
+			                              </t>
+			                            </div>
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">panels power class</label>
+			                              <t t-if='rec_id.panels_power_class'>
+			                              	<input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="panel_power_class" id="no_of_panels" t-att-value="rec_id.panels_power_class" />
+			                            </t>
+			                            <t t-else=''>
+			                            	<input type="text" class="form-control suppler_disp_name_input
+			                                float_number_input_only" name="panel_power_class" id="no_of_panels" />
+			                            </t>
+			                            </div>
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">Inverter size</label>
+			                                <t t-if='rec_id.inverter_size'>
+			                                	<input type="text" class="form-control suppler_disp_name_input" name="inventer_pv_size" id="panel_brand"  t-att-value="rec_id.inverter_size"/>
+			                               </t>
+			                                <t t-else=''>
+			                                	<input type="text" class="form-control suppler_disp_name_input" name="inventer_pv_size" id="panel_brand" />
+			                            	</t>
+			                            </div>
+			                          </div>
+
+			                          <div class="row">
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">Single ph or three ph</label>
+			                              <t t-if='rec_id.single_three_ph'>
+			                              	<input type="text" class="form-control suppler_disp_name_input" name="single_ph_three" id="system_size_name"  t-att-value="rec_id.single_three_ph" ></input>
+			                              </t>
+			                              <t t-else=''>
+			                              	<input type="text" class="form-control suppler_disp_name_input" name="single_ph_three" id="system_size_name"></input>
+			                              </t>
+			                            </div>
+			                          </div>
+
+			                          	<!-- <div class="row"> -->
+				                        <div class="que1">
+											<div id="que_no_1" class="property_rent_remove">
+												<p>Export Device</p>
+											</div>
+											<div class="property_option_pv">
+												<input type="radio" id="export_device" name="export_device" value="yes" t-att-checked="'checked' if rec_id.export_device == 'yes' else None">Yes</input>
+												
+												<input type="radio" id="export_device" class="myBtn" name="export_device" value="no" t-att-checked="'checked' if rec_id.export_device == 'no' else None">No</input>
+											</div>
+										</div>
+										<!-- </div> -->
+
+										<div class="que1">
+											<div id="que_no_1" class="property_rent_remove">
+												<p>Panels Tilts</p>
+											</div>
+											<div class="property_option_pv">
+												<input type="radio" id="panels_tilts" name="panels_tilts" value="yes" t-att-checked="'checked' if rec_id.panels_tilts == 'yes' else None" >Yes</input>
+												
+												<input type="radio" id="panels_tilts" class="myBtn" name="panels_tilts" value="no" t-att-checked="'checked' if rec_id.panels_tilts == 'no' else None" >No</input>
+											</div>
+										</div>
+
+										<div id="que_existing_remove_panels_tile">
+											<div class="remove_panels_question">
+												<p style="margin-top: 2% !important;">*How many tile frames you need ?</p>
+											</div>
+											<div class="remove_panels_option_invener">
+												<t t-if="rec_id.panels_tile_need">
+													<input type="text" id="panels" name="panels_tile_need" class="number_input_only" t-att-value="rec_id.panels_tile_need"/>
+												</t>
+												<t t-else="">
+													<input type="text" id="panels" name="panels_tile_need" class="number_input_only" />
+												</t>
+											</div>
+										</div>
+
+										<div class="que1">
+											<div id="que_no_1" class="property_rent_remove">
+												<p>Clip locks</p>
+											</div>
+											<div class="property_option_pv">
+												<input type="radio" id="clip_locks" name="clip_locks" value="yes" t-att-checked="'checked' if rec_id.clip_locks == 'yes' else None">Yes</input>
+												
+												<input type="radio" id="clip_locks" class="myBtn" name="clip_locks" value="no" t-att-checked="'checked' if rec_id.clip_locks == 'no' else None" >No</input>
+											</div>
+										</div>
+
+										<div id="que_existing_clip_locks">
+											<div class="remove_panels_question">
+												<p style="margin-top: 2% !important;">*How many Clip locks you need?</p>
+											</div>
+											<div class="remove_panels_option_invener">
+												<t t-if="rec_id.clip_locks_need">
+													<input type="text" id="panels" name="clip_locks_need" class="number_input_only" t-att-value="rec_id.clip_locks_need"/>
+												</t>
+												<t t-else="">
+													<input type="text" id="panels" name="clip_locks_need" class="number_input_only"/>
+												</t>
+											</div>
+										</div>
+
+										<div class="que1">
+											<div id="que_no_1" class="property_rent_remove">
+												<p>Storey</p>
+											</div>
+											<div class="property_option_pv">
+												<input type="radio" id="single_storey" name="single_storey" value="single"  t-att-checked="'checked' if rec_id.storey == 'single' else None">Single</input>
+												
+												<input type="radio" id="single_storey" class="myBtn" name="single_storey" value="double" t-att-checked="'checked' if rec_id.storey == 'double' else None">Double</input>
+											</div>
+										</div>
+
+										<!-- ++++++++++++++++++++PANLES ATTCHMENT +++++++++++++++= -->
+										<div class="que1">
+											<div class="roof_type_question_1">
+												<p>Type of roof</p>
+											</div>
+											<div class="roof_type_option_1">
+												<div class="row">
+													<t t-foreach="img_data" t-as="img">
+														<div id="column_images" class="column_images column col-md-3" style="margin: 0 -10px !important;">
+													    <label class="image-radio" id='roof_label'>
+													        <img class="img-responsive type_home_image" t-attf-src="data:image/png;base64,#{img.choose_img_id.datas}"/>
+													        <input type="radio" id="tin" name="roof" t-att-value="img.roof_type" t-att-checked="'checked' if rec_id.roof_type == img.roof_type else None">
+													        <span class="type_property" t-esc="dict(img.fields_get(allfields=['roof_type'])['roof_type']['selection'])[img.roof_type]"></span>
+													        </input>
+													    </label>
+													    
+														</div>
+													</t>
+													<!-- <div id="rood_div" style="display:none;">
+												    	<label>Specify Roof Type</label>
+												    	<input type="text" name="roof_text_box" placeholder="Roof Type" id="roof_box"/>
+												    </div> -->
+												</div>
+											</div>
+										</div>
+										<!-- ++++++++++++++++++++PANLES ATTCHMENT +++++++++++++++= -->
+
+										<div class="que1">
+											<div id="que_no_1" class="property_rent_remove">
+												<p>Do you need battery back up ?</p>
+											</div>
+											<div class="property_option_pv">
+												<input type="radio" id="batteryback_up" name="batteryback_up" value="yes" t-att-checked="'checked' if rec_id.battery_backup == 'yes' else None" >Yes</input>
+												
+												<input type="radio" id="batteryback_up" class="myBtn" name="batteryback_up" value="no" t-att-checked="'checked' if rec_id.battery_backup == 'no' else None">No</input>
+											</div>
+										</div>
+
+									<div class="upload_img_supplier_customer" id="batteryback_up_upload_img_supplier_customer">
+										<div class="row">
+
+											<div id="UploadHouse" class="column col-sm-4">
+							                    <img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="large">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (2).png" class="large-image" alt="adventure" />
+										      	</span></img>
+							                    <label for="house_attachment" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of House</span>
+							                    </label>
+							                    <input type="file" name="house_attachment" id="house_attachment" onchange="javascript:uploadimagehouse()" style="display:none"/>
+
+							                    <input type="text" id="house_name" name="house_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="house_attachment_file">
+							                  	</div>
+
+							                  	<t t-if="rec_id.house_name_up">
+								                  	<div id="house_visible">
+								                  		<img t-attf-src="data:image/png;base64,#{rec_id.house}" style="height: 45px;width: 45px;" id="house_image"/>
+
+								                  		<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.house_name_up" id="house_image_name" style="color: #424958 !important;"/>
+								                  		<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="house_delete_certificate"/>
+								                  	</div>
+							                  	</t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="large_roof">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (1).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="image_of_roof" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Tile</span>
+							                    </label>
+							                    <input type="file" name="image_of_roof" id="image_of_roof" onchange="javascript:uploadimageroof()" style="display:none"/>
+
+							                    <input type="text" id="roof_name" name="roof_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+
+							                    <div id="roof_attachment_file">
+							                    </div>
+							                    <t t-if="rec_id.roof_name_up">
+							                    	<div id="roof_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.roof_tile_pic}" style="height: 45px;width: 45px;" id="roof_img"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_name_up" id="roof_img_name" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="roof_delete_certificate"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+						                </div>
+					                
+						                <div class="row">
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="meter_large">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="image_of_meter_box" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Layout</span>
+							                    </label>
+							                    <input type="file" name="image_of_meter_box" id="image_of_meter_box" onchange="javascript:image_of_meter_box_filelist()" style="display:none"/>
+
+							                    <input type="text" id="meter_name" name="meter_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="image_of_meter_box_file">
+							                    </div>
+							                    <t t-if="rec_id.roof_nm">
+							                    	<div id="meter_box_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.roof}" style="height: 45px;width: 45px;" id="meter_img"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_nm" id="meter_img_name" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="meter_large_zoomin">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="meter_zoomin" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box pic Zoom in</span>
+							                    </label>
+							                    <input type="file" name="meter_zoomin" id="meter_zoomin" onchange="javascript:image_of_meter_box_zoomin()" style="display:none"/>
+
+							                    <input type="text" id="meter_zoomin_input" name="meter_zoomin_input" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="image_of_meter_zoomin">
+							                    </div>
+							                    <t t-if="rec_id.meter_box_up">
+							                    	<div id="meter_box_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box}" style="height: 45px;width: 45px;" id="meter_in_img"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_box_up" id="meter_img_in_name" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_in"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+						                </div>
+
+						                <div class="row">
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="meter_large_zoomout">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="meter_zoomout" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box pic Zoom out</span>
+							                    </label>
+							                    <input type="file" name="meter_zoomout" id="meter_zoomout" onchange="javascript:image_of_meter_box_zoomout()" style="display:none"/>
+
+							                    <input type="text" id="meter_zoomout_input" name="meter_zoomout_input" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="image_of_meter_zoomout">
+							                    </div>
+							                    <t t-if="rec_id.meter_box_2_name">
+							                    	<div id="meter_box_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box_2}" style="height: 45px;width: 45px;" id="meter_out_img"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_box_2_name" id="meter_img_name_out" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_out"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="meter_wall_pic">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="meter_box_wall_pic" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box wall pic</span>
+							                    </label>
+							                    <input type="file" name="meter_box_wall_pic" id="meter_box_wall_pic" onchange="javascript:meter_box_wall_pic_fun()" style="display:none"/>
+
+							                    <input type="text" id="meter_name_box_wall_pic" name="meter_name_box_wall_pic" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="image_of_meter_box_wall_pic">
+							                    </div>
+							                    <t t-if="rec_id.inverter_wall_name">
+							                    	<div id="meter_box_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.inverter_wall}" style="height: 45px;width: 45px;" id="meter_img_wall"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.inverter_wall_name" id="meter_img_name_wall" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_wall"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+
+						                </div>
+
+						            </div>
+						        </div>
+						        <t t-if='is_timer'>
+							        <div class="que1">
+						            	<div id="que_no_1" class="property_rent_remove">
+											<p>*Select Days</p>
+										</div>
+		                                <select name="hours_timer" id="battary_select" class="form-control" style="width:35%;" required="required">
+		                                  <option value="">Select option...</option>
+		                                  <option value="1" t-att-selected="'selected' if rec_id.hours_timer == 1 else None">1</option>
+		                                  <option value="2" t-att-selected="'selected' if rec_id.hours_timer == 2 else None">2</option>
+		                                  <option value="3" t-att-selected="'selected' if rec_id.hours_timer == 3 else None">3</option>
+		                                </select>
+									</div>
+								</t>
+
+								<div class="btn_next_pre">
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<input type="hidden" name="record_id" t-att-value="record_id"/>
+									<div class="previous_btn">
+										<input type="button" class="btn" value="Previous"
+										t-attf-onclick="location.href='/panals/inventer?record_id=#{record_id}&amp;int_remove_existing=yes'"
+										/>
+									</div>
+									<div class="next_btn">
+										<button type="submit" class="btn" id="next_1">Next</button>
+									</div>
+								</div>
+								<!-- <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/> -->
+						<!-- ++++++++++Progress Bar++++++++++++++++ -->
+								<br></br>
+								<br></br>
+								<br></br>
+								<br></br>
+								<div class="progress_bar">
+								    <div id="myBar" class="w3-container w3-green w3-center" style="width: 60%;"></div>
+								</div>
+								<hr/>
+
+								<table style="border-collapse: collapse; width: 100%;">
+									<tbody>
+										<tr>
+											<td style="width: 50%;">
+												<div class="start_pro">
+													<h4>Start</h4>
+												</div>
+											</td>
+											<td style="width: 50%;">
+												<div class="complate_pro">
+													<h4>Complate</h4>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>			
+		</template>
+
+		<!-- ++++++++++++ FORTH PAGE ++++++++++++ -->
+		<template id="my_solar_battery_backup" name="Solar Battery Backup">
+			<t t-call="web.login_layout">
+				<form class="oe_solar_form" method="post" action="/information" enctype="multipart/form-data">
+					<div class="oe_structure oe_empty" id="oe_structure_solar_system"/>
+					<div id="wrap" class="oe_structure section_wrap">
+						<section id="solar_project_sec">
+							<div class="container">
+								<div class="project_header; col-sm-15">
+									<!-- <h3>Post a project</h3> -->
+									<h3 style="font-weight:bold;"><t t-esc="rec_id.customer_project_name"/></h3>
+								</div>
+								<div class="que1">
+									<div id="que_no_1" class="property_rent_remove">
+										<p>Do you need battery back up ?</p>
+									</div>
+									<div class="property_option_pv">
+										<input type="radio" id="battery_sup_backup_yes" name="battery_sup_backup" value="yes" t-att-checked="'checked' if rec_id.battery_backup == 'yes' else None" required='required' t-att-data-is_next='record_id.new_pv_system_installation'>Yes</input>
+										
+										<input type="radio" id="battery_sup_backup_no" class="myBtn" name="battery_sup_backup" value="no" t-att-checked="'checked' if rec_id.battery_backup == 'no' else None" required='required' t-att-data-is_next='record_id.new_pv_system_installation'>No</input>
+									</div>
+								</div>
+								<div id="batteryModal" class="modal">
+		                            <div class="modal-content text-center questation_popup">
+		                              <form class="oe_solar_form" >
+		                                
+		                                <h2><strong>We Are Unable To Process You Request</strong></h2>
+
+		                                
+		                                <div class="delete_view">
+		                                  <a role="button" id="return_btn" class="close btn">Ok</a>
+		                                </div>
+		                              </form>
+		                            </div>
+		                        </div>
+								<div id='pv_battery_backupsection'>
+									<div class="row">
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">Battery Size</label>
+			                              <t t-if='rec_id.battery_size'>
+			                              	<input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="ins_battery_size" id="system_size_name" t-att-value='rec_id.battery_size' required='required'></input>
+			                              </t>
+			                              <t t-else=''>
+			                              	<input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="ins_battery_size" id="system_size_name" required='required'></input>
+			                              </t>
+			                            </div>
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">Battery Model No</label>
+			                              <t t-if='rec_id.battery_model_no'>
+			                              	<input type="text" class="form-control suppler_disp_name_input
+			                                number_input_only" name="ins_battery_model_no" id="ins_battery_model_no" t-att-value='rec_id.battery_model_no' required='required'/>
+			                              </t>
+			                              <t t-else=''>
+			                              	<input type="text" class="form-control suppler_disp_name_input
+			                                number_input_only" name="ins_battery_model_no" id="ins_battery_model_no" required='required'/>
+			                              </t>
+			                              
+			                            </div>
+			                            <div class="col-md-4 form-group">
+			                              <label for="" class="col-form-label suppler_disp_name">Battery Brand</label>
+			                              <t t-if='rec_id.battery_brand'>
+			                              	<input type="text" class="form-control suppler_disp_name_input
+			                                text_input_only" name="ins_battery_brand" id="ins_battery_brand" t-att-value='rec_id.battery_brand' required='required'/>
+			                              </t>
+			                              <t t-else=''>
+			                              	<input type="text" class="form-control suppler_disp_name_input
+			                                text_input_only" name="ins_battery_brand" id="ins_battery_brand" required='required'/>
+			                              </t>
+			                            </div>
+			                        </div>
+
+
+			                        <div class="property_rent_remove">
+										<strong><h3>List of Picture</h3></strong>
+									</div>
+								</div>
+								<div id='pv_battery_backupsection_img'>
+			                        <div class="upload_img_supplier_customer">
+			                        	<div id='pv_battery_image_6'>
+											<div class="row">
+
+												<div id="UploadHouse" class="column col-sm-4">
+								                    <img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="large">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (2).png" class="large-image" alt="adventure" />
+											      	</span></img>
+								                    <label for="house_attachment" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of House</span>
+								                    </label>
+								                    <input type="file" name="house_attachment" id="house_attachment" onchange="javascript:uploadimagehouse()" style="display:none" required='required'/>
+
+								                    <input type="text" id="house_name" name="house_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    <div id="house_attachment_file">
+								                  	</div>
+
+								                  	<t t-if="rec_id.house_name_up">
+									                  	<div id="house_visible">
+									                  		<img t-attf-src="data:image/png;base64,#{rec_id.house}" style="height: 45px;width: 45px;" id="house_image"/>
+
+									                  		<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.house_name_up" id="house_image_name" style="color: #424958 !important;"/>
+									                  		<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="house_delete_certificate"/>
+									                  	</div>
+								                  	</t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+
+							                    <div id="UploadHouse" class="column col-sm-4">
+							                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="large_roof">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (1).png" class="large-image" alt="adventure" />
+											      	</span></img>
+
+								                    <label for="image_of_roof" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Tile</span>
+								                    </label>
+								                    <input type="file" name="image_of_roof" id="image_of_roof" onchange="javascript:uploadimageroof()" style="display:none" required='required'/>
+
+								                    <input type="text" id="roof_name" name="roof_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+
+								                    <div id="roof_attachment_file">
+								                    </div>
+								                    <t t-if="rec_id.roof_name_up">
+								                    	<div id="roof_visible">
+										                    <img t-attf-src="data:image/png;base64,#{rec_id.roof_tile_pic}" style="height: 45px;width: 45px;" id="roof_img"/>
+
+										                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_name_up" id="roof_img_name" style="color: #424958 !important;"/>
+										                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="roof_delete_certificate"/>
+									                  </div>
+									                </t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    </div>
+							                </div>
+						                
+							                <div class="row">
+							                    <div id="UploadHouse" class="column col-sm-4">
+							                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="meter_large">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+											      	</span></img>
+
+								                    <label for="image_of_meter_box" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Upload Image of Roof Layout</span>
+								                    </label>
+								                    <input type="file" name="image_of_meter_box" id="image_of_meter_box" onchange="javascript:image_of_meter_box_filelist()" style="display:none" required='required'/>
+
+								                    <input type="text" id="meter_name" name="meter_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    <div id="image_of_meter_box_file">
+								                    </div>
+								                    <t t-if="rec_id.roof_nm">
+								                    	<div id="meter_box_visible">
+										                    <img t-attf-src="data:image/png;base64,#{rec_id.roof}" style="height: 45px;width: 45px;" id="meter_img"/>
+
+										                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.roof_nm" id="meter_img_name" style="color: #424958 !important;"/>
+										                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate"/>
+									                  </div>
+									                </t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+
+							                    <div id="UploadHouse" class="column col-sm-4">
+							                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="meter_large_zoomin">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+											      	</span></img>
+
+								                    <label for="meter_zoomin" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box pic Zoom in</span>
+								                    </label>
+								                    <input type="file" name="meter_zoomin" id="meter_zoomin" onchange="javascript:image_of_meter_box_zoomin()" style="display:none" required='required'/>
+
+								                    <input type="text" id="meter_zoomin_input" name="meter_zoomin_input" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    <div id="image_of_meter_zoomin">
+								                    </div>
+								                    <t t-if="rec_id.meter_box_up">
+								                    	<div id="meter_box_visible">
+										                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box}" style="height: 45px;width: 45px;" id="meter_in_img"/>
+
+										                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_box_up" id="meter_img_in_name" style="color: #424958 !important;"/>
+										                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_in"/>
+									                  </div>
+									                </t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+							                </div>
+
+							                <div class="row">
+							                    <div id="UploadHouse" class="column col-sm-4">
+							                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="meter_large_zoomout">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+											      	</span></img>
+
+								                    <label for="meter_zoomout" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box pic Zoom out</span>
+								                    </label>
+								                    <input type="file" name="meter_zoomout" id="meter_zoomout" onchange="javascript:image_of_meter_box_zoomout()" style="display:none" required='required'/>
+
+								                    <input type="text" id="meter_zoomout_input" name="meter_zoomout_input" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    <div id="image_of_meter_zoomout">
+								                    </div>
+								                     <t t-if="rec_id.meter_box_2_name">
+								                    	<div id="meter_box_visible">
+										                    <img t-attf-src="data:image/png;base64,#{rec_id.meter_box_2}" style="height: 45px;width: 45px;" id="meter_out_img"/>
+
+										                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.meter_box_2_name" id="meter_img_name_out" style="color: #424958 !important;"/>
+										                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_out"/>
+									                  </div>
+									                </t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+
+							                    <div id="UploadHouse" class="column col-sm-4">
+							                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+								                    <span class="meter_wall_pic">
+											          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+											      	</span></img>
+
+								                    <label for="meter_box_wall_pic" class="custom-file-upload form-control profile_detail_supplier_house">
+								                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Meter box wall pic</span>
+								                    </label>
+								                    <input type="file" name="meter_box_wall_pic" id="meter_box_wall_pic" onchange="javascript:meter_box_wall_pic_fun()" style="display:none" required='required'/>
+
+								                    <input type="text" id="meter_name_box_wall_pic" name="meter_name_box_wall_pic" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+								                    <div id="image_of_meter_box_wall_pic">
+								                    </div>
+								                    <t t-if="rec_id.inverter_wall_name">
+								                    	<div id="meter_box_visible">
+										                    <img t-attf-src="data:image/png;base64,#{rec_id.inverter_wall}" style="height: 45px;width: 45px;" id="meter_img_wall"/>
+
+										                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.inverter_wall_name" id="meter_img_name_wall" style="color: #424958 !important;"/>
+										                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_wall"/>
+									                  </div>
+									                </t>
+				                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    </div>
+
+							                </div>
+							            </div>
+						                <div class="row seven_img">
+						                    <div id="UploadHouse" class="column col-sm-4">
+						                    	<img src="/airbid_master/static/src/image/help_button.png" style="margin: 6px 8px 0 0;height:30px;width:30px;float: right;" class="help_img">
+							                    <span class="meter_pic_battery">
+										          <img src="/airbid_master/static/src/image/Rectangle 98 (4).png" class="large-image" alt="adventure" />
+										      	</span></img>
+
+							                    <label for="pic_battery_need" class="custom-file-upload form-control profile_detail_supplier_house">
+							                    <img src="/airbid_master/static/src/image/Download.png" style="margin: -4px 0 0 0;"></img> <span class="house_attachment">Pic battery need to install</span>
+							                    </label>
+							                    <input type="file" name="pic_battery_need" id="pic_battery_need" onchange="javascript:pic_battery_need_to_install()" style="display:none" />
+
+							                    <input type="text" id="pic_battery_need_input" name="pic_battery_need_input" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+							                    <div id="image_of_meter_battery_need">
+							                    </div>
+							                    <t t-if="rec_id.battery_need_install_name">
+							                    	<div id="meter_box_visible">
+									                    <img t-attf-src="data:image/png;base64,#{rec_id.battery_need_install}" style="height: 45px;width: 45px;" id="meter_img_install"/>
+
+									                  	<input type="text" class="images_photo_name" readonly="readonly" t-att-value="rec_id.battery_need_install_name" id="meter_img_name_install" style="color: #424958 !important;"/>
+									                  	<img src="/airbid_master/static/src/image/delete.png" class="delete_certificate_house" id="meter_box_delete_certificate_install"/>
+								                  </div>
+								                </t>
+			                      				<input type="text" id="company_photo_name" name="company_photo_name" readonly="readonly" hidden="hidden" style="color: #424958;"/>
+						                    </div>
+
+						                </div>
+						            </div>
+						        </div>
+					            <!-- <div > -->
+					                <div class="btn_next_pre">
+										<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+										<input type="hidden" name="record_id" t-att-value="record_id.id"/>
+										<div class="previous_btn">
+											<input type="button" class="btn" value="Previous" t-attf-onclick="location.href='/PV/installation?record_id=#{record_id.id}&amp;pv_system=yes'"/>
+										</div>
+										<div class="next_btn" id='pv_battery_backupsection_btn'>
+											<button type="submit" class="btn" id="next_1">Next</button>
+										</div>
+									</div>
+								
+									<!-- ++++++++++Progress Bar++++++++++++++++ -->
+									<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+									<br></br>
+									<br></br>
+									<br></br>
+									<br></br>
+									<div class="progress_bar">
+									    <div id="myBar" class="w3-container w3-green w3-center" style="width: 80%;"></div>
+									</div>
+									<hr/>
+
+									<table style="border-collapse: collapse; width: 100%;">
+										<tbody>
+											<tr>
+												<td style="width: 50%;">
+													<div class="start_pro">
+														<h4>Start</h4>
+													</div>
+												</td>
+												<td style="width: 50%;">
+													<div class="complate_pro">
+														<h4>Complate</h4>
+													</div>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								<!-- </div> -->
+							</div>
+						</section>
+					</div>
+				</form>
+			</t>
+		</template>
+
+		<!-- ++++++++++++ FORTH PAGE ++++++++++++ -->
+	</data>
+</odoo>

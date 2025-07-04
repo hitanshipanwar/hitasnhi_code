@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="wmssoft_report_delivery_document">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="wmssoft_report.header_template_delivery">
+                        <div class="page" style="padding-left:30px;padding-right:30px">
+                            <div class="row">
+                                <div t-if="doc.rep_template_id" class="col-12" style="text-align:left">
+                                    <span t-field="doc.rep_template_id.address_delivery"/>
+                                </div>
+                            </div>
+                            <div class="row" style="border:1px solid grey">
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Bill to</strong></p>
+                                    <!-- <span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> -->
+                                    <!-- <span t-field="doc.sale_id.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> -->
+                                    <p><b><span t-field="doc.sale_id.partner_invoice_id.parent_id.name" ></span> - <span t-field="doc.sale_id.partner_invoice_id.name"></span></b></p>
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>Ship to</strong></p>
+                                    <p><b><span t-field="doc.sale_id.partner_shipping_id.parent_id.name" ></span> - <span t-field="doc.sale_id.partner_shipping_id.name"></span></b></p>
+                                    <!-- <p><span t-field="doc.sale_id.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p> -->
+                                </div>
+                                <div class="col-4" style="text-align:left">
+                                    <p><strong>SO Reference: </strong><span t-field="doc.sale_id.name"/></p>
+                                    <p><strong>PO Number: </strong><span t-field="doc.sale_id.client_order_ref"/></p>
+                                    <p><strong>Payment Terms: </strong><span t-field="doc.sale_id.payment_term_id"/></p>
+                                </div>
+                            </div>
+                            <br/>
+                            <div class="row o_table_row">
+                                <table class="o_table_row" style="width: 100%;">
+                                    <thead style="background-color:#000000;">
+                                        <tr style="background-color:#000000;color:#FFFFFF;">
+                                            <th class="text-left" style="width:16%;border: 1px solid black;padding-left:3px"><span>Item Code</span></th>
+                                            <th class="text-left" style="border: 1px solid black;"><span>Description</span></th>
+                                            <!-- <th class="text-center" style="width:12%;border: 1px solid black;"><span>Additional Info</span></th> -->
+                                            <th class="text-center" style="width:10%;border: 1px solid black;"><span>Qty Ordered</span></th>
+                                            <th class="text-center" style="width:10%;border: 1px solid black;"><span>Shipped</span></th>
+                                            <th class="text-center" style="width:10%;border: 1px solid black;"><span>Back order</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="sale_tbody" style="border-bottom: 1px solid black;">
+                                        <t t-set="lines" t-value="doc.move_lines.filtered(lambda x: x.product_uom_qty)"/>
+                                        <t t-foreach="lines" t-as="line">
+                                            <t t-set="qty_bo" t-value="line.org_qty - line.product_uom_qty"/>
+                                            <tr>
+                                                <td name="product_code" style="padding-left:3px">
+                                                    <span t-field="line.product_id.default_code" t-options="{'widget': 'text'}"/>
+                                                </td>
+                                                <td name="sale_line_name" style="padding-left:3px;">
+                                                    <span t-field="line.name" t-options="{'widget': 'text'}"/>
+                                                    <t t-if="line.sale_line_id.employee_name">
+                                                        <br/><i>Associated to <span t-field="line.sale_line_id.employee_name" t-options="{'widget': 'text'}"/></i>
+                                                    </t>
+                                                </td>
+                                                <!-- <td name="td_additional_info" style="padding-left:3px;"><span t-field="line.sale_line_id.x_studio_additional_information" t-options="{'widget': 'text'}"/></td> -->
+                                                <td name="qty_ordered" class="text-center"><span t-esc="line.org_qty" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td name="unit_price" class="text-center">
+                                                    <!-- <span t-esc="'{:.2f}'.format(round(line.price_unit, 2))"/> -->
+                                                    <span t-esc="line.product_uom_qty" t-options='{"widget": "float", "precision": 2}'/></td>
+                                                <td name="sub_total" class="text-center"><span t-esc="qty_bo" t-options='{"widget": "float", "precision": 2}'/></td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br/>
+                            <div class="row">
+                                <div class="col-7 o_table_row">
+                                    <br/>
+                                    <table class="o_table_row" style="width: 100%;">
+                                        <thead style="background:#000000;color:#FFFFFF;">
+                                            <tr>
+                                                <th class="text-left" style="width:62%;padding-left:2px;"><span>Shipping Information</span></th>
+                                                <th class="text-left" style="width:38%;padding-left:2px;"><span>Order Notes</span></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <td class="text-left" style="padding-left:2px;">
+                                                <p>Courier: <span t-field="doc.carrier_id"/></p>
+                                            </td>
+                                            <td class="text-left" style="padding-left:2px;">
+                                                
+                                            </td>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+        
+        <template id="report_delivery_order">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-set="lang" t-value="doc.partner_id.lang"/>
+                    <t t-call="wmssoft_report.wmssoft_report_delivery_document" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+        <record id="delivery_order_report" model="ir.actions.report">
+            <field name="name">Badger Delivery Order (PDF)</field>
+            <field name="model">stock.picking</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">wmssoft_report.report_delivery_order</field>
+            <field name="report_file">wmssoft_report.report_delivery_order</field>
+            <field name="print_report_name">'Delivery Order - %s' % (object.name)</field>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_type">report</field>
+            <field name="paperformat_id" ref="wmssoft_report.invoice_format"/>
+        </record>
+    </odoo>

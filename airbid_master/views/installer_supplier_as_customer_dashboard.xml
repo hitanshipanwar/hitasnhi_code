@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="supplier_as_customer_deshboard" name="Supplier AS Customer Dashboard">
+      <t t-call="website.layout">
+
+        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section id="features_customer" t-if="not data">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="project_filter">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <div class="project_des">
+                          <h3>My Projects</h3>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="project_filter">
+                    <div class="row">
+                      <div>
+                        <h3>No Project Yet!!</h3>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div>
+                        <h3>Create a first <a href="/customer/project" style="color: #ee6363;text-decoration: underline;">post a project</a></h3>
+                      </div>
+                    </div>
+                  </div>                
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="features_c">
+            <div class="container">
+
+              <div class="row">
+                <h3>Currently You are viewing as a Customer</h3>
+              </div>
+              <div class="row">
+                <div class="col-sm-8" id="oe_solar_dashboard">
+
+                  <div class="project_filter">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <div class="project_des">
+                          <h3>My Projects</h3>
+                        </div>
+                      </div>
+
+                      <!-- =========================================== -->
+                      <div class="col-sm-10">
+                        <form class="address_form" method="post"  action="/dashboard">
+                          <ul class="short_ul_filter">
+                            <li class="dropdown short_by_date_res" id="short_by_date_filter">
+                            <a href="#" data-toggle="dropdown" class="short_by_date">Sort by: Remaining Days <i class="icon-arrow"></i></a>
+                            <ul class="dropdown-menu dropdown_filter">
+                              <li>
+                              <tr>
+                                <td class="text-right">
+                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                 <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+                                 <input type="submit" class="btn" t-attf-value="Least to Most"></input>
+                                </td> 
+                              </tr>
+                              </li>
+                            </ul>
+                          </li>                          
+                          </ul>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+
+              <!-- =========================================== -->
+              <t t-foreach="data" t-as="rec">
+                <t t-if="rec.customer_project_name">
+                    <form class="oe_solar_form" method="POST" action="/installer/review">
+                    <div class="main_project">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <div class="project_name">
+                            <h1 style="font-weight:bold; display:inline;"><t t-esc="rec.customer_project_name"/></h1>
+                          </div>
+                        </div>
+                        <div class="col-sm-3">
+                          <div class="project_remaining_days">
+                            <t t-if="rec.installer_project_state != 'saveasdraft' and rec.installer_project_state != 'draft'and rec.installer_project_state != 'close' ">
+                                  <h5>Remaining Time :
+                                    <t t-call="airbid_master.display_timer_widget_project">
+                                      <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+                                      <t t-set="pre_countdown_display" t-value="bool(False)"/>
+                                      <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+                                      <t t-set="main_countdown_display" t-value="bool(False)"/>
+                                      <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+                                    </t>
+                                  </h5>
+                                </t>
+                          </div>
+                        </div>
+                        <div class="col-sm-12">
+                          <div class="main_view_btn">
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+                            <!-- <t t-if='rec.inverter_wall_name'> -->
+                               <input type="submit" class="btn" id="view_detail" value="View Project Details" ></input>
+                             <!--  </t>
+                             <t t-else=''>
+                              <input type="submit" class="btn" id="view_detail" value="View Project Detaily" disabled='disabled'></input>
+                             </t> -->
+                          </div>
+                        </div>
+                      </div>
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="project_bor_ca">
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-3">
+                              <div class="project_name_address">
+                                <h5>Address</h5>
+                                <span><t t-esc="rec.street"/>  <t t-esc="rec.house_number_or_name"/>,<br></br><t t-esc="rec.city"/>  <t t-esc="rec.state_id.name"/>,  <t t-esc="rec.zip"/></span>
+                                <!-- <span>2 Ss Wakefield Avenue , <br/>JERONA Queensland, 4809</span> -->
+                              </div>
+                            </div>
+                            <div class="col-sm-3">
+                              <div class="project_size_solar">
+                                <h5>Size of solar system</h5>
+                                  <span t-esc="rec.size_of_solar_system"></span>
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="project_status">
+                                <h5>Status</h5>
+                                <span><t t-if="rec.installer_project_state" t-esc="dict(rec.fields_get(allfields=['installer_project_state'])['installer_project_state']['selection'])[rec.installer_project_state]"/></span>
+                              </div>
+                            </div>
+                            <div class="col-sm-2">
+                              <div class="project_bid_count">
+                                <t t-set="total" t-value="0"/>
+                                <t t-foreach="rec.installer_bids_ids" t-as="count"> 
+                                  <t t-set="total" t-value="total+1"/>
+                                </t>
+                                <span><t t-esc="total"/></span>
+                                <h5>Bid Count</h5>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="project_bor_ca_mobile">
+                                  
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                  <input type="hidden" name="record_id" t-att-value="rec.id"/>
+                                  <input type="submit" class="btn project_bor_ca_mobile_btn" id="view_detail_res" value="View Project Detail"></input>
+                              </div>
+                            </div>
+                          </div>
+                          
+                        </div>
+                      </form>
+                  </t>
+                </t>
+
+                </div>
+                <div class="col-sm-4">
+                  <div class="project_des">
+                    <h3>Recent Bids</h3>
+                  </div>
+
+                  <div class="pro_main_bids" t-if="data.installer_bids_ids">
+                       <div class="project_recent_bids">
+                          <t t-set="index" t-value="0"/>
+                          <t t-foreach="data" t-as="rec">
+                            <t t-foreach="rec.installer_bids_ids" t-as="installer">
+                              <t t-set="index" t-value="index + 1"/>
+                               <div class="row" id="supplier_project_name_recent_bid">
+                                  <div class="col-sm-12">
+                                    <div class="project_name_recent_bid">
+                                      <span><t t-esc="rec.customer_project_name"/></span>
+                                    </div>
+                                  
+                                    <div class="project_name_recent_bid_detail">
+                                      <img src="/airbid_master/static/src/image/profile.png" class="supplier_img" loading="lazy"/>
+                                      <span class="supplier_name">Installer <t t-esc="index"/></span>
+                                      <p class="supplier_ammount" t-if="installer.price"><t t-esc="installer.price"/><br/><span>Bid Amount</span></p>
+                                      <!-- <p class="supplier_ammount" t-if="installer.final_price">$<t t-esc="installer.final_price"/> p/w for <t t-esc="installer.months"/> Months<br/><span>Bid Amount</span></p> -->
+                                    </div>
+                                    <div class="supp_bids_line"></div>
+                                 </div>
+                               </div>
+                            </t>
+                          </t>
+                       </div>
+                       <div class="view_all_supplier" id="view_all_supplier">
+                        <a href="#" class="view_sup_line" id="view_sup_line">View All</a>
+                      </div>
+
+                      <div class="view_all_supplier" id="view_less_supplier">
+                        <a href="#" class="view_sup_line" id="view_sup_line">View Less</a>
+                      </div>
+                  </div>
+                  <!-- <div class="pro_main_bids" t-if="data.supplier_bids_ids">
+                    <div class="project_recent_bids">
+                      <t t-set="index" t-value="0"/>
+                      <t t-foreach="data" t-as="rec">
+                      <t t-foreach="rec.supplier_bids_ids" t-as="supplier">
+                        <div class="row" id="supplier_project_name_recent_bid">
+                        <div class="col-sm-12">
+                          <div class="project_name_recent_bid">
+                            <span><t t-esc="rec.customer_project_name"/></span>
+                          </div>
+                          <div class="project_name_recent_bid_detail">
+                              <t t-if="supplier.supplier_id.image_1920">
+                              <img t-attf-src="data:image/png;base64,#{supplier.supplier_id.image_1920}" class="supplier_img"/>
+                            </t>
+                              <t t-else="">
+                                <img src="/airbid_master/static/src/image/profile.png" class="supplier_img" loading="lazy"/>
+                              </t>
+
+                            <t t-if="rec.project_create_date" t-set="remaining_date" t-value="(rec.project_create_date +relativedelta(days =+ 3)) - datetime.date.today()"/>
+                            <t t-set="index" t-value="index+1"/>
+                            <t t-if="remaining_date.days &gt; 0">
+                              <span class="supplier_name">Supplier <t t-esc="index"/>
+                              <br/><img src="/airbid_master/static/src/image/Star1.png"/></span>
+                            </t>
+
+                            <t t-if="remaining_date.days &lt;= 0">
+                              <span class="supplier_name">
+                              <t t-esc="supplier.supplier_id.name"/>
+                              <br/><img src="/airbid_master/static/src/image/Star1.png"/></span>
+                            </t>
+
+                            <p class="supplier_ammount" t-if="supplier.full_price">$<t t-esc="supplier.full_price"/><br/><span>Bid Amount</span></p>
+                            <p class="supplier_ammount" t-if="supplier.final_price">$<t t-esc="supplier.final_price"/> p/w for <t t-esc="supplier.months"/> Months<br/><span>Bid Amount</span></p>
+                          </div>
+                          <div class="supp_bids_line"></div>
+                        </div>
+                      </div>
+                    </t>
+                  </t>
+                    </div>
+                    <div class="view_all_supplier" id="view_all_supplier">
+                      <a href="#" class="view_sup_line" id="view_sup_line">View All</a>
+                    </div>
+
+                    <div class="view_all_supplier" id="view_less_supplier">
+                      <a href="#" class="view_sup_line" id="view_sup_line">View Less</a>
+                    </div>
+                  </div> -->
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </t>
+    </template>
+
+  </data>
+</odoo>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="crm_history_module.PivotView.buttons" t-inherit="web.PivotView.Buttons" t-inherit-mode="extension" owl="1">
+        <xpath expr="//button[hasclass('o_pivot_expand_button')]" position="after">
+            <button t-if="props.resModel == 'sale.activity.report'" class="btn btn-secondary fa fa-download o_pivot_csv_expand_button" t-on-click="onDownloadCsvButtonClicked" data-tooltip="Download csv" aria-label="Download csv" t-attf-disabled="{{noDataDisplayed ? 'disabled' : false}}"/>
+        </xpath>
+    </t>
+</templates>

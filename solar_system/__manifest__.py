@@ -1,0 +1,33 @@
+{
+	'name': 'Solar System',
+    'version': '14.0.0.1',
+    'summary': "Solar System",
+    'depends': ['base','website','contacts','sale_management','website_sale','product','portal', 'digest','ks_binary_file_preview'],
+    'data': [
+        'security/ir.model.access.csv',
+        'data/customer_sequence.xml',
+        'data/supplier_seq.xml',
+        'data/cron_days.xml',
+        'views/solar_customer_view_menu.xml',
+        'views/template.xml',
+        'views/solar_supplier_view_menu.xml',      
+        'views/customer_list.xml',      
+        'views/supplier_list.xml',      
+        'views/project_image_selection.xml',      
+        'views/installation_solar_views.xml',      
+        'data/membership_plan.xml',      
+        'views/installater_profile.xml',      
+        'views/installer_views.xml',      
+    ],
+    'qweb': [
+
+    ],
+    'author': 'Spellbound Soft Solutions',
+    'website': 'http://spellboundss.com/',
+    'maintainer': 'Spellbound Soft Solutions',
+    'company': 'Spellbound Soft Solutions',
+    'license': 'AGPL-3',
+    'auto_install': False,
+    'installable': True,
+    'application': True,
+}

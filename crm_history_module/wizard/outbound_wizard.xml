@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="outbound_common_view" model="ir.ui.view">
+        <field name="name">Outbound Wizard View</field>
+        <field name="model">out.bound.wizard</field>
+        <field name="arch" type="xml">
+            <form name="Outbound Sales">
+                <group>
+                    <group>
+                        <field name='date_start'/>
+                        <field name='date_end'/>
+                        <field name='customer_id' widget="many2many_tags" options="{'no_open': True, 'no_create': True}" />
+                        <field name='activity_type' widget="many2many_tags" options="{'no_open': True, 'no_create': True}" />
+                    </group>
+                </group>
+                <footer>
+                    <button name="button_export_csv" string="Export CSV" type="object" default_focus="1" class="oe_highlight" />
+                    <button name="button_export_pdf" string="Print Qweb" type="object" default_focus="1" class="oe_highlight" />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="outboun_statement_wizard_action" model="ir.actions.act_window">
+        <field name="name">Outbound Wizard window</field>
+        <field name="res_model">out.bound.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+        <menuitem
+        id="crm_menu_outbound"
+        name="Outbound Sales"
+        parent="crm.crm_menu_report"
+        action="crm_history_module.outboun_statement_wizard_action"
+        sequence="0"/>
+</odoo>

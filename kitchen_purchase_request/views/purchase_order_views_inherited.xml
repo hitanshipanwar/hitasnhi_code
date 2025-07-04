@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_inhert_form_view" model="ir.ui.view">
+		<field name="name">purchase.order.inherit.form.view</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+
+            <!-- Add Suggested Vendor Field -->
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="suggested_vendor" attrs="{'invisible': [('purchase_request_id', '=', False)]}"/>
+            </xpath>
+
+            <!-- Show Create Date  -->
+            <xpath expr="//sheet/group/group/div[@name='date_approve']" position="before">
+                <field name="create_date"/>
+            </xpath>
+
+            <xpath expr="//page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position="before">
+                <!-- <field name="urgency"/> -->
+                <field name="standard_type"/>
+                <field name="is_editable" invisible="1"/>
+                <field name="pr_line_id" invisible="1"/>
+                <!-- <field name="line_id" invisible="1"/> -->
+            </xpath>
+            <xpath expr="//page[@name='products']/field[@name='order_line']/tree/field[@name='product_id']" position="replace">
+                <field
+                    name="product_id"
+                    options="{'no_create': True}"
+                    attrs="{
+                        'readonly': [('state', 'in', ('purchase', 'to approve','done', 'cancel'))],
+                        'required': [('display_type', '=', False)],
+                    }"
+                    context="{'partner_id':parent.partner_id, 'quantity':product_qty,'uom':product_uom, 'company_id': parent.company_id}"
+                    force_save="1" domain="[('product_type','=',standard_type),('purchase_ok', '=', True), '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]"/>
+            </xpath>
+           <!--  <xpath expr="//page[@name='products']/field[@name='order_line']/tree/field[@name='name']" position="replace">
+                <field name="name" widget="section_and_note_text" force_save="1" attrs="{'readonly': [('is_editable', '=', False)]}"/>
+            </xpath>
+ -->
+            <button name="action_rfq_send" states="purchase" type="object" context="{'send_rfq':False}" data-hotkey="g" position="replace">
+                <button name="action_rfq_send" string="Send PO by Email" type="object" context="{'send_rfq':False}" data-hotkey="g" invisible="0" states="purchase"/>
+            </button>
+
+            <button name="action_view_picking" 
+                    class="oe_highlight" type="object" 
+                    attrs="{'invisible': ['|', '|' , ('is_shipped', '=', True), ('state','not in', ('purchase','done')), ('incoming_picking_count', '=', 0)]}" 
+                    data-hotkey="y" groups="stock.group_stock_user" position="replace">
+                    <button name="action_view_picking" 
+                    string="Receive Products" class="oe_highlight" type="object" 
+                    attrs="{'invisible': ['|', '|' , ('is_shipped', '=', True), ('state','not in', ('purchase','done')), ('incoming_picking_count', '=', 0)]}" 
+                    data-hotkey="y" groups="kitchen_purchase_request.group_stock_accessor"/>
+            </button>
+
+            <button name="action_create_invoice" type="object" class="oe_highlight" context="{'create_bill':True}" attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}" data-hotkey="w" position="replace">
+                <button name="action_create_invoice" string="Create Bill" type="object" class="oe_highlight" context="{'create_bill':True}" attrs="{'invisible': ['|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'in', ('no', 'invoiced'))]}" data-hotkey="w"/>
+           </button>
+
+           <!-- groups="kitchen_purchase_request.group_billing_accessor"  -->
+
+           <button name="action_create_invoice" type="object" context="{'create_bill':True}" attrs="{'invisible': ['|', '|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', [])]}" data-hotkey="w" position="replace">
+                <button name="action_create_invoice" string="Create Bill" type="object" context="{'create_bill':True}" attrs="{'invisible': ['|', '|', ('state', 'not in', ('purchase', 'done')), ('invoice_status', 'not in', ('no', 'invoiced')), ('order_line', '=', [])]}" data-hotkey="w"/>
+                 <!-- groups="kitchen_purchase_request.group_billing_accessor" -->
+            </button>
+
+
+			<xpath expr="//header/field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,approve_pending,approved,purchase" readonly="1"/>
+            </xpath>
+
+            <!-- IF Draft And Purhchase Amount Is Higher -->
+            <button name="action_rfq_send" states="draft" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g" position="replace">
+            	<button name="action_rfq_send" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g" string="Send by Email" states="draft"/>
+            </button>
+           <button name="print_quotation" type="object" states="draft" class="oe_highlight" groups="base.group_user" data-hotkey="k" position="replace">
+            	<button name="print_quotation" string="Print RFQ" type="object" states="approved" class="oe_highlight" groups="base.group_user" data-hotkey="k" />
+           	</button>
+            <button name="button_confirm" type="object" states="draft" id="draft_confirm" position="replace">
+           		<button name="approve_rfq" type="object" states="draft" string="Confirm Order" id="draft_confirm"/>
+            </button>
+
+            <button name="button_confirm" type="object" states="sent" id="bid_confirm" position="replace">
+                <button name="approve_rfq" type="object" states="sent" string="Confirm Order" id="bid_confirm"/>
+            </button>
+            
+           <button name="button_cancel" states="draft,to approve,sent,purchase" type="object" data-hotkey="x" position="replace">
+                    <button name="button_cancel" states="draft,approved,to approve,sent,purchase" string="Cancel" type="object" data-hotkey="x" />
+           </button>
+
+            <xpath expr="//header" position="inside">
+
+            	<!-- <button name="send_for_manager_approval" string="Send For Approval" type="object" class="oe_highlight" invisible="1"/>
+ -->
+            	<!-- <button name="action_rfq_send" states="approved" string="Send PO by Email" type="object" context="{'send_rfq':False}" data-hotkey="g" class="oe_highlight" attrs="{'invisible':[('state','in',('draft'))]}"/> -->
+                 <!-- attrs="{'invisible':[('state','in',('draft'))]}" -->
+            	<!-- <button name="print_quotation" states="approved" string="Print RFQ" type="object" groups="base.group_user" data-hotkey="k" class="oe_highlight"/>
+            	<button name="button_confirm" type="object" states="approved" string="Confirm Order" id="draft_confirm"/> -->
+            	<!-- <button name="button_cancel" string="Cancel" type="object" data-hotkey="x" attrs="{'invisible':[('state','in',('approve_pending'))]}"/> -->
+
+            	<!-- <button name="action_approve" string="Approve" type="object" class="btn btn-primary" attrs="{'invisible':['|','&amp;',('is_manager_login','=',False),('state','in',('draft','sent','approve_pending','approved','purchase')),'&amp;',('is_manager_login','=',True),('state','not in',('approve_pending'))]}" />
+                
+                <button name="action_refuse" string="Refuse" type="object" class="btn btn-primary" attrs="{'invisible':['|','&amp;',('is_manager_login','=',False),('state','in',('draft','sent','approve_pending','approved','purchase')),'&amp;',('is_manager_login','=',True),('state','not in',('approve_pending'))]}" /> -->
+
+                <button name="action_approve" string="Approve" type="object" class="btn btn-primary" attrs="{'invisible':['|',('is_manager_login','=',False),('state','in',('purchase','draft', 'sent', 'cancel'))]}"/>
+
+                <button name="action_refuse" string="Refuse" type="object" class="btn btn-primary" attrs="{'invisible':['|',('is_manager_login','=',False),('state','in',('purchase','draft', 'sent', 'cancel'))]}"/>
+
+                <button name="action_mark_as_send" string="Mark Send" type="object" attrs="{'invisible':[('state','in',('purchase','to approve','approve_pending'))]}"/>
+                <button name="action_mark_as_send" string="Mark Send" type="object" attrs="{'invisible':[('state','not in',('purchase'))]}" />
+
+
+            </xpath>
+
+            <xpath expr="//group/group[2]" position="inside">
+                <field name="sale_order_ref_id" attrs="{'readonly': [('state', 'in', ('purchase',))]}"  context="{'sale_show_partner_name': True}"/>
+                <field name="remarks"/>
+            </xpath>
+			<xpath expr="//field[@name='currency_id']" position="after">
+				<field name="product_requirement"/>
+				<field name="department_id"/>
+				<field name="manager_id" invisible="1"/>
+				<field name="is_manager_login" invisible="1"/>
+				<field name="is_higher" invisible="1"/>
+                <field name="urgency" />
+			</xpath>
+			<xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="after">
+				<page string="Manager Signature">
+                        <group>
+                            <field name="manager_signature" widget="signature" readonly="1"/>
+                            <field name="manager_name" readonly="1"/>
+                            <field name="manager_signed_on" readonly="1"/>
+                        </group>
+                </page>
+                <page string="Attachments">
+                        <field name="multi_attachments" widget="many2many_binary" string="Attach a file" nolabel="1" colspan="2"/>
+                </page>
+                <page string="Payment Slip/Bill">
+                    <field name="payment_slip" widget="many2many_binary" string="Attach a Payment Slip" nolabel="1" colspan="2"/>
+                </page>
+
+			</xpath>    
+		</field>
+	</record>
+
+    <record id="purchase_order_kpis_tree_inherit_rfq_sent" model="ir.ui.view">
+        <field name="name">purchase.order.kpis.tree.inherit.rfq.sent</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_kpis_tree"/>
+        <field name="arch" type="xml">
+            <button name="action_create_invoice" type="object" position="replace">
+                <button name="action_create_invoice" type="object" string="Create Bills" groups="account.group_account_manager" />
+            </button>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="mark_as_sent"/>
+                <field name="mark_po_as_sent"/>
+                <field name="remarks" optional="show"/>
+            </xpath>
+            <xpath expr="//field[@name='state']" position="after">
+                <field name="receipt_status"/>
+            </xpath>
+            <!-- Create Date -->
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="create_date"/>
+            </xpath>
+            <!-- So Reference field -->
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="sale_order_ref_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="purchase_order_view_tree_inherit_rfq_sent" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit.rfq.sent</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_view_tree"/>
+        <field name="arch" type="xml">
+            <button name="action_create_invoice" type="object" position="replace">
+                <button name="action_create_invoice" type="object" string="Create Bills" groups="account.group_account_manager" />
+            </button>
+            <xpath expr="//field[@name='amount_total']" position="after">
+                <field name="mark_as_sent"/>
+                <field name="remarks" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+     <record id="view_purchase_order_filter_remarks" model="ir.ui.view">
+        <field name="name">request.quotation.select.remarks</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_overdue']" position="before">
+                <filter name="remarks_display" string="Remarks" domain="[('remarks', '!=', '')]"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

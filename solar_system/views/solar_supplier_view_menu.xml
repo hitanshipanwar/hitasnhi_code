@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="solar_system_supplier_group_view" model="ir.ui.view">
+			<field name="name">solar.system.supplier.group.view</field>
+			<field name="model">solar.supplier</field>
+			<field name="arch" type="xml">
+			<search string="Search Move">
+				<field name="project_state"/>
+				<group expand="0" string="Group By">
+					<filter string="Project" name="group_by_solar_project_id" domain="[]" context="{'group_by': 'solar_project_id'}"/>
+					<separator/>
+				</group>
+			</search>
+			</field>
+	  </record>
+		<record id='solar_system_supplier_tree_view' model='ir.ui.view'>
+			<field name='name'>solar.system.supplier.tree.view</field>
+			<field name='model'>solar.supplier</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name="sequence_no" readonly="1"/>
+					<field name="supplier_create_date"/>
+					<field name="supplier_id"/>
+					<field name="solar_project_id"/>
+					<field name="solar_ammount"/>
+					<field name="project_state"/>
+					<button name="approved_bid" class="btn-primary" string="Approve" type="object" attrs="{'invisible':[('project_state','in',('won','lost'))]}"></button>
+				</tree>	
+			</field>
+		</record>
+		<record id='solar_system_supplier_form_view' model='ir.ui.view'>
+		<field name='name'>solar.system.supplier.form.view</field>
+		<field name='model'>solar.supplier</field>
+		<field name='arch' type='xml'>
+			<form>
+				<header>
+					<field name="project_state" widget="statusbar" statusbar_visible="open,inprogress,won,lost"/>
+				</header>
+				<sheet>
+				<group>
+					<group>
+						<field name="supplier_id"/>
+						<field name="solar_project_id"/>
+						<field name="bid_desc"/>
+					</group><br></br>
+						<h1>Panel</h1>
+						<h1>Inverter</h1>
+				</group>
+				<group>
+					<group>
+						<label for='system_size' string='System Size'/>
+						<div> 
+							<span >
+							<field name='system_size' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>Kw</b></span>
+						</div>					
+						
+						<label for='panels_no' string='No Of Panels'/>				
+						<div>
+							<field name='panels_no' style="width: 60%"/>
+						</div>
+						
+						<label for='panels_brand' string='Panel Brand '/>				
+						<div>
+							<field name='panels_brand' style="width: 60%"/>
+						</div>					
+						
+						<label for='power_class' string='Panel Power Class'/>				
+						<div>
+							<span>
+							<field name='power_class' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>w</b></span>
+						</div>					
+						
+						<label for='made_country' string='Panel Made In Country'/>
+						<div>
+							<field name='made_country' style="width: 60%"/>
+						</div>					
+						
+						<label for='solar_type' string='Type Of Panel'/>
+						<div>
+							<field name='solar_type' style="width: 60%"/>
+						</div>					
+						
+						<label for='manu_year' string="Manufacture's Warranty For Panel "/>
+						<div>
+							<span >
+							<field name='manu_year' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>/Years</b></span>
+						</div>					
+						
+						<label for='per_year' string='Performance Warranty For Panel'/>
+						<div>
+							<span >
+							<field name='per_year' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>/Years</b></span>
+						</div>					
+				</group>
+				<group>					
+					<label for='inverter_brand' string='Inverter Brand'/>
+						<div>
+							<field name='inverter_brand' style="width: 60%"/>
+						</div>					
+					<label for='inverter_size' string='Inverter Size'/>
+						<div>
+							<span >
+							<field name='inverter_size' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>Kw</b></span>
+						</div>					
+					<label for='manu_country' string='Inverter Made In Country'/>
+						<div>
+							<field name='manu_country' style="width: 60%"/>
+						</div>					
+					<label for='warranty' string="Manufacture's Warranty For Inverter"/>
+						<div>
+							<span >
+							<field name='warranty' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>/Years</b></span>
+						</div>					
+					<label for='work_warranty' string='Workmanship Warranty'/>
+						<div>
+							<span>
+							<field name='work_warranty' style="width: 60%"/>
+							<b style='position: absolute; padding-left:10px;'>/Years</b></span>
+						</div>
+					
+					</group>
+				</group>
+				<h1>Pricing</h1>
+				<group>
+					<label for='full_price' string="Full Price after STC discount Incl.GST
+					(This price includes Double storey, 3ph, meter upgrade etc.
+					Customer will pay you after installation.)"/>
+					<div>
+						<span><b>$<field name='full_price' style="width: 20%"/></b></span>
+					</div>
+				</group>
+				<group>
+					<label for='final_price' string='Finance Price'/> 
+					<div>
+						<p><b>$ </b>
+						<field name='final_price' style="width: 20%"/>
+						
+						<b> p/w for </b>
+						<field name='months' style="width: 20%"/>
+						<b style='position: absolute; padding-left:10px;'> /months </b></p>	
+					</div>
+					<field name="finance_cal"/>
+				</group>
+
+				<!-- <group>
+					<label for='batt_full_price' string="standard installation means product will be install near inverter only."/>
+					<div>
+						<span><b>$<field name='batt_full_price' style="width: 20%"/></b></span>
+					</div>
+				</group> -->
+
+
+				<!-- +++++++++ battery ++++++++++++ -->
+					<group>
+						<group>
+							<h1> Battery </h1>
+						</group>
+					</group>
+
+					<group>
+						<group>
+							<label for='battery_size_kwh' string='Size (kwh)'/>
+							<div> 
+								<span >
+								<field name='battery_size_kwh' style="width: 60%"/>
+								<b style='position: absolute; padding-left:10px;'>Kw</b></span>
+							</div>
+
+							<!-- <label for='battery_product_Brand' string='Battery Product Brand'/>
+							<div> 
+								<field name='battery_product_Brand' style="width: 60%"/>
+							</div>
+
+							<label for='battery_product_model_no' string='Battery Product Model No'/>
+							<div> 
+								<field name='battery_product_model_no' style="width: 60%"/>
+							</div>
+
+							<label for='battery_product_warranty' string='Battery Product Warranty'/>
+							<div> 
+								<field name='battery_product_warranty' style="width: 60%"/>
+							</div>
+
+							<label for='battery_made_in' string='Battery Made in'/>
+							<div> 
+								<field name='battery_made_in' style="width: 60%"/>
+							</div> -->							
+						</group>
+					</group>
+
+					<group>
+						<field name='battery_doc_attachment_ids' string="Battery Attachments" >
+							<tree editable="True">
+								<field name="battery_product_Brand"/>
+								<field name="battery_product_model_no"/>
+								<field name="battery_product_warranty"/>
+								<field name="battery_made_in"/>
+								<field name="battery_attch_img"/>
+							</tree>
+							<form>
+								<group>
+									<group>
+										<field name="battery_product_Brand"/>
+										<field name="battery_product_model_no"/>
+										<field name="battery_product_warranty"/>
+									</group>
+									<group>
+										<field name="battery_made_in"/>
+										<field name="battery_attch_img"/>
+									</group>
+								</group>
+							</form>
+						</field>
+					</group>
+
+					<!-- Inverter -->
+					<group>
+						<group>
+							<h1>Inverter</h1>
+						</group>
+					</group>
+
+					<group>
+						<group>
+							<label for='inverter_two_option' string='inverter Supplied'/>
+							<div> 
+								<field name='inverter_two_option' style="width: 60%"/>
+							</div>
+							<!-- battery_doc_attachment_ids -->
+						</group>
+					</group>
+
+					<group>
+						<field name='inverter_doc_attachment_ids' string="Inverter Attachments" >
+							<tree editable="True">
+								<field name="inverter_product_Brand"/>
+								<field name="inverter_product_model_no"/>
+								<field name="inverter_product_warranty"/>
+								<field name="inverter_made_in"/>
+								<field name="inverter_attch_img"/>
+							</tree>
+							<form>
+								<group>
+									<group>
+										<field name="inverter_product_Brand"/>
+										<field name="inverter_product_model_no"/>
+										<field name="inverter_product_warranty"/>
+									</group>
+									<group>
+										<field name="inverter_made_in"/>
+										<field name="inverter_attch_img"/>
+									</group>
+								</group>
+							</form>
+						</field>
+					</group>
+
+					<!-- Inbuilt in box -->
+
+					<group>
+						<group>
+							<h1> Inbuilt in box </h1>
+						</group>
+					</group>
+					 
+					<group>
+						<group>
+							<label for='inbuilt_product_Brand' string='Inbuilt Product Brand'/>
+							<div> 
+								<field name='inbuilt_product_Brand' style="width: 60%"/>
+							</div>
+
+							<label for='inbuilt_product_model_no' string='Inbuilt Product Model No'/>
+							<div> 
+								<field name='inbuilt_product_model_no' style="width: 60%"/>
+							</div>
+
+							<label for='inbuilt_product_warranty' string='Inbuilt Product Warranty'/>
+							<div> 
+								<field name='inbuilt_product_warranty' style="width: 60%"/>
+							</div>
+
+							<label for='inbuilt_made_in' string='Inbuilt Made in'/>
+							<div> 
+								<field name='inbuilt_made_in' style="width: 60%"/>
+							</div>
+							<!-- battery_doc_attachment_ids -->
+							<field name='inbuilt_doc_attachment_ids' string="inbuilt in box Attachments" >
+								<tree editable="True">
+									<field name="name"/>
+									<field name="datas"/>
+								</tree>
+							</field>
+						</group>
+					</group>
+
+					<!-- +++++++++++++ If select option 2 than +++++++++++++ -->
+					<!-- # Supplied sepretly -->
+
+					<group>
+						<group>
+							<h1> Supplied sepretly </h1>
+						</group>
+					</group>
+					 
+					<group>
+						<group>
+							<label for='supplied_product_Brand' string='Supplied sepretly Product Brand'/>
+							<div> 
+								<field name='supplied_product_Brand' style="width: 60%"/>
+							</div>
+
+							<label for='supplied_product_model_no' string='Supplied sepretly Product Model'/>
+							<div> 
+								<field name='supplied_product_model_no' style="width: 60%"/>
+							</div>
+
+							<label for='supplied_product_warranty' string='Supplied sepretly Product Warranty'/>
+							<div> 
+								<field name='supplied_product_warranty' style="width: 60%"/>
+							</div>
+
+							<label for='supplied_made_in' string='Supplied sepretly Made in'/>
+							<div> 
+								<field name='supplied_made_in' style="width: 60%"/>
+							</div>
+
+							<!-- battery_doc_attachment_ids -->
+							<field name='supplied_doc_attachment_ids' string="Supplied Attachments">
+								<tree editable="True">
+									<field name="name"/>
+									<field name="datas"/>
+								</tree>
+							</field>
+
+							<!-- BATTARY ++++++++++++++++++++ -->
+							<label for='battery_brand' string='Supplied Battery Brand'/>
+							<div> 
+								<field name='battery_brand' style="width: 60%"/>
+							</div>
+
+							<label for='battery_model_no' string='Supplied Model'/>
+							<div> 
+								<field name='battery_model_no' style="width: 60%"/>
+							</div>
+
+							<label for='battery_warranty' string='Supplied Warranty'/>
+							<div> 
+								<field name='battery_warranty' style="width: 60%"/>
+							</div>
+
+							<label for='battery_supplied_made_in' string='Supplied Made in'/>
+							<div> 
+								<field name='battery_supplied_made_in' style="width: 60%"/>
+							</div>
+
+							<!-- battery_doc_attachment_ids -->
+							<field name='battery_doc_attachment_supplied_ids' string="battery Attachments">
+								<tree editable="True">
+									<field name="name"/>
+									<field name="datas"/>
+								</tree>
+							</field>
+
+							<!-- how_it_attachment_supplied_ids -->
+							<field name='how_it_attachment_supplied_ids' string="How it will look like ?">
+								<tree editable="True">
+									<field name="name"/>
+									<field name="datas"/>
+								</tree>
+							</field>
+						</group>
+					</group>
+
+				</sheet>
+				<div class="o_attachment_preview"/>
+				  <!-- Chatter -->
+				  <div class="oe_chatter">
+						<field name="message_follower_ids"/>
+						<field name="activity_ids"/>
+						<field name="message_ids"/>
+				  </div>
+			</form>
+		</field>	
+		</record>
+		
+		<record id='solar_system_supplier_action_view' model='ir.actions.act_window'>
+			<field name='name'>Supplier Bids</field>
+			<field name='type'>ir.actions.act_window</field>
+			<field name="context">{'search_default_group_by_solar_project_id': 1}</field>
+			<field name='res_model'>solar.supplier</field>
+			<field name='view_mode'>search,tree,form</field>
+			<field name="view_id" ref="solar_system_supplier_tree_view"/>
+			<field name="search_view_id" ref="solar_system_supplier_group_view"/>
+		</record>
+
+		<menuitem id='solar_system_supplier_menu' name='Bids' parent='solar_system_view'/>
+		<menuitem id='supplier_menu' name='Supplier Bids' parent='solar_system_supplier_menu' action='solar_system_supplier_action_view'/>
+	</data>
+</odoo>

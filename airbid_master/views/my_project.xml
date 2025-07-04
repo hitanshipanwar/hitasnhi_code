@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="my_project_form" name="My Project">
+			<t t-call="web.login_layout">
+				<form class="my_project_form" method="post" action="/address/data">
+					<div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+				        <div id="wrap" class="oe_structure section_wrap">
+				        	<section id="project_post_sec">
+				            	<div class="container">
+				            		<div class="row">
+				            			<div class="col-sm-8">					                
+							                <div class="post_project">
+							                    <h3>My Projects</h3>
+							                </div>
+						                    <div class="main_post_project">
+							                  	<div class="new_project_create">
+													<div class="post_img text-center">
+														<img src="/airbid_master/static/src/image/Vector.png"/>
+													</div>
+													<div class="new_project">
+														<p>Post a New Project</p>
+													</div>
+													<div class="add_project">
+														<p> There are no any project added yet, please add an<br/>project to get best installation bids </p>
+														<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+														<div class="project_button">
+															<button type="submit">Post a Project</button>
+														</div>
+													</div>
+												</div>
+											</div>
+				        				</div>
+										<div class="column col-sm-4">
+											<div class="my_project_view_bid">
+												<h3 id="my_recent_bid">Recent Bids</h3>
+											</div>
+											<div class="recent_bids" t-if="not data.supplier_bids_ids">
+												<div class="recent_bid_main_class">	
+													<div class="post_img text-center">
+														<img src="/airbid_master/static/src/image/Vector.png"/>
+													</div>
+													<div class="any_bids">
+														<p>No Any Recent Bids</p>
+													</div>
+													<div class="bids_update">
+														<p>There are no any project added yet,<br/> please add an project to get best <br/>installation bids</p>
+													</div>
+												</div>
+											</div>
+											<div class="recent_bids_data" t-if="data.supplier_bids_ids">
+					                    		<div class="project_recent_bids">
+							                    	<t t-foreach="data" t-as="rec">
+							                    	<t t-foreach="rec.supplier_bids_ids" t-as="supplier">
+							                        <div class="row" id="supplier_project_name_recent_bid">
+						                        		<div class="col-sm-12">
+								                        	<div class="project_name_recent_bid">
+								                            	<span><t t-esc="rec.customer_project_name"/></span>
+								                        	</div>
+								                          	<div class="project_name_recent_bid_detail">
+								                            	<t t-if="supplier.supplier_id.image_1920">
+								                              		<img t-attf-src="data:image/png;base64,#{supplier.supplier_id.image_1920}" class="supplier_img"/>
+								                            	</t>
+									                            <t t-else="">
+									                            	<img src="/airbid_master/static/src/image/profile.png" class="supplier_img" loading="lazy"/>
+									                            </t>
+								                            	<span class="supplier_name">
+								                              		<t t-esc="supplier.supplier_id.name"/><br/>
+								                              		<img src="/airbid_master/static/src/image/Star1.png"/>
+								                              	</span>
+								                            	<p class="supplier_ammount" t-if="supplier.full_price">$<t t-esc="supplier.full_price"/><br/><span>Bid Amount</span></p>
+			                            						<p class="supplier_ammount" t-if="supplier.final_price">$<t t-esc="supplier.final_price"/> p/w for <t t-esc="supplier.months"/> Months<br/><span>Bid Amount</span></p>
+								                            </div>
+								                            <div class="supp_bids_line"></div>
+								                        </div>
+								                    </div>
+								                    </t>
+								                	</t>
+								                </div>
+
+											    <div class="view_all_supplier" id="view_all_supplier">
+							                      <a href="#" class="view_sup_line" id="view_sup_line">View All</a>
+							                    </div>
+
+							                    <div class="view_all_supplier" id="view_less_supplier">
+							                      <a href="#" class="view_sup_line" id="view_sup_line">View Less</a>
+							                    </div>
+					           				</div>
+										</div>
+									</div>
+								</div>
+						</section>
+					</div>
+				</form>
+			</t>
+		</template>
+
+
+		<template id="my_project_form_as_customer" name="My Customer Project">
+			<t t-call="web.login_layout">
+				<form class="my_project_form" method="post" action="/customer/address">
+					<div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+				        <div id="wrap" class="oe_structure section_wrap">
+				        	<section id="project_post_sec">
+				            	<div class="container">
+				            		<div class="row">
+				            			<div class="col-sm-8">					                
+							                <div class="post_project">
+							                    <h3>My Projects</h3>
+							                </div>
+						                    <div class="main_post_project">
+							                  	<div class="new_project_create">
+													<div class="post_img text-center">
+														<img src="/airbid_master/static/src/image/Vector.png"/>
+													</div>
+													<div class="new_project">
+														<p>Post a New Project</p>
+													</div>
+													<t t-if='request.env.user.partner_id.supplier_validate != "approve"'>
+														<div style='color: red;'>
+															<center>
+																Your profile is not approved
+															</center>
+														</div>
+													</t>
+													<div class="add_project">
+														<p> There are no any project added yet, please add an<br/>project to get best installation bids </p>
+														<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+														<t t-if='request.env.user.partner_id.supplier_validate == "approve"'>
+															<div class="project_button">
+																<button type="submit">Post a Project</button>
+															</div>
+														</t>
+														<t t-else=''>
+															<div class="project_button" style='opacity: 0.5;'>
+																<button type="submit" disabled='disabled'>Post a Project</button>
+															</div>
+														</t>
+													</div>
+												</div>
+											</div>
+				        				</div>
+										<div class="column col-sm-4">
+											<div class="my_project_view_bid">
+												<h3 id="my_recent_bid">Recent Bids</h3>
+											</div>
+											<!-- <div class="recent_bids" t-if="not data.supplier_bids_ids"> -->
+											<div class="recent_bids">
+												<div class="recent_bid_main_class">	
+													<div class="post_img text-center">
+														<img src="/airbid_master/static/src/image/Vector.png"/>
+													</div>
+													<div class="any_bids">
+														<p>No Any Recent Bids</p>
+													</div>
+													<div class="bids_update">
+														<p>There are no any project added yet,<br/> please add an project to get best <br/>installation bids</p>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="recent_bids_data" t-if="data.supplier_bids_ids">
+					                    		<div class="project_recent_bids">
+							                    	<t t-foreach="data" t-as="rec">
+							                    	<t t-foreach="rec.supplier_bids_ids" t-as="supplier">
+							                        <div class="row" id="supplier_project_name_recent_bid">
+						                        		<div class="col-sm-12">
+								                        	<div class="project_name_recent_bid">
+								                            	<span><t t-esc="rec.customer_project_name"/></span>
+								                        	</div>
+								                          	<div class="project_name_recent_bid_detail">
+								                            	<t t-if="supplier.supplier_id.image_1920">
+								                              		<img t-attf-src="data:image/png;base64,#{supplier.supplier_id.image_1920}" class="supplier_img"/>
+								                            	</t>
+									                            <t t-else="">
+									                            	<img src="/airbid_master/static/src/image/profile.png" class="supplier_img" loading="lazy"/>
+									                            </t>
+								                            	<span class="supplier_name">
+								                              		<t t-esc="supplier.supplier_id.name"/><br/>
+								                              		<img src="/airbid_master/static/src/image/Star1.png"/>
+								                              	</span>
+								                            	<p class="supplier_ammount" t-if="supplier.full_price">$<t t-esc="supplier.full_price"/><br/><span>Bid Amount</span></p>
+			                            						<p class="supplier_ammount" t-if="supplier.final_price">$<t t-esc="supplier.final_price"/> p/w for <t t-esc="supplier.months"/> Months<br/><span>Bid Amount</span></p>
+								                            </div>
+								                            <div class="supp_bids_line"></div>
+								                        </div>
+								                    </div>
+								                    </t>
+								                	</t>
+								                </div>
+
+											    <div class="view_all_supplier" id="view_all_supplier">
+							                      <a href="#" class="view_sup_line" id="view_sup_line">View All</a>
+							                    </div>
+
+							                    <div class="view_all_supplier" id="view_less_supplier">
+							                      <a href="#" class="view_sup_line" id="view_sup_line">View Less</a>
+							                    </div>
+					           				</div> -->
+										</div>
+									</div>
+								</div>
+						</section>
+					</div>
+				</form>
+			</t>
+		</template>
+	</data>
+</odoo>

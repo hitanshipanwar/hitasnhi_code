@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="crm_case_form_view_oppor" model="ir.ui.view">
+        <field name="name">crm.lead.oppor.inherited.crm</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+
+            <button class="oe_stat_button" type="object"
+                    name="action_view_sale_quotation" icon="fa-pencil-square-o"
+                    attrs="{'invisible': [('type', '=', 'lead')]}" position="replace">
+
+
+                <button class="oe_stat_button" type="object"
+                        name="action_view_sale_quotation" icon="fa-pencil-square-o"
+                        attrs="{'invisible': [('type', '=', 'lead')]}">
+                    <div class="o_stat_info">
+                        <field name="quotation_count" style="color: green;font-weight: bold;"/>
+                        <!-- <span>&#160;</span> -->
+                        <!-- <span>&nbsp;</span> -->
+
+                        <field name="quotation_cancel_count" style="color: red;font-weight: bold;margin-left:10px;"/>
+
+                        <span class="o_stat_text">Quotations</span>
+                    </div>
+                </button>
+
+            </button>
+
+            <!-- <button name="action_schedule_meeting" position="replace">
+                <button class="oe_stat_button" type="object"
+                    name="action_view_sale_quotation" icon="fa-pencil-square-o" attrs="{'invisible': [('type', '=', 'lead')]}">
+                    <field name="quotation_count" widget="statinfo" string="Quotations"/>
+                    <field name="quotation_cancel_count" widget="statinfo"/>
+                </button>
+            </button> -->
+            <xpath expr="//field[@name='user_id']" position='after'>
+                <field name="designer_id"/>
+                <field name="unassigned_designer" invisible="1" />
+                <!-- <field name="non_designer_id"/> -->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="crm_lead_search_filter_by_designer" model="ir.ui.view">
+        <field name="name">crm.lead.search.view</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+
+            <!-- Add Designer Filter -->
+            <xpath expr="//search/field[@name='name']" position='before'>
+                <field name="designer_id"/>
+            </xpath>
+            <xpath expr="//search/group" position='inside'>
+                <filter name="filter_designer" string="Designer" context="{'group_by':'designer_id'}"/>
+            </xpath>
+
+            <!-- Add Non Designer Search Filter -->
+            <xpath expr="//search/field[@name='name']" position='after'>
+                <field name="designer_id" string="Non Designer" />
+                <field name="unassigned_designer" string="Unassigned Designer" />
+            </xpath>
+            <!-- <xpath expr="//search/group" position='inside'>
+                <filter name="filter_non_designer" string="Non Designer" domain="[('designer_id', '=', False)]"/>
+            </xpath> -->
+
+            <!-- Replace Salesperson Filter -->
+            <xpath expr="//search/field[@name='user_id']" position='replace'>
+            </xpath>
+            <xpath expr="//search/group/filter[@name='salesperson']" position='replace'>
+            </xpath>
+
+            <!-- Add Salesperson Filter After Designer Filter -->
+            <xpath expr="//search/field[@name='name']" position='before'>
+                <field name="user_id"/>
+            </xpath>
+            <xpath expr="//search/group" position='inside'>
+                <filter string="Won Test" name="won" domain="[('stage_id.is_won', '!=', True)]"/>
+                <!-- <filter string="Unassigned Designer" name="unassigned_designer" domain="[('unassigned_designer', '=', 'un_assigned')]"/> -->
+                <filter name="filter_saleperson" string="salesperson" context="{'group_by':'user_id'}"/>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- Display the SalesPerson and Designer List in Search View -->
+    <record id="crm_lead_search_panel_crm_lead_search" model="ir.ui.view">
+        <field name="name">crm.lead.search.vertical</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+        <field name="arch" type="xml">
+            <search position="inside">
+                <searchpanel>
+                    <field name="user_id" enable_counters="1" />
+                    <field name="designer_id" enable_counters="1"/>
+                    <field name="unassigned_designer" expand="1" select="multi" icon="fa-check-square-o" enable_counters="1" string="Unassigned"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+</odoo>

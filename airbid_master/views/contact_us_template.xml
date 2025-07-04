@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="contact_us_detail" inherit_id="website.contactus" name="Contact Us Detail">
+        <xpath expr="//t" position="replace">
+            <t t-call="website.layout">
+                <form class="cuntact_us_form" method="post"  action="/send/contact">
+                <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"></div>
+                <div id="wrap">
+                    <div class="container mt-4 mb-5">
+                        <div class="row">  
+                            <div class="oe_structure">
+                                <section class="s_text_block">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <span class="contact_us_name">
+                                                    Contact Us
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p class="contact_us_heading">
+                                                    <!-- Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore <br/>magna aliqua. Ut enim ad minim veniam, quis nostrud  -->
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+
+                                <section class="contact_detali_section">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm-12" style="padding: 0;">
+                                                <div class="col-sm-6">
+                                                    <p class="touch_with_us">Get in touch with us</p>
+
+                                                    <div class="main_border_contact">
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-5">
+                                                                <h5 class="contact_label">First Name</h5>
+                                                                <input type="text" class="contact_first_name" t-att-value="request.env.user.name" name="contact_first_name"></input>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <h5 class="contact_label">Last Name</h5>
+                                                                <input type="text" class="contact_last_name" t-att-value="request.env.user.user_lastname" name="contact_last_name"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <h5 class="contact_label">Email Address</h5>
+                                                                <input type="text" class="contact_email_address"  t-att-value="request.env.user.email" name="contact_email_address"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <h5 class="contact_label">Phone No.</h5>
+                                                                <input type="text" class="contact_phone_number" t-att-value="request.env.user.phone" name="contact_phone_number"></input>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                <h5 class="contact_label">Your Message</h5>
+                                                                <textarea id="contact_your_message" name="contact_your_message" rows="4" cols="50"></textarea>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="row">
+                                                            <div class="col-md-10">
+                                                                 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                                 
+                                                                <button type="submit" class="contact_submit_btn">
+                                                                    Send
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="row">
+                                                        <span class="contact_details">Contact Details</span>
+                                                    </div>    
+                                                    <div class="row" style="display: block;">
+                                                        <div class="col-md-10 main_add_class">
+                                                            <h5 class="address_static_add">Address</h5>
+                                                            <span class="address_static_address">480 Illawarra Rd, Marrickville,<br></br>NSW 2204</span>
+                                                        </div>
+
+                                                        <div class="col-md-10 main_add_class">
+                                                            <h5 class="address_static_phone">Phone No.</h5>
+                                                            <span class="address_static_pho_no">+91 9475738495</span>
+                                                        </div>
+
+                                                        <div class="col-md-10 main_add_class">
+                                                            <h5 class="address_static_email">Email Address</h5>
+                                                            <span class="address_static_email_address">contact@airbid.com</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

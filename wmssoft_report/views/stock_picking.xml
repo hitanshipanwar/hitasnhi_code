@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.view.inherit.custom</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <field name="picking_type_id" position="after">
+                <field name="cartons"/>
+            </field>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="rep_template_id" attrs="{'readonly': [('state', '=', 'done')]}"/>
+            </xpath>
+      </field>
+    </record>
+
+    <record id="stock_location_route_form_view_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.view.inherit.custom</field>
+        <field name="model">stock.location.route</field>
+        <field name="inherit_id" ref="stock.stock_location_route_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sequence']" position="before">
+                <field name="short_name" string="Short Name"/>
+            </xpath>
+      </field>
+    </record>
+
+</odoo>

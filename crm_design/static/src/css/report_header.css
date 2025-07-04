@@ -1,0 +1,18 @@
+@font-face {
+    font-family: 'Prompt-light';
+    src: url(/crm_design/static/src/font/Prompt-Light.ttf);
+}
+
+* {
+    font-family: 'Prompt-light' !important;
+}
+
+
+#external_layout_standard_watermark{
+    width: fit-content !important;
+    /* position: absolute !important; */
+    position: fixed !important;
+    transform: rotate(270deg) !important;
+    /* width: 100% !important; */
+    background-color: blueviolet !important;
+}

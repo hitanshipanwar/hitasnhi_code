@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<!-- <record model="ir.rule" id="rule_manager_view">
+	    <field name="name">Purchase Request Manager View Rule</field>
+	    <field name="model_id" ref="kitchen_purchase_request.model_purchase_request"/>
+	    <field name="groups" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_manager')),(4, ref('purchase.group_purchase_user')),(4, ref('purchase.group_purchase_manager'))]" />
+	  	    <field name="domain_force">[(1, '=', 1)]</field>
+	</record> -->
+
+	<record model="ir.rule" id="rule_user_view">
+	    <field name="name">Purchase Request User View</field>
+	    <field name="model_id" ref="kitchen_purchase_request.model_purchase_request"/>
+	    <field name="groups" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_user'))]"/>
+	    <!-- <field name="domain_force">['|',('create_uid', '=', user.id),('assigned_to', '=', user.id)]</field> -->
+	    <field name="domain_force">['|', ('create_uid', '=', user.id), ('assigned_to', '=', user.id)]</field>
+	</record>
+
+    <!-- When New User Created Assign Them Purchase Request Group  -->
+
+    <record id="base.group_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_user'))]"/>
+    </record>
+    
+	<!-- <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_user'))]"/>
+    </record> -->
+
+
+	
+	<!-- Record Rule For Group that can be able to see all the data -->
+	<record model="ir.rule" id="rule_manager_view_all">
+	    <field name="name">Purchase Request Manager View Rule</field>
+	    <field name="model_id" ref="kitchen_purchase_request.model_purchase_request"/>
+	    <field name="domain_force">[(1, '=', 1)]</field> 
+	    <field name="groups" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_manager'))]"/>
+	</record>
+	
+	<!-- Default Group assign -->
+	<record id="base.user_admin" model="res.users">
+        <field name="groups_id" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_manager'))]"/>
+    </record>
+
+    <record id="base.group_system" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('kitchen_purchase_request.group_purchase_request_manager'))]"/>
+    </record>
+	
+    <record model="res.groups" id="group_manager_invrntory">
+        <field name="name">Inventory Adjustment Manager</field>
+        <field name="category_id" ref="crm_design.module_category_managers"/>
+    </record>
+</odoo>
+

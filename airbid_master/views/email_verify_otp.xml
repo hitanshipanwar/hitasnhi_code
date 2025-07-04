@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="email_verify_code" name="Verify Page">
+			<t t-call="web.login_layout">
+				<form class="oe_signup_form" method="post">
+			
+				<div class="text-center">
+	                <img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+	                
+	                <h3 id="email_header"><strong>Please verify your email</strong></h3>
+	                <h6 id="h6_email">You're almost there! We sent an email to</h6>
+	                <p id="user_email">username@domain.com</p>
+	                <p id="just_click">Just click on the link in that email to complete your signup.<br></br> If you don’t see it, you may need to check your spam folder.</p>
+	                
+	                <p id="still_not">Still can’t find email?</p>
+						<a id="confirm_button" role="button" class="btn btn-block btn-md" href="/web/signup" >Resend Email</a><br></br>
+					<label id="for_need" for="need" >Need help?</label>
+					<a href="/contactus" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;" >Contact Us</a>
+				</div>
+			</form>
+			</t>
+		</template>
+
+		<template id="mobile_verify_code" name="Mobile Verify">
+			<t t-call="web.login_layout">
+				<form class="oe_signup_form" method="post">
+			
+				<div class="text-center">
+	                <img src="/airbid_master/static/src/image/logo-img.png" alt='Logo'/>
+	                <br></br>
+	                <h3 id="mobile_header"><strong>Please verify your phone number</strong></h3>
+	                <h6 id="h6_mobile">You're almost there! We sent an text message to</h6>
+	                <p id="user_number">+91 9857382940</p>
+	                <label for="code" id="code_label">Please enter verification code below:</label><br></br>
+	                <input type="text" class="form-control" name="code" id="code" placeholder="Enter here"/><br></br>
+					<a id="confirm_no" name="confirm"  class="btn btn-block btn-md" href="/web/signup" >Verify &amp; continue</a>
+					<br></br>
+					<label id="for_receive" for="need" >Didn't receive the verification code?</label>
+					<a href="#" id="resend_otp" class="btn btn-link btn-sm" role="button"  style="font-weight: 450;font-size: 14px; color:#F16363; text-decoration: underline;" >Resend again</a>
+				</div>
+			</form>
+			</t>
+		</template>
+	</data>
+</odoo>

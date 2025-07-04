@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="approve_purchase_request_view_form" model="ir.ui.view">
+	        <field name="name">approve.purchase.request.view.form</field>
+	        <field name="model">approve.purchase.request.wizard</field>
+	        <field name="arch" type="xml">
+	        	<form string="Approve Quotation">
+	        		<sheet>
+	        			<group>
+	        				<field name="digital_signature" widget="signature"/>
+	        			</group>
+	        		</sheet>
+	        		<footer>
+						<button name="approve_purchase_request" type="object" string="Approve" class="oe_highlight"/>
+							or
+						<button special="cancel" string="Cancel"/>
+					</footer>
+	        	</form>
+	      	</field>
+      	</record>
+
+      	<record id="approve_rfq_wizard_view_form" model="ir.ui.view">
+	        <field name="name">approve.rfq.wizard.view.form</field>
+	        <field name="model">approve.rfq.wizard</field>
+	        <field name="arch" type="xml">
+	        	<form string="Approve Quotation">
+	        		<sheet>
+	        			<group>
+	        				<field name="digital_signature" widget="signature"/>
+	        			</group>
+	        		</sheet>
+	        		<footer>
+						<button name="approve_rfq_quotation" type="object" string="Approve" class="oe_highlight"/>
+							or
+						<button special="cancel" string="Cancel"/>
+					</footer>
+	        	</form>
+	      	</field>
+      	</record>
+
+    </data>
+</odoo>

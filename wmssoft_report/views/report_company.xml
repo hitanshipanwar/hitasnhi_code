@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="report_company_tree_view" model="ir.ui.view">
+            <field name="name">report.company.tree.view</field>
+            <field name="model">report.company</field>
+            <field name="arch" type="xml">
+                <tree string="Company Details">
+                    <field name="name"/>
+                    <field name="address"/>
+                    <field name="bank"/>
+                    <field name="email_from_sale"/>
+                    <field name="email_from_invoice"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="report_company_form_view" model="ir.ui.view">
+            <field name="name">report.company.form.view</field>
+            <field name="model">report.company</field>
+            <field name="arch" type="xml">
+                <form string="Company Details">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Company Name"/>
+                            </h1>
+                        </div>
+                        <group string="Invoice Company Address">
+                            <field name="address" colspna="4" nolabel="1"/>
+                        </group>
+                        <group string="Sale Company Address">
+                            <field name="address_sale" colspna="4" nolabel="1"/>
+                        </group>
+                        <group string="Delivery Company Address">
+                            <field name="address_delivery" colspna="4" nolabel="1"/>
+                        </group>
+                        <group string="Purchase Company Address">
+                            <field name="address_purchase" colspna="4" nolabel="1"/>
+                        </group>
+                        <group string="Bank Details">
+                            <field name="bank" colspna="4" nolabel="1"/>
+                        </group>
+                        <group col="4">
+                            <field name="email_from_sale" widget="email" context="{'gravatar_image': True}"/>
+                            <field name="email_from_invoice" widget="email" context="{'gravatar_image': True}"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="report_company_search_view" model="ir.ui.view">
+            <field name="name">report.company.search.view</field>
+            <field name="model">report.company</field>
+            <field name="arch" type="xml">
+                <search string="Company Details">
+                    <field name="name"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_report_company" model="ir.actions.act_window">
+            <field name="name">Company Details</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">report.company</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="report_company_form_view"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new company details to select in invoice, sale, purchase and delivery to print report based on company details.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_report_company" name="Report Company Template" parent="base.menu_users" action="action_report_company" sequence="99"/>
+    </data>
+</odoo>

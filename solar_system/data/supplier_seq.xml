@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+	    <record id="solar_system_supplier_seq" model="ir.sequence">
+        <field name="name">Sequence Order</field>
+        <field name="code">solar.supplier</field>
+        <field name="prefix">BID/%(year)s/%(month)s/00</field>
+        <field name="padding">001</field>
+        </record>
+	</data>
+</odoo>

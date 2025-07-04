@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="partner_activity_history_form_view" model="ir.ui.view">
+            <field name="name">partner.activity.history.form.view</field>
+            <field name="model">partner.activity.history</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='partner_id'/>
+                                <field name='activity_type_id'/>
+                                <field name='summary' string='Subject'/>
+                            </group>
+                            <group>
+                                <field name='user_id'/>
+                                <field name='date_deadline' string='Date Of Note'/>
+                                <field name='date_completed' string='Completed Date'/>
+                                <field name='is_import' readonly='1'/>
+                                <field name='res_model' in='1'/>
+                            </group>
+                        </group>
+                        <label for="note"/>
+                        <field name="note"/>                        
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <record id="partner_activity_history_tree_view" model="ir.ui.view">
+            <field name="name">partner.activity.history.tree.view</field>
+            <field name="model">partner.activity.history</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name='partner_id' optional='show'/>
+                    <field name='summary' string='Subject'/>
+                    <field name='activity_type_id'/>
+                    <field name='note'  optional='show'/>
+                    <field name='date_deadline' string='Date Of Note' optional='show'/>
+                    <field name='date_completed' string='Completed Date' optional='show'/>
+                    <field name='user_id' optional='hide'/>
+                    <field name='is_import' optional='hide'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_partner_activity_history" model="ir.actions.act_window">
+            <field name="name">Partner Activity History</field>
+            <field name="res_model">partner.activity.history</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_import','=',True)]</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No mismatch details are found.
+                </p>
+            </field>
+        </record>
+
+        <menuitem id="menu_partner_activity_history" name="Customer CRM History" action="action_partner_activity_history" parent="crm.crm_menu_sales" sequence="7"/>
+	</data>
+</odoo>

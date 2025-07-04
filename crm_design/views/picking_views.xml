@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_form_inherit" model="ir.ui.view">
+        <field name="name">view.picking.form.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_uom']" position='after'>
+                <button string="Print Labels" type="object" name="action_open_label"/>
+            </xpath>
+            <xpath expr="//sheet/group/group/field[@name='picking_type_id']" position='after'>
+                <field name="location_id" groups="!stock.group_stock_multi_locations" invisible="1"/>
+                <field name="location_dest_id" groups="!stock.group_stock_multi_locations" invisible="1"/>
+                <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', 'in', ['outgoing', 'internal'])]}"/>
+                <field name="location_dest_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', 'in', ['incoming','internal'])]}"/>
+            </xpath>
+
+            <!-- <field name="location_id" groups="!stock.group_stock_multi_locations" invisible="1" position="replace"/>
+            <field name="location_dest_id" groups="!stock.group_stock_multi_locations" invisible="1" position="replace"/>
+
+            <field name="location_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'incoming')]}" position="replace">
+                <field name="location_id" options="{'no_create': True}" />
+            </field>
+            <field name="location_dest_id" options="{'no_create': True}" groups="stock.group_stock_multi_locations" attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}" position="replace">
+                <field name="location_dest_id" options="{'no_create': True}" />
+            </field> -->
+
+        </field>
+    </record>
+</odoo>

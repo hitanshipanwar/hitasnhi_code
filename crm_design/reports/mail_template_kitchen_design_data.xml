@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <template id="portal_my_design" name="My Sales Designs">
+                <t t-if="not designs">
+                    <p>There are currently no design for your account.</p>
+                </t>
+                <t t-if="designs" t-call="portal.portal_table">
+                    <h3>Designs</h3>
+                    <table class="table table-sm">
+                        <thead class="bg-100">
+                            <tr>
+                                <td><b>Design</b></td>
+                                <td><b>Comment</b></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </thead>
+                        <tbody class="sale_tbody design_table">
+                            <t t-foreach="designs" t-as="design">
+                            <div class="modal fade" t-att-id="'designApproveShareModal_%s' % design.id" tabindex="-1" role="dialog" aria-labelledby="slideChannelShareModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form id="accept" method="POST" t-att-data-design-id="design.id" t-att-data-order-id="sale_order.id" t-att-data-token="design.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                            <header class="modal-header">
+                                                <h4 class="modal-title">Approve Design</h4>
+                                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                                            </header>
+                                            <main class="modal-body" id="sign-dialog">
+                                                <h3>Sign Here To Approve Design</h3>
+                                                <t t-call="portal.signature_form">
+                                                    
+                                                    <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/approve',query_string='&amp;design_id=%i'%(design.id))"/>
+                                                    <t t-set="default_name" t-value="sale_order.partner_id.name"/>
+                                                    <t t-set="send_label" t-value="Accept"/>
+                                                </t>
+                                            </main>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" t-att-id="'designRejectShareModal_%s' % design.id" tabindex="-1" role="dialog" aria-labelledby="slideChannelShareModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                
+                                    <form id="accept" method="POST" t-att-data-design-id="design.id" t-att-data-order-id="sale_order.id" t-att-data-token="sale_order.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                        <header class="modal-header">
+                                            <h4 class="modal-title">Reject Design</h4>
+                                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                                        </header>
+                                        <main class="modal-body" id="sign-dialog">
+                                            
+                                            
+                                            
+                                            <h4>Sign Here To Reject Design</h4>
+                                            <t t-call="portal.signature_form">
+                                                
+                                                <t t-set="call_url" t-value="sale_order.get_portal_url(suffix='/reject_design',query_string='&amp;design_id=%i&amp;type=reject'%(design.id))"/>
+                                                <t t-set="default_name" t-value="sale_order.partner_id.name"/>
+                                                <t t-set="send_label" t-value="Reject"/>
+                                            </t>
+                                        </main>
+                                    </form>
+                                </div>
+                                </div>
+                            </div>
+
+                            <t t-if="design.share_design or design.is_final_design">
+                                <tr id="design_row">
+                               
+                                        <td>
+                                            <a t-attf-href="/web/content/#{design.id}?download=true&amp;access_token=#{design.access_token}" target="_blank">
+                                                <table>
+                                                    <tr>
+                                                        <td colspan="5">
+                                                            <div class='oe_attachment_embedded o_image' t-att-title="design.name" t-att-data-mimetype="design.mimetype" t-attf-data-src="/web/image/#{design.id}/100x80"/>
+                                                        </td>
+                                                        <td>
+                                                            <div class='oe_attachment_name'><t t-raw='design.name' /></div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </a>
+                                        </td>
+                                        <td id="design_review">
+                                           
+                                            <textarea rows="4" name="message" class="form-control" placeholder="Leave a comment...">
+                                                <t t-if="design.approve_state != 'draft'" t-esc="design.comment"/>
+                                                
+                                            </textarea>
+                                            
+                                        </td>
+                                    <t t-if="sale_order.state != 'final_approved'">
+                                        <td>
+
+                                            <t t-if="design.approve_state in ('approve','pre_approved','rejected')">
+
+                                                <h6 style="text-align: center;"><strong t-esc="dict(design.fields_get(allfields=['approve_state'])['approve_state']['selection'])[design.approve_state]"></strong></h6>
+
+                                            </t>
+                                            <t t-else="">
+
+                                                <div t-att-data-sale-order-id="sale_order.id" t-att-data-design-id="design.id" style="text-align: center;">
+                                                  
+
+                                                    <button type="button" id="btn_approve_sign" class="btn  btn-primary" data-bs-toggle="modal" t-att-data-bs-target="'#designApproveShareModal_%s' % design.id" href="#">Approve</button>
+                                                </div>
+                                            </t>
+                                            
+                                        </td>
+                                        <td>
+                                            <t t-if="design.approve_state in ('approve','pre_approved','rejected')">
+                                            </t>
+                                            <t t-else="">
+                                                <div t-att-data-sale-order-id="sale_order.id" t-att-data-design-id="design.id" >
+                                               
+
+                                                    <button type="button" id="btn_reject_sign" class="btn btn-danger" data-bs-toggle="modal" t-att-data-bs-target="'#designRejectShareModal_%s' % design.id" href="#">Reject</button>
+
+                                                </div>
+                                            </t>
+                                           
+                                        </td>
+                                    </t>
+
+                                    <t t-else="">
+                                        <td>
+                                            <t t-if="design.approve_state in ('approve','pre_approved','rejected','draft') and design.is_final_design == False">
+                                                <h6 style="text-align: center;"><strong t-esc="dict(design.fields_get(allfields=['approve_state'])['approve_state']['selection'])[design.approve_state]"></strong></h6>
+
+                                            </t>
+                                            <t t-else="">
+                                                
+                                                <t t-if="design.approve_state in ('approve','pre_approved','rejected') and design.is_final_design == True">
+
+                                                    <h6 style="text-align: center;"><strong t-esc="dict(design.fields_get(allfields=['approve_state'])['approve_state']['selection'])[design.approve_state]"></strong></h6>
+
+                                                </t>
+                                                <t t-else="">
+                                                    <div t-att-data-sale-order-id="sale_order.id" t-att-data-design-id="design.id" style="text-align: center;">
+                                                 
+
+                                                        <button  type="button" id="btn_approve_sign" class="btn     btn-primary" data-bs-toggle="modal" t-att-data-bs-target="'#designApproveShareModal_%s' % design.id" href="#">Approve</button>
+                                                    </div>
+                                                </t>
+                                            </t>
+                                            
+                                        </td>
+                                        <td>
+                                            <t t-if="design.approve_state in ('approve','pre_approved','rejected','draft') and design.is_final_design == False">
+                                                
+                                            </t>
+                                            <t t-else="">
+                                                <t t-if="design.approve_state in ('approve','pre_approved','rejected') and design.is_final_design == True">
+                                                </t>
+                                                <t t-else="">
+                                                    <div t-att-data-sale-order-id="sale_order.id" t-att-data-design-id="design.id" >
+                                                        
+
+                                                        <button type="button" id="btn_reject_sign" class="btn btn-danger" data-bs-toggle="modal" t-att-data-bs-target="'#designRejectShareModal_%s' % design.id" href="#">Reject</button>
+
+                                                    </div>
+                                                </t>
+                                            </t>
+                                            
+                                        </td>
+                                    </t>
+                                   
+                                </tr>
+                            </t>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div id="myModalDesignApprove" class="modal myModal">
+                    <!-- Modal content -->
+                    <div class="modal-content text-center questation_popup">
+                        <h3><strong>Confirmation</strong></h3>
+                        <p>Are you sure you want to Approve ?</p>
+                        <div>
+                            <a class="btn btn-primary" role="button" id="approve_btn_modal">Yes</a>
+                            <a class="btn btn-danger" role="button" id="close_modal_approve">No</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Confirm Dialog For Reject Design -->
+                <div id="myModalDesignReject" class="modal myModal">
+                    <!-- Modal content -->
+                    <div class="modal-content text-center questation_popup">    
+                        <h2><strong>Confirmation</strong></h2>
+                        <p>Are you sure you want to Reject ?</p>
+                        <div>
+                            <a class="btn btn-primary" role="button" id="reject_btn_modal">Yes</a>
+                            <a class="btn btn-danger" role="button" id="close_modal_reject">No</a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                </t>
+        </template>
+
+        <template id="design_portal_template" name="Design Portal Template" inherit_id="portal.portal_sidebar" primary="True">
+            <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+                <t t-set="o_portal_fullwidth_alert" groups="sales_team.group_sale_salesman">
+                    <t t-call="portal.portal_back_in_edit_mode">
+                        <t t-set="backend_url" t-value="'/web#model=%s&amp;id=%s&amp;action=%s&amp;view_type=form' % (sale_order._name, sale_order.id, action.id)"/>
+                    </t>
+                </t>
+
+                <div class="row mt16 o_portal_sale_sidebar">
+                   
+                    <!-- Page content -->
+                    <div id="quote_content" class="col-12 col-lg justify-content-end">
+
+                        <!-- main content -->
+                        <div t-attf-class="card #{'pb-5' if report_type == 'html' else ''}" id="portal_sale_content">
+                            <div t-call="crm_design.portal_my_design"/>
+                        </div>
+
+                       
+
+                        <!-- chatter -->
+                        <div id="design_communication" class="mt-4">
+                            <h2>History</h2>
+                            
+                            <t t-call="portal.message_thread">
+                                <t t-set="object" t-value="sale_order"/>
+                                <t t-set="token" t-value="sale_order.access_token"/>
+                            </t>
+                        </div>
+                    </div><!-- // #quote_content -->
+                </div>
+            </xpath>
+    </template>
+
+    </data>
+</odoo>

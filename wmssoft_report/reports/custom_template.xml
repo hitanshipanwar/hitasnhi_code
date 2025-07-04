@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8" ?>
+    <odoo>
+        <template id="custom_external_layout_standard">
+            <div t-attf-class="first-page header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="first-page" style="position: relative;z-index: -1;">
+                    <div class="row" style="padding-top: 1%;">
+                        <!-- <div class="row"> -->
+                            <div class="col-5" style="width: 100%; padding-right: 45%;">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 80px;max-width:330px;" alt="Logo"/>
+                                <!-- <span>
+                                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                                        style="width:300px;height:50px;"/>
+                                </span> -->
+                            </div>
+                            <div class="col-3">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong>Tax Invoice</strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    Invoice Date
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    Due Date
+                                </p>
+                            </div>
+                            <div class="col-4">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong><span t-field="o.name" /></strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    <span  t-field="o.invoice_date" />
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    <span  t-field="o.invoice_date_due" />
+                                </p>
+                                <!-- <p><span style="text-muted; margin-left:-40px;"><img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                                style="width:300px;height:50px;"/></span></p> -->
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Commercial Invoice Custom Header Based on Badger Requirement -->
+        
+        <template id="custom_comm_external_layout_standard">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="row" style="padding-top: 1%;">
+                    <!-- <div class="row"> -->
+                        <div class="col-6" style="width: 100%; padding-right: 39%;">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 130px;max-width:330px;" alt="Logo"/>
+                           <!--  <span>
+                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                                    style="width:300px;height:50px;"/>
+                            </span> -->
+                        </div>
+                        <div class="col-3">
+                            <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 22px;">
+                                <strong>Commercial Invoice</strong>
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                                Invoice Date
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                                Due Date
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <p class="font-weight-bold" style="font-size:20px;text-align:left;line-height: 22px;">
+                                <strong><span  t-field="o.name" /></strong>
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                                <span  t-field="o.invoice_date" />
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                                <span  t-field="o.invoice_date_due" />
+                            </p>
+                            <p>
+                            <span>
+                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name, 600, 100)"
+                                    style="width:300px;height:50px; text-align:left;"/>
+                            </span>
+                            </p>
+                        </div>
+                    <!-- </div> -->
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Sale Order Custom Header Based on Badger Requirement -->
+        <template id="custom_sale_external_layout_standard">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="first-page">
+                    <div class="row" style="padding-top: 1%;">
+                        <!-- <div class="row"> -->
+                        <div class="col-5" style="width: 100%; padding-right: 45%;">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 80px;max-width:330px;" alt="Logo"/>
+                        </div>
+                        <div class="col-4">
+                            <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                <strong>Sale Order</strong>
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                Order Date
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                Expected Shipment Date
+                            </p>
+                        </div>
+                        <div class="col-3">
+                            <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                <strong><span  t-field="o.name" /></strong>
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                <span t-field="o.date_order" t-options='{"widget": "date"}'/>
+                            </p>
+                            <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                <span t-field="o.expected_date"  t-options='{"widget": "date"}'/>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+            <!-- </div> -->
+        </template>
+        
+        <!-- Delivery Order Custom Header Based on Badger Requirement -->
+        <template id="custom_delivery_external_layout_standard">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="first-page">
+                    <div class="row" style="padding-top: 1%;">
+                        <!-- <div class="row"> -->
+                            <div class="col-5" style="width: 100%; padding-right: 45%;">
+                                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 80px;max-width:330px;" alt="Logo"/>
+                            </div>
+
+                            <div class="col-3">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong>Delivery Docket</strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    Shipment Date
+                                </p>
+                            </div>
+                            <div class="col-4" style="padding-right:8px;">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong><span t-field="o.name" /></strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    <span t-field="o.date_done" t-options='{"widget": "date"}'/>
+                                </p>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </template>
+        
+        <!-- Purchase Order Custom Header Based on Badger Requirement -->
+        <template id="custom_purchase_external_layout_standard">
+            <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                <div class="first-page">
+                    <div class="row" style="padding-top: 1%;">
+                        <!-- <div class="row"> -->
+                            <div class="col-5" style="width: 100%; padding-right: 45%;">
+                                <!-- <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 100px;max-width:300px;" alt="Logo"/> --><img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 80px;max-width:330px;" alt="Logo"/>
+                            </div>
+                            <div class="col-4">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong>Purchase Order</strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    Order Date
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    Expected Shipment Date
+                                </p>
+                            </div>
+                            <div class="col-3">
+                                <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 12px;">
+                                    <strong><span  t-field="o.name" /></strong>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    <span  t-field="o.date_approve" t-options='{"widget": "date"}'/>
+                                </p>
+                                <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 8px;">
+                                    <span  t-field="o.date_planned" t-options='{"widget": "date"}'/>
+                                </p>
+                            </div>
+                        <!-- </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-call="web.address_layout"/>
+                <t t-raw="0"/>
+            </div>
+            <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+                <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                    Page: <span class="page"/> / <span class="topage"/>
+                </div>
+            </div>
+        </template>
+    </odoo>

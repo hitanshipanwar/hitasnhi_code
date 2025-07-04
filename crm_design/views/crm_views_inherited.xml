@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- crm.iap.lead.mining.request Inherited -->
+        <record id="crm_lead_mining_view_form_inherited" model="ir.ui.view">
+            <field name="name">crm.iap.lead.mining.request.inherit.form</field>
+            <field name="model">crm.iap.lead.mining.request</field>
+            <field name="inherit_id" ref="crm_iap_mine.crm_iap_lead_mining_request_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='lead_info']" position="inside">
+                    <field name="partner_id"/>
+                    <field name="platform_ids" widget="many2many_tags"/>
+                    <field name="product_requirement"/>
+                    <field name="accessories"/>
+                    <field name="sizing"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Kanban Inherited -->
+        <record id="crm_lead_view_kanban_sale_total" model="ir.ui.view">
+            <field name="name">crm.lead.view.kanban.sale.total</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="default_order">sale_amount_total desc</attribute>
+                </xpath>
+                <xpath expr="//div[@class='o_kanban_record_subtitle']" position="replace">
+                    <div class="o_kanban_record_subtitle">
+                        <t t-if="record.expected_revenue.raw_value">
+                            <span>Expected Amount :</span>
+                            <field name="expected_revenue" widget="monetary" options="{'currency_field': 'company_currency'}"/>
+                            <span t-if="record.recurring_revenue and record.recurring_revenue.raw_value" groups="crm.group_use_recurring_revenues"> + </span>
+                        </t>
+                        <t t-if="record.recurring_revenue and record.recurring_revenue.raw_value">
+                            <span>Expected Amount :</span>
+                            <field name="recurring_revenue" widget="monetary" options="{'currency_field': 'company_currency'}" groups="crm.group_use_recurring_revenues"/>
+                            <field name="recurring_plan" groups="crm.group_use_recurring_revenues"/>
+                        </t>
+                    </div>
+                </xpath>
+                <!-- <xpath expr="//progressbar" position="attributes">
+                    <attribute name="sum_field">invoice_paid_amount_total</attribute>
+                </xpath> -->
+                <xpath expr="//div[@class='o_kanban_record_subtitle']" position="after">
+                    <span>SO Amount : </span>
+                    <field name="sale_amount_total" />
+                    <br/>
+                    <span>Paid Amount  : </span>  
+                    <field name="invoice_paid_amount_total" />
+                </xpath>
+                <xpath expr="//progressbar" position="replace">
+                    <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'
+                        sum_field="progressbar_amount" help="This bar allows to filter the opportunities based on scheduled activities."/> 
+                       <!--  <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'
+                        sum_field="invoice_paid_amount_total" help="This bar allows to filter the opportunities based on scheduled activities."/> -->
+                </xpath>
+            </field>
+        </record>
+
+        <!-- crm.lead inherited -->
+        <record id="crm_lead_view_form_inherited" model="ir.ui.view">
+            <field name="name">crm.lead.inherit.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='lead_properties']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <!-- Take new fields -->
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="partner_id" invisible="1"/>
+                    <field name="platform_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit':True}"/>
+                    <field name="product_requirement"/>
+                    <field name="sizing"/>
+                    <field name="invoice_paid_amount_total"/>
+                </xpath>
+                <xpath expr="//group[@name='opportunity_partner']/div[2]" position="after">
+                    <label for="street" string="Address" attrs="{'invisible': [('type', '=', 'lead')]}"/>
+                        <div class="o_address_format" attrs="{'invisible': [('type', '=', 'lead')]}">
+                            <field name="street" placeholder="Street..." class="o_address_street"/>
+                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="city" placeholder="City" class="o_address_city"/>
+                            <field name="state_id" class="o_address_state" placeholder="State" options="{&quot;no_open&quot;: True}"/>
+                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="country_id" placeholder="Country" class="o_address_country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        </div>
+                </xpath>
+                <xpath expr="//group[@name='lead_partner']/field[@name='partner_id']" position="replace">
+                    <field name="partner_id" widget="res_partner_many2one"
+                                    context="{
+                                        'default_name': contact_name,
+                                        'default_title': title,
+                                        'default_street': street,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'show_vat': True
+                                    }" groups="base.group_no_one" options="{'no_create': True, 'no_create_edit':True}"/>
+                    <!-- <field name="partner_id" widget="res_partner_many2one"
+                                    context="{
+                                        'default_name': contact_name,
+                                        'default_title': title,
+                                        'default_street': street,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'default_partner_id': partner_id,
+                                        'show_vat': True,
+                                    }" groups="base.group_no_one"/> -->
+                </xpath>
+
+                <xpath expr="//group[@name='opportunity_partner']/field[@name='partner_id']" position="replace">
+                    <field name="partner_id"
+                                    widget="res_partner_many2one"
+                                    string="Customer"
+                                    context="{'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                                        'default_name': contact_name or partner_name,
+                                        'default_street': street,
+                                        'default_is_company': type == 'opportunity' and contact_name == False,
+                                        'default_company_name': type == 'opportunity' and partner_name,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_title': title,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'show_vat': True,
+                                    }" options="{'no_create': True, 'no_create_edit':True}"
+                                />
+                    <!-- <field name="partner_id"
+                                    widget="res_partner_many2one"
+                                    string="Customerssssssssssss"
+                                    context="{'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                                        'default_name': contact_name or partner_name,
+                                        'default_street': street,
+                                        'default_is_company': type == 'opportunity' and contact_name == False,
+                                        'default_company_name': type == 'opportunity' and partner_name,
+                                        'default_street2': street2,
+                                        'default_city': city,
+                                        'default_title': title,
+                                        'default_state_id': state_id,
+                                        'default_zip': zip,
+                                        'default_country_id': country_id,
+                                        'default_function': function,
+                                        'default_phone': phone,
+                                        'default_mobile': mobile,
+                                        'default_email': email_from,
+                                        'default_user_id': user_id,
+                                        'default_team_id': team_id,
+                                        'default_website': website,
+                                        'default_partner_id': partner_id,
+                                        'show_vat': True,
+                                    }"
+                                /> -->
+                </xpath>
+            </field>
+        </record>
+
+
+        <!-- Quick CRM Form Inherited -->
+        <record id="quick_create_opportunity_form_inherited" model="ir.ui.view">
+            <field name="name">quick.create.opportunity.form.inherited</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+               <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="context">{'is_crm_contact': True,
+                            'res_partner_search_mode': type == 'opportunity' and 'customer' or False,
+                            'default_name': contact_name or partner_name,
+                            'default_is_company': type == 'opportunity' and contact_name == False,
+                            'default_company_name': type == 'opportunity' and partner_name,
+                            'default_phone': phone,
+                            'default_email': email_from,
+                            'default_user_id': user_id,
+                            'default_team_id': team_id,
+                            'show_vat': True}</attribute>
+                    <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Action to pass context -->
+        <record id="crm.crm_lead_action_open_lead_form" model="ir.actions.act_window">
+            <field name="name">New Lead</field>
+            <field name="res_model">crm.lead</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="crm.crm_lead_view_form"/>
+            <field name="domain">[('type','=','lead')]</field>
+            <field name="context">{
+                'search_default_team_id': [active_id],
+                'default_team_id': active_id,
+                'default_type': 'lead',
+                'is_crm_contact': True,
+            }</field>
+            <field name="search_view_id" ref="crm.view_crm_case_leads_filter"/>
+        </record>
+    </data>
+</odoo>

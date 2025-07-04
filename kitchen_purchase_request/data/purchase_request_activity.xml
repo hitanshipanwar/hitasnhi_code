@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="1">
+
+    <record id="mail_activity_data_department_manager_approval" model="mail.activity.type">
+            <field name="name">Purchase Request Manager Approval</field>
+            <field name="icon">fa-check-circle</field>
+            <field name="sequence">1</field>
+            <field name="active">False</field>
+            <field name="res_model">purchase.request</field>
+    </record>
+    <record id="mail_activity_data_purchase_user_approval" model="mail.activity.type">
+            <field name="name">Purchase User Approval</field>
+            <field name="icon">fa-check-circle</field>
+            <field name="sequence">1</field>
+            <field name="active">False</field>
+            <field name="res_model">purchase.request</field>
+    </record>
+    <record id="mail_activity_data_purchase_department_manager_approval" model="mail.activity.type">
+            <field name="name">Purchase Department Manager Approval</field>
+            <field name="icon">fa-check-circle</field>
+            <field name="sequence">1</field>
+            <field name="active">False</field>
+            <field name="res_model">purchase.order</field>
+    </record>
+
+    <record id="mail_activity_data_purchase_order_confirm" model="mail.activity.type">
+        <field name="name">Purchase Order Confirm</field>
+        <field name="icon">fa-check-circle</field>
+        <field name="sequence">1</field>
+        <field name="active">False</field>
+        <field name="res_model">purchase.request</field>
+    </record>
+</data>
+
+</odoo>

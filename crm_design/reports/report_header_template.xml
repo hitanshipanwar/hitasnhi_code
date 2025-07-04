@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="web.external_layout_standard">
+        <div style="position: relative;">
+        <img src="/crm_design/static/watermark_1.jpg" style="position: absolute;height: -webkit-fill-available;z-index: -10;" />
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row" style="border-bottom:1.5px solid #656264;padding-bottom:12px;">
+                <!-- <div class="col-7" style="float:left;width:70%"> -->
+                <div class="col-8">
+                    <div class="img">
+                        <img style="height:80px;width:53%;margin-top:0px;" src='/crm_design/static/img/header_logo.png'>
+                        </img> 
+                    </div>
+                </div>
+                <div class="col-4" style="padding-top:3px;margin-left:0px;">
+                     <h5 style="line-height: 0.8;font-weight:600;"><div t-if='request.env.company.name' t-esc="request.env.company.name.upper()"/> </h5>
+                            <span style="color:#989798;font-size:13px;line-height: 1.4;font-weight:600;">
+                                <t t-if='request.env.company.street' t-esc="request.env.company.street.upper()" style="color:#989798;font-size:13px;"/>  
+                                <t t-if='request.env.company.street2' t-esc="request.env.company.street2.upper()" style="color:#989798;font-size:13px;"/>
+                                <span style="color:#989798;font-size:13px;">,</span><t t-if='request.env.company.city' t-esc="request.env.company.city.upper()" style="color:#989798;font-size:13px;"/> <br/> 
+                                <t t-if='request.env.company.state_id.name' t-esc="request.env.company.state_id.name.upper()" style="color:#989798;font-size:13px;"/>&#160;  
+                                <t t-if='request.env.company.zip' t-esc="request.env.company.zip" style="color:#989798;font-size:13px;"/> 
+                                <t t-if='request.env.company.country_id.name' t-esc="request.env.company.country_id.name.upper()" style="color:#989798;font-size:13px;"/>&#160;  <br/>
+                                <span style="color:#989798;font-size:13px;">TEL.&#160; </span><t t-if='request.env.company.phone' t-esc="request.env.company.phone" style="color:#989798;font-size:13px;"/><span style="color:#989798;font-size:13px;">&#160;</span><t t-if='request.env.company.mobile' t-esc="request.env.company.mobile" style="color:#989798;font-size:15px;"/><br/> 
+                            </span>         
+                            <!-- <span style="font-weight:600;font-size:13px;">TAX ID. </span><t t-if='request.env.company.vat' t-esc="request.env.company.vat.upper()" style="font-weight:600;font-size:13px;"/><span style="font-weight:600;font-size:13px;"> (HEAD OFFICE)</span> -->
+                            <span style="font-weight:600;font-size:14px;">TAX ID.&#160;<t t-if='request.env.company.vat' t-esc="request.env.company.vat.upper()"/>(HEAD OFFICE)</span>
+                </div>
+            </div>
+            <!-- <table style="border-collapse: collapse; width: 100%;border-bottom:2px solid black;">
+                <tbody>
+                    <tr>
+                        <td style="width: 60%;">
+                            <img style="height:80px;width:60%;margin-top:50px;" src='/crm_design/static/img/header_logo.png'>
+                            </img>                         
+                        </td>
+                        <td style="width: 40%;"> 
+                                <h5><b><div t-if='request.env.company.name' t-esc="request.env.company.name.upper()"/></b></h5>
+                            <span>
+                                <t t-if='request.env.company.street' t-esc="request.env.company.street.upper()"/> 
+                                <t t-if='request.env.company.street2' t-esc="request.env.company.street2.upper()"/>
+                                <span>, </span><t t-if='request.env.company.city' t-esc="request.env.company.city.upper()"/> <br/>
+                                <t t-if='request.env.company.state_id.name' t-esc="request.env.company.state_id.name.upper()"/>
+                                <t t-if='request.env.company.zip' t-esc="request.env.company.zip"/> 
+                                <t t-if='request.env.company.country_id.name' t-esc="request.env.company.country_id.name.upper()"/><br/>
+                                <span>TEL.</span><t t-if='request.env.company.phone' t-esc="request.env.company.phone"/><span>  FAX.</span><t t-if='request.env.company.mobile' t-esc="request.env.company.mobile"/><br/>
+                                <b><span>TAX ID. </span><t t-if='request.env.company.vat' t-esc="request.env.company.vat.upper()"/><span> (HEAD OFFICE)</span></b>
+                            </span>                           
+                        </td>
+                    </tr> -->
+                    <!-- <tr><td colspan='2' style="width:100%">
+                        <div style="border-bottom:2px solid;"/>
+                    </td></tr> -->
+                    <!-- <tr><td colspan='2'><span><b>________________________________________________________________________________________________________________________________________</b></span></td></tr> -->
+                    <!-- <div style="border:2px solid;"/> -->
+                    <!-- <tr><td colspan='2'><hr style="background-color:black;border-bottom:2px;"></hr></td></tr> -->
+                <!-- </tbody>
+            </table> -->
+            <!-- <div style="border-bottom:1px solid;margin-top:10px;"/> -->
+            
+            <!-- <span><b>______________________________________________________________________________________________________________________</b></span>
+ -->
+
+            <!-- <hr style="background-color:black;"/> -->
+            <!-- <div style="border:2px solid;"/> -->
+            <!-- <hr style="background-color:black;"/> -->
+        </div>
+        
+            <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout {{  'o_layout_background' if company.layout_background in ['Geometric', 'Custom']  else  '' }} position-relative" t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <t t-if="o">
+                    <h2 class="text-center">
+                        <t t-if="o._name == 'sale.order'">
+                            <t t-if="o.state != 'sale'">
+                                <span t-field="o.name"/>
+                            </t>
+                            <t t-else="">
+                                Sale Order <span t-field="o.name"/>
+                            </t>
+                        </t>
+                        <t t-if="o._name == 'account.move'">
+                            <t t-if="o.move_type == 'out_invoice'">
+                                 TAX INVOICE / DELIVERY ORDER
+                            </t>
+                            <t t-if="o.move_type == 'in_invoice'">
+                                Vendor Bill
+                            </t>
+                        </t>
+                        <t t-if="o._name == 'purchase.order'">
+                            <t t-if="o.state != 'purchase'">
+                                <span t-field="o.name"/>
+                                <!-- Request For Quotation -->
+                            </t>
+                            <t t-else="">
+                                Purchase Order <span t-field="o.name"/>
+                            </t>
+                        </t>
+                        <t t-if="o._name == 'stock.picking'">
+                            <t t-esc="o.picking_type_id.name"/>
+                        </t>
+                    </h2>
+                </t>
+                <!-- <h1 id="external_layout_standard_watermark"> LAVAREDO-KITCHEN.COM</h1> -->
+                <div class="pt-5">
+                    <!-- This div ensures that the address is not cropped by the header. -->
+                    <t t-call="web.address_layout"/>
+                </div>
+                <t t-out="0"/>
+            </div>
+
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div class="text-center">
+                <div class="row">
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                    <div style="width:42%;">
+                        <h5 style="font-weight:600;font-size:25px;" >
+                            <b>
+                                <div t-if='request.env.company.thai_add' t-field="request.env.company.thai_add"/>
+                                <div t-else=''>
+                                    <span>บริษัท สยาม อาร์ต มาร์เบิล จำกัด</span>
+                                </div>
+                            </b>
+                        </h5>
+                    </div>
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                </div>
+
+                <div class="row">
+                    <div class="col-2">
+                        <div class="img">
+                            <img style="height:60px;width:60px;margin-top:10px;margin-left:-60px;" src='/crm_design/static/img/lavaredo_logo_orange.png'>
+                            </img> 
+                        </div>
+                    </div>
+                    <div class="col-8" style="font-size:14px;color:black;width:60%;">
+                        <t>        
+                            <span>      
+                            <t t-if='request.env.company.thai_street1' t-esc="request.env.company.thai_street1" />
+                                <t t-else=''>13/6 หมู่19&#160;</t>
+                                <t t-if='request.env.company.thai_street2' t-esc="request.env.company.thai_street2"/>
+                                <t t-else=''>ต.บางพลีใหญ่&#160;</t>
+                            <t t-if='request.env.company.thai_city' t-esc="request.env.company.thai_city"/>
+                                <t t-else=''>อ.บางพลี&#160;</t> 
+                        
+                            <t t-if='request.env.company.thai_state' t-esc="request.env.company.thai_state"/>
+                                <t t-else=''>จ.สมุทรปราการ&#160;</t>
+                                
+                            <t t-if='request.env.company.zip' t-esc="request.env.company.zip"/>
+                                <t t-else=''>1054&#160;</t>
+                            
+                            <t t-if='request.env.company.thai_country' t-esc="request.env.company.thai_country"/>
+                                <t t-else=''>ประเทศไทย&#160;</t>
+
+                            <br/>
+
+                            <span>โทร&#160;</span><t t-if='request.env.company.phone' t-esc="request.env.company.phone"/>&#160;<t t-if='request.env.company.mobile' t-esc="request.env.company.mobile"/>
+                            <br/>
+                            </span>
+                            <b>หมายเลขประจำตัวผู้เสียภาษี&#160;<t t-if='request.env.company.vat' t-esc="request.env.company.vat"/>&#160;(สำนักงานใหญ่)</b>
+                        </t>
+                    </div>
+                    <div class="col-2 pr-0">
+                        <img style="height:60px;width:60px;margin-top:10px;margin-right:-200px;" src='/crm_design/static/img/lavaredo_qr.jpg'>
+                            </img>
+                    </div>
+                </div>
+
+                <!-- <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul> -->
+<!-- 
+                <table style="border-collapse: collapse; width: 100%;" border="0">
+                    <tbody>
+                        <tr>
+                            <td style="width: 24%;"><hr style="background-color:black;"/>
+                            </td>
+                            <td style="width: 52%;">
+                                <h5><b>
+                                        <div t-if='request.env.company.thai_add' t-field="request.env.company.thai_add"/>
+                                        <div t-else=''>
+                                            <span>บริษัท สยามอาร์ต มาร์เบิ้ล จำกัด สำนักงานใหญ่</span>
+                                        </div>
+                                    </b></h5>
+                            </td>
+                            <td style="width: 24%;"><hr style="background-color:black;"/></td>
+                        </tr>
+                    </tbody>
+                </table> -->
+           <!--  <table style="border-collapse: collapse; width: 100%;margin-top:-10px;" border="0">
+                <tbody>
+                    <tr>
+                        
+                        <td style="width: 20%;">
+                            <img style="height:60px;width:35%;margin-top:15px;margin-left:-100px;" src='/crm_design/static/img/lavaredo_logo_orange.png'>
+                            </img>                             
+                        </td>
+                        <td style="width: 60%;font-size:15px;color:grey;">        -->                  
+                                <!-- <b>
+                                    <div t-if='company.thai_add' t-field="company.thai_add"/>
+                                    <div t-else=''>
+                                        <span>บริษัท สยามอาร์ต มาร์เบิ้ล จำกัด สำนักงานใหญ่</span>
+                                    </div>
+                                </b> -->               
+                           <!--  <t>              
+                                <t t-if='request.env.company.thai_street1' t-esc="request.env.company.thai_street1"/>
+                                    <t t-else=''>13/6. หมู่ที่ 19</t>
+                                <t t-if='request.env.company.thai_street2' t-esc="request.env.company.thai_street2"/>
+                                    <t t-else=''>บางพลีใหญ่</t>
+                                <t t-if='request.env.company.thai_city' t-esc="request.env.company.thai_city"/>
+                                    <t t-else=''>บางพลี</t> 
+                            
+                                <t t-if='request.env.company.thai_state' t-esc="request.env.company.thai_state"/>
+                                    <t t-else=''>จังหวัดสมุทรปราการ</t>
+                                    <br/>
+                                <t t-if='request.env.company.zip' t-esc="request.env.company.zip"/>
+                                    <t t-else=''></t>
+                                
+                                <t t-if='request.env.company.thai_country' t-esc="request.env.company.thai_country"/>
+                                    <t t-else=''>ประเทศไทย</t>
+                                <br/>
+
+                                <span>โทร.</span><t t-if='request.env.company.phone' t-esc="request.env.company.phone"/><t t-if='request.env.company.mobile' t-esc="request.env.company.mobile"/>
+                                <br/>
+                                <b style="color:black;">หมายเลขประจำตัวผู้เสียภาษี <t t-if='request.env.company.vat' t-esc="request.env.company.vat"/> (สำนักงานใหญ่)</b> -->
+                                <!-- <span>โทร </span><t t-if='company.phone' t-esc="company.phone"/><br/>
+                                <span>เลขประจำตัวผู้เสียภาษี</span><t t-if='company.mobile' t-esc="company.mobile"/><br/> -->
+                            <!-- </t>                          
+                        </td>
+                        <td style="width: 20%;">
+                            <img style="height:60px;width:35%;margin-top:15px;margin-right:-100px;" src='/crm_design/static/img/lavaredo_qr.jpg'>
+                            </img>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> -->
+
+            </div>
+        </div>
+    </div>
+    </template>
+</odoo>

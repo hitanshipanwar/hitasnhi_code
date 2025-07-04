@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<template>
+
+		<t t-extend="FieldBinaryFileUploader.attachment_preview">
+	        <t t-jquery="div.o_attachment_delete" t-operation="replace">
+	            <div t-if="editable" class="o_attachment_delete" t-att-data-id="file.id"><span class="text-white" role="img" aria-label="Delete" title="Delete" style="display:none;">×</span></div>
+	        </t>
+	    </t>
+
+    </template>
+
+
+</odoo>

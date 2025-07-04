@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="supplier_edit_bid_detail" name="Supplier Bid Detail">
+      <t t-call="website.layout">
+        <form class="bid_form" method="post" action="/edit/bid" enctype="multipart/form-data">
+        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section id="features">
+            <div class="container" style="padding:0">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="col-sm-3">
+                      <div class="supplier_choose_supplier_comm_img">
+                        <span>
+                          <t t-if="not bid_data">
+                          <img t-attf-src="data:image/png;base64,#{record_id.other_img}" class="supplier_review_img_comm"/>
+                          </t>
+
+                          <t t-if="bid_data">
+                          <img t-attf-src="data:image/png;base64,#{bid_data.solar_project_id.other_img}" class="supplier_review_img_comm"/>
+                          </t>
+                          
+                        </span>
+                      </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="make_your_bid_now_section">
+            <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="make_your_bid_now">
+                      <span>Make your Bid Now</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </section>
+
+          <section id="suplllier_bid_section">
+            <div class="content">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form h-100">
+                      <form class="mb-5" method="post" id="contactForm" name="contactForm">
+                        <t t-if="bid_data.solar_project_id.upgrade_system == 'yes' or bid_data.solar_project_id.solar_system != 'yes'">
+                          <div class="row">
+                            <div class="col-sm-4">
+                              <div class="supplier_choose_supplier_comm">
+                                <label for="" class="col-form-label suppler_disp_name">Bid Description</label>
+
+                                <t t-if="bid_data">
+                                <textarea id="supplier_choose_supplier_comment" name="supplier_choose_supplier_comment" class="form-control suppler_disp_name_input" rows="5" cols="50" required="required" t-esc="bid_data.bid_desc"/>
+                              </t>
+                              </div>
+                            </div>
+                          </div>
+                        </t>
+                        <!-- <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="system" id="system_size_name" t-att-value="bid_data.solar_project_id.battery_backup"/> -->
+                        <!-- </div> -->
+                        <t t-if="bid_data.solar_project_id.upgrade_system == 'yes' or bid_data.solar_project_id.solar_system != 'yes'">
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">System Size</label>
+                                
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="system" id="system_size_name" required="required"  t-if="bid_data" t-att-value="bid_data.system_size">
+                                </input>
+                                  <span class="kw">KW</span>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">No of panels</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input
+                                  number_input_only" name="no_panel" id="no_of_panels"   required="required" t-if="bid_data" t-att-value="bid_data.panels_no"/>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Panel Brand</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input
+                                  text_input_only" name="brand_panel" id="panel_brand"   required="required" t-if="bid_data" t-att-value="bid_data.panels_brand"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Panel power class</label>
+                                
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="power" id="panel_power_classs"  required="required" t-if="bid_data" t-att-value="bid_data.power_class"/>
+                                <span class="kw">W</span>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Made in</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="country_panel" id="made_in"  required="required" t-if="bid_data" t-att-value="bid_data.made_country"/>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Type</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="type_panel" id="panel_type"  required="required" t-if="bid_data" t-att-value="bid_data.solar_type"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Manufacturer’s  Warranty</label>
+                                <input type="text" class="form-control suppler_disp_name_input number_input_only" name="manu_panel" id="manufacturer_warranty"  required="required" t-if="bid_data" t-att-value="bid_data.manu_year"/>
+                                <span class="years">Years</span>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Performance Warranty</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input
+                                  number_input_only" name="panel_per" id="performance_warranty"   required="required" t-if="bid_data" t-att-value="bid_data.per_year"/>
+                                <span class="years">Years</span>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="supplier_bid_border"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Inverter Brand</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="brand_inverter" id="supllier_inverter_brand"  required="required" t-if="bid_data" t-att-value="bid_data.inverter_brand"/>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Inverter Size</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="size_int" id="supllier_inverter_size"   required="required" t-if="bid_data" t-att-value="bid_data.inverter_size"/>
+                                  <span class="kw">KW</span>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Made in</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="country_inverter" id="made_in_sup"  required="required" t-if="bid_data" t-att-value="bid_data.manu_country"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Manufacturer’s  Warranty</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input number_input_only" name="manu_inverter" id="manufacturer_warranty_sup" required="required" t-if="bid_data" t-att-value="bid_data.warranty"/>
+                                <span class="years">Years</span>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-12">
+                                <div class="supplier_bid_border"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name">Workmanship warranty</label>
+
+                                <input type="text" class="form-control suppler_disp_name_input number_input_only" name="inverter_per" id="workmanship_warranty" required="required" t-if="bid_data" t-att-value="bid_data.work_warranty"/>
+                                <span class="years">Years</span>
+                              </div>
+                              
+
+                            <t t-if="bid_data">
+                              <div class="col-md-4 form-group"  t-if="bid_data.solar_project_id.cash_fin == 'cash'">
+                                <label for="" class="col-form-label suppler_disp_name">Full Price after STC discount Incl.GST</label>
+                                <input type="text" class="form-control suppler_disp_name_input number_input_only" name="price" id="full_price_stc_discount" t-att-value="bid_data.full_price"/>
+                                <span class="currency_view">$</span>
+                                <p class="price_includes_double_storey">This price includes Double storey, 3ph, meter upgrade etc.<br/>
+                                Customer will pay you after installation.</p>
+                              </div>
+                            </t>
+                            </div>
+
+
+                          <t t-if="bid_data">
+                            <div class="row" t-if="bid_data.solar_project_id.cash_fin == 'finance'">
+                              <div class="col-md-4 form-group">
+                                <span class="currency_view">$</span>
+                                <label for="" class="col-form-label suppler_disp_name">Finance Price</label>
+                                <input type="text" class="form-control suppler_disp_name_input" name="price_finance" id="price_finance" t-att-value="bid_data.final_price"/>
+                                <span class="years">P/W</span>
+                              </div>
+                              <div class="col-md-1 form-group">
+                                  <span class="for">for</span>
+                                </div>
+                              <div class="col-md-4 form-group">
+                                 <label for="" class="col-form-label suppler_disp_name"></label>
+                                <input type="text" class="form-control suppler_disp_name_input" name="months" id="months" t-att-value="bid_data.months"/>
+                                <span class="years">Months</span>
+                              </div>
+                            </div>
+                          </t>
+                        </t>
+                      
+
+                      <!-- +++++++++++++++++++++++++++++++betri ++++++++++ -->
+                      <t t-if="bid_data.solar_project_id.add_battery == 'yes' or bid_data.solar_project_id.battery_backup == 'yes'">
+                      <!-- <t t-if="record_id.add_battery == 'yes' or record_id.battery_backup == 'yes'"> -->
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="battery"><lable id="how_it_work_attchment_photo_multi_lable">Battery Information</lable></div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group" t-if="bid_data.battery_size_kwh">
+                            <label for="" class="col-form-label suppler_disp_name" >System Size</label>
+                            <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="battery_system_size_name" id="battery_system_size_name" t-att-value="bid_data.battery_size_kwh">
+                            </input>
+                              <span class="kw">KW</span>
+                          </div>
+                        </div>
+
+                        <!-- SEND FOR CORRECTION ++++++++++++== -->
+                          
+
+                          <!-- Sunen Start -->
+                          <!-- <t t-set="count" t-value="1"/> -->
+                          
+                          <t t-set="count" t-value="1"/>
+                          <t t-if="bid_data.battery_doc_attachment_ids">
+                            <t t-foreach="bid_data.battery_doc_attachment_ids" t-as="lg">
+                                <!-- <t t-set="battery_information_count" value="battery_information_count++" /> -->
+                            <div id="battery_information_hide_show" class='battery_information_hide_show'>
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_brand_lable">product Brand</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" 
+                                   t-attf-id="battery_information_brand{{count}}" t-attf-name="battery_information_brand{{count}}" t-att-value="lg.battery_product_Brand" />
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_model_lable">product model no</label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" 
+                                  t-attf-id="battery_information_model{{count}}" t-attf-name="battery_information_model{{count}}" t-att-value="lg.battery_product_model_no" />
+                                  <!-- <span class="kw" id="battery_information_model_kw">KW</span> -->
+                              </div>
+
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_made_in_lable">Made in</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only"
+                                t-attf-id="battery_information_made_in{{count}}" t-attf-name="battery_information_made_in{{count}}" t-att-value="lg.battery_made_in"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_product_warranty_lable">product warranty</label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only"  t-attf-id="battery_information_product_warranty{{count}}" t-attf-name="battery_information_product_warranty{{count}}" t-att-value="lg.battery_product_warranty"/>
+                              </div>
+                               <div class="col-md-4 form-group">
+                                  <label for="" class="col-form-label suppler_disp_name" id="battery_information_product_datasheet_lable">upload datasheet</label>
+                                  <input type="file" accept=".jpg,.png,.jpeg" t-attf-id="battery_information_product_datasheet_img{{count}}" t-attf-name="battery_information_product_datasheet_img{{count}}" t-att-value="lg.battery_attch_img"/>
+                                  <t t-if="lg.battery_attch_img">
+                                    <img t-attf-src="data:image/png;base64,#{lg.battery_attch_img}" t-attf-name="battery_edit_att{{count}}" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" t-attf-id="battery_edit_att{{count}}" t-att-value="lg.battery_attch_img"/>
+                                    <textarea t-attf-name="battery_information_product_datasheet_file#{count}" t-attf-id='battery_information_product_datasheet_file#{count}' hidden="hidden"><t t-esc="lg.battery_attch_img" hidden="hidden" class="binary_attchment_hide"/></textarea>
+                                  </t>
+                                  <button type="button" t-attf-id="btn_example_file_reset{{count}}" class='del_clear_file_view'><img src='/airbid_master/static/src/image/delete.png' class='clear_data' id='clear_data'></img></button>
+                              </div>
+                              <div id="field_2" class="column col-sm-3"><img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="delete_icon_pro" t-attf-name="delete_icon{{count}}" t-att-data-line-id="lg.id" data-toggle="tooltip" data-original-title="Delete"></img></div>
+                            </div>
+                          </div>
+                           <input type="checkbox" id="is_saved{{count}}" t-attf-name="is_saved{{count}}" checked='checked' hidden="hidden"/>
+
+                         <t t-set="count" t-value="count+1" hidden="hidden"/>
+                          </t>
+                        </t>
+                         <input type="number" t-attf-value="{{count-1}}" name="battery_information_count" id="battery_information_count" hidden="hidden"/>
+                          <!-- Sunen End -->
+
+                        <button type="button" id="battery_information_add" class="battery_information_add btn btn-primary">Add Product</button>
+
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="battery_info_hed"><lable id="how_it_work_attchment_photo_multi_lable">Inverter Information</lable></div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name">Inverter</label>
+                              <select name="pets" id="battary_select">
+                                  <option value="inbuilt_in_box">Inbuilt in box</option>
+                                  <option value="supplied_sepretly">Supplied sepretly</option>
+                              </select>
+                          </div>
+                        </div>
+
+                        
+
+                        <!-- +++++++++++++ Inbuilt in box ++++++++++++++++++++++ -->
+                        <div class="row" id="inbuilt_in_box_hide">
+                          <div class="col-md-12">
+                            <div class="battery_info_hed"><lable id="how_it_work_attchment_photo_multi_lable">Inbuilt in box</lable></div>
+                          </div>
+                        </div>
+
+                        <div class="inbuilt_in_box_set">
+                          <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="inbuilt_made_in_brand">product Brand</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="inbuilt_product_brand" id="inbuilt_product_brand" t-att-value="bid_data.inbuilt_product_Brand"/>
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="inbuilt_made_in_model_mo">product model no</label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="inbuilt_product_model_no" id="inbuilt_product_model_no" t-att-value="bid_data.inbuilt_product_model_no"/>
+                                  <!-- <span class="kw" id="inbuilt_made_in_model_mo_kw">KW</span> -->
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="inbuilt_made_in_lable">Made in</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" name="inbuilt_made_in" id="inbuilt_made_in" t-att-value="bid_data.inbuilt_made_in"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="inbuilt_product_warranty_lable">product warranty </label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="inbuilt_product_warranty" id="inbuilt_product_warranty" t-att-value="bid_data.inbuilt_product_warranty"/>
+
+                                <!-- <input type="text" class="form-control suppler_disp_name_input text_input_only" name="brand_inverter" id="supllier_inverter_brand"  t-if="bid_data" t-att-value="bid_data.inverter_brand"/> -->
+                              </div>
+                              <div class="col-md-6 form-group" id="Inbuilt_in_box_hide">
+                                <label for="" class="col-form-label suppler_disp_name" id="inbuilt_attchment_photo_multi_lable">upload datasheet</label>
+                                <input type="file" accept=".jpg,.png,.jpeg" name="inbuilt_attchment_photo_multi" id="inbuilt_attchment_photo_multi" multiple="multiple"/>
+                                <!-- <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="del_inbuilt_img" name="del_inbuilt_img"></img> -->
+                                <!-- bid_data.inbuilt_doc_attachment_ids -->
+                                <!-- nnn -->
+                                <t t-set="count_inb" t-value="0"/>
+                                <t t-foreach="bid_data.inbuilt_doc_attachment_ids" t-as="inb_doc">
+                                    <t t-set="count_inb" t-value="count_inb+1"/>
+                                    <img t-attf-src="data:image/png;base64,#{inb_doc.datas}" t-attf-name="inb_doc_att_img{{count_inb}}" style="margin: 10px 10px 10px 10px" t-attf-id="inb_doc_att_img{{count_inb}}" t-att-value="inb_doc.datas" class="inb_doc_att_img"/>
+                                    <span>
+                                      <input type='text' t-attf-name='inb_line_id{{count_inb}}' t-attf-id='inb_line_id{{count_inb}}' t-attf-value='{{inb_doc.id}}' hidden="hidden"/>
+                                      <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" t-attf-id="del_inb_img{{count_inb}}"></img>
+                                    </span>
+                                </t>
+                                <input type='text' id='inb_removed_list' t-attf-name='inb_removed_list' hidden="hidden"/>
+                                <input type='text' id='inb_count' t-attf-name='inb_count{{count_inb}}' t-attf-value='{{count_inb}}' hidden="hidden"/>
+                                <!-- nnn -->
+
+                              </div>
+                            </div>
+                          </div>
+                        <!-- +++++++++++++ Inbuilt in box END ++++++++++++++++++++++ -->
+
+                        <!-- +++++++++++++ Supplied sepretly ++++++++++++++++++++++ -->
+                        <div class="row" id="supplied_sepretly_hide">
+                          <div class="col-md-12">
+                            <div class="battery_info_hed"><lable id="how_it_work_attchment_photo_multi_lable">Supplied sepretly</lable></div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_brand_lable">Inverter brand</label>
+                            <input type="text" class="form-control suppler_disp_name_input text_input_only" name="supplied_sepretly_brand" id="supplied_sepretly_brand" t-att-value="bid_data.supplied_product_Brand"/>
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_size_lable">Inverter size</label>
+                            <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="supplied_sepretly_size" id="supplied_sepretly_size" t-att-value="bid_data.supplied_product_model_no"/>
+                              <!-- <span class="kw" id="supplied_sepretly_size_lable_kw">KW</span> -->
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_made_lable">Made in</label>
+                            <input type="text" class="form-control suppler_disp_name_input text_input_only" name="supplied_sepretly_made_in" id="supplied_sepretly_made_in" t-att-value="bid_data.supplied_product_warranty"/>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_inverter_warranty_lable">Inverter warranty</label>
+                            <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="supplied_sepretly_inverter_warranty" id="supplied_sepretly_inverter_warranty" t-att-value="bid_data.supplied_product_warranty"/>
+                          </div>
+                          <div class="col-md-6 form-group" id="supplied_sepretly_select_hide">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_attchment_photo_multi_lable">upload datasheet</label>
+                            <input type="file" accept=".jpg,.png,.jpeg" name="supplied_sepretly_attchment_photo_multi" id="supplied_sepretly_attchment_photo_multi" multiple="multiple" />
+                            <!-- <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="del_sup_inv_img" name="del_sup_inv_img"></img> -->
+                            <!-- JJJ -->
+                            <t t-set="count_inv" t-value="0"/>
+                            <t t-foreach="bid_data.supplied_doc_attachment_ids" t-as="sup_inv_doc">
+                                <t t-set="count_inv" t-value="count_inv+1"/>
+                                <img t-attf-src="data:image/png;base64,#{sup_inv_doc.datas}" t-attf-name="sup_inv_doc_att_img{{count_inv}}" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" t-attf-id="sup_inv_doc_att_img{{count_inv}}" t-att-value="sup_inv_doc.datas"/>
+                                <span>
+                                  <input type='text' t-attf-name='inv_line_id{{count_inv}}' t-attf-id='inv_line_id{{count_inv}}' t-attf-value='{{sup_inv_doc.id}}' hidden="hidden"/>
+                                  <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" t-attf-id="del_inv_img{{count_inv}}" t-attf-name="del_inv{{count_inv}}"></img>
+                                </span>
+                            </t>
+                            <input type='text' id='inv_removed_list' t-attf-name='inv_removed_list' hidden="hidden"/>
+                            <input type='text' id='inv_count' t-attf-name='inv_count{{count_inv}}' t-attf-value='{{count_inv}}' hidden="hidden"/>
+                            <!-- JJJ -->
+                          </div>
+                        </div>
+
+                        <!-- +++++++++++++++ Battery ++++++++++++++ -->
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_battery_brand_lable">Battery Brand</label>
+                            <input type="text" class="form-control suppler_disp_name_input text_input_only" name="supplied_sepretly_battery_brand" id="supplied_sepretly_battery_brand" t-att-value="bid_data.battery_brand"/>
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_battery_model_lable">Battery model no</label>
+                            <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="supplied_sepretly_battery_model" id="supplied_sepretly_battery_model" t-att-value="bid_data.battery_model_no"/>
+                            <!-- <span class="kw" id="supplied_sepretly_battery_model_lable_kw">KW</span> -->
+                          </div>
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_battery_made_in_lable">Made in</label>
+                            <input type="text" class="form-control suppler_disp_name_input text_input_only" name="supplied_sepretly_battery_made_in" id="supplied_sepretly_battery_made_in" t-att-value="bid_data.battery_supplied_made_in"/>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_battery_warranty_lable">Battery warranty</label>
+                            <input type="text" class="form-control suppler_disp_name_input float_number_input_only" name="supplied_sepretly_battery_warranty" id="supplied_sepretly_battery_warranty" t-att-value="bid_data.battery_warranty"/>
+                          </div>
+                          <div class="col-md-6 form-group" id="supplied_sepretly_select_bat_hide">
+                            <label for="" class="col-form-label suppler_disp_name" id="supplied_sepretly_battery_datasheet_lable">upload datasheet</label>
+                            <input type="file" accept=".jpg,.png,.jpeg" name="supplied_sepretly_battery_datasheet" id="supplied_sepretly_battery_datasheet" multiple="multiple"/>
+                            <!-- <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="del_sup_bat_img" name="del_sup_bat_img"></img> -->
+                            <t t-set="count_bat" t-value="0"/>
+                            <t t-foreach="bid_data.battery_doc_attachment_supplied_ids" t-as="sup_bat_doc">
+                                <t t-set="count_bat" t-value="count_bat+1"/>
+                                <img t-attf-src="data:image/png;base64,#{sup_bat_doc.datas}" t-attf-name="sup_bat_doc_att_img{{count_bat}}" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" t-attf-id="sup_bat_doc_att_img{{count_bat}}" t-att-value="sup_bat_doc.datas"/>
+                                <span>
+                                  <input type='text' t-attf-name='bat_line_id{{count_bat}}' t-attf-id='bat_line_id{{count_bat}}' t-attf-value='{{sup_bat_doc.id}}' hidden="hidden"/>
+                                  <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" t-attf-id="del_bat_img{{count_bat}}" t-attf-name="del_bat{{count_bat}}"></img>
+                                </span>
+                            </t>
+                            <input type='text' id='bat_removed_list' t-attf-name='bat_removed_list' hidden="hidden"/>
+                            <input type='text' id='bat_count' t-attf-name='bat_count{{count_bat}}' t-attf-value='{{count_bat}}' hidden="hidden"/>
+                          </div>
+                        </div>
+
+                        <!-- Sunen Start -->
+                        <div id="sup_battery_information_hide_show">
+                          <t t-set="count" t-value="1"/>
+                          <t t-if="bid_data.inverter_doc_attachment_ids">
+                            <t t-foreach="bid_data.inverter_doc_attachment_ids" t-as="lg">
+                            <div id="battery_information_hide_show">
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_brand_lable">product Brand</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only" 
+                                   t-attf-id="supllier_inverter_brand{{count}}" t-attf-name="supllier_inverter_brand{{count}}" t-att-value="lg.inverter_product_Brand" />
+                              </div>
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_model_lable">product model no</label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only" 
+                                  t-attf-id="supllier_inverter_size{{count}}" t-attf-name="supllier_inverter_size{{count}}" t-att-value="lg.inverter_product_model_no" />
+                                  <!-- <span class="kw" id="battery_information_model_kw">KW</span> -->
+                              </div>
+
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_made_in_lable">Made in</label>
+                                <input type="text" class="form-control suppler_disp_name_input text_input_only"
+                                t-attf-id="made_in_sup{{count}}" t-attf-name="made_in_sup{{count}}" t-att-value="lg.inverter_made_in"/>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-md-4 form-group">
+                                <label for="" class="col-form-label suppler_disp_name" id="battery_information_product_warranty_lable">product warranty</label>
+                                <input type="text" class="form-control suppler_disp_name_input float_number_input_only"  t-attf-id="supllier_inverter_warranty{{count}}" t-attf-name="supllier_inverter_warranty{{count}}" t-att-value="lg.inverter_product_warranty"/>
+                              </div>
+                               <div class="col-md-4 form-group">
+                                  <label for="" class="col-form-label suppler_disp_name" id="battery_information_product_datasheet_lable">upload datasheet</label>
+                                  <input type="file" accept=".jpg,.png,.jpeg" t-attf-id="attchment_photo_multi_inverter{{count}}" t-attf-name="attchment_photo_multi_inverter{{count}}" t-attf-files="lg.inverter_attch_img"/>
+
+                                  <t t-if="lg.inverter_attch_img">
+                                    <img t-attf-src="data:image/png;base64,#{lg.inverter_attch_img}" t-attf-name="battery_edit_att{{count}}" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" t-attf-id="battery_edit_att{{count}}" t-att-value="lg.inverter_attch_img"/>
+                                    <textarea t-attf-name="attchment_photo_multi_inverter_file#{count}" t-attf-id='attchment_photo_multi_inverter_file#{count}' hidden="hidden"><t t-esc="lg.inverter_attch_img" hidden="hidden" class="binary_attchment_hide"/></textarea>
+                                  </t>
+                                  <button type="button" t-attf-id="btn_sup_file_reset{{count}}" class='del_clear_file_view'><img src='/airbid_master/static/src/image/delete.png' class='clear_data' id='clear_data'></img></button>
+
+                              </div>
+                              <div id="field_2" class="column col-sm-3"><img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="delete_icon_pro" t-attf-name="delete_icon{{count}}" data-toggle="tooltip" data-original-title="Delete"></img></div>
+                            </div>
+                          </div>
+                           <input type="checkbox" id="is_saved{{count}}" t-attf-name="is_saved{{count}}" checked='checked' hidden="hidden"/>
+
+                         <t t-set="count" t-value="count+1" hidden="hidden"/>
+                          </t>
+                        </t>
+                         <input type="number" t-attf-value="{{count-1}}" name="inventor_area_operates_counter" id="inventor_area_operates_counter" hidden="hidden"/>
+                        <!-- Sunen End -->
+                        <button type="button" id="battery_inverter_product_add">Add Product</button>
+                        <!-- +++++++++++++++ Battery END ++++++++++++++ -->
+
+                        
+                      </div>
+
+                        <div class="row">
+                          <div class="col-md-9 form-group">
+                            <label class="col-form-label" id="how_it_work_attchment_photo_multi_lable">How it will look like ? (sample picture of battery installation)</label>
+                            <input type="file" accept=".jpg,.png,.jpeg" name="how_it_look_attchment_photo_multi" id="how_it_look_attchment_photo_multi" multiple="multiple"/>
+                            <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" id="del_how_it_img" name="del_how_it_img"></img>
+                            <t t-set="count_look" t-value="0"/>
+                            <t t-foreach="bid_data.how_it_attachment_supplied_ids" t-as="sup_look_doc">
+                                <t t-set="count_look" t-value="count_look+1"/>
+                                <img t-attf-src="data:image/png;base64,#{sup_look_doc.datas}" t-attf-name="sup_look_doc_att_img{{count_look}}" style="margin: 10px 10px 10px 10px" t-attf-id="sup_look_doc_att_img{{count_look}}" t-att-value="sup_look_doc.datas" class="sup_look_doc_att_img"/>
+                                <span>
+                                  <input type='text' t-attf-name='look_line_id{{count_look}}' t-attf-id='look_line_id{{count_look}}' t-attf-value='{{sup_look_doc.id}}' hidden="hidden"/>
+                                  <img src="/airbid_master/static/src/image/delete.png" class="delete_icon_pro" t-attf-id="look_bat_img{{count_look}}" t-attf-name="del_look_bat{{count_look}}"></img>
+                                </span>
+                            </t>
+                            <input type='text' id='look_removed_list' t-attf-name='look_removed_list' hidden="hidden"/>
+                            <input type='text' id='look_count' t-attf-name='look_count{{count_look}}' t-attf-value='{{count_look}}' hidden="hidden"/>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4 form-group">
+                            <label for="" class="col-form-label suppler_disp_name">Full Price after STC discount Incl.GST</label>
+                            <input type="text" class="form-control suppler_disp_name_input number_input_only" name="price" id="full_price_stc_discount" t-att-value="bid_data.full_price"/>
+                            <span class="currency_view">$</span>
+                            <p class="price_includes_double_storey">*standard installation means product will be install near inverter only. Extra price may occur depending on complecity of installation.</p>
+                          </div>
+                        </div>
+
+                      </t>
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="supplier_bid_border"/>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-12">
+                            <div class="supplier_submit_bid">
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                              <input type="hidden" name="record_id" t-att-value="record_id.id"/>
+                              <t t-if="bid_data">
+                                <input type="hidden" name="bid_id" t-att-value="bid_data.id"/>
+                              </t>
+                              
+                              <button type="submit" class="supplier_submit_bid_project">Submit Bid</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </form>
+      </t>
+    </template>
+  </data>
+</odoo>

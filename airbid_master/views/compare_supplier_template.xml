@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="compare_supplier" name="Compare Supplier">
+      <t t-call="website.layout">
+        <div class="oe_structure section_wrap oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section class="compare_supplier">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="compare_supplier_detail">
+                    <span>Compare and choose</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="u-align-center u-clearfix u-section-2" id="carousel_4427">
+              <div style="overflow-x: scroll; overflow-y: hidden; white-space: nowrap;">
+               <div style="" class="sup_bid_header">
+                  <table>
+                    <tr><td style="width:32%; height:415px;"></td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">System Size</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer no_of_panels">No of panels</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Panel Brand</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">made in</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Type</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Manufacturer's Warranty</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer no_of_panels">Performance Warranty</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Inverter Brand</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Inverter size</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer">made in</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer no_of_panels">Manufacturer's Warranty</span>
+                    </td></tr>
+                    <tr><td>
+                      <span class="compair_all_detail_customer no_of_panels">Workmanship Warranty</span>
+                    </td></tr>
+                    <tr t-if="data.solar_project_id.cash_fin == 'cash'"><td>
+                      <span class="compair_all_detail_customer no_of_panels">Full Price after STC discount Incl.GST</span>
+                    </td></tr>
+                    <tr t-if="data.solar_project_id.cash_fin == 'finance'"><td>
+                      <span class="compair_all_detail_customer no_of_panels">Finance Price</span>
+                    </td></tr>
+
+                    <tr><td>
+                      <span class="compair_all_detail_customer">Battery Size (kwh)</span>
+                    </td></tr>
+                    <t t-foreach="data" t-as="bid">
+                      <td>
+                        <span class="compair_all_detail_customer">Battery Product Brand </span>
+                      </td>
+                      <tr t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td>
+                          <!-- <span class="compair_all_detail_customer">Battery Product Brand </span> -->
+                        </td>
+                      </tr>
+                      
+                      <td>
+                         <span class="compair_all_detail_customer">Battery Product Model No</span>
+                      </td>
+                      <tr t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td>
+                        </td>
+                      </tr>
+
+                      <td>
+                         <span class="compair_all_detail_customer">Battery Product Warranty</span>
+                      </td>
+                      <tr t-foreach="bid.battery_doc_attachment_ids" t-as="bat"><td>
+                        <span class="compair_all_detail_customer"></span>
+                      </td></tr>
+
+                      <td>
+                         <span class="compair_all_detail_customer">Battery Made in</span>
+                      </td>
+                      <tr t-foreach="bid.battery_doc_attachment_ids" t-as="bat"><td>
+                        <span class="compair_all_detail_customer"></span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Inventor Option</span>
+                      </td></tr>
+
+                      <!-- INVENTOR ============= -->
+                      <td t-if="bid.inverter_doc_attachment_ids">
+                        <span class="compair_all_detail_customer">Inverter Product Brand </span>
+                      </td>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="bat">
+                        <td>
+                          <span class="compair_all_detail_customer"></span>
+                        </td>
+                      </tr>
+                      
+                      <td t-if="bid.inverter_doc_attachment_ids">
+                         <span class="compair_all_detail_customer">Inverter Product Model No</span>
+                      </td>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="bat">
+                        <td ><span class="compair_all_detail_customer"></span>
+                        </td>
+                      </tr>
+
+                      <td t-if="bid.inverter_doc_attachment_ids">
+                         <span class="compair_all_detail_customer">Inverter Product Warranty</span>
+                      </td>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="bat">
+                        <td>
+                        <span class="compair_all_detail_customer"></span>
+                      </td></tr>
+
+                      <td t-if="bid.inverter_doc_attachment_ids">
+                         <span class="compair_all_detail_customer">Inverter Made in</span>
+                      </td>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="bat"><td>
+                        <span class="compair_all_detail_customer"></span>
+                      </td></tr>
+
+                      <!-- +++++++++++ OTHER +++++++++++ -->
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Inbuilt Product Brand </span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Inbuilt Product Model No</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Inbuilt Product Warranty</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Inbuilt Made in</span>
+                      </td></tr>
+
+                      <!-- +++++  SUPPLIED ++++++++ -->
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied sepretly Product Brand</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied sepretly Product Model</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied sepretly Product Warranty</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied sepretly Made in</span>
+                      </td></tr>
+
+                      <!-- +++++ Supplied BATTERY ===== -->
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied Battery Brand</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied Model</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied Warranty</span>
+                      </td></tr>
+
+                      <tr><td>
+                        <span class="compair_all_detail_customer">Supplied Made in</span>
+                      </td></tr>
+
+
+                    </t>
+                  </table>
+                </div>
+                  
+                  <t t-foreach="data" t-as="bid">
+                 <div id="supplier_bid_data" t-att-value="bid.id">
+                    <table>
+                      <tr>
+                        <td style="width:23%;border-left: 1px solid #D8DADD !important;border-top: 1px solid #D8DADD !important;border-right: 1px solid #D8DADD !important;background: #fff;text-align: center;" scope="col" abbr="Starter">
+                          <span class="compair_show_more show_less" style="display:none">show less <img src="/airbid_master/static/src/image/vector_less.png"/></span>
+                          <br/>
+                            <form class="oe_solar_form" method="POST" action="/supplier/details">
+                                <button type="submit" class="choose_supplier_compair" t-if="bid.solar_project_id.is_finsh_time">Choose Supplier</button>
+
+                                <t t-if="not bid.solar_project_id.is_finsh_time" data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                  <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                    <button type="submit" class="choose_supplier_compair" disabled="disabled">Choose Supplier</button>
+                                  </i>
+                                </t>
+
+                                <script>
+                                  $(document).ready(function(){
+                                    $('[data-toggle="tooltip"]').tooltip();   
+                                  });
+                                  </script>
+
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <input type="hidden" name="project_img" id="project_id" t-att-value="bid.id"/>
+                                <input type="hidden" name="record_id" t-att-value="bid.id"/>
+                            </form>
+
+                            <h4 class="compair_name"><t t-esc="bid.supplier_id.company_name"/></h4>
+
+                            <a href="#" class="compair_website_name"><t t-esc="bid.supplier_id.website"/></a><br/>
+
+                            <img t-attf-src="data:image/png;base64,#{bid.supplier_id.company_logo}" style="margin: 20px 0 0px 0px;height: 42px;"/>
+
+                            <div class="show_less_more">
+                              <span>Since <t t-esc="bid.supplier_id.year"/></span><br></br>
+                              <span><t t-esc="bid.supplier_id.residential + bid.supplier_id.commercial"/> Total Installation</span><br></br>
+                              <span>Cerfiticates</span><br></br>
+                              
+                              <img class="supplier_cer myBtn" t-attf-src="data:image/png;base64,#{bid.supplier_id.retailer}" />
+                              <img class="supplier_cer myBtn" t-attf-src="data:image/png;base64,#{bid.supplier_id.member}" /><br></br>
+                              <img class="supplier_cer myBtn" t-attf-src="data:image/png;base64,#{bid.supplier_id.iso}" />
+                              <img class="supplier_cer myBtn" t-attf-src="data:image/png;base64,#{bid.supplier_id.document} "/><br></br>
+
+                            </div>
+
+                            <div id="myModal" class="modal" style="display: none;">
+                              <div class="modal-content text-center questation_popup image_popup">
+                                <div id="navbar">
+                                  <i class="fa fa-plus" style="font-size:35px;color:#F16363;padding: 0px 20px;" onclick="zoomin()"></i>
+                                  <i class="fa fa-minus" style="font-size:35px;color:#F16363;padding: 0px 20px;" onclick="zoomout()"></i>
+                                </div>
+                              <span class="close"><i id="cross_icon" class="fa fa-close"/></span>
+                              <div class="text-center main" style="width:100%;height:100%;overflow:auto;">
+                                <img src="" class="section" id="image_preview"/>
+                              </div>
+                              </div>
+                            </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.system_size"/> kw
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            <t t-esc="bid.panels_no"/>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.panels_brand"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.made_country"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.solar_type"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.manu_year"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            <t t-esc="bid.per_year"/> Years
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inverter_brand"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inverter_size"/> kw
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.manu_country"/>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            <t t-esc="bid.warranty"/> Years
+                          </span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            <t t-esc="bid.work_warranty"/> Years
+                          </span>
+                        </td>
+                      </tr>
+                      <tr t-if="bid.solar_project_id.cash_fin == 'cash'">
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            $ <t t-esc="bid.full_price"/>
+                          </span>
+                        </td>
+                      </tr>
+                      <tr t-if="bid.solar_project_id.cash_fin == 'finance'">
+                        <td class="compair_price_list">
+                          <span class="no_of_panels">
+                            <t t-esc="bid.final_price"/> for p/w 
+                            <t t-esc="bid.months"/> Months
+                          </span>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.battery_size_kwh"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.battery_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">BRAND NAME</td></tr>
+                      <tr t-if="bid.battery_doc_attachment_ids" t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td class="compair_price_list">
+                          <t t-esc="bat.battery_product_Brand"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.battery_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">MODEL NO</td></tr>
+                      <tr t-if="bid.battery_doc_attachment_ids" t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td class="compair_price_list">
+                          <t t-esc="bat.battery_product_model_no"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.battery_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">WARRANTY NO</td></tr>
+                      <tr t-if="bid.battery_doc_attachment_ids" t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td class="compair_price_list">
+                          <t t-esc="bat.battery_product_warranty"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.battery_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">BATTERY MADE IN</td></tr>
+                      <tr t-if="bid.battery_doc_attachment_ids" t-foreach="bid.battery_doc_attachment_ids" t-as="bat">
+                        <td class="compair_price_list">
+                          <t t-esc="bat.battery_made_in"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inverter_two_option"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.inverter_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">BRAND NAME</td></tr>
+                      <tr t-foreach="bid.inverter_doc_attachment_ids" t-as="inv">
+                        <td class="compair_price_list">
+                          <t t-esc="inv.inverter_product_Brand"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.inverter_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">MODEL NO</td></tr>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="inv">
+                        <td class="compair_price_list">
+                          <t t-esc="inv.inverter_product_model_no"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.inverter_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">WARRANTY NO</td></tr>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="inv">
+                        <td class="compair_price_list">
+                          <t t-esc="inv.inverter_product_warranty"/>
+                        </td>
+                      </tr>
+
+                      <tr t-if="bid.inverter_doc_attachment_ids"><td class="compair_price_list" style="font-weight:700;">BATTERY MADE IN</td></tr>
+                      <tr t-if="bid.inverter_doc_attachment_ids" t-foreach="bid.inverter_doc_attachment_ids" t-as="inv">
+                        <td class="compair_price_list">
+                          <t t-esc="inv.inverter_made_in"/>
+                        </td>
+                      </tr>
+
+                      <!-- =========== Inbuilt ========= -->
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inbuilt_product_Brand"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inbuilt_product_model_no"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inbuilt_product_warranty"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.inbuilt_made_in"/>
+                        </td>
+                      </tr>
+
+                      <!-- +++++ SUPPLIED +++++++ -->
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.supplied_product_Brand"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.supplied_product_model_no"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.supplied_product_warranty"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.supplied_made_in"/>
+                        </td>
+                      </tr>
+
+                      <!-- ++++ SUPPLIED BATTERY ++++++ -->
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.battery_brand"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.battery_model_no"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.battery_warranty"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <t t-esc="bid.battery_supplied_made_in"/>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td class="compair_price_list">
+                          <form class="oe_solar_form" method="POST" action="/supplier/details">
+
+                            <button type="submit" class="choose_supplier_compair" t-if="bid.solar_project_id.is_finsh_time">
+                              Choose Supplier
+                            </button>
+                            <t t-if="not bid.solar_project_id.is_finsh_time" data-toggle="tooltip" title="Button Enable After Project Time finish">
+                              <i data-toggle="tooltip" title="Button Enable After Project Time finish">
+                                <button type="submit" class="choose_supplier_compair" disabled="disabled">Choose Supplier</button>  
+                              </i>
+                            </t>  
+
+                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                            <input type="hidden" name="project_img" id="project_id" t-att-value="bid.id"/>
+
+                            <input type="hidden" name="record_id" t-att-value="bid.id"/>
+                          </form>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="compair_price_list_remove">
+                          <button class="remove_from_compate_list" t-att-value="bid.id">Remove from compare list</button>
+                        </td>
+                      </tr>
+                  </table>
+                </div>
+              </t>
+            </div>
+          </section>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>
+
+
+

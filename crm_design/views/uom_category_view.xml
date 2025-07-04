@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_uom_categ_form_view_inherit_thai" model="ir.ui.view">
+        <field name="name">product_uom_categ_form_view_inherit_thai</field>
+        <field name="model">uom.category</field>
+        <field name="inherit_id" ref="uom.product_uom_categ_form_view"/>
+        <field name="arch" type="xml">
+            <field name="uom_type" position="before">
+                <field name="thai_uom_name"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

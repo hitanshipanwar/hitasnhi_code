@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_picking_form_inherit_attachment_tab" model="ir.ui.view">
+        <field name="name">view.picking.form.inherit.attachment.tab</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='note']" position='after'>
+                <page name="attachments" string="Attachments">
+                    <field name="attachment_ids" widget="many2many_binary" nolabel="1" colspan="6" />
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="total_packing_qty" />
+                <field name="total_packing_weight" />
+                <field name="total_componants_qty" />
+            </xpath>
+
+            <xpath expr="//page[@name='operations']/field[@name='move_ids_without_package']/tree/field[@name='product_uom_qty']" position="after">
+                <field name="componants" />
+                <field name="weight" readonly="0" string="Weight (kg)" />
+            </xpath>
+        </field>
+    </record>
+</odoo>

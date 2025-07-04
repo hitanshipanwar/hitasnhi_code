@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="supplier_dashboard_page" name="Supplier Dashboard">
+			<t t-call="web.login_layout">
+			<div id="wrap" class="oe_structure section_wrap">
+				<t t-if="request.env.user.partner_id.is_supplier == 'supplier'">
+		            <section id="dashboard_counter">
+		                <div class="container" style="padding: 0 !important;">
+		                <div class="alert alert-danger text-center" t-if="request.env.user.partner_id.profile_complete == False">
+		                	<span>In order to get your profile approved , first fill your  <a href="/my/profile" style="text-decoration: underline; "><b>"My Profile"</b></a>  details</span>
+		           		</div>
+		           			<div class="row">
+		           				<h3>Currently You are viewing as a Solar Provider</h3>
+		           			</div>
+		                	<div class="row">
+				                <div class="dashboard_card">
+								  <div class="no-gutters row">
+								    <div class="col-sm-6 col-md-3 col-xl-3">
+								      	<a href="/open" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content dashboard_sup_border">
+									          <div class="widget-subheading open_dashboard">
+									          	<t t-if="request.env.user.partner_id.supplier_validate == 'approve'" t-esc="total_open"/>
+
+									          	<t t-if="not request.env.user.partner_id.supplier_validate == 'approve'">0</t>
+									          </div>
+									          <div class="widget-numbers"><span class="status_page_redirect">Open</span></div>
+									        </div>
+									      </div>
+									    </a>
+								      <div class="divider m-0 d-md-none d-sm-block"></div>
+								    </div>
+								    <div class="col-sm-6 col-md-3 col-xl-3">
+								    	<a href="/inprogress" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content dashboard_sup_border">
+									          <div class="widget-subheading dashboard_in_progress"><t t-esc="total_inprogress"/></div>
+									          <div class="widget-numbers"><span class="status_page_redirect">In Progress</span></div>
+									        </div>
+									      </div>
+									  </a>
+								      <div class="divider m-0 d-md-none d-sm-block"></div>
+								    </div>
+								    <div class="col-sm-12 col-md-3 col-xl-3">
+								    	<a href="/won" class="status_page_redirect">
+										    <div class="widget-chart">
+										        <div class="widget-chart-content dashboard_sup_border">
+										          <div class="widget-subheading dashboard_won"><t t-esc="total_won"/></div>
+										          <div class="widget-numbers"><span class="status_page_redirect">Won</span></div>
+										        </div>
+										    </div>
+										</a>
+								    </div>
+								    <div class="col-sm-12 col-md-3 col-xl-3">
+								    	<a href="/lost" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content">
+									          <div class="widget-subheading dashboard_lost"><t t-esc="total_lost"/></div>
+									          <div class="widget-numbers"><span class="status_page_redirect">Lost</span></div>
+									        </div>
+									      </div>
+									  </a>
+								    </div>
+								  </div>
+								</div>
+							</div>
+						</div>
+	                </section>
+	            </t>
+
+                <t t-if="request.env.user.partner_id.is_supplier == 'installer'">
+	                <section id="dashboard_counter">
+		                <div class="container" style="padding: 0 !important;">
+		                <div class="alert alert-danger text-center" t-if="request.env.user.partner_id.profile_complete == False">
+		                	<span>In order to get your profile approved , first fill your  <a href="/my/profile" style="text-decoration: underline; "><b>"My Profile"</b></a>  details</span>
+		           		</div>
+
+		                	<div class="row">
+				                <div class="dashboard_card">
+								  <div class="no-gutters row">
+								    <div class="col-sm-6 col-md-3 col-xl-3">
+								      	<a href="/open/installer" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content dashboard_sup_border">
+									          <div class="widget-subheading open_dashboard">
+									          	<t t-if="request.env.user.partner_id.supplier_validate == 'approve'" t-esc="total_open"/>
+
+									          	<t t-if="not request.env.user.partner_id.supplier_validate == 'approve'">0</t>
+									          </div>
+									          <div class="widget-numbers"><span class="status_page_redirect">Open</span></div>
+									        </div>
+									      </div>
+									    </a>
+								      <div class="divider m-0 d-md-none d-sm-block"></div>
+								    </div>
+								    <div class="col-sm-6 col-md-3 col-xl-3">
+								    	<a href="/inprogress/installer" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content dashboard_sup_border">
+									          <div class="widget-subheading dashboard_in_progress"><t t-esc="total_inprogress"/></div>
+									          <div class="widget-numbers"><span class="status_page_redirect">In Progress</span></div>
+									        </div>
+									      </div>
+									  	</a>
+								      	<div class="divider m-0 d-md-none d-sm-block"></div>
+								    </div>
+								    <div class="col-sm-12 col-md-3 col-xl-3">
+								    	<a href="/won/installer" class="status_page_redirect">
+										    <div class="widget-chart">
+										        <div class="widget-chart-content dashboard_sup_border">
+										          <div class="widget-subheading dashboard_won"><t t-esc="total_won"/></div>
+										          <div class="widget-numbers"><span class="status_page_redirect">Won</span></div>
+										        </div>
+										    </div>
+										</a>
+								    </div>
+								    <div class="col-sm-12 col-md-3 col-xl-3">
+								    	<a href="/lost/installer" class="status_page_redirect">
+									      <div class="widget-chart">
+									        <div class="widget-chart-content">
+									          <div class="widget-subheading dashboard_lost"><t t-esc="total_lost"/></div>
+									          <div class="widget-numbers"><span class="status_page_redirect">Lost</span></div>
+									        </div>
+									      </div>
+									  </a>
+								    </div>
+								  </div>
+								</div>
+							</div>
+						</div>
+	                </section>
+	            </t>
+
+                 <section id="project_deshboard_sup_section">
+		            <div class="container">
+		              <div class="row">
+		                <div class="col-sm-12">
+		                  <div class="project_filter">
+		                    <div class="row">
+		                      <div class="col-sm-2">
+		                        <div class="project_des_sup">
+		                          <h3>Recent Projects</h3>
+		                        </div>
+		                      </div>
+
+		                      <!-- =========================================== -->
+		                      <div class="col-sm-10">
+		                      	<form class="address_form" method="post" action="/supplier/dashboard">
+			                        <ul class="short_ul_filter">
+			                          <li class="dropdown" id="short_by_date_filter">
+			                            <a href="#" data-toggle="dropdown" class="short_by_date">Sort by: Remaining Days <i class="icon-arrow"></i></a>
+			                            <ul class="dropdown-menu dropdown_filter">
+			                              <li>
+										   <tr>
+									        <td class="text-right">
+	                              			 <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                              			 <input type="hidden" name="sort" t-attf-value="by_date"/>
+
+	                            			 <input type="submit" class="btn" t-attf-value="Least to Most"></input>
+									        </td> 
+										   </tr>
+			                              </li>
+			                            </ul>
+			                          </li>
+			                      	</ul>
+			                  	</form>
+			                      </div>
+			                    </div>
+			                  </div>
+			              </div>
+			          </div>
+			      </div>
+			  </section>
+
+			  <section class="recent_bid_on_this_project">
+	            <div class="container">
+	              <div class="row">
+	                <div class="col-sm-12">
+	                  <table id="supplier_recent_bid_view">
+	                    <tr class="table_menu_sup">
+	                      <th class="project_name_sup_th">Project Name</th>
+	                      <th>Bids/ Entries</th>
+	                      <th>Time remaining<br/>(HH:MM:SS)</th>
+	                      <th>Your Bid</th>
+	                      <th>View Bid</th>
+	                      <th class="supplier_stage">Stage</th>
+	                    </tr>
+	                    <div class="bid_on_this_project_tr" t-if="request.env.user.partner_id.supplier_validate == 'approve'">
+	                    <t t-foreach="data" t-as="rec">
+	                    	<form class="address_form" method="post" action="/supplier/review">
+	                      <tr class="supplier_review_border" id="supplier_review_border">
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.solar_project_id.id"/>
+	                            
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['project_state'])['project_state']['selection'])[rec.project_state]"/>
+
+	                            <input type="submit" class="btn btn-link dash_supplier_review_name" t-att-value="rec.solar_project_id.customer_project_name"></input>
+	                          </div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+	                          <t t-foreach="rec.solar_project_id.supplier_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                          </t>
+	                        <td><div class="dash_bid_review_price"><span><t t-esc="total"/></span></div></td>
+	                        
+	                        <td>
+	                        	<div class="bid_review_day">
+	                        		<t t-if="rec.project_state == 'open' and rec.project_state == 'inprogress'">
+		                        		<span>
+			                            	<t t-call="airbid_master.display_timer_widget_project">
+						                        <t t-set="pre_remaining_time" t-value="int(rec.solar_project_id.track_start_remaining)"/>
+						                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+						                        
+						                        <t t-set="main_remaining_time" t-value="int(rec.solar_project_id.website_cta_start_remaining)"/>
+						                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+						                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+											</t>
+		                        		</span>
+	                        		</t>
+	                        		<t t-else="">
+	                        			<span>0</span>
+	                        		</t>
+	                        	</div>
+	                        </td>
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		<span>$
+	                        			<t t-if="rec.full_price" t-esc="rec.full_price"/>
+	                        			<t t-if="rec.final_price">
+	                        				<t t-esc="rec.final_price"/> p/w for <t t-esc="rec.months"/> Months
+	                        			</t>
+	                        		</span>
+	                        	</div>
+	                        </td>
+
+	                        <td>
+								<div class="inprogress_edit_bid">
+									<a t-attf-href="#{'/supplier/details?bid_id=%s'%(rec.id)}">View Bid</a>
+								</div>
+							</td>
+
+	                        <td><div>
+	                        	
+		                        <button class="choose_supplier_status_inprogress" t-if="rec.project_state == 'inprogress'">In Progress</button>
+		                        <button class="choose_supplier_status_open" t-if="rec.project_state == 'open'">Open</button>
+		                        <button class="choose_supplier_status_won" t-if="rec.project_state == 'won'">Won</button>
+								<button class="choose_supplier_status_lost" t-if="rec.project_state == 'lost'">Lost</button>
+								<!-- <t t-if="rec.project_state == 'open'"> -->
+								<!-- <t t-if="customer_close">
+									<button class="choose_supplier_status_lost">Close</button>
+								</t> -->
+								<!-- </t> -->
+							</div></td>
+	                      </tr>
+		                  </form>
+		                </t>
+	                   	<t t-foreach="customer_data" t-as="rec">
+	                    	<form class="address_form" method="post" action="/supplier/review">
+	                      <tr class="supplier_review_border">
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+	                            
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['customer_project_state'])['customer_project_state']['selection'])[rec.customer_project_state]"/>
+
+	                            <input type="submit" class="btn btn-link dash_supplier_review_name" t-att-value="rec.customer_project_name"></input>
+	                          </div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+	                          <t t-foreach="rec.supplier_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                          </t>
+	                        <td><div class="dash_bid_review_price"><span><t t-esc="total"/></span></div></td>
+	                        <td>
+	                        	<div class="bid_review_day">
+	                        		<span>
+	                        			<span>
+			                            	<t t-call="airbid_master.display_timer_widget_project">
+						                        <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+						                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+						                        
+						                        <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+						                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+						                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+											</t>
+		                        		</span>
+	                        		</span>
+	                        	</div>
+	                        </td>
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		<span>$ 0
+	                        		</span>
+	                        	</div>
+	                        </td>
+
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		<span> ---
+	                        		</span>
+	                        	</div>
+	                        </td>
+	                        
+	                        <td><div>
+		                       <!-- <button class="choose_supplier_status_inprogress" t-if="rec.project_state == 'inprogress'">In Progress</button>
+		                        <button class="choose_supplier_status_open" t-if="rec.project_state == 'open'">Open</button>
+		                        <button class="choose_supplier_status_won" t-if="rec.project_state == 'won'">Won</button>
+								<button class="choose_supplier_status_lost" t-if="rec.project_state == 'lost'">Lost</button> -->
+								<button class="choose_supplier_status_open" t-if="rec.customer_project_state == 'open'">Open</button>
+							</div></td>
+	                      </tr>
+	                 	 </form>
+	                  	</t>
+
+	                  	<!-- Cutomer close projects -->
+	                  	<t t-foreach="customer_close" t-as="rec">
+	                    	<form class="address_form" method="post" action="/installer/review">
+	                      <tr class="supplier_review_border">
+	                        <td>
+	                          <div class="project_name_review_bid_detail">
+	                            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+	                            <input type="hidden" name="record_id" t-att-value="rec.id"/>
+	                            
+	                            <input type="hidden" name="status" t-att-value="dict(rec.fields_get(allfields=['installer_project_state'])['installer_project_state']['selection'])[rec.installer_project_state]"/>
+
+	                            <a t-attf-href="#{'/installer/review/bid/?record_id=%s'%(rec.id)}" class="btn btn-link dash_supplier_review_name">
+	                            	<t t-esc='rec.customer_project_name'/>
+	                            </a>
+	                          </div>
+	                        </td>
+	                        <t t-set="total" t-value="0"/>
+	                          <t t-foreach="rec.installer_bids_ids" t-as="count"> 
+	                            <t t-set="total" t-value="total+1"/>
+	                          </t>
+	                        <td><div class="dash_bid_review_price"><span><t t-esc="total"/></span></div></td>
+	                        
+	                        <td>
+	                        	<div class="bid_review_day">
+	                        		<!-- <span>
+		                            	<t t-call="airbid_master.display_timer_widget_project">
+					                        <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+					                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+					                        
+					                        <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+					                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+					                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+										</t>
+	                        		</span> -->
+	                        		<t t-if="rec.installer_project_state == 'open'">
+		                        		<span>
+			                            	<t t-call="airbid_master.display_timer_widget_project">
+						                        <t t-set="pre_remaining_time" t-value="int(rec.track_start_remaining)"/>
+						                        <t t-set="pre_countdown_display" t-value="bool(False)"/>
+						                        
+						                        <t t-set="main_remaining_time" t-value="int(rec.website_cta_start_remaining)"/>
+						                        <t t-set="main_countdown_display" t-value="bool(False)"/>
+						                        <t t-set="display_class" t-value="'.o_event_cta_action'"/>
+											</t>
+		                        		</span>
+	                        		</t>
+	                        		<t t-else="">
+	                        			<span>0</span>
+	                        		</t>
+	                        	</div>
+	                        </td>
+							<t t-set='bid_price' t-value='request.env["installer.bid"].sudo().search([("project_id.id","=",rec.id),("customer_id","=",request.env.user.partner_id.id)],limit=1)'/>
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		 
+	                        		<t t-if='bid_price'>
+	                        			<span><t t-esc='bid_price.price'/></span>
+	                        		</t>
+	                        		<t t-else=''>
+	                        			<span>$ 0
+	                        			</span>
+	                        		</t>
+	                        	</div>
+	                        </td>
+
+	                        <td>
+	                        	<div class="open_view_detail">
+	                        		
+	                        		<div class="inprogress_edit_bid">
+	                        			<t t-if='bid_price'>
+											<a t-attf-href="#{'/bid/details/?record_id=%s'%(bid_price.id)}">View Bid</a>
+										</t>
+										<t t-else=''>
+											<a href="#">View Bid</a>
+										</t>
+									</div>
+	                        		
+	                        	</div>
+	                        </td>
+	                        
+	                        <td><div>
+		                        <!-- <button class="choose_supplier_status_lost" t-if="rec.installer_project_state == 'inprogress'">Close</button> -->
+		                        <t t-set='project_state_bid' t-value="request.env['installer.bid'].sudo().search_count([('customer_id','=',request.env.user.partner_id.id),('project_state','=','won'),('project_id.id','=',rec.id)])"/>
+
+		                        <t t-set='project_state_bid_inpro' t-value="request.env['installer.bid'].sudo().search_count([('customer_id','=',request.env.user.partner_id.id),('project_state','=','inprogress'),('project_id.id','=',rec.id)])"/>
+
+		                        <t t-set='project_state_bid_open' t-value="request.env['installation.solar.system'].sudo().search_count([('project_state','=','open'),('zip','in',[request.env.user.service_zip])])"/>
+
+		                        <t t-set='project_state_bid_lost' t-value="request.env['installer.bid'].sudo().search_count([('customer_id','=',request.env.user.partner_id.id),('project_state','=','lost'),('project_id.id','=',rec.id)])"/>
+
+
+	                        	<!-- <p class='gggggg' t-esc='project_state_bid'/> -->
+	                        	<t t-if='project_state_bid'>
+	                        		<button class="choose_supplier_status_won" t-if="project_state_bid">Won</button>
+	                        	</t>
+
+	                        	<t t-if='project_state_bid_inpro'>
+	                        		<a t-attf-href="#{'/installer/review/bid/?record_id=%s'%(rec.id)}">
+	                        			<input type="hidden" name="record_id" t-att-value="rec.id"/>
+	                        			<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        			<span class="choose_supplier_status_inprogress btn" t-if="project_state_bid_inpro">In Progress</span>
+	                        		</a>
+	                        	</t>
+
+	                        	<a t-attf-href="#{'/installer/review/bid/?record_id=%s'%(rec.id)}">
+	                        		<input type="hidden" name="record_id" t-att-value="rec.id"/>
+	                        		<input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+	                        		<span class="choose_supplier_status_open btn" t-if="rec.project_state == 'open'">Open</span>
+	                        	</a>
+	                        	<t t-if='project_state_bid_lost'>
+									<button class="choose_supplier_status_lost" t-if="project_state_bid_lost">Lost</button>
+	                        	</t>
+
+							</div></td>
+	                      </tr>
+	                 	 </form>
+	                  	</t>
+
+	                    </div>
+	                  </table>
+	                </div>
+	              </div>
+	            </div>
+	          </section>
+
+	          <section id="supplier_dashboard_view_button" t-if="data">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-sm-12">
+		                    <div class="project_view_sup_btn">
+			                    <div class="row">
+			                      	<div class="col-sm-12">
+				                        <div class="project_des_sup_view_all_less">
+				                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project_less">View Less</button>
+				                        </div>
+			                      	</div>
+
+			                      	<div class="col-sm-12">
+				                        <div class="project_des_sup_view_all">
+				                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project">View All</button>
+				                        </div>
+			                      	</div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			  </section>
+
+			  <section id="supplier_dashboard_view_button" t-if="customer_close">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-sm-12">
+		                    <div class="project_view_sup_btn">
+			                    <div class="row">
+			                      	<div class="col-sm-12">
+				                        <div class="project_des_sup_view_all_less">
+				                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project_less">View Less</button>
+				                        </div>
+			                      	</div>
+
+			                      	<div class="col-sm-12">
+				                        <div class="project_des_sup_view_all">
+				                        	<button type="button" class="recent_view_dash_project" id="recent_view_dash_project">View All</button>
+				                        </div>
+			                      	</div>
+			                    </div>
+			                </div>
+			            </div>
+			        </div>
+			    </div>
+			  </section>
+			  </div>
+	        </t>
+	    </template>
+	</data>
+</odoo>

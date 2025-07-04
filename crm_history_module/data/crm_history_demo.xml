@@ -1,0 +1,16 @@
+<odoo>
+	<data>
+        <record id="mail_activity_type_demo_complaint_with_template" model="mail.activity.type">
+        	<field name="name">Complaint or Error</field>
+        	<field name="res_model">res.partner</field>
+    	</record>
+    	<record id="mail_activity_type_demo_review_with_template" model="mail.activity.type">
+        	<field name="name">Review or Feedback</field>
+        	<field name="res_model">res.partner</field>
+    	</record>
+    	<record id="mail_activity_type_demo_attempt_contact_with_template" model="mail.activity.type">
+        	<field name="name">Attempted Contact</field>
+        	<field name="res_model">res.partner</field>
+    	</record>
+	</data>
+</odoo>

@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="bid_review_template" name="Supplier Bid Detail">
+      <t t-call="website.layout">
+        <form class="oe_solar_form" method="POST" action="/bid/submit" enctype="multipart/form-data">
+          <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+            <div id="wrap" class="oe_structure">
+
+            <section class="panels_section">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-6">
+                    <h3 id="panel_details">Description</h3>
+                    <div class="column col-sm-6 panel_details_col">
+                      <input type="hidden" name="supplier_choose_supplier_comment" t-att-value="data.get('supplier_choose_supplier_comment')"/>
+                      <span class="panel_details_questation"><t t-esc="data.get('supplier_choose_supplier_comment')"/></span>
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="row">
+                    <div class="col-sm-6">                          
+                      <t t-if="data.get('system')">      
+                        <h3 id="panel_details">Panel Details</h3>
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">System Size</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="system" t-att-value="data.get('system')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('system')"/>kw</span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('no_panel')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">No of panels</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="no_panel" t-att-value="data.get('no_panel')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('no_panel')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('brand_panel')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Panel Brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans" >
+                          <input type="hidden" name="brand_panel" t-att-value="data.get('brand_panel')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('brand_panel')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('power')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Panel power class</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="power" t-att-value="data.get('power')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('power')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('country_panel')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="country_panel" t-att-value="data.get('country_panel')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('country_panel')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('type_panel')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Type</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="type_panel" t-att-value="data.get('type_panel')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('type_panel')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('manu_panel')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Manufacturer’s  Warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="manu_panel" t-att-value="data.get('manu_panel')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('manu_panel')"/> Years</span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('panel_per')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Performance Warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="panel_per" t-att-value="data.get('panel_per')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('panel_per')"/> Years</span>
+                        </div>
+                      </t>
+                    </div>
+
+                    <div class="col-sm-6">                          
+                      <t t-if="data.get('panel_per')">
+                        <h3 id="panel_details">Inverter Details</h3>
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter Brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="brand_inverter" t-att-value="data.get('brand_inverter')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('brand_inverter')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('size_int')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter Size</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="size_int" t-att-value="data.get('size_int')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('size_int')"/> kw</span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('country_inverter')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="country_inverter" t-att-value="data.get('country_inverter')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('country_inverter')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('manu_inverter')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Manufacturer’s  Warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="manu_inverter" t-att-value="data.get('manu_inverter')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('manu_inverter')"/> Years</span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('inverter_per')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Workmanship Warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="inverter_per" t-att-value="data.get('inverter_per')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('inverter_per')"/> Years</span>
+                        </div>
+                      </t>
+
+                      <!-- <div class="column col-sm-12 other_details">
+                        <h3 id="panel_details">Other Details</h3>
+                      </div> -->
+                      
+                      <t t-if="data.get('price')">
+                        <div class="column col-sm-8 panel_details_col" style="padding: 0;">
+                          <span class="panel_details_questation" >Full Price after STC discount Incl.GST</span>
+                        </div>
+                        <div class="column col-sm-4 panel_details_col_ans">
+                          <input type="hidden" name="price" t-att-value="data.get('price')"/>
+                          <span class="panel_details_answer" ><t t-esc="data.get('price')"/></span>
+                        </div>
+                      </t>
+                      <t t-if="data.get('price_finance')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Finance Price</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="price_finance" t-att-value="data.get('price_finance')"/>
+                          <input type="hidden" name="months" t-att-value="data.get('months')"/>
+                          <span class="panel_details_answer" >$ <t t-esc="data.get('price_finance')"/> p/w for <t t-esc="data.get('months')"/><br></br>Months</span>
+                        </div>
+                      </t>
+                    </div>
+                  </div>
+
+                <div class="row">
+                  <div class="col-sm-6">                 
+                    <t t-if="data.get('battery_system_size_name')">                      
+                      <h3 id="panel_details">Battery</h3>
+                      <div class="column col-sm-6 panel_details_col">
+                        <span class="panel_details_questation">Battery Size (kwh)</span>
+                      </div>
+                      <div class="column col-sm-6 panel_details_col_ans">
+                        <input type="hidden" name="battery_system_size_name" t-att-value="data.get('battery_system_size_name')"/>
+                        <span class="panel_details_answer"><t t-esc="data.get('battery_system_size_name')"/></span>
+                      </div>
+                    </t>
+
+                    <t t-if="data.get('battery_information_brand')">
+                      <div class="column col-sm-6 panel_details_col">
+                        <span class="panel_details_questation">Battery Product Brand</span>
+                      </div>
+                      <div class="column col-sm-6 panel_details_col_ans">
+                        <input type="hidden" name="battery_information_brand" t-att-value="data.get('battery_information_brand')"/>
+                        <span class="panel_details_answer"><t t-esc="data.get('battery_information_brand')"/></span>
+                      </div>
+                    </t>
+
+                    <t t-if="data.get('battery_information_model')">
+                      <div class="column col-sm-6 panel_details_col">
+                        <span class="panel_details_questation">Battery Product Model No</span>
+                      </div>
+                      <div class="column col-sm-6 panel_details_col_ans">
+                        <input type="hidden" name="battery_information_model" t-att-value="data.get('battery_information_model')"/>
+                        <span class="panel_details_answer"><t t-esc="data.get('battery_information_model')"/></span>
+                      </div>
+                    </t>
+
+                    <t t-if="data.get('battery_information_product_warranty')">
+                      <div class="column col-sm-6 panel_details_col">
+                        <span class="panel_details_questation">Battery Product Warranty</span>
+                      </div>
+                      <div class="column col-sm-6 panel_details_col_ans">
+                        <input type="hidden" name="battery_information_product_warranty" t-att-value="data.get('battery_information_product_warranty')"/>
+                        <span class="panel_details_answer"><t t-esc="data.get('battery_information_product_warranty')"/></span>
+                      </div>
+                    </t>
+
+                    <t t-if="data.get('battery_information_made_in')">
+                      <div class="column col-sm-6 panel_details_col">
+                        <span class="panel_details_questation">Battery Made in</span>
+                      </div>
+                      <div class="column col-sm-6 panel_details_col_ans">
+                        <input type="hidden" name="battery_information_made_in" t-att-value="data.get('battery_information_made_in')"/>
+                        <span class="panel_details_answer"><t t-esc="data.get('battery_information_made_in')"/></span>
+                      </div>
+                    </t>
+                    </div>
+                    <div class="col-sm-6"> 
+                      <!-- +++ SELECTION 1 +++ -->
+                      <t t-if="data.get('pets')">
+                        <h3 id="panel_details">Inverter</h3>
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="pets" t-att-value="data.get('pets')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('pets')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supllier_inverter_brand')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product Brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supllier_inverter_brand" t-att-value="data.get('supllier_inverter_brand')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supllier_inverter_brand')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supllier_inverter_size')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product model no</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supllier_inverter_size" t-att-value="data.get('supllier_inverter_size')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supllier_inverter_size')"/></span>
+                        </div>
+                      </t>
+
+
+                      <t t-if="data.get('supllier_inverter_warranty')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supllier_inverter_warranty" t-att-value="data.get('supllier_inverter_warranty')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supllier_inverter_warranty')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('made_in_sup')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="made_in_sup" t-att-value="data.get('made_in_sup')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('made_in_sup')"/></span>
+                        </div>
+                      </t>
+                    </div>
+
+                    <div class="col-sm-6"> 
+                      
+                      <t t-if="data.get('inbuilt_product_brand')">
+                        <h3 id="panel_details">Inbuilt in box</h3>  
+                        <!-- ++++++++  1 +++++++++ -->
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product Brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="inbuilt_product_brand" t-att-value="data.get('inbuilt_product_brand')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('inbuilt_product_brand')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('inbuilt_product_model_no')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product model no</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="inbuilt_product_model_no" t-att-value="data.get('inbuilt_product_model_no')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('inbuilt_product_model_no')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('inbuilt_product_warranty')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">product warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="inbuilt_product_warranty" t-att-value="data.get('inbuilt_product_warranty')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('inbuilt_product_warranty')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('inbuilt_made_in')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="inbuilt_made_in" t-att-value="data.get('inbuilt_made_in')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('inbuilt_made_in')"/></span>
+                        </div>
+                      </t>
+                    </div>
+
+                    <div class="col-sm-6"> </div>
+                       <!-- ++++++++++++ SELECTION 2 ++++++++ -->
+                    <div class="col-sm-6"> 
+                      <t t-if="data.get('supplied_sepretly_brand')">
+                        <h3 id="panel_details">Supplied sepretly</h3>  
+
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_brand" t-att-value="data.get('supplied_sepretly_brand')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_brand')"/></span>
+                        </div>
+                      </t>
+
+
+                      <t t-if="data.get('supplied_sepretly_size')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter size</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_size" t-att-value="data.get('supplied_sepretly_size')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_size')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supplied_sepretly_inverter_warranty')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Inverter warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_inverter_warranty" t-att-value="data.get('supplied_sepretly_inverter_warranty')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_inverter_warranty')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supplied_sepretly_made_in')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_made_in" t-att-value="data.get('supplied_sepretly_made_in')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_made_in')"/></span>
+                        </div>
+                      </t>
+                    </div>
+
+                      <!-- BATTary -->
+                    <div class="col-sm-6"> 
+                      <t t-if="data.get('supplied_sepretly_battery_brand')">
+                        <h3 id="panel_details">Supplied sepretly Battery</h3>
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Battery Brand</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_battery_brand" t-att-value="data.get('supplied_sepretly_battery_brand')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_battery_brand')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supplied_sepretly_battery_model')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Battery model no</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_battery_model" t-att-value="data.get('supplied_sepretly_battery_model')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_battery_model')"/></span>
+                        </div>
+                      </t>  
+
+
+                      <t t-if="data.get('supplied_sepretly_battery_warranty')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Battery warranty</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_battery_warranty" t-att-value="data.get('supplied_sepretly_battery_warranty')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_battery_warranty')"/></span>
+                        </div>
+                      </t>
+
+                      <t t-if="data.get('supplied_sepretly_battery_warranty')">
+                        <div class="column col-sm-6 panel_details_col">
+                          <span class="panel_details_questation">Made in</span>
+                        </div>
+                        <div class="column col-sm-6 panel_details_col_ans">
+                          <input type="hidden" name="supplied_sepretly_battery_made_in" t-att-value="data.get('supplied_sepretly_battery_made_in')"/>
+                          <span class="panel_details_answer"><t t-esc="data.get('supplied_sepretly_battery_made_in')"/></span>
+                        </div>
+                      </t>
+                      <!-- ++++++++  1 END +++++++++ -->
+                  </div>
+                </div>
+                <!-- battary MULTIPLE +++++++==-->
+
+                <table style="border-collapse: collapse; width: 100%;" border="1">
+                <tbody>
+                <tr>
+                <td style="width: 20%;" id="panel_details">product Brand</td>
+                <td style="width: 20%;" id="panel_details">product model no</td>
+                <td style="width: 20%;" id="panel_details">product warranty</td>
+                <td style="width: 20%;" id="panel_details">Made in</td>
+                <td style="width: 20%;" id="panel_details">upload datasheet</td>
+                </tr>
+                <t t-set='c' t-value='0'/>
+                <t t-foreach="data.get('attached_files')" t-as="img">
+                  <t t-set='c' t-value='c+1'/>
+                  <tr>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('battery_name')"/>
+                      <input type="text" t-attf-name="battery_name_#{c}" t-attf-id='battery_name#{c}' t-attf-value="#{img.get('battery_name')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('battery_model')"/>
+                      <input type="text" t-attf-name="battery_model_#{c}" t-attf-id='battery_model#{c}' t-attf-value="#{img.get('battery_model')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('battery_made_in')"/>
+                      <input type="text" t-attf-name="battery_made_in_#{c}" t-attf-id='battery_made_in#{c}' t-attf-value="#{img.get('battery_made_in')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('battery_warranty')"/>
+                      <input type="text" t-attf-name="battery_warranty_#{c}" t-attf-id='battery_warranty#{c}' t-attf-value="#{img.get('battery_warranty')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <img t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" id="electricity_img" t-att-value="img.get('datas')"/>
+                      <div style="display:none;">
+                        <textarea t-attf-name="file_#{c}" t-attf-id='file_#{c}'><t t-esc="img.get('datas')" style="display:none !important;" hidden="hidden" class="binary_attchment_hide"/></textarea>
+
+                        <input type="hidden" t-attf-name="file_name_#{c}" t-attf-id='file_name_#{c}' t-attf-value="#{img.get('name')}"/>
+                      </div>
+                    </td>
+                  </tr>
+                </t>
+                <input type="hidden" name="count" t-attf-value="#{c}"/>
+                </tbody>
+                </table>
+
+
+                <!-- BATTERY INVERTER ATTCHMENT -->
+                <!-- <t t-set='d' t-value='0'/>
+                <t t-foreach="data.get('attached_inverter_files')" t-as="img">
+                  <t t-set='d' t-value='d+1'/>
+                  <img t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_inverter_img_bianry" style="height: 165px;width: 165px;margin: 30px 30px 30px 30px;" id="electricity_img" t-att-value="img.get('datas')"/>
+                  <input type="file" name="attached_files_inverter_img_submit" t-attf-files="data.get('attchment_photo_multi_inverter')" multiple="multiple" t-attf-id='inv_file_#{d}' style="display:none;"/>
+                  <div style="display:none;">
+                    <t t-esc="img.get('name')" style="display:none;"/>
+                  </div>
+                  <div style="display:none;">
+                    <textarea t-attf-name="inv_file_#{d}" t-attf-id='inv_file_#{d}'><t t-esc="img.get('datas')" style="display:none !important;" class="binary_attchment_hide"/></textarea>
+                  </div>
+                  <input type="hidden" t-attf-name="inv_file_name_#{d}" t-attf-id='inv_file_name_#{d}' t-attf-value="#{img.get('name')}"/>
+                </t>
+                <input type="hidden" name="count_inv" t-attf-value="#{d}"/> -->
+
+                <!-- NEW CHANGES ++++++++++++++++++++++++= -->
+                <br/>
+                <br/>
+
+                <table style="border-collapse: collapse; width: 100%;" border="1">
+                <tbody>
+                <tr>
+                <td style="width: 20%;" id="panel_details">Inverter product Brand</td>
+                <td style="width: 20%;" id="panel_details">Inverter product model no</td>
+                <td style="width: 20%;" id="panel_details">Inverter product warranty</td>
+                <td style="width: 20%;" id="panel_details">Inverter Made in</td>
+                <td style="width: 20%;" id="panel_details">upload datasheet</td>
+                </tr>
+                <t t-set='d' t-value='0'/>
+                <t t-foreach="data.get('attached_inverter_files')" t-as="img">
+                  <t t-set='d' t-value='d+1'/>
+                  <tr>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('inverter_name')"/>
+                      <input type="text" t-attf-name="inverter_name_#{d}" t-attf-id='inverter_name#{d}' t-attf-value="#{img.get('inverter_name')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('inverter_model')"/>
+                      <input type="text" t-attf-name="inverter_model_#{d}" t-attf-id='inverter_model#{d}' t-attf-value="#{img.get('inverter_model')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('inverter_made_in')"/>
+                      <input type="text" t-attf-name="inverter_made_in_#{d}" t-attf-id='inverter_made_in#{d}' t-attf-value="#{img.get('inverter_made_in')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <t t-esc="img.get('inverter_warranty')"/>
+                      <input type="text" t-attf-name="inverter_warranty_#{d}" t-attf-id='inverter_warranty#{d}' t-attf-value="#{img.get('inverter_warranty')}" hidden="hidden"></input>
+                    </td>
+                    <td style="width: 20%;text-align: center;">
+                      <img t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_img_bianry" style="height: 100px;width:100px;margin: 10px 10px 10px 10px" id="electricity_img" t-att-value="img.get('datas')"/>
+                      <div style="display:none;">
+                        <textarea t-attf-name="inv_file_#{d}" t-attf-id='inv_file_#{d}'><t t-esc="img.get('datas')" style="display:none !important;" hidden="hidden" class="binary_attchment_hide"/></textarea>
+
+                        <input type="hidden" t-attf-name="inv_file_name_#{d}" t-attf-id='inv_file_name_#{d}' t-attf-value="#{img.get('name')}"/>
+                      </div>
+                    </td>
+                  </tr>
+                </t>
+                <input type="hidden" name="count_inv" t-attf-value="#{d}"/>
+                </tbody>
+                </table>
+                <!-- BATTERY INVERTER ATTCHMENT END-->
+
+                <!-- Inbuilt in box INVERTER ATTCHMENT -->
+                <t t-set='e' t-value='0'/>
+                <t t-foreach="data.get('attached_inbuilt_files')" t-as="img">
+                  <t t-set='e' t-value='e+1'/>
+                  <img t-if="img.get('datas')" t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_inbuilt_img_bianry" style="height: 165px;width: 165px;margin: 30px 30px 30px 30px;" id="electricity_img" t-att-value="img.get('datas')"/>
+                  <input type="file" name="attached_files_inbuilt_img_submit" t-attf-files="data.get('inbuilt_attchment_photo_multi')" multiple="multiple" t-attf-id='inbuilt_file_#{e}' style="display:none;"/>
+                  <div style="display:none;">
+                    <t t-esc="img.get('name')" style="display:none;"/>
+                  </div>
+                  <div style="display:none;">
+                    <textarea t-attf-name="inbuilt_file_#{e}" t-attf-id='inbuilt_file_#{e}'><t t-esc="img.get('datas')" style="display:none !important;" class="binary_attchment_hide"/></textarea>
+                  </div>
+                  <input type="hidden" t-attf-name="inbuilt_file_name_#{e}" t-attf-id='inbuilt_file_name_#{e}' t-attf-value="#{img.get('name')}"/>
+                </t>
+                <input type="hidden" name="count_inbuilt" t-attf-value="#{e}"/>
+                <!-- Inbuilt in box INVERTER ATTCHMENT END-->
+
+                <!-- Supplied sepretly +++++++++++++++++++++ -->
+                <t t-set='f' t-value='0'/>
+                <t t-foreach="data.get('attached_sepretly_files')" t-as="img">
+                  <t t-set='f' t-value='f+1'/>
+                  <img t-if="img.get('datas')" t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_supplied_sepretly_img_bianry" style="height: 165px;width: 165px;margin: 30px 30px 30px 30px;" id="electricity_img" t-att-value="img.get('datas')"/>
+                  <input type="file" name="attached_files_supplied_sepretly_img_submit" t-attf-files="data.get('supplied_sepretly_attchment_photo_multi')" multiple="multiple" t-attf-id='supplied_sepretly_file_#{f}' style="display:none;"/>
+                  <div style="display:none;">
+                    <t t-esc="img.get('name')"/>
+                  </div>
+                  <div style="display:none;">
+                    <textarea t-attf-name="supplied_sepretly_file_#{f}" t-attf-id='supplied_sepretly_file_#{f}'><t t-esc="img.get('datas')" style="display:none !important;" class="binary_attchment_hide"/></textarea>
+                  </div>
+                  <input type="hidden" t-attf-name="supplied_sepretly_file_name_#{f}" t-attf-id='supplied_sepretly_file_name_#{f}' t-attf-value="#{img.get('name')}"/>
+                </t>
+                <input type="hidden" name="count_supplied_sepretly" t-attf-value="#{f}"/>
+                <!-- Supplied sepretly END+++++++++++++++++++++ -->
+
+                <!-- supplied sepretly battery +++++++++++++++++++++ -->
+                <t t-set='g' t-value='0'/>
+                <t t-foreach="data.get('attached_sepretly_battery_files')" t-as="img">
+                  <t t-set='g' t-value='g+1'/>
+                  <img t-if="img.get('datas')" t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_supplied_sepretly_battery_img_bianry" style="height: 165px;width: 165px;margin: 30px 30px 30px 30px;" id="electricity_img" t-att-value="img.get('datas')"/>
+                  <input type="file" name="attached_files_supplied_sepretly_battery_img_submit" t-attf-files="data.get('supplied_sepretly_battery_datasheet')" multiple="multiple" t-attf-id='supplied_sepretly_battery_file_#{f}' style="display:none;"/>
+                  <div style="display:none;">
+                    <t t-esc="img.get('name')"/>
+                  </div>
+                  <div style="display:none;">
+                    <textarea t-attf-name="supplied_sepretly_battery_file_#{g}" t-attf-id='supplied_sepretly_battery_file_#{g}'><t t-esc="img.get('datas')" style="display:none !important;" class="binary_attchment_hide"/></textarea>
+                  </div>
+                  <input type="hidden" t-attf-name="supplied_sepretly_battery_file_name_#{g}" t-attf-id='supplied_sepretly_battery_file_name_#{g}' t-attf-value="#{img.get('name')}"/>
+                </t>
+                <input type="hidden" name="count_supplied_sepretly_battery" t-attf-value="#{g}"/>
+                <!-- supplied sepretly battery END +++++++++++++++++++++ -->
+
+                <!-- How it will look like +++++++++++++++++++++ -->
+                <t t-set='h' t-value='0'/>
+                <t t-foreach="data.get('attached_how_it_work_files')" t-as="img">
+                  <t t-set='h' t-value='h+1'/>
+                  <img t-attf-src="data:image/png;base64,#{img.get('datas')}" name="attached_files_how_it_works_img_bianry" style="height: 165px;width: 165px;margin: 30px 30px 30px 30px;" id="electricity_img" t-att-value="img.get('datas')"/>
+                  <input type="file" name="attached_files_how_it_works_img_submit" t-attf-files="data.get('how_it_look_attchment_photo_multi')" multiple="multiple" t-attf-id='how_it_work_file_#{h}' style="display:none;"/>
+                  <div style="display:none;">
+                    <t t-esc="img.get('name')"/>
+                  </div>
+                  <div style="display:none;">
+                    <textarea t-attf-name="how_it_work_file_#{h}" t-attf-id='how_it_work_file_#{h}'><t t-esc="img.get('datas')" style="display:none !important;" class="binary_attchment_hide"/></textarea>
+                  </div>
+                  <input type="hidden" t-attf-name="how_it_work_file_name_#{h}" t-attf-id='how_it_work_file_name_#{h}' t-attf-value="#{img.get('name')}"/>
+                </t>
+                <input type="hidden" name="count_how_it_works" t-attf-value="#{h}"/>
+                <!-- How it will look like END +++++++++++++++++++++ -->
+
+                  <section class="panel_details_border_section">
+                    <div class="container">
+                      <div class="row">
+                        <div class="panel_details_border"></div>
+                      </div>
+                    </div>
+                  </section>
+
+                  <section class="panels_price_section">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-sm-12"> 
+                        <t t-if="data.get('price')">                         
+                          <div class="column col-sm-6" >
+                            <input type="hidden" name="price" t-att-value="data.get('price')"/>
+                            <span class="panel_price_details">$ <t t-esc="data.get('price')"/></span><br/>
+                            <span class="panel_details_incl_gst">Full Price after STC discount Incl.GST</span>
+                          </div>
+                        </t>
+                        <t t-if="data.get('price_finance')">
+                          <div class="column col-sm-6">
+                            <input type="hidden" name="price_finance" t-att-value="data.get('price_finance')"/>
+                            <input type="hidden" name="months" t-att-value="data.get('months')"/>
+                            <span class="panel_price_details">$ <t t-esc="data.get('price_finance')"/> p/w for <t t-esc="data.get('months')"/> Months</span><br/>
+                            <span class="panel_details_incl_gst">Finance Price</span>
+                          </div>
+                        </t>
+                          <div class="column col-sm-6">
+                            <div class="panel_details_choose_supplier">
+
+                              <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>  
+
+                              <input type="hidden" name="record_id" t-att-value="record_id.id"/>
+
+                              <input type="button" class="btn supplier_previous_bid_project" value="Previous" id="previous"/>
+
+                              <button type="submit" class="supplier_submit_bid_project">Submit Bid</button>                       
+                            
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </div>
+              <!-- </div> -->
+            </section>
+          </div>
+        </form>
+      </t>
+    </template>
+  </data>
+</odoo>

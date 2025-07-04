@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="faqs_questation_page" name="Faqs">
+			<t t-call="web.login_layout">
+	            <section class="hm-banner">
+		            <div class="bannerInner minBannerSlider">
+		                <div class="sliderWrap">
+		                    <img src="/airbid_master/static/src/image/abount_banner.png" alt="Banner Images" class="about_us_temp"/>
+		                    <img src="/airbid_master/static/src/image/abount_back.png" alt="Banner Back Images" class="about_us_back_temp"/>
+		                    <div class="bannerMinTitle">
+		                        <div class="container">
+		                            <h1 class="about_airbid_heading">Do you have Questions?</h1>
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+		        </section>
+
+		        <section class="solar_market">
+		        	<div class="about_content">
+			            <div class="about_content_page">
+	                        <div class="container">
+	                        	<div class="row">
+		                            <p class="solar_market_faq">The solar market in Australia is diverse and can be difficult in making a right choice when selecting the right <br></br>product that suits your requirement and budget.
+								    </p>
+								</div>
+
+								<div class="row">
+		                             <div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. How am I benefitting from installing solar panel?</a>
+									      <div class="content">
+									        <p>Majority of the Australian home/business uses Alternating Current (AC) electricity. The sun energy absorbed by solar panel throughout the day is converted into Direct Current (DC) electricity; the inverter then converts this DC into usable AC. Australia is a county with abundance of sun energy; going solar and making full use of the solar energy you are benefitting by saving money on electricity bill and also prevents against any rising electricity rates. Solar energy not only benefits you but also helps in saving environment by reducing the Greenhouse Gas Emission which is the contributor to climate change and minimizing air pollutants.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">    
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Does installing solar impact my property value?</a>
+									      <div class="content">
+									        <p>Yes! There is positive impact of having a solar energy system on your property. Your property value is likely to increase than that home without them.</p>
+									      </div>
+									    </div>
+									</div>    
+
+									<div class="accordion">    
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. What happens when there isn’t sunshine?</a>
+									      <div class="content">
+									        <p>The solar energy system fully depends on the sunlight. On a cloudy day or at night the solar panel produces very little or no energy. However, on a proper sunny day the energy are absorbed throughout the day and any used portion compensates for the days when weather was not favorable. Hence, going solar is a smart choice.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Will I still receive invoice after going Solar?</a>
+									      <div class="content">
+									        <p>Yes, you will receive your electricity bill however you will see the significantly reduced quarterly bill compared to your previous ones or even find the amount reduced to $0.00 when you go through us finding your right provider.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Why is there variance in quotes/prices from various providers?</a>
+									      <div class="content">
+									        <p>The reason for variance for the same product could be due to different provider, equipment quality, warranty/guarantee period, monitoring system and so on. You will find the equipments at lower price but the price does not always justify the product quality. There are various companies bidding so you are guaranteed to get the best deal that’s suits your budget and get the good quality product.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. How long will my solar system last?</a>
+									      <div class="content">
+									        <p>Our network of solar providers has a reputation of installing long running solar system, they are sturdy built, capable to stand Australian heat wave, wind, hail, heavy rain and cost less in maintenance. The solar system will continue generating solar energy for 25 – 30 years and could require only few components replacement at different times.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Are the solar companies listed in Airbid trustworthy?</a>
+									      <div class="content">
+									        <p>You are 100% guaranteed to get the trustworthy installers; we have gone through the credit ratings and operation history of our listed companies. Our networks are thoroughly vetted and selected. We work with the best only so you save time and money looking for your right provider.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Whom do I contact for any issue with my installation?</a>
+									      <div class="content">
+									        <p>Not sure</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. What does the average system cost?</a>
+									      <div class="content">
+									        <p>Not sure on these</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Is there any surcharge from Airbid for my installation?</a>
+									      <div class="content">
+									        <p>Airbid is absolutely free for all our members to register and list the project; every installation made through our portal is paid to us by the solar installers. There is no surcharge or hidden fees for all our members.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Do I need to arrange my finance or will I get finance assistance from you?</a>
+									      <div class="content">
+									        <p>Not sure</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. How long does the bidding take?</a>
+									      <div class="content">
+									        <p>You are in control of the bidding duration ranging from 3 – 10 business days. You choose your preferred bidding days and will be able to see the interested parties bidding for your project. You also have the option selecting your preferred company if you find the provider that meets your expectation while you still have the bidding days remaining.</p>
+									      </div>
+									    </div>
+									</div>
+
+									<div class="accordion">
+									    <div class="accordion-item">
+									      <a class="faq_questation">Q. Do solar panel works when the electricity goes off?</a>
+									      <div class="content">
+									        <p>The solar panel will not work in the event the electrical power is cut off. This is to prevent any emergency electricity repairer from getting injured however you can install certain inverters that operates as backup power when the electrical supply is interrupted. The extra battery needs to be connected to the inverter for backup. The price for the additional battery varies from different providers.</p>
+									      </div>
+									    </div>
+									</div>
+								</div>
+	                        </div>
+			            </div>
+			        </div>
+		        </section>
+
+		        <section class="our_about_blog">
+		            <div class="container">
+		              <div class="blogs_heading">
+		                <h5>Our Blogs</h5>
+		                <span>Our Clients send us bunch of smilies with our services and we love them</span>
+		              </div>
+		              <div class="row" style="text-align: center;">
+		                  <div class="find_blog_att">
+		                    <img src="/airbid_master/static/src/image/blog3.png"/>
+		                    <div class="blog_opp">
+		                      <div class="find_blogs_content">
+		                          <span><span>WHAT IS THE BEST</span><br/><span> ROOF FOR SOLAR</span><br/><span> PANELS?</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                    </div>
+		                    </div>
+		                    <div class="find_blog_att">
+		                      <img src="/airbid_master/static/src/image/blog2.png"/>
+		                      <div class="blog_opp">
+		                        <div class="find_blogs_content">
+		                          <span class="blog_desc"><span>GUIDE TO</span><br/><span> FEDERAL SOLAR</span><br/><span> PANEL INCENTIVES</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                      </div>
+		                    </div>
+		                    <div class="find_blog_att">
+		                      <img src="/airbid_master/static/src/image/blog1.png"/>
+		                      <div class="blog_opp">
+		                        <div class="find_blogs_content">
+		                          <span><span>THREE OPTIONS</span><br/><span> TO GO SOLAR IN</span><br/><span> DENVER</span></span>
+		                          <p class="blog_desc">If you’re looking to acquire solar panels, your<br/> first step is to determine if your roof is suitable<br/> for a solar panel system.</p>
+		                          <h5>READ MORE</h5>
+		                          <div class="read_more_border"></div>
+		                      </div>
+		                    </div>
+		                </div>
+		              </div>
+		            </div>
+		        </section>
+
+		        <section class="ftco-section">
+					<div class="container">
+						<div class="row">
+			                <div class="col-md-12" style="margin: 0 0 60px 0;">
+			                  <div class="our_client_says">
+			                    <h5>What Our Client Says</h5>
+			                    <span>Our Clients send us bunch of smilies with our services and we love them</span>
+			                  </div>
+			                </div>
+			            </div>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="featured-carousel owl-carousel">
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="item">
+										<div class="row justify-content-center">
+											<div class="col-md-11">
+												<div class="testimony-wrap d-md-flex">
+													<div class="col-md-2" style="text-align:center">
+							                          <div class="our_client_info_1">
+							                            <img src="/airbid_master/static/src/image/client1.png"/>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-8" style="text-align:center">
+							                          <div class="our_client_info_2">
+							                          	<div class="dots_1"></div>
+							                            <img src="/airbid_master/static/src/image/client2.png"/>
+							                            
+							                            <h4>Philip Coleman 
+							                            	<img src="/airbid_master/static/src/image/double_co.png" class="double_dot"/>
+							                        	</h4>
+							                            <span>Sydney, Australia</span>
+							                            <div class="par_client_info">
+								                            <div class="dots_3"></div>
+								                            <p>
+								                            	You'll get the best of what you put in. The team is working at their<br/> best to provides us variety of spaces and homes. Had a great<br/>experience working with them.<br/>Thanks a lot.
+								                            	<img src="/airbid_master/static/src/image/double.png" class="double"/>
+								                        	</p>
+								                           	<div class="dots_4"></div>
+								                        </div>
+							                          </div>
+							                        </div>
+							                        <div class="col-md-2" style="text-align:end">
+							                          <div class="our_client_info_3">
+							                          	<div class="dots_2"></div>
+							                            <img src="/airbid_master/static/src/image/client3.png" class="client_image_3"/>
+							                          </div>
+							                        </div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+		    </t>
+		</template>
+	</data>
+</odoo>

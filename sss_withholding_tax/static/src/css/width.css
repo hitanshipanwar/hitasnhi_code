@@ -1,0 +1,11 @@
+/*Product Column in SaleOrderLine*/
+th.o_column_sortable {
+    max-width: 92px !important;
+    width: 100px !important;
+}
+th.o_many2one_tags_cell {
+    /*max-width: 92px !important;
+    width: 100px !important;*/
+    max-width: 105px !important;
+    width: 105px !important;
+}

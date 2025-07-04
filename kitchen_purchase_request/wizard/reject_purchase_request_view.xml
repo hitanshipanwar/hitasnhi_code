@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="reject_purchase_request_view_form" model="ir.ui.view">
+	        <field name="name">reject.purchase.request.wizard.view.form</field>
+	        <field name="model">reject.purchase.request.wizard</field>
+	        <field name="arch" type="xml">
+	        	<form string="Reject Quotation">
+	        		<sheet>
+	        			<group>
+	        				<field name="note" placeholder="Enter Reason..."/>
+	        				<field name="digital_signature" widget="signature"/>
+	        			</group>
+	        		</sheet>
+	        		<footer>
+						<button name="reject_purchase_request" type="object" string="Reject" class="oe_highlight"/>
+							or
+						<button special="cancel" string="Cancel"/>
+					</footer>
+	        	</form>
+	      	</field>
+      	</record>
+
+      	<record id="reject_rfq_quotation_view_form" model="ir.ui.view">
+	        <field name="name">reject.rfq.wizard.view.form</field>
+	        <field name="model">reject.rfq.wizard</field>
+	        <field name="arch" type="xml">
+	        	<form string="Reject Quotation">
+	        		<sheet>
+	        			<group>
+	        				<field name="digital_signature" widget="signature"/>
+	        				<field name="note"/>
+	        			</group>
+	        		</sheet>
+	        		<footer>
+						<button name="reject_rfq_quotation" type="object" string="Reject" class="oe_highlight"/>
+							or
+						<button special="cancel" string="Cancel"/>
+					</footer>
+	        	</form>
+	      	</field>
+      	</record>
+
+    </data>
+</odoo>

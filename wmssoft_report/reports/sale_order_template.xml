@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Sale Order Custom Header Based on Badger Requirement -->
+    <template id="custom_sale_external_layout_standard_sale_quote">
+        <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+            <div class="row" style="padding-top: 1%;">
+                <div class="row">
+                    <div class="col-5" style="width: 100%; padding-right: 39%;">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="margin-left:5px;max-height: 130px;max-width:330px;" alt="Logo" />
+                    </div>
+                    <div class="col-4">
+                        <p class="font-weight-bold" style="font-size:22px;text-align:left;line-height: 22px;">
+                            <strong>Proposal</strong>
+                        </p>
+                        <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                            Order Date
+                        </p>
+                        <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                            Expected Shipment Date
+                        </p>
+                    </div>
+                    <div class="col-3">
+                        <p class="font-weight-bold" style="font-size:20px;text-align:left;line-height: 22px;">
+                            <strong><span t-field="o.name" /></strong>
+                        </p>
+                        <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                            <span t-field="o.commitment_date" t-options='{"widget": "date"}' />
+                        </p>
+                        <p class="font-weight-bold" style="font-size:17px;text-align:left;line-height: 17px;">
+                            <span t-field="o.expected_date" t-options='{"widget": "date"}' /><!-- <span t-field="o.commitment_date" t-options='{"widget": "date"}' /> -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div t-attf-class="article o_report_layout_standard o_company_#{company.id}_layout" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+            <t t-call="web.address_layout" />
+            <t t-raw="0" />
+        </div>
+        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
+            <div t-if="report_type == 'pdf'" class="text-muted" style="text-align:center">
+                Page: <span class="page" /> / <span class="topage" />
+            </div>
+        </div>
+    </template>
+
+    <template id="header_template_sale_quote">
+        <t t-if="not o" t-set="o" t-value="doc" />
+        <t t-if="not company">
+            <!-- Multicompany -->
+            <t t-if="company_id">
+                <t t-set="company" t-value="company_id" />
+            </t>
+            <t t-elif="o and 'company_id' in o and o.company_id.sudo()">
+                <t t-set="company" t-value="o.company_id.sudo()" />
+            </t>
+            <t t-else="else">
+                <t t-set="company" t-value="res_company" />
+            </t>
+        </t>
+        <t t-if="company.external_report_layout_id" t-call="wmssoft_report.custom_sale_external_layout_standard_sale_quote">
+            <t t-raw="0" />
+        </t>
+        <t t-else="else" t-call="wmssoft_report.custom_sale_external_layout_standard_sale_quote">
+            <t t-raw="0" />
+        </t>
+    </template>
+
+    <template id="wmssoft_report_sale_document_sale_quote">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="wmssoft_report.header_template_sale_quote">
+                    <div class="page" style="padding-left:30px;padding-right:30px">
+                        <div class="row">
+                            <div t-if="doc.rep_template_id" class="col-12" style="text-align:left">
+                                <span t-field="doc.rep_template_id.address_sale" />
+                            </div>
+                        </div>
+                        <div class="row" style="border:1px solid grey">
+                            <div class="col-4" style="text-align:left">
+                                <p><strong>Bill to</strong></p>
+                                <p>
+                                    <!-- <span t-field="doc.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /> --><span t-field="doc.partner_invoice_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                            </div>
+                            <div class="col-4" style="text-align:left">
+                                <p><strong>Ship to</strong></p>
+                                <p><span t-field="doc.partner_shipping_id" t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' /></p>
+                            </div>
+                            <div class="col-4" style="text-align:left">
+                                <p><strong>PO Number: </strong><span t-field="doc.client_order_ref" /></p>
+                                <p><strong>Payment Terms: </strong><span t-field="doc.payment_term_id" /></p>
+                                <p><strong>Sale Order Complete?: </strong><span t-field="doc.order_sent" /></p>
+                            </div>
+                        </div>
+                        <br />
+                        <div class="row o_table_row">
+                            <table class="o_table_row" style="width: 100%;">
+                                <thead style="background-color:#000000;">
+                                    <tr style="background-color:#000000;color:#FFFFFF;">
+                                        <th class="text-left" style="width:16%;border: 1px solid black;padding-left:3px"><span>Item Code</span></th>
+                                        <th class="text-left" style="border: 1px solid black;"><span>Description</span></th>
+                                        <!-- <th class="text-center" style="width:12%;border: 1px solid black;"><span>Additional Info</span></th> -->
+                                        <th class="text-center" style="width:10%;border: 1px solid black;"><span>Qty Ordered</span></th>
+                                        <th class="text-center" style="width:10%;border: 1px solid black;"><span>Unit Price</span></th>
+                                        <th class="text-center" style="width:10%;border: 1px solid black;"><span>Sub Total</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="sale_tbody" style="border-bottom: 1px solid black;">
+                                    <t t-foreach="doc.order_line" t-as="line">
+                                        <tr>
+                                            <td name="product_code" style="padding-left:3px">
+                                                <span t-field="line.product_id.default_code" t-options="{'widget': 'text'}" />
+                                            </td>
+                                            <td name="sale_line_name" style="padding-left:3px;">
+                                                <span t-field="line.product_id.name" t-options="{'widget': 'text'}" />
+                                                <t t-if="line.employee_name">
+                                                    <br /><i>Associated to <span t-field="line.employee_name" t-options="{'widget': 'text'}" /></i>
+                                                </t>
+                                            </td>
+                                            <!-- <td name="td_additional_info" style="padding-left:3px;"><span t-field="line.x_studio_additional_information" t-options="{'widget': 'text'}" /></td> -->
+                                            <td name="qty_ordered" class="text-center"><span t-field="line.product_uom_qty" /></td>
+                                           <!--  <td name="unit_price" class="text-center">
+                                                    <span t-esc="'{:.2f}'.format(round(line.price_unit, 2))"/>
+                                                </td> -->
+                                            <td name="unit_price" class="text-center"><span t-field="line.price_unit" /></td>
+                                            <td name="sub_total" class="text-center"><span t-field="line.price_subtotal" /></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row">
+                            <div class="col-7 o_table_row">
+                                <br />
+                                <table class="o_table_row" style="width: 100%;">
+                                    <thead style="background:#000000;color:#FFFFFF;">
+                                        <tr>
+                                            <th class="text-left" style="width:62%;padding-left:2px;"><span>Shipping Information</span></th>
+                                            <th class="text-left" style="width:38%;padding-left:2px;"><span>Order Notes</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <td class="text-left" style="padding-left:2px;">
+                                            <p t-if="doc.partner_id.property_delivery_carrier_id">Courier: <span t-field="doc.partner_id.property_delivery_carrier_id" /></p>
+                                            <p t-if="not doc.partner_id.property_delivery_carrier_id">Courier: Best Method</p>
+                                        </td>
+                                        <td class="text-left" style="padding-left:2px;">
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-5" style="text-align:right">
+                                <table class="table table-sm" style="page-break-inside: avoid;">
+                                    <tr>
+                                        <td class="text-right">Subtotal</td>
+                                        <td class="text-right"><span t-field="doc.amount_untaxed" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right">GST</td>
+                                        <td class="text-right"><span t-field="doc.amount_tax" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-right" style="border-top: 1px solid grey!important;">Total</td>
+                                        <td class="text-right" style="border-top: 1px solid grey!important;"><span t-field="doc.amount_total" /></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="report_sale_order_sale_quote">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="lang" t-value="doc.partner_id.lang" />
+                <t t-call="wmssoft_report.wmssoft_report_sale_document_sale_quote" t-lang="lang" />
+            </t>
+        </t>
+    </template>
+
+    <record id="sale.action_report_saleorder" model="ir.actions.report">
+        <field name="name">Quotation / Order</field>
+        <field name="model">sale.order</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">wmssoft_report.report_sale_order_sale_quote</field>
+        <field name="report_file">wmssoft_report.report_sale_order_sale_quote</field>
+        <field name="print_report_name">(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or 'Order - %s' % (object.name)</field>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="wmssoft_report.invoice_format" />
+    </record>
+
+</odoo>

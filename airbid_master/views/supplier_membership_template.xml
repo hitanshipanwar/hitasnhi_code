@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <data>
+    <template id="supplier_membership" name="Supplier Bid Detail">
+      <t t-call="website.layout">
+        <div class="oe_structure oe_empty" id="oe_structure_website_sale_products_1"/>
+        <div id="wrap" class="oe_structure">
+          <section class="supplier_membership">
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="subscription_plans_project">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="subscription_plans">
+                          <h4>Subscription Plans</h4>
+                          <!-- <span>Suspendisse sed pulvinar magna</span> -->
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-6">
+                        <div class="subscription_plans">
+                          <span t-if="user_id.per_bid">Subscription Plan Name: Pay Per Bid</span>
+                          <span t-if="user_id.per10_bid">Subscription Plan Name: 10 Bids</span>
+                          <span t-if="user_id.per20_bid">Subscription Plan Name: 20 Bids</span>
+                          <span t-if="user_id.per30_bid">Subscription Plan Name: 30 Bids</span>
+                          <span t-if="user_id.monthly_bid">Subscription Plan Name: Monthly Billing Plan</span>
+                        </div>
+                      </div>
+                      <div class="col-sm-6">
+                        <div class="subscription_plans">
+                          <span t-if="user_id.bid_count > 0">Number of Remaining Bids: <t t-esc="user_id.bid_count"/></span>
+                          <span t-if="user_id.monthly_bid">Monthly Plan Expiration Date: <t t-esc="user_id.plan_end_date"/></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+            <div id="generic_price_table">   
+              <section>
+                <div class="container">
+                  <div class="row">
+                    <t t-if="request.env.user.partner_id.is_supplier == 'supplier'">
+                      <div class="col-md-4">
+                          <div class="generic_content clearfix">
+                              <div class="generic_head_price clearfix">
+                                  <div class="generic_head_content clearfix">
+                                      <div class="head_bg"></div>
+                                      <div class="head">
+                                          <h5>Pay per Bid</h5>
+                                      </div>
+                                  </div>
+                              </div>                            
+                              
+                              <div class="generic_feature_list">
+                                <ul>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">1 Bid</img></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                  </ul>
+                              </div>
+
+                              <div class="price_border"></div>
+
+                              <div class="generic_price_tag clearfix">  
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">20</span>
+                                    <span class="cent">.00</span>
+                                    <span class="month">Per Bid</span>
+                                </span>
+                            </div>
+                              <div class="generic_price_btn clearfix">
+                                <form action="/shop/cart/update" method="post" class="text-center">
+                                  <input name="product_id" t-att-value="ppb_product.id" type="hidden"/>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                  <t t-if="request.env.user.partner_id.supplier_validate == 'approve' ">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now" id="per_bid_buy"/>
+                                  </t>
+                                  <t t-else="">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now"  disabled="disabled"  id="per_bid_buy"/>
+                                  </t>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                      
+                      <div class="col-md-4">
+                        <div class="generic_content clearfix">
+                              <div class="generic_head_price clearfix">
+                                  <div class="generic_head_content clearfix">
+                                      <div class="head_bg"></div>
+                                      <div class="head">
+                                          <h5>Buy Bulk Bidd</h5>
+                                      </div>
+                                  </div>
+                              </div>                            
+                              <div class="generic_feature_list">
+                                <ul>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">10 Bids - 5% Discount</img></span></li>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">20 Bids - 10% Discount</img></span></li>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">30 Bids - 15% Discount</img></span></li>
+                                    <li><span>Select Bids</span></li>
+                                    <select class="bids_discount" name="value_select"  t-att-data-approve='is_approve'>
+                                      <option value="select_bids" name="bids"></option>
+                                      <option  value="10_bids" name="bids">10 Bids</option>
+                                      <option value="20_bids" name="bids">20 Bids</option>
+                                      <option value="30_bids" name="bids">30 Bids</option>
+                                    </select>
+                                  </ul>
+                              </div>
+
+                              <div class="price_border"></div>
+
+                            <div id="bid_selection" class="generic_price_tag clearfix">  
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">190</span>
+                                    <span class="cent">.00</span>
+                                </span>
+                            </div>
+                              <div class="generic_price_btn clearfix" id="bid_product">
+                                <form action="/shop/cart/update" method="post" class="text-center" name="bid_ppb" enctype="multipart/form-data">
+                                  <input type="hidden" id="value_10bid" t-att-value="bb10_product" style="display:none;"/>
+
+                                  <input type="hidden" id="value_20bid" t-att-value="bb20_product.id" style="display:none;"/>
+
+                                  <input type="hidden" id="value_30bid" t-att-value="bb30_product.id" style="display:none;"/>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                 <t t-if="request.env.user.partner_id.supplier_validate == 'approve' ">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now" id="bid_product_select" disabled="disabled"/>
+                                  </t>
+                                  <t t-else="">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now"  disabled="disabled" id="bid_product_select"/>
+                                  </t>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-4">
+                          <div class="generic_content clearfix">
+                              <div class="generic_head_price clearfix">
+                                  <div class="generic_head_content clearfix">
+                                      <div class="head_bg"></div>
+                                      <div class="head">
+                                          <h5>Monthly Billing Plan</h5>
+                                      </div>
+                                  </div>
+                              </div>                            
+                              
+                              <div class="generic_feature_list">
+                                <ul>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">Request for Monthly
+                                    payment</img></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                  </ul>
+                              </div>
+
+                              <div class="price_border"></div>
+
+                              <div class="generic_price_tag clearfix">  
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">785</span>
+                                    <span class="cent">.00</span>
+                                    <span class="month">/Month</span>
+                                </span>
+                            </div>
+                              <div class="generic_price_btn clearfix">
+                                <form action="/shop/cart/update" method="post" class="text-center">
+                                  <input name="product_id" t-att-value="monthly_product.id" type="hidden"/>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                  <t t-if="request.env.user.partner_id.supplier_validate == 'approve' ">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Request Now" id="request_now_buy"/>
+                                  </t>
+                                  <t t-else="">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Request Now"   disabled="disabled" id="request_now_buy"/>
+                                  </t>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                    </t>
+
+                    <t t-if="request.env.user.partner_id.is_supplier == 'installer'">
+                      <div class="col-md-4">
+                          <div class="generic_content clearfix">
+                              <div class="generic_head_price clearfix">
+                                  <div class="generic_head_content clearfix">
+                                      <div class="head_bg"></div>
+                                      <div class="head">
+                                          <h5>Pay per Bid</h5>
+                                      </div>
+                                  </div>
+                              </div>                            
+                              
+                              <div class="generic_feature_list">
+                                <ul>
+                                    <li><span><img src="/airbid_master/static/src/image/right_sign.png" class="right_sign">1 Bid</img></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                    <li><span></span></li>
+                                  </ul>
+                              </div>
+
+                              <div class="price_border"></div>
+
+                              <div class="generic_price_tag clearfix">  
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">15</span>
+                                    <span class="cent">.00</span>
+                                    <span class="month">Per Bid</span>
+                                </span>
+                            </div>
+                              <div class="generic_price_btn clearfix">
+                                <form action="/shop/cart/update" method="post" class="text-center">
+                                  <input name="product_id" t-att-value="ppb_product.id" type="hidden"/>
+
+                                  <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                  <t t-if="request.env.user.partner_id.supplier_validate == 'approve' ">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now" id="per_bid_buy"/>
+                                  </t>
+                                  <t t-else="">
+                                    <input type="submit" class="btn btn-fill-out btn-radius a-submit" value="Buy Now" disabled="disabled" id="per_bid_buy"/>
+                                  </t>
+                                </form>
+                              </div>
+                          </div>
+                      </div>
+                    </t>
+                  </div>                        
+                </div>
+              </section>             
+            </div>
+        </div>
+      </t>
+    </template>
+  </data>
+</odoo>

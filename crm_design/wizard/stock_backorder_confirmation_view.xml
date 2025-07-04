@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<odoo>
+    
+    <record id="purchase_conformation_form" model="ir.ui.view">
+        <field name="name">purchase.backorder.conformation.wizard.form</field>
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="arch" type="xml">
+            <form string="Conformation">
+                <div>
+                    <h3>Are you sure want to confirm ?</h3>
+                </div>
+                <footer>
+                    <button name="process" type="object" string="Yes" class="btn-primary" />
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="process_confirm" model="ir.actions.act_window">
+        <field name="name">Conformation</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.backorder.confirmation</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="purchase_conformation_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="backorder_wizard_inherit" model="ir.ui.view">
+        <field name="name">parchase.inherit.backorder.form</field>
+        <field name="model">stock.backorder.confirmation</field>
+        <field name="inherit_id" ref="stock.view_backorder_confirmation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='process']" position="replace">
+                <button name="%(process_confirm)d" string="Create Backorder" type="action" class="oe_highlight" data-hotkey="q"/>
+            </xpath>    
+        </field>
+    </record>
+    
+</odoo>

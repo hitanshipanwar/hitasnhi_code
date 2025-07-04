@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="view_solar_customer_filter" model="ir.ui.view">
+         <field name="name">view.solar.customer.filter</field>
+         <field name="model">solar.system</field>
+         <field name="arch" type="xml">
+         <search string="Search Move">
+         	<field name="customer_project_state"/>
+            <filter string="Status Open" name="status_open" domain="[('customer_project_state', '=', 'open')]"/>
+            <filter string="Status Waiting" name="status_draft" domain="[('customer_project_state', '=', 'draft')]"/>
+            <separator/>
+            <filter string="Date" name="date" date="project_create_date"/>
+            <separator/>
+            <group expand="0" string="Group By">
+					<filter string="Status" name="by_status" domain="[]" context="{'group_by': 'customer_project_state'}"/>
+					<separator/>
+					<filter string="Date" name="by_date" domain="[]" context="{'group_by': 'project_create_date'}"/>
+					<separator/>
+					<filter string="Country State" name="by_state" domain="[]" context="{'group_by': 'state_id'}"/>
+					<separator/>
+            </group>
+         </search>
+         </field>
+     </record>
+			<record id='solar_system_tree_view' model='ir.ui.view'>
+			<field name='name'>solar.system.tree.view</field>
+			<field name='model'>solar.system</field>
+			<field name='arch' type='xml'>
+				<tree>
+					<field name="sequence_pro_no" readonly="1"/>
+					<field name='customer_id'/>
+					<field name='phone'/>
+					<field name='email_id'/>
+					<field name="customer_project_name"/>
+					<field name='project_create_date'/>
+					<field name='hour' invisible="1"/>
+					<field name='con_hour'  invisible="1"/>
+					<!-- Sunen -->
+					<field name='project_end_date'  invisible="1"/>
+					<field name='track_start_remaining'  invisible="1"/>
+					<field name='track_start_relative'  invisible="1"/>
+					<field name='website_cta_start_remaining'  invisible="1"/>
+					<field name='project_datetime' force_save="1"  invisible="1"/>
+					<field name='customer_project_state'/>
+					<field name='is_other_img' invisible="1"/>
+					<button name="validate_to_open_state" class="btn-primary" string="Validate" type="object" attrs="{'invisible':['|',('customer_project_state','!=','draft'),('is_other_img','=',False)]}"></button>
+				</tree>
+			</field>
+			</record>
+
+			<record id='solar_system_form_view' model='ir.ui.view'>
+			<field name='name'>solar.system.form.view</field>
+			<field name='model'>solar.system</field>
+			<field name='arch' type='xml'>
+				<form>
+					<header>
+						<field name="customer_project_state" options="{'clickable': '1'}" widget="statusbar" statusbar_visible="saveasdraft,draft,open,inprogress,close"/>
+						<field name="supplier_project_state" widget="statusbar" statusbar_visible="open,inprogress,won,lost" invisible="1"/>
+					</header>						
+					<sheet>
+						<h2>
+							<field name="sequence_pro_no" readonly="1"/>
+						</h2>
+						<field name="customer_project_name" readonly="1"/>
+						<group>
+							<field name="customer_id" style="width:30%;"/>
+							<field name="suppiler_status_ids" style="width:30%;" widget="many2many_tags"/>
+							<field name="suppiler_intrested_ids" invisible="1" widget="many2many_tags"/>
+						</group>
+
+						<notebook>
+							<page string="Customer Form">
+						<!-- 1st Question -->
+							<label for="property_option_new" string="1. Do you own or rent your property?"/>
+							<div>
+								<field name='property_option_new' widget='radio' options="{'horizontal': true}"/>
+							</div>						
+
+						<!-- if 1st que is no -->
+							<label for="message" attrs="{'invisible':[('property_option_new','!=','no')]}"/>
+							<div>
+								<field name='message' attrs="{'invisible':[('property_option_new','!=','no')]}"/>
+							</div>
+						
+						<!-- 2nd second -->
+						<label for='shading_issue' string="2. Do you have any shadding issues?" attrs="{'invisible':['|',('property_option_new','!=','yes'),('property_option_new','=','')]}"/> 
+						<div>
+							<field name='shading_issue' widget='radio' options="{'horizontal': true}" attrs="{'invisible':['|',('property_option_new','!=','yes'),('property_option_new','=','')]}"/>	
+							</div>
+					
+						<!-- 3rd Question -->
+						<label for='solar_system' string="3. Do you already have a solar system?" attrs="{'invisible':['|',('property_option_new','!=','yes'),('property_option_new','=','')]}"/>
+						<div>
+							<field name='solar_system' widget='radio' options="{'horizontal': true}" attrs="{'invisible':['|',('property_option_new','!=','yes'),('property_option_new','=','')]}"/>
+						</div>
+
+						<!-- 4th Question -->
+						<!-- 3rd Question if No 4th Question  -->
+						<label for='property_select' string="4. About your proposed installation property" attrs="{'invisible':['|',('solar_system','!=','no'),('property_option_new','!=','yes')]}"/>
+							<div>
+								<field name='property_select' widget='radio' options="{'horizontal': true}" attrs="{'invisible':['|',('solar_system','!=','no'),('property_option_new','!=','yes')]}"/>
+							</div>
+						
+					<!-- 3rd Question if yes 3(1) -->
+						<label for="remove_panels" string=" Do you want to Remove existing Panels?" attrs="{'invisible':['|',('solar_system','!=','yes'),('property_option_new','!=','yes')]}"/>
+							<div>
+								<field name='remove_panels' widget='radio' options="{'horizontal': true}"  attrs="{'invisible':['|',('solar_system','!=','yes'),('property_option_new','!=','yes')]}"/>
+							</div>
+
+					<!-- 3rd(1) Question if yes 3(2) -->
+						<label for='no_panels' string=" How many existing panels You want to remove?" attrs="{'invisible':['|',('remove_panels','!=','yes'),('property_option_new','!=','yes')]}"/>
+							<div style='width:30%;'>
+								<field name='no_panels' attrs="{'invisible':['|',('remove_panels','!=','yes'),('property_option_new','!=','yes')]}"/>
+							</div>
+
+						<label for='add_panels_id'  string=" Do you want to add more panels?" attrs="{'invisible':[('remove_panels','!=','yes')]}"/>
+							<div id='panels_id'>
+								<field name='add_panels' id='add_panels_id' options="{'horizontal': true}" widget='radio' attrs="{'invisible':[('remove_panels','!=','yes')]}"/>
+							</div>
+						
+						<!-- add more pannel if ans is no  -->
+						<label for='add_battery' string="Do you need to add battery storage ?"  attrs="{'invisible':[('add_panels','!=','no')]}"/>
+							<div>
+								<field name='add_battery' widget='radio' options="{'horizontal': true}"  attrs="{'invisible':[('add_panels','!=','no')]}"/>
+							</div>
+				
+						<!-- if add_battery que is no -->
+						<label style="font-weight: bold;" for="message_battery" attrs="{'invisible':[('add_battery','!=','no')]}"/><br></br>
+							<div style="font-weight: bold;">
+								<field name='message_battery' attrs="{'invisible':[('add_battery','!=','no')]}"/>
+							</div>
+					
+					<!-- 3rd(1) Question if no 3.1.1 -->
+						<label for='upgrade_system' string="Do you want to upgrade existing system?" attrs="{'invisible':[('remove_panels','!=','no')]}"/>
+							<div>
+								<field name='upgrade_system' widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('remove_panels','!=','no')]}"/>
+							</div>
+						
+					<!-- 4th Question if upgrade system ans yes	 -->
+					<label for='property_select' string="4. About your proposed installation property" attrs="{'invisible':[('upgrade_system','!=','yes')]}"/>
+							<div>
+								<field name='property_select' widget='radio' attrs="{'invisible':[('upgrade_system','!=','yes')]}"/>
+							</div>
+				
+					<!-- 3.1.1 if no  -->
+						<label for='add_battery_new' string="Do you need to add battery storage ?"  attrs="{'invisible':[('upgrade_system','!=','no')]}"/>
+							<div>
+								<field name='add_battery_new' widget='radio' options="{'horizontal': true}" attrs="{'invisible':[('upgrade_system','!=','no')]}"/>
+							</div>
+					
+						<label style="font-weight: bold;" for="message_battery" attrs="{'invisible':[('add_battery_new','!=','no')]}"/><br></br>
+							<div style="font-weight: bold;">
+								<field name='message_battery' attrs="{'invisible':[('add_battery_new','!=','no')]}"/>
+							</div>
+					
+					<!-- need battery ? if ans is yes -->
+						<group>
+							<label for='existing_solar' string="Size of the existing solar system"  attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							 <div>
+							 <field name='existing_solar' style='width:25%; height:30px;' attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<span attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}">KW</span>
+						</div>
+						</group>
+				
+						<group>
+						<label for='inverter_brand' string='Inverter Brand'  attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+						
+								<field name='inverter_brand' style='width:25%; height:30px;' attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						</group>
+
+						<group>
+						<label for='inverter_phase' string='Inverter phase'  attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='inverter_phase' style='width:25%; height:30px;' attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						</group>
+
+						<group>
+						<label for='inverter_capacity' string='Inverter capacity'  attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='inverter_capacity' style='width:25%; height:30px;' attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+								<span attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}">KW</span>
+							</div>
+						</group>
+
+						<group>
+						<label for='storage_size' string='Specify the battery storage size?'  attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='storage_size' style='width:25%; height:30px;' attrs="{'invisible':[('add_battery','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						</group>
+
+						<!-- 5th Question -->
+						<label for='solar_type' string="5. What type of solar panels are you looking for?" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='solar_type'  widget='radio' attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>	
+							<field name='type_box' style="width:25%;" attrs="{'invisible':[('solar_type','!=','select')]}"/><br></br>
+
+						<!-- 6th Question -->
+						<label for='inverter_type' string="6. What type of inverter are you looking for?" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='inverter_type' widget='radio' attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+
+							</div>
+								<field name='brand_box' style='width:25%;'  attrs="{'invisible':[('inverter_type','!=','select')]}"/><br></br>
+					
+						<label for='battery_backup' string="Need Battery Backup ?" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='battery_backup' options="{'horizontal': true}" widget='radio' attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+
+
+						<!-- 6th question battery storage size  -->
+						<label for='backup_box' string='Specify the battery storage size?' attrs="{'invisible':[('battery_backup','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='backup_box' style='width:25%; height:25px;'  attrs="{'invisible':[('battery_backup','!=','yes'),('add_battery_new','!=','yes')]}" />
+							</div>
+						
+						<!-- 7th Question  -->
+						<label for='property_type' string="7. Type of the property" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='property_type' widget='radio'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+					
+						<!-- 8th Question -->
+						<label for='story_no' string="8. Number of story " attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='story_no' widget='radio'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						
+						<!-- 9th Question -->
+						<label for='roof_type' string="9. Type of roof " attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='roof_type' widget='radio'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+							<field name='roof_text_box' style='width:25%;'  attrs="{'invisible':[('roof_type','!=','other')]}"/><br></br>
+						
+						<!-- 10th Question -->
+						<label for='pay_quarterly' string="10. How much you pay quarterly for electricity? " attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='pay_quarterly' widget='radio' attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						
+						<!-- 11th Question -->
+						<label for='solar_size' string="11. What size solar system are you looking for? " attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='solar_size' widget='radio'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+								<field name='specify_box' style='width:25%; height:30px;'  attrs="{'invisible':[('solar_size','!=','specify')]}"/>
+								<span attrs="{'invisible':[('solar_size','!=','specify')]}">KW</span><br></br>
+						
+						<!-- 12th Question -->
+						<label for='cash_fin' string="12. Looking to buy cash or finance " attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<div>
+								<field name='cash_fin' widget='radio'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						
+						<!-- 13th Question -->
+						<label for='comment_box' string="13. Anything else would you like to tell us?" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+						<group>
+							<div>
+								<field name='comment_box' style='width:25%; height:25px;'  attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							</div>
+						</group>
+					<!-- </group> -->
+					</page>
+						<!-- ..................customer address........................ -->
+					<page string="Customer Address">
+					<br></br>
+						<h2 attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"> Address</h2>
+						<!-- <field name="multiple_address"/> -->
+					<group>
+					<group attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}">
+						<label for="customer_project_name" string="Project Name:" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+						<div>
+							<field name='customer_project_name' placeholder="project Name" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+						</div>
+						<label for="phone" string="Mobile No:" />
+						<div>
+							<field name="default_no" widget="checkbox" style='width:7%; height:30px;'/>
+							<field name='phone' placeholder="Mobile No" style='width:90%; height:30px;'/>
+
+							<field name='let' invisible="1"/>
+							<field name='leng' invisible="1"/>
+						</div>
+
+						<label for="email_id" string="Email Id:" />
+						<div>
+							<field name='email_id' widget="email" placeholder="Eg. abc@123gmail.com" />
+						</div>
+					</group>
+                 <group attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}">
+						<label for="street" string="Address"/>
+                     <div class="o_address_format" >
+                      <field name="street" placeholder="Street" class="o_address_street"/>
+                      <field name="house_number_or_name" placeholder="House number or name" class="o_address_street"/>
+                      <field name="city" placeholder="City" class="o_address_city"/>
+                      <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}"
+                          attrs="{'required': [('country_code', 'in', ['AU', 'CA', 'IT', 'US'])]}"/>
+                      <field name="state_code" invisible="1"/>
+                      <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                      <field name="country_id" placeholder="Country" class="o_address_country" options="{'no_open': True, 'no_create': True}" />
+                      <field name="country_code" invisible="1"/>
+                     </div>
+               	</group>
+                </group>	
+
+				</page>
+
+				<!-- Documents Uploads........................ -->
+				<page string="Documents Upload">
+					<h2 attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}">Documents Upload</h2><br></br>
+					<group>
+						<group>
+							<field name="house" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="roof" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="meter_box" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="inverter_wall" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="meter_box_2" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="electricity_bill_name" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}" invisible="1"/>
+							<field name="electricity_bill" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}"/>
+							<field name="other_img" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('solar_system','!=','no'),('add_panels','!=','yes'),('add_battery','!=','yes'),('upgrade_system','!=','yes'),('add_battery_new','!=','yes')]}" />
+							<field name='is_other_img' invisible="1"/>
+						</group>
+						<group>
+							
+						</group>
+					</group>
+				</page>
+				<page string="Bids">
+					<field name="supplier_bids_ids"/>
+				</page>
+				</notebook>
+				</sheet>
+
+				<div class="o_attachment_preview"/>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="message_ids"/>
+                </div>
+				</form>
+			</field>
+		</record>
+
+		<record id='solar_system_action_view' model='ir.actions.act_window'>
+			<field name='name'>Customer Projects</field>
+			<field name='type'>ir.actions.act_window</field>
+			<field name='res_model'>solar.system</field>
+			<field name='view_mode'>tree,form</field>
+		</record>
+		
+		<menuitem id='solar_system_view' name='Solar System'/>
+		<menuitem id='customer_menu' name='Projects' parent='solar_system_view' sequence="0"/>
+		<menuitem id='solar_system_menu' name='Customer Projects' parent='customer_menu' action='solar_system_action_view' />
+
+	</data>
+</odoo>

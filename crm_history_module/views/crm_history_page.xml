@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="res_partner_inherit_account" model="ir.ui.view">
+            <field name="name">res.partner.inherit.account</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='contact_addresses']" position="after">
+	                <page string="CRM History">
+	                	<group string="Filter By Date">
+                            <group>
+                                <field name="from_date" />
+                            </group>
+	                    </group>
+	                    <group>
+	                        <button name="action_get_crm_history" string="Get CRM History" type="object" class="oe_highlight" />
+	                    </group>
+						<field name="partner_activity_his_ids" options="{'no_create_edit':True,'no_open': True}" >
+                			<tree editable="bottom" class="activity_history">
+                				<field name="partner_id" string="Contact" optional="show"/>
+                				<field name="activity_type_id" string="Activity Type" optional="show"/>
+                				<field name="date_deadline" string="Due Date" optional="hide"/>
+                				<field name="date_completed" string="Completed Date" optional="show"/>
+                				<field name="summary" string="Subject" optional="show"/>
+                 				<field name="note" string="Notes" optional="show"/>
+                 				<field name="feedback" optional="hide"/>
+                 				<field name="user_id" string="User" optional="show"/>
+                 				<field name="res_model" invisible="1" optional="show"/>
+                 				<field name="activity_id" invisible="1" optional="hide"/>
+                 				<field name="is_import"/>
+                 			</tree>
+							<form>
+								<group>
+									<group>
+										<field name="partner_id"/>
+										<field name="res_model" invisible="1"/>
+										<field name="activity_type_id"/>
+										<field name="summary"/>
+										<field name="note"/>
+									</group>
+									<group>
+										<field name="date_deadline"/>
+										<field name="user_id"/>
+										<field name="feedback"/>
+									</group>
+								</group>
+							</form>
+                 		</field>
+	                </page>
+
+	               <!--  <page string="OLD History">
+	                	<group string="Filter By Date">
+                            <group>
+                                <field name="from_date" />
+                            </group>
+	                    </group>
+	                    <group>
+	                        <button name="action_get_crm_history" string="Get CRM History" type="object" class="oe_highlight" required="1" />
+	                    </group>
+						<field name="old_partner_activity_his_ids" options="{'no_create_edit':True,'no_open': True}" >
+                			<tree editable="bottom" class="activity_history">
+                				<field name="partner_id" string="Contact" optional="show"/>
+                				<field name="activity_type_id" string="Activity Type" optional="show"/>
+                				<field name="date_deadline" string="Due Date" optional="hide"/>
+                				<field name="date_completed" string="Completed Date" optional="show"/>
+                				<field name="summary" string="Subject" optional="show"/>
+                 				<field name="note" string="Notes" optional="show"/>
+                 				<field name="feedback" optional="hide"/>
+                 				<field name="user_id" string="User" optional="show"/>
+                 				<field name="res_model" invisible="1" optional="show"/>
+                 				<field name="activity_id" invisible="1" optional="hide"/>
+                 				<field name="mail_message_id" optional="hide"/>
+                 			</tree>
+							<form>
+								<group>
+									<group>
+										<field name="partner_id"/>
+										<field name="res_model" invisible="1"/>
+										<field name="activity_type_id"/>
+										<field name="summary"/>
+										<field name="note"/>
+										<field name="mail_message_id"/>
+									</group>
+									<group>
+										<field name="date_deadline"/>
+										<field name="user_id"/>
+										<field name="feedback"/>
+									</group>
+								</group>
+							</form>
+                 		</field>
+	                </page> -->
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

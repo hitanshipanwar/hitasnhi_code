@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="report_payment_receipt_document_inherit" inherit_id="account.report_payment_receipt_document">
+		<xpath expr="//t/div" position="replace">
+			<!-- <t t-if="o.partner_id.lang == 'th_TH'">
+				<h3><strong>ใบสำคัญจ่าย: <span t-field="o.name"/></strong></h3>
+			</t>
+			<t t-else="">
+				<h3><strong>Payment Voucher: <span t-field="o.name"/></strong></h3>
+			</t> -->
+			<div class="page">
+                <t t-if="o.partner_id.lang == 'th_TH'">
+					<h3><strong>ใบสำคัญจ่าย: <span t-field="o.name"/></strong></h3>
+				</t>
+				<t t-else="">
+					<h3><strong>Payment Voucher: <span t-field="o.name"/></strong></h3>
+				</t>
+				<div>
+					<h1>Original</h1>
+				</div>
+                <div class="mb-4 mt-3">
+                    <div class="row">
+                        <div class="col-6" t-if="o.date">
+                            Payment Date: <span t-field="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_type">
+                            <t t-if="o.partner_type == 'customer'">
+                                Customer:
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                Vendor:
+                            </t><span t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_id">
+                            Payment Method: <span t-field="o.payment_method_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.amount">
+                            Payment Amount: <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                         </div>
+                        <div class="col-6" t-if="o.ref">
+                            Memo: <span t-field="o.ref"/>
+                         </div>
+                    </div>
+                </div>
+
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()[0]"/>
+                <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                <!-- Check if invoices include different currencies -->
+                <t t-foreach="invoices" t-as="inv">
+                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials()[0])" t-set="otherCurrency" t-value="True"/>
+                </t>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th><span>Invoice Date</span></th>
+                            <th><span>Invoice Number</span></th>
+                            <th><span>Reference</span></th>
+                            <!-- Add a column if there are different currencies -->
+                            <th t-if="otherCurrency" class="text-end"><span>Amount In Currency</span></th>
+                            <th class="text-end"><span>Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="invoices" t-as="inv">
+                            <!-- MOVE -->
+                            <t t-if="inv.move_type != 'entry'">
+                                <tr>
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td><span t-field="inv.ref"/></td>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><span t-field="inv.amount_total"/></td>
+                                </tr>
+                                <!-- PAYMENTS/REVERSALS -->
+                                <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">
+                                    <t t-set="payment" t-value="par[2].move_id"/>
+                                    <td><span t-field="payment.date"/></td>
+                                    <td><span t-field="payment.name"/></td>
+                                    <td><span t-field="payment.ref"/></td>
+                                    <t t-set="amountPayment" t-value="-payment.amount_total"/>
+                                    <t t-set="amountInvoice" t-value="-par[1]"/>
+                                    <t t-set="currencyPayment" t-value="payment.currency_id"/>
+                                    <t t-set="currencyInvoice" t-value="inv.currency_id"/>
+                                    <!-- Fill the column "Amount In Currency" only if necessary -->
+                                    <td t-if="otherCurrency" class="text-end"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>
+                                    <td class="text-end"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>
+                                </tr>
+                                <!-- BALANCE -->
+                                <tr>
+                                    <td/>
+                                    <td><strong>Due Amount for <span t-field="inv.name"/></strong></td>
+                                    <td/>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><strong><span t-field="inv.amount_residual"/></strong></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="footer">
+                        <div style="position:relative;font-size:12px;margin-top:0;">
+                        <table style="border-collapse: collapse; width: 100%; border:none !important; width:100%;height:20px;" border="0">
+                        <tbody style="border:none !important;">
+                        <tr style="border:none !important;">
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Prepared By:</td>
+                          <td style="color:black; width: 16.6667%; text-align:right;border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Checked By:</td>
+                        <td style="color:black; width: 16.6667%; border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Approved By:</td>
+                        <td style="color:black; width: 16.6667%; border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        <div class="text-center">
+                <div class="row">
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                    <div style="width:42%;">
+                        <h5 style="font-weight:600;font-size:25px;" >
+                            <b>
+                                <div t-if='request.env.company.thai_add' t-field="request.env.company.thai_add"/>
+                                <div t-else=''>
+                                    <span>บริษัท สยาม อาร์ต มาร์เบิล จำกัด</span>
+                                </div>
+                            </b>
+                        </h5>
+                    </div>
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="img">
+                            <img style="height:60px;width:60px;margin-top:10px;margin-left:-60px;" src='/crm_design/static/img/lavaredo_logo_orange.png'>
+                            </img> 
+                        </div>
+                    </div>
+                    <div class="col-8" style="font-size:14px;color:black;width:60%;">
+                        <t>        
+                            <span>      
+                            <t t-if='request.env.company.thai_street1' t-esc="request.env.company.thai_street1" />
+                                <t t-else=''>13/6 หมู่19&#160;</t>
+                                <t t-if='request.env.company.thai_street2' t-esc="request.env.company.thai_street2"/>
+                                <t t-else=''>ต.บางพลีใหญ่&#160;</t>
+                            <t t-if='request.env.company.thai_city' t-esc="request.env.company.thai_city"/>
+                                <t t-else=''>อ.บางพลี&#160;</t> 
+                        
+                            <t t-if='request.env.company.thai_state' t-esc="request.env.company.thai_state"/>
+                                <t t-else=''>จ.สมุทรปราการ&#160;</t>
+                                
+                            <t t-if='request.env.company.zip' t-esc="request.env.company.zip"/>
+                                <t t-else=''>1054&#160;</t>
+                            
+                            <t t-if='request.env.company.thai_country' t-esc="request.env.company.thai_country"/>
+                                <t t-else=''>ประเทศไทย&#160;</t>
+                            <br/>
+                            <span>โทร&#160;</span><t t-if='request.env.company.phone' t-esc="request.env.company.phone"/>&#160;<t t-if='request.env.company.mobile' t-esc="request.env.company.mobile"/>
+                            <br/>
+                            </span>
+                            <b>หมายเลขประจำตัวผู้เสียภาษี&#160;<t t-if='request.env.company.vat' t-esc="request.env.company.vat"/>&#160;(สำนักงานใหญ่)</b>
+                        </t>
+                    </div>
+                    <div class="col-2 pr-0">
+                        <img style="height:60px;width:60px;margin-top:10px;margin-right:-200px;" src='/crm_design/static/img/lavaredo_qr.jpg'>
+                            </img>
+                    </div>
+                </div>
+            </div>
+                    </div>
+            </div>
+            <p style="page-break-after:always;"></p>
+            <div class="page">
+                <t t-if="o.partner_id.lang == 'th_TH'">
+					<h3><strong>ใบสำคัญจ่าย: <span t-field="o.name"/></strong></h3>
+				</t>
+				<t t-else="">
+					<h3><strong>Payment Voucher: <span t-field="o.name"/></strong></h3>
+				</t>
+				<div>
+					<h1>Copy</h1>
+				</div>
+                <div class="mb-4 mt-3">
+                    <div class="row">
+                        <div class="col-6" t-if="o.date">
+                            Payment Date: <span t-field="o.date"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.partner_type">
+                            <t t-if="o.partner_type == 'customer'">
+                                Customer:
+                            </t>
+                            <t t-if="o.partner_type == 'supplier'">
+                                Vendor:
+                            </t><span t-field="o.partner_id"/>
+                        </div>
+                        <div class="col-6" t-if="o.payment_method_id">
+                            Payment Method: <span t-field="o.payment_method_id.name"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" t-if="o.amount">
+                            Payment Amount: <span t-field="o.amount" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                         </div>
+                        <div class="col-6" t-if="o.ref">
+                            Memo: <span t-field="o.ref"/>
+                         </div>
+                    </div>
+                </div>
+
+                <t t-set="partials" t-value="o.move_id._get_reconciled_invoices_partials()[0]"/>
+                <t t-set="invoices" t-value="{partial[2].move_id for partial in partials}"/>
+                <!-- Check if invoices include different currencies -->
+                <t t-foreach="invoices" t-as="inv">
+                    <t t-if="any(inv.currency_id != par[2].currency_id for par in inv._get_reconciled_invoices_partials()[0])" t-set="otherCurrency" t-value="True"/>
+                </t>
+
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th><span>Invoice Date</span></th>
+                            <th><span>Invoice Number</span></th>
+                            <th><span>Reference</span></th>
+                            <!-- Add a column if there are different currencies -->
+                            <th t-if="otherCurrency" class="text-end"><span>Amount In Currency</span></th>
+                            <th class="text-end"><span>Amount</span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="invoices" t-as="inv">
+                            <!-- MOVE -->
+                            <t t-if="inv.move_type != 'entry'">
+                                <tr>
+                                    <td><span t-field="inv.invoice_date"/></td>
+                                    <td><span t-field="inv.name"/></td>
+                                    <td><span t-field="inv.ref"/></td>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><span t-field="inv.amount_total"/></td>
+                                </tr>
+                                <!-- PAYMENTS/REVERSALS -->
+                                <tr t-foreach="inv._get_reconciled_invoices_partials()[0]" t-as="par">
+                                    <t t-set="payment" t-value="par[2].move_id"/>
+                                    <td><span t-field="payment.date"/></td>
+                                    <td><span t-field="payment.name"/></td>
+                                    <td><span t-field="payment.ref"/></td>
+                                    <t t-set="amountPayment" t-value="-payment.amount_total"/>
+                                    <t t-set="amountInvoice" t-value="-par[1]"/>
+                                    <t t-set="currencyPayment" t-value="payment.currency_id"/>
+                                    <t t-set="currencyInvoice" t-value="inv.currency_id"/>
+                                    <!-- Fill the column "Amount In Currency" only if necessary -->
+                                    <td t-if="otherCurrency" class="text-end"><span t-if="currencyPayment != currencyInvoice" t-esc="amountPayment" t-options="{'widget': 'monetary', 'display_currency': currencyPayment}"/></td>
+                                    <td class="text-end"><span t-esc="amountInvoice" t-options="{'widget': 'monetary', 'display_currency': currencyInvoice}"/></td>
+                                </tr>
+                                <!-- BALANCE -->
+                                <tr>
+                                    <td/>
+                                    <td><strong>Due Amount for <span t-field="inv.name"/></strong></td>
+                                    <td/>
+                                    <td t-if="otherCurrency"/>
+                                    <td class="text-end"><strong><span t-field="inv.amount_residual"/></strong></td>
+                                </tr>
+                            </t>
+                        </t>
+                    </tbody>
+                </table>
+                <div class="footer">
+                        <div style="position:relative;font-size:12px;margin-top:0;">
+                        <table style="border-collapse: collapse; width: 100%; border:none !important; width:100%;height:20px;" border="0">
+                        <tbody style="border:none !important;">
+                        <tr style="border:none !important;">
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Prepared By:</td>
+                          <td style="color:black; width: 16.6667%; text-align:right;border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Checked By:</td>
+                        <td style="color:black; width: 16.6667%; border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        <td style="width: 16.6667%; border:none !important; font-size: 20px;">Approved By:</td>
+                        <td style="color:black; width: 16.6667%; border:none !important;"><b><hr style="width:80%;,text-align:right; color:black; position:relative;top:20px;"></hr></b></td>
+                        </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                        <div class="text-center">
+                <div class="row">
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                    <div style="width:42%;">
+                        <h5 style="font-weight:600;font-size:25px;" >
+                            <b>
+                                <div t-if='request.env.company.thai_add' t-field="request.env.company.thai_add"/>
+                                <div t-else=''>
+                                    <span>บริษัท สยาม อาร์ต มาร์เบิล จำกัด</span>
+                                </div>
+                            </b>
+                        </h5>
+                    </div>
+                    <div style="width:29%;border-top:1px solid rgb(27, 27, 27); margin-top:25px;"></div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <div class="img">
+                            <img style="height:60px;width:60px;margin-top:10px;margin-left:-60px;" src='/crm_design/static/img/lavaredo_logo_orange.png'>
+                            </img> 
+                        </div>
+                    </div>
+                    <div class="col-8" style="font-size:14px;color:black;width:60%;">
+                        <t>        
+                            <span>      
+                            <t t-if='request.env.company.thai_street1' t-esc="request.env.company.thai_street1" />
+                                <t t-else=''>13/6 หมู่19&#160;</t>
+                                <t t-if='request.env.company.thai_street2' t-esc="request.env.company.thai_street2"/>
+                                <t t-else=''>ต.บางพลีใหญ่&#160;</t>
+                            <t t-if='request.env.company.thai_city' t-esc="request.env.company.thai_city"/>
+                                <t t-else=''>อ.บางพลี&#160;</t> 
+                        
+                            <t t-if='request.env.company.thai_state' t-esc="request.env.company.thai_state"/>
+                                <t t-else=''>จ.สมุทรปราการ&#160;</t>
+                                
+                            <t t-if='request.env.company.zip' t-esc="request.env.company.zip"/>
+                                <t t-else=''>1054&#160;</t>
+                            
+                            <t t-if='request.env.company.thai_country' t-esc="request.env.company.thai_country"/>
+                                <t t-else=''>ประเทศไทย&#160;</t>
+                            <br/>
+                            <span>โทร&#160;</span><t t-if='request.env.company.phone' t-esc="request.env.company.phone"/>&#160;<t t-if='request.env.company.mobile' t-esc="request.env.company.mobile"/>
+                            <br/>
+                            </span>
+                            <b>หมายเลขประจำตัวผู้เสียภาษี&#160;<t t-if='request.env.company.vat' t-esc="request.env.company.vat"/>&#160;(สำนักงานใหญ่)</b>
+                        </t>
+                    </div>
+                    <div class="col-2 pr-0">
+                        <img style="height:60px;width:60px;margin-top:10px;margin-right:-200px;" src='/crm_design/static/img/lavaredo_qr.jpg'>
+                            </img>
+                    </div>
+                </div>
+            </div>
+                    </div>
+            </div>
+		</xpath>
+	</template>
+</odoo>

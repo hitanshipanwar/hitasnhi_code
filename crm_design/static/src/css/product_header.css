@@ -1,0 +1,42 @@
+/*Product Column in SaleOrderLine*/
+th.o_column_sortable {
+    max-width: 92px !important;
+    width: 100px !important;
+}
+th.o_many2many_tags_cell {
+    /*max-width: 92px !important;
+    width: 100px !important;*/
+    max-width: 105px !important;
+    width: 105px !important;
+}
+th.o_product_configurator_cell {
+    max-width: 315px !important;
+    width: 315px !important;
+}
+th.o_section_and_note_text_cell {
+    max-width: 315px !important;
+    width: 315px !important;
+}
+th[data-name="name"]
+{
+    max-width: 150px !important;
+    width: 150px !important;
+}
+th[data-name="location_id"]
+{
+    max-width: 300px !important;
+    width: 300px !important;
+}
+th[data-name="product_id"]
+{
+    max-width: 400px !important;
+    width: 400px !important;
+}
+th[data-name="location_dest_id"]
+{
+    max-width: 250px !important;
+    width: 250px !important;
+}
+.o_priority_cell {
+    width: 23px
+}

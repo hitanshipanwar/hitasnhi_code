@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="account_move_date_view_form_inherited" model="ir.ui.view">
+	        <field name="name">account.payment.register.view.form.inherited</field>
+	        <field name="model">account.payment.register</field>
+	        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//form/group/group[@name='group2']/div" position="after">
+	        		<field name="is_tax_excluded"/>
+	        		<field name="amount_to_paid"/>
+	        		<field name="tax_amount_to_paid"/>
+	        		<!-- <field name="tax_paid"/> -->
+	        	</xpath>
+	    	</field>
+	    </record>
+
+	    <record id="account_payment_form_view_inherit" model='ir.ui.view'>
+	    	<field name="name">account.payment.form</field>
+	    	<field name="model">account.payment</field>
+	    	<field name="inherit_id" ref="account.view_account_payment_form"/>
+	    	<field name="arch" type="xml">
+	    		<xpath expr="//sheet/group/group[@name='group1']/div" position="after">
+	    			<field name="amount_to_paid" readonly="1"/>
+	    			<field name="tax_amount_to_paid" readonly="1"/>
+	    			<!-- <field name="tax_paid" readonly="1"/> -->
+	    		</xpath>
+	    	</field>
+	    </record>
+
+	    <record id="account_move_form_view_inherit" model='ir.ui.view'>
+	    	<field name="name">account.move.form</field>
+	    	<field name="model">account.move</field>
+	    	<field name="inherit_id" ref="account.view_move_form"/>
+	    	<field name="arch" type="xml">
+	    		<!-- <xpath expr="//sheet/group/group[@id='header_right_group']/field[@name='payment_reference']" position="after">
+	    			<field name="tax_paid" invisible="1"/>
+	    		</xpath> -->
+
+	    		<xpath expr="//field[@name='amount_residual']" position="attributes">
+	    			<attribute name="invisible">1</attribute>
+	    		</xpath>
+
+	    		<xpath expr="//field[@name='amount_residual']" position="after">
+	    			
+	    			<field name="tax_paid" invisible="1"/>
+	    			<field name="amount_remain" force_save="1"/>
+	    			<field name="tax_remain" force_save="1"/>
+	    		</xpath>
+	    	</field>
+	    </record>
+	</data>
+</odoo>

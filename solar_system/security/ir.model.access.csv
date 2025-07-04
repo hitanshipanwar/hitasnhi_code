@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_solar_system,access_solar_system,model_solar_system,,1,1,1,1
+access_solar_supplier,access_solar_supplier,model_solar_supplier,,1,1,1,1
+access_image_selection,access_image_selection,model_image_selection,base.group_user,1,1,1,1
+access_solar_supplier_battery,access_solar_supplier_battery,model_solar_supplier_battery,base.group_user,1,1,1,1
+access_solar_supplier_inverter,access_solar_supplier_inverter,model_solar_supplier_inverter,base.group_user,1,1,1,1
+access_installation_solar_system,access_installation_solar_system,model_installation_solar_system,base.group_user,1,1,1,1
+access_installer_bid,access_installer_bid,model_installer_bid,base.group_user,1,1,1,1

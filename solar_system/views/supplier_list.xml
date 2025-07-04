@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+    <record id='supplier_detail_tree_view' model='ir.ui.view'>
+      <field name='name'>supplier.detail.tree.view</field>
+      <field name='model'>res.partner</field>
+      <field name='arch' type='xml'>
+        <tree>
+          <field name="display_name"/>
+          <field name="phone"/>
+          <field name="email"/>
+          <field name="profile_complete" invisible="1"/>
+          <field name="state_id"/>
+          <field name="supplier_validate"/>
+          <button name="supplier_approve" class="btn-primary" string="Approve" type="object" attrs="{'invisible':['|',('supplier_validate','!=','draft'),('profile_complete','=',False)]}"></button>
+          <button name="supplier_reject" class="btn-primary" string="Reject" type="object" attrs="{'invisible':['|',('supplier_validate','!=','draft'),('profile_complete','=',False)]}" ></button>
+        </tree> 
+      </field>
+    </record>
+
+		<record id="supplier_detail_kanban_view" model="ir.actions.act_window">
+        <field name="name">Suppliers</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner</field>
+        <field name="view_mode">tree,kanban,form</field>
+        <field name="search_view_id" ref="base.view_res_partner_filter"/>
+        <field name="view_id" ref="supplier_detail_tree_view"/>
+        <field name="context">{'default_is_company': True}</field>
+        <field name="domain">[('is_supplier','=','supplier')]</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a contact in your address book
+          </p><p>
+            Odoo helps you to easily track all activities related to a customer.
+          </p>
+        </field>
+    </record>
+    		
+		  <menuitem id='supplier_view_menu' name='Vendor' parent='solar_system.solar_system_supplier_menu' action='solar_system.supplier_detail_kanban_view' sequence="0"/>
+
+	</data>
+</odoo>

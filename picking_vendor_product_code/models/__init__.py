@@ -1,0 +1,1 @@
+from . import picking_vendor_product

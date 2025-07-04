@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id='user_admin_view_form' model='ir.ui.view'>
+			<field name='name'>user.admin.view.form</field>
+			<field name='model'>res.users</field>
+			<field name='inherit_id' ref='base.view_users_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='name']" position="before">
+					<group>
+						<field name="is_admin"/>
+					</group>
+				</xpath>
+			</field>
+		</record>
+
+<!-- 		<record id='profile_view_form_move' model='ir.ui.view'>
+			<field name='name'>profile.view.form.move</field>
+			<field name='model'>res.partner</field>
+			<field name='inherit_id' ref='base.view_partner_form'/>
+			<field name='arch' type='xml'>
+				<xpath expr="//field[@name='company_type']" position="after">
+					<div>
+						<field name="profile_complete" invisible="1"/>
+						<field name="per_bid" invisible="1"/>
+						<field name="per10_bid" invisible="1"/>
+						<field name="per20_bid" invisible="1"/>
+						<field name="per30_bid" invisible="1"/>
+						<field name="monthly_bid" invisible="1"/>
+						<field name="bid_count" invisible="1"/>
+						<field name="plan_start_date" invisible="1"/>
+						<field name="plan_end_date" invisible="1"/>
+						<field name="is_supplier" style="width:50%;"/>
+					</div>
+				</xpath>
+				<xpath expr="//h1" position="after">
+					<h1>
+						<field name="user_lastname" class="o_field_partner_autocomplete dropdown open o_field_widget" style="width:50%;" placeholder="Last Name"/>
+					</h1>
+				</xpath>
+			
+				<xpath expr="//field[@name='vat']" position="after">
+					<field name="company_name" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="abn" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="year" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="trading_name" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="company_logo" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="company_logo_name" invisible="1"/>
+					<field name="about_com" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="retailer" widget="image" options="{'size': [100, 100]}"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="member" widget="image" options="{'size': [100, 100]}"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="iso" widget="image" options="{'size': [100, 100]}"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="document" widget="image" options="{'size': [100, 100]}"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>	
+					<field name="service_zip" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>	
+					<field name="retailer_name" invisible="1"/>
+					<field name="member_name" invisible="1"/>
+					<field name="iso_name" invisible="1"/>
+					<field name="document_name" invisible="1"/>						
+				</xpath>
+				<xpath expr="//field[@name='category_id']" position="after">
+						<field name="director_fname"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="director_lname"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="birth_date"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="mobile_no"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="photo" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="photo_name" invisible="1"/>
+						<label for="residential" string="How many installations done?" attrs="{'invisible':[('is_supplier','!=','supplier')]}"></label>
+						<field name="residential"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+						<field name="commercial"  attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+				</xpath>
+				<xpath expr="//page[@name='contact_addresses']" position="after">
+					<page string="Multiple Project Area" name="area_project" autofocus="autofocus" attrs="{'invisible':[('is_supplier','!=','supplier')]}">
+						<field name="area_operates_ids">
+							<form string="Director Profile">
+								<sheet>
+									<group>
+										<field name="city_area_name" />
+										<field name="radius_name" />
+										<field name="zip_code" />
+									</group>
+								</sheet>
+							</form>
+							<tree>
+								<field name="city_area_name" />
+								<field name="radius_name" />
+								<field name="zip_code" />
+							</tree>
+						</field>
+					</page>
+				</xpath>
+				
+			</field>
+		</record> -->
+
+		<record id="profile_view_form_move" model="ir.ui.view">
+			<field name="name">profile.view.form.move</field>
+			<field name="model">res.partner</field>
+			<field name="inherit_id" ref="base.view_partner_form"/>
+			<field name="arch" type="xml">
+				<xpath expr="//field[@name='company_type']" position="after">
+					<div>
+						<field name="profile_complete" invisible="1"/>
+						<field name="per_bid" invisible="1"/>
+						<field name="per10_bid" invisible="1"/>
+						<field name="per20_bid" invisible="1"/>
+						<field name="per30_bid" invisible="1"/>
+						<field name="monthly_bid" invisible="1"/>
+						<field name="bid_count" invisible="1"/>
+						<field name="plan_start_date" invisible="1"/>
+						<field name="plan_end_date" invisible="1"/>
+						<field name="is_supplier" style="width:50%;"/>
+					</div>
+				</xpath>
+				<xpath expr="//h1" position="after">
+					<h1>
+						<field name="user_lastname" class="o_field_partner_autocomplete dropdown open o_field_widget" style="width:50%;" placeholder="Last Name"/>
+					</h1>
+				</xpath>
+				<xpath expr="//field[@name='vat']" position="after">
+					<field name="company_name" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="abn" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="year" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="trading_name" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="company_logo" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="company_logo_name" invisible="1"/>
+					<field name="about_com" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="retailer" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="member" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="iso" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="document" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="service_zip" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="retailer_name" invisible="1"/>
+					<field name="member_name" invisible="1"/>
+					<field name="iso_name" invisible="1"/>
+					<field name="document_name" invisible="1"/>
+					<!-- installer -->
+					<!-- <field name="ins_company_name" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_abn" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_year" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_trading_name" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_company_logo" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_company_logo_name" invisible="1"/>
+					<field name="ins_about_com" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_retailer" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_member" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_iso" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_document" widget="image" options="{'size': [100, 100]}" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_service_zip" attrs="{'invisible':[('is_supplier','!=','supplier')]}"/>
+					<field name="ins_retailer_name" invisible="1"/>
+					<field name="ins_member_name" invisible="1"/>
+					<field name="ins_iso_name" invisible="1"/>
+					<field name="ins_document_name" invisible="1"/> -->
+				</xpath>
+				<xpath expr="//field[@name='category_id']" position="after">
+					<field name="director_fname" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="director_lname" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="birth_date" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="mobile_no" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="photo" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="photo_name" invisible="1"/>
+					<label for="residential" string="How many installations done?" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="residential" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="commercial" attrs="{'invisible':[('is_supplier','not in',['supplier','installer'])]}"/>
+					<field name="is_check_profile"/>
+					<!-- installer -->
+					<!-- <field name="ins_director_fname" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_director_lname" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_birth_date" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_mobile_no" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_photo" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_photo_name" invisible="1"/>
+					<label for="ins_residential" string="How many installations done?" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_residential" attrs="{'invisible':[('is_supplier','!=','installer')]}"/>
+					<field name="ins_commercial" attrs="{'invisible':[('is_supplier','!=','installer')]}"/> -->
+
+				</xpath>
+				<xpath expr="//page[@name='contact_addresses']" position="after">
+					<page string="Multiple Project Area" name="area_project" autofocus="autofocus" attrs="{'invisible':[('is_supplier','!=','supplier')]}">
+						<field name="area_operates_ids">
+							<form string="Director Profile">
+								<sheet>
+									<group>
+										<field name="city_area_name"/>
+										<field name="radius_name"/>
+										<field name="zip_code"/>
+									</group>
+								</sheet>
+							</form>
+							<tree>
+								<field name="city_area_name"/>
+								<field name="radius_name"/>
+								<field name="zip_code"/>
+							</tree>
+						</field>
+					</page>
+					<page string="Multiple Project Area" name="area_project" autofocus="autofocus" attrs="{'invisible':[('is_supplier','!=','installer')]}">
+						<field name="area_operates_ids">
+							<form string="Director Profile">
+								<sheet>
+									<group>
+										<field name="city_area_name"/>
+										<field name="radius_name"/>
+										<field name="zip_code"/>
+									</group>
+								</sheet>
+							</form>
+							<tree>
+								<field name="city_area_name"/>
+								<field name="radius_name"/>
+								<field name="zip_code"/>
+							</tree>
+						</field>
+					</page>
+				</xpath>
+			</field>
+		</record>
+	</data>
+</odoo>

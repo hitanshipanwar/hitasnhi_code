@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<template id="account_move_template_portal_inherited" inherit_id="account.portal_invoice_page">
+		<xpath expr="//div[@id='invoice_communication']/h2" position="replace">
+			<h2>Payment Slip</h2>
+		</xpath>
+        <xpath expr="//t[@t-set='entries']/ul/li" position="before">
+            <li class="list-group-item flex-grow-1">
+                <div class="modal fade" id="confirm_invoice" tabindex="-1" role="dialog" aria-labelledby="slideChannelShareModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <form id="confirm" method="POST" t-att-data-invoice-id="invoice.id" t-att-data-token="invoice.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Validate Invoice</h4>
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">×</button>
+
+                                <t t-set="my_url" t-value="'/my/invoices/%i/confirm?access_token=%s' % (invoice.id,invoice.access_token)"/>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <h3>Sign Here To Confirm Invoice</h3>
+                                    <t t-call="portal.signature_form">
+                                        
+                                        <!-- <t t-set="call_url" t-value="invoice.get_portal_url(suffix='/confirm')"/> -->
+                                        <t t-set="call_url" t-value="my_url"/>
+                                        <t t-set="default_name" t-value="invoice.partner_id.name"/>
+                                        <t t-set="send_label" t-value="Confirm"/>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <a t-if="not invoice.confirmed_by_customer" role="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirm_invoice" href="#"><i class="fa fa-check"/>Confirm Invoice</a>
+
+                   <!--  <t t-if="invoice.is_visit_invoice">
+                        <span t-field="invoice.appointment_id.appointment_date"/>
+                    </t>
+ -->
+                </div>
+            </li>
+        </xpath>
+
+       <!--  <xpath expr="//div[@id='invoice_communication']/h2" position="replace">
+            <h2>Payment Slip</h2>
+        </xpath> -->
+	</template>
+
+   
+
+    <!-- Upload Payment Slip From Portal-->
+    <template id="portal_invoice_page_inherit_payment_custom" inherit_id="account_payment.portal_invoice_page_inherit_payment">
+        <xpath expr="//div/a[@data-bs-target='#pay_with']" position="replace">
+        </xpath>
+        
+        <xpath expr="//t[@t-call='portal.portal_record_sidebar']//div[hasclass('o_download_pdf')]" position="before">
+            <!-- <a t-if="invoice.confirmed_by_customer == True and invoice.payment_state != 'paid' and invoice.paymentslip_uploaded == False and invoice.invoice_payment_term_id.id == invoice.env.ref('crm_design.account_payment_term_creadit_all').id" href="#" class="btn btn-primary btn-block mb-2" data-bs-toggle="modal" data-bs-target="#pay_with"> -->
+            <a t-if="invoice.confirmed_by_customer == True and invoice.payment_state != 'paid' and invoice.paymentslip_uploaded == False and invoice.invoice_payment_term_id.id in [invoice.env.ref('crm_design.account_payment_term_100_confirmation').id, invoice.env.ref('crm_design.account_payment_term_30_deposit_70_delivery').id, invoice.env.ref('crm_design.account_payment_term_30_deposit_60_delivery_10_installation').id, invoice.env.ref('crm_design.account_payment_term_50_deposit_50_delivery').id, invoice.env.ref('crm_design.account_payment_term_50_deposit_40_delivery_10_installation').id]" href="#" class="btn btn-primary btn-block mb-2" data-bs-toggle="modal" data-bs-target="#pay_with">
+
+
+                <i class="fa fa-fw fa-arrow-circle-right"/> Attach Payment Slip
+            </a>
+            <h1 t-if="invoice.paymentslip_uploaded == True" style="color:black;"><strong>Completed..!</strong></h1>
+        </xpath>
+
+
+        <xpath expr="//div[@id='portal_pay']" position="replace">
+            <t t-call="crm_design.upload_payment_slip"/>
+        </xpath>
+    </template>
+
+    <template id="upload_payment_slip" name="Invoice Payment">
+        <div class="row">
+            <div class="modal fade" id="pay_with" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">Upload Payment Slip</h3>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">×</button>
+                        </div>
+                        <div class="modal-body">
+                            <form t-attf-action="/my/invoices/#{invoice.id}/upload_slip?access_token=#{invoice.access_token}" method="post" enctype="multipart/form-data">
+                                <div>
+                                    <input class="o_portal_chatter_attachment_btn btn" type="file" title="Add attachment" id="myslip" name="myslip" required="required" multiple="true" accept="image/*,application/pdf,video/*"/>
+                                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                </div>
+
+                                <div class="o_portal_sign_controls my-3">
+                                    <div class="text-right my-3">
+                                        <button type="submit" value="Upload" class="btn btn-primary">Upload</button>
+                                    </div>
+                                </div>
+                                
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+	<template id="portal.signature_form" name="Ask Signature">
+        <div class="o_portal_signature_form"
+            t-att-data-call-url="call_url"
+            t-att-data-default-name="default_name"
+            data-mode="draw"
+            t-att-data-send-label="send_label"
+            t-att-data-signature-ratio="signature_ratio"
+            t-att-data-signature-type="signature_type"
+            t-att-data-font-color="font_color"
+            t-att-data-design-id="design_id"
+            />
+    </template>
+</odoo>

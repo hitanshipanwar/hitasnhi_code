@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="import.order.status.ept" id="pending_payment">
+        <field name="name">Pending Payment</field>
+        <field name="status">pending</field>
+    </record>
+    <record model="import.order.status.ept" id="processing">
+        <field name="name">Processing</field>
+        <field name="status">processing</field>
+    </record>
+    <record model="import.order.status.ept" id="onhold">
+        <field name="name">On Hold</field>
+        <field name="status">on-hold</field>
+    </record>
+    <record model="import.order.status.ept" id="being_picked_packed">
+        <field name="name">Being Picked &amp; Packed</field>
+        <field name="status">picked-packed</field>
+    </record>
+    <record model="import.order.status.ept" id="in_production">
+        <field name="name">In Production</field>
+        <field name="status">in-production</field>
+    </record>
+    <record model="import.order.status.ept" id="waiting_incoming_stock">
+        <field name="name">Waiting for Incoming Stock</field>
+        <field name="status">incomingstack</field>
+    </record>
+    <record model="import.order.status.ept" id="waiting_more_information">
+        <field name="name">Waiting for More Information</field>
+        <field name="status">moreinformation</field>
+    </record>
+</odoo>

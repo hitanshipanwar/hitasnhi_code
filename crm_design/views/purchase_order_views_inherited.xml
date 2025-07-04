@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="purchase_order_inhert_form_view" model="ir.ui.view">
+		<field name="name">purchase.order.inherit.form.view</field>
+		<field name="model">purchase.order</field>
+		<field name="inherit_id" ref="purchase.purchase_order_form"/>
+		<field name="arch" type="xml">
+			<xpath expr="//header/field[@name='state']" position="replace">
+                <field name="state" widget="statusbar" statusbar_visible="draft,sent,approve_pending,approved,purchase" readonly="1"/>
+            </xpath>
+
+            <!-- IF Draft And Purhchase Amount Is Higher -->
+            <button name="action_rfq_send" states="draft" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g" position="replace">
+            	<button name="action_rfq_send" states="draft" type="object" context="{'send_rfq':True}" class="oe_highlight" data-hotkey="g" attrs="{'invisible':['|',('is_higher','=',True)]}" string="Send by Email"/>
+            </button>
+            <button name="print_quotation" type="object" states="draft" class="oe_highlight" groups="base.group_user" data-hotkey="k" position="replace">
+            	<button name="print_quotation" string="Print RFQ" type="object" states="draft" class="oe_highlight" groups="base.group_user" data-hotkey="k" attrs="{'invisible':['|',('is_higher','=',True)]}"/>
+           	</button>
+           	<button name="button_confirm" type="object" states="draft" id="draft_confirm" position="replace">
+           		<button name="button_confirm" type="object" states="draft" string="Confirm Order" id="draft_confirm" attrs="{'invisible':['|',('is_higher','=',True)]}"/>
+           </button>
+
+            <xpath expr="//header" position="inside">
+
+            	<button name="send_for_manager_approval" states="draft" string="Send For Approval" type="object" class="oe_highlight" attrs="{'invisible':['|',('is_higher','=',False)]}"/>
+
+            	<button name="action_rfq_send" states="approved" string="Send PO by Email" type="object" context="{'send_rfq':False}" data-hotkey="g" class="oe_highlight"/>
+            	<button name="print_quotation" string="Print RFQ" type="object" states="approved" groups="base.group_user" data-hotkey="k" class="oe_highlight"/>
+            	<button name="button_confirm" type="object" states="approved" string="Confirm Order" id="draft_confirm"/>
+            	<button name="button_cancel" states="approved" string="Cancel" type="object" data-hotkey="x" />
+
+            	<button name="action_approve" string="Approve" type="object" class="btn btn-primary" attrs="{'invisible':['|','&amp;',('is_manager_login','=',False),('state','in',('draft','sent','approve_pending','approved','purchase')),'&amp;',('is_manager_login','=',True),('state','not in',('approve_pending'))]}" />
+                
+                <button name="action_refuse" string="Refuse" type="object" class="btn btn-primary" attrs="{'invisible':['|','&amp;',('is_manager_login','=',False),('state','in',('draft','sent','approve_pending','approved','purchase')),'&amp;',('is_manager_login','=',True),('state','not in',('approve_pending'))]}" />
+            </xpath>
+			<xpath expr="//field[@name='currency_id']" position="after">
+				<field name="product_requirement"/>
+				<field name="department_id"/>
+				<field name="manager_id" invisible="1"/>
+				<field name="is_manager_login" invisible="1"/>
+				<field name="is_higher" invisible="1"/>
+			</xpath>
+			<xpath expr="//notebook/page[@name='purchase_delivery_invoice']" position="after">
+				<page string="Manager Signature">
+                        <group>
+                            <field name="manager_signature" widget="signature"/>
+                            <field name="manager_name"/>
+                            <field name="manager_signed_on"/>
+                        </group>
+                    </page>
+			</xpath>    
+		</field>
+	</record>
+</odoo>
