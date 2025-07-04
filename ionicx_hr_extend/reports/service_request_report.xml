@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<template id="report_service_request">
+		    <t t-call="web.html_container">
+	            <t t-call="web.external_layout">
+	                <div class="page">
+	                    <div class="content">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center" style="width: 170px; text-align: left;" scope="col">Employee</th>
+										<th class="text-center" style="width: 59px; text-align: right;" scope="col">Request</th>
+										<th class="text-center" style="width: 81px; text-align: right;" scope="col">Approver Department</th>
+										<th class="text-center" style="width: 92px; text-align: right;" scope="col">Approver</th>
+										<th class="text-center" style="width: 74px; text-align: right;" scope="col">Date</th>
+										<th class="text-center" style="width: 108px; text-align: right;" scope="col">Resolved Date</th>
+										<th class="text-center" style="width: 108px; text-align: right;" scope="col">Solved In</th>
+										<th class="text-center" style="width: 108px; text-align: right;" scope="col">Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="docs" t-as="o">
+										<tr>
+											<td class="text-center" style="width: 170px; text-align: left;"><span t-esc="o.employee_id.name"/></td>
+											<td class="text-center" style="width: 59px; text-align: right;"><span t-esc="o.name"/></td>
+											<td class="text-center" style="width: 81px; text-align: right;"><span t-esc="o.approver_department_label"/></td>
+											<td class="text-center" style="width: 92px; text-align: right;"><span t-esc="o.req_approver_id.name"/></td>
+											<td class="text-center" style="width: 74px; text-align: right;"><span t-esc="o.date.strftime('%Y-%m-%d')"/></td>
+											<td class="text-center" style="width: 108px; text-align: right;"><t t-if="o.resolved_date"><span t-esc="o.resolved_date.strftime('%Y-%m-%d')"/></t></td>
+											<td class="text-center" style="width: 108px; text-align: right;"><span t-esc="o.hours_spent"/></td>
+											<td class="text-center" style="width: 108px; text-align: right;"><t t-esc="dict(o.fields_get(allfields=['state'])['state']['selection'])[o.state]"/></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+	                    </div>
+	                </div>
+	            </t>
+		    </t>
+		</template>
+
+
+		<record id="action_service_request_report" model="ir.actions.report">
+            <field name="name">Service Request(PDF)</field>
+            <field name="model">hr.employee.complaint</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ionicx_hr_extend.report_service_request</field>
+            <field name="report_file">ionicx_hr_extend.report_service_request</field>
+            <field name="print_report_name">'Service Request'</field>
+            <field name="binding_model_id" ref="ionicx_hr_extend.model_hr_employee_complaint"/>
+            <field name="binding_type">report</field>
+        </record>
+	</data>
+</odoo>

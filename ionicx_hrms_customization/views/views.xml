@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+         <!-- Addedd Send Timesheet Date Inside Employee Form View -->
+        <record id="hr_employee_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.inherit.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group/group/field[@name='mobile_phone']" position="after">
+                    <field name="send_timesheet_date" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inside Timesheet Tree View Project & Task No Edit No Create -->
+        <record id="account_analytic_line_form_view" model="ir.ui.view">
+            <field name="name">account.analytic.line.form.view</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='project_id']" position="attributes">
+                   <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute> 
+                </xpath>
+                <xpath expr="//field[@name='task_id']" position="attributes">
+                   <attribute name="options">{'no_create': True, 'no_create_edit':True}</attribute> 
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		
+
+     <!-- sales manager access rights -->
+
+     <record id="sales_manager_access_rights" model="res.groups">
+          <field name="name">Sale Manager</field>
+          <field name="category_id" ref="base.module_category_sales_sales"/>
+     </record>
+
+     
+	</data>
+</odoo>

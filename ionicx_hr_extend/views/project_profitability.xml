@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="project_profitability_form_view" model="ir.ui.view">
+            <field name="name">project.profitability</field>
+            <field name="model">project.profitability</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Project Profitability">
+                	<h3>Project Profitability</h3>
+                	<br/>
+                	<group>
+                		<group>
+                    		<field name="project_ids" widget="many2many_tags"/>
+                    	</group>
+                    </group>
+                    <br/>
+                    <footer>
+                        <button name="print_xlsx_report" type="object" string="Print XLSX" class = "oe_highlight" />
+                        <button name="print_pdf_report" type="object" string="Print PDF" class = "oe_highlight" />
+                        <button string="Cancel" class="btn-primary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action For Wizard -->
+        <record id="project_profitability_view_wizard_action" model="ir.actions.act_window">
+            <field name="name">Project Profitability</field>
+            <field name="res_model">project.profitability</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="project_profitability_form_view"/>
+            <field name="target">new</field>
+        </record>
+
+
+        <record id="project_project_form_view_inherited" model="ir.ui.view">
+            <field name="name">project.project</field>
+            <field name="model">project.project</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='settings']" position="after">
+                	<page string="Project Profitability" groups="base.group_system">
+                		<group>
+                			<group string="Developer Section">
+                                <field name="total_hrs_spent"/>
+                				<field name="time_cost"/>
+                			</group>
+                			<group string="Client Section">
+                				<field name="work_rate_client_side"/>
+                                <field name="direct_cost"/>
+                				<field name="project_hourly_revenue" attrs="{'invisible': [('work_rate_client_side', '=', 'fixed_amt')]}"/>
+                                <field name="project_revenue" attrs="{'invisible': [('work_rate_client_side', '=', 'hrs_basis')]}"/>
+                				<field name="gross_margin"/>
+                			</group>
+                		</group>
+                        <group>
+                            <group string="Payment Section">
+                                <field name="payment_status"/>
+                                <field name="payment_amount"/>
+                            </group>
+                        </group>
+                	</page>
+                	<page string="Expenses" groups="base.group_system">
+                		<field name="expenses_ids" context="{'default_project_id': id}">
+                			<tree editable="bottom">
+                				<field name="project_id" invisible="1"/>
+                                <field name="date"/>
+                                <field name="name"/>
+                				<field name="amount"/>
+                			</tree>
+                		</field>
+                        <group class="oe_subtotal_footer oe_right">
+                        <field name="total_expenses" widget="float_time" />
+                    </group>
+                	</page>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="project_profitability_menu"
+                  name="Project Profitability"
+                  parent="project.menu_project_report"
+                  sequence="0"
+                  action="project_profitability_view_wizard_action"
+                  groups="base.group_system"/>
+	</data>
+</odoo>

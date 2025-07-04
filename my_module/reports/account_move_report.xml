@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<template id="account_move_report">
+		    <t t-call="web.html_container">
+	            <t t-call="web.external_layout">
+	                <div class="page">
+	                    <div class="content">
+							<table style="border-collapse: collapse; width: 100%; height: 319px;" border="2">
+<tbody>
+<tr style="height: 319px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 100%; height: 319px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><br /><br /><br /><br />
+<table style="border-collapse: collapse; width: 100%; height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;" border="0">
+<tbody style="border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<tr style="height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 3.87374%; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"></td>
+<td style="width: 23.0033%; height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"></td>
+<td style="width: 30.6072%; height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"></td>
+<td style="width: 39.2156%; height: 18px; text-align: center; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<table style="border-collapse: collapse; width: 100.885%; height: 64px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;" border="0">
+<tbody style="border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<tr style="height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 100%; height: 18px; text-align: center; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Service Invoice Details</strong></td>
+</tr>
+<tr style="height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Bill No. :</strong></td>
+</tr>
+<tr style="height: 10px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 100%; height: 10px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Bill Date:</strong></td>
+</tr>
+<tr style="height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Zone:</strong></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width: 4.16069%;"></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<table style="border-collapse: collapse; width: 100%; height: 106px;" border="0">
+<tbody>
+<tr style="height: 106px;">
+<td style="width: 4.16069%; height: 106px;"></td>
+<td style="width: 24.8686%; height: 106px;border-left:1px solid #fff; "></td>
+<td style="width: 28.4552%; height: 106px;">
+<table style="border-collapse: collapse; width: 101.177%; height: 90px;" border="0">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong> Buyer ID:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong> Buyer Zone:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong> Invoice Value:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong> Invoice Details:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong> Additional Detail Ref:</strong></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width: 42.9459%; height: 106px;">
+<table style="border-collapse: collapse; width: 92.8202%; height: 90px;" border="0">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Deliver Detail:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Vehical no.:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Payment Ref No.:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Bill No.:</strong></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px; text-align: left; border-top:1px solid #fff; border-bottom:1px solid #fff; border-left:1px solid #fff; border-right:1px solid #fff;"><strong>Path With hyperkink:</strong></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<table style="border-collapse: collapse; width: 100%; height: 87px;" border="0">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 4.04116%; height: 18px;"></td>
+<td style="width: 44.7493%; text-align: center; height: 18px;"><strong>Praticulars</strong></td>
+<td style="width: 17.4219%; height: 18px;"><strong>Particular Value</strong></td>
+<td style="width: 15.9494%; height: 18px;"><strong>Value or %</strong></td>
+<td style="width: 15.0885%; height: 18px;"><strong>Amount</strong></td>
+<td style="width: 2.74991%; height: 18px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 4.04116%; height: 18px;"></td>
+<td style="width: 44.7493%; height: 18px; text-align: center;"><strong>1. Trading Fee</strong></td>
+<td style="width: 17.4219%; height: 18px;"></td>
+<td style="width: 15.9494%; height: 18px;"></td>
+<td style="width: 15.0885%; height: 18px;"></td>
+<td style="width: 2.74991%; height: 18px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 4.04116%; height: 15px;"></td>
+<td style="width: 44.7493%; height: 15px; text-align: center;"><strong>2. Fixed Charge</strong></td>
+<td style="width: 17.4219%; height: 15px;"></td>
+<td style="width: 15.9494%; height: 15px;"></td>
+<td style="width: 15.0885%; height: 15px;"></td>
+<td style="width: 2.74991%; height: 15px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 4.04116%; height: 18px;"></td>
+<td style="width: 44.7493%; height: 18px; text-align: center;"><strong>3. Transportation Charge</strong></td>
+<td style="width: 17.4219%; height: 18px;"></td>
+<td style="width: 15.9494%; height: 18px;"></td>
+<td style="width: 15.0885%; height: 18px;"></td>
+<td style="width: 2.74991%; height: 18px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 4.04116%; height: 18px;"></td>
+<td style="width: 44.7493%; height: 18px; text-align: center;"><strong>4. Any discount provided by vendor</strong></td>
+<td style="width: 17.4219%; height: 18px;"></td>
+<td style="width: 15.9494%; height: 18px;"></td>
+<td style="width: 15.0885%; height: 18px;"></td>
+<td style="width: 2.74991%; height: 18px;"></td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%;" border="0">
+<tbody>
+<tr>
+<td style="width: 4.0992%;"></td>
+<td style="width: 54.3144%;"></td>
+<td style="width: 7.97292%;"><strong>IGST</strong></td>
+<td style="width: 8.54685%;"><strong>CGST</strong></td>
+<td style="width: 7.39904%;"><strong>SGST</strong></td>
+<td style="width: 15.003%;"></td>
+<td style="width: 2.66447%;"></td>
+</tr>
+<tr>
+<td style="width: 4.0992%;"></td>
+<td style="width: 54.3144%;"><strong>GST on Above Services (18%) (CGST &amp; SGST, or IGST)</strong></td>
+<td style="width: 7.97292%;"></td>
+<td style="width: 8.54685%;"></td>
+<td style="width: 7.39904%;"></td>
+<td style="width: 15.003%;"></td>
+<td style="width: 2.66447%;"></td>
+</tr>
+<tr>
+<td style="width: 4.0992%;"></td>
+<td style="width: 54.3144%;"><strong>TCS Collected Under GST (1%) (CGST &amp; SGST, or IGST</strong>)<strong> (if Needed)</strong></td>
+<td style="width: 7.97292%;"></td>
+<td style="width: 8.54685%;"></td>
+<td style="width: 7.39904%;"></td>
+<td style="width: 15.003%;"></td>
+<td style="width: 2.66447%;"></td>
+</tr>
+<tr>
+<td style="width: 4.0992%;"></td>
+<td style="width: 54.3144%;"><strong>TDS Collection (1 %) (if Needed)</strong></td>
+<td style="width: 7.97292%;"></td>
+<td style="width: 8.54685%;"></td>
+<td style="width: 7.39904%;"></td>
+<td style="width: 15.003%;"></td>
+<td style="width: 2.66447%;"></td>
+</tr>
+</tbody>
+</table>
+<p></p>
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+<td style="width: 4.35277%;"></td>
+<td style="width: 35.6472%;"></td>
+<td style="width: 20%; text-align: center;">
+<table style="border-collapse: collapse; width: 100%;" border="1">
+<tbody>
+<tr>
+<td style="width: 100%;"></td>
+</tr>
+<tr>
+<td style="width: 100%;"><strong>Total Deductions:</strong></td>
+</tr>
+<tr>
+<td style="width: 100%;"></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width: 36.2161%;">
+<table style="border-collapse: collapse; width: 100%; height: 54px;" border="1">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px;"></td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px;"></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td style="width: 3.78379%;"></td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; height: 162px;" border="1">
+<tbody>
+<tr style="height: 162px;">
+<td style="width: 4.8838%; height: 162px;"></td>
+<td style="width: 91.5125%; height: 162px;"><strong>Terms &amp; Conditions</strong></td>
+<td style="width: 3.60357%; height: 162px;"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+	                    </div>
+	                </div>
+	            </t>
+		    </t>
+		</template>
+
+
+		<record id="action_account_move_report" model="ir.actions.report">
+            <field name="name">Bill Details (PDF)</field>
+            <field name="model">account.move</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">my_module.account_move_report</field>
+            <field name="report_file">my_module.account_move_report</field>
+            <field name="print_report_name">'Bill Detsils'</field>
+            <field name="binding_model_id" ref="account.model_account_move"/>
+            <field name="binding_type">report</field>
+        </record>
+	</data>
+</odoo>

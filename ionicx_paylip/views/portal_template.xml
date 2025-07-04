@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="portal_my_payslip" name="My Payslip" inherit_id="portal.portal_my_home">
+		<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+			<t t-if="request.env.user.is_payslip_admin">
+				<t t-call="portal.portal_docs_entry">
+					<t t-set="url">/my/payslips</t>
+					<t t-set="title">Payslips</t>
+					<t t-set="placeholder_count" t-value="'payslip_count'" />
+				</t>
+				<form method="POST" t-attf-action="/new/payslip">
+					<input
+						type="hidden"
+						name="csrf_token"
+						t-att-value="request.csrf_token()"/>
+					<button
+						name="create_new_payslip"
+						type="action"
+						class="btn btn-primary"
+						style="float: right; margin-right: 0px; margin-bottom: 5px;">New Payslip</button>
+				</form>
+			</t>
+		</xpath>
+	</template>
+
+	<template id="portal_breadcrumbs" inherit_id="portal.portal_breadcrumbs">
+		<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+			<li t-if="page_name == 'payslips_list_view'" class="breadcrumb-item">Payslips</li>
+			<li t-if="page_name == 'payslips_form_view'" class="breadcrumb-item">
+				<a href="/my/payslips">Payslips</a>
+			</li>
+		</xpath>
+	</template>
+
+	<template id="portal_my_payslips" name="My Payslips">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+			<t t-call="portal.portal_searchbar">
+				<t t-set="title">Payslips</t>
+			</t>
+
+			<form method="POST" t-attf-action="/new/payslip">
+				<button
+					name="create_new_payslip"
+					type="action"
+					class="btn btn-primary"
+					style="float: right; margin-right: 0px; margin-bottom: 5px;">New Payslip</button>
+				<input
+					type="hidden"
+					name="csrf_token"
+					t-att-value="request.csrf_token()"/>
+			</form>
+
+			<t>
+				<div class="alert alert-warning mt8" role="alert">
+					<p>No Payslips found.</p>
+				</div>
+			</t>
+			<t t-call="ionicx_paylip.portal_payslip_list_view" />
+		</t>
+	</template>
+
+
+	<template id="portal_payslip_list_view" name="My Payslips">
+		<t t-call="portal.portal_layout">
+			<t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+	        <t t-call="portal.portal_searchbar">
+	            <t t-set="title">Payslips</t>
+	        </t>
+			<t t-call="portal.portal_table">
+				<thead>
+					<tr class="active">
+						<!-- <th class="text-center">Name</th> -->
+						<th class="text-left">Employee</th>
+						<th class="text-right">Employee ID</th>
+						<th class="text-right">Month/year</th>
+						<th class="text-right">Designation</th>
+					</tr>
+				</thead>
+				<tbody>
+					<t t-foreach="payslips" t-as="payslip">
+						<tr>
+							<!-- <td class="text-center">
+									<span t-esc="payslip.name" />
+								</a>
+							</td> -->
+							<td>
+								<a t-attf-href="/my/payslip/#{payslip.id}">
+									<span t-field="payslip.employee_id.name" />
+								</a>
+							</td>
+							<td>
+								<span t-field="payslip.emp_id" />
+							</td>
+							<td>
+								<span t-field="payslip.months" />
+								<span t-field="payslip.year" />
+							</td>
+							<td>
+								<span t-field="payslip.designation" />
+							</td>
+						</tr>
+					</t>
+				</tbody>
+			</t>
+		</t>
+	</template>
+
+	<template id="portal_payslips_form_view" inherit_id="portal.portal_sidebar">
+		<xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+		    <!-- <t t-call="portal.portal_layout"> -->
+		    <t t-if="page_name =='payslips_form_view'">
+		        <t t-call="portal.portal_record_layout">
+		            <t t-set="card_header">
+		                <div class="row no-gutters">
+		                    <div class="col-12">
+		                        <h2 class="text-primary text-center mb-4">
+		                            <span t-field="payslip.name" class="text-truncate" />
+		                        </h2>
+		                    </div>
+		                </div>
+		            </t>
+		            <t t-set="card_body">
+		                <div class="row mb-4">
+		                    <div class="col-12 col-md-6" name="portal_payslip_col_0">
+		                        <div class="mb-3">
+		                            <strong>Employee:</strong>
+		                            <span t-field="payslip.employee_id.name" />
+		                        </div>
+		                        <div class="mb-3">
+		                            <strong>Month/year:</strong>
+		                            <span t-field="payslip.months" /> / <span t-field="payslip.year" />
+		                        </div>
+		                        <div class="mb-3">
+		                            <strong>Department:</strong>
+		                            <span t-field="payslip.department" />
+		                        </div>
+		                        <div class="mb-3">
+		                            <strong>Designation:</strong>
+		                            <span t-field="payslip.designation" />
+		                        </div>
+		                        <div class="mb-3">
+		                            <strong>Employee ID:</strong>
+		                            <span t-field="payslip.emp_id" />
+		                        </div>
+		                    </div>
+		                    <div class="col-12 col-md-6 text-right" name="portal_payslip_col_1">
+		                        <div class="mb-3 text-success">
+		                            <strong>Net Pay:</strong>
+		                            	<span t-field="payslip.net_pay" class="h4" />
+		                        </div>
+		                        <div class="mb-3 text-info">
+		                            <strong>Total Earnings:</strong>
+			                            <span t-field="payslip.total_earning" />
+		                        </div>
+		                        <div class="mb-3 text-danger">
+		                            <strong>Total Deductions:</strong>
+		                            	<span t-field="payslip.deduct_total" />
+		                        </div>
+		                    </div>
+		                </div>
+		                <div class="row mt-3">
+		                    <div class="col-12 col-md-6 pb-4">
+		                        <h4 class="text-primary mb-3">Earnings</h4>
+		                        <div class="mb-2">
+		                            <strong>Basic Salary:</strong>
+		                            <span t-field="payslip.basic_salary" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>HRA:</strong>
+		                            <span t-field="payslip.hra" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Conveyance:</strong>
+		                            <span t-field="payslip.conveyance" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Medical:</strong>
+		                            <span t-field="payslip.medical" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Special Allowance:</strong>
+		                            <span t-field="payslip.special_allowance" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Employer Contribution to Provident Fund:</strong>
+		                            <span t-field="payslip.earning_epf" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Others:</strong>
+		                            <span t-field="payslip.others" />
+		                        </div>
+		                    </div>
+		                    <div class="col-12 col-md-6 pb-4">
+		                        <h4 class="text-danger mb-3">Deductions</h4>
+		                        <div class="mb-2">
+		                            <strong>Employer Contribution to Provident Fund:</strong>
+		                            <span t-field="payslip.deduct_employer_pf" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Employee Contribution to Provident Fund:</strong>
+		                            <span t-field="payslip.deduct_employee_pf" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>ESI:</strong>
+		                            <span t-field="payslip.esi" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Professional Tax:</strong>
+		                            <span t-field="payslip.professional_tax" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>TDS:</strong>
+		                            <span t-field="payslip.tds" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Advance:</strong>
+		                            <span t-field="payslip.advance" />
+		                        </div>
+		                        <div class="mb-2">
+		                            <strong>Leave Deductions:</strong>
+		                            <span t-field="payslip.leave_deduct" />
+		                        </div>
+		                    </div>
+		                </div>
+		                <a t-attf-href="/my/payslip/print/{{payslip.id}}" class="fa fa-download">Print Payslip Report</a>
+		                <!-- <div class="form-group text-center">
+			                <button action="print_payslip_pdf_report" class="btn btn-primary btn-lg">Print Payslip</button>
+			            </div> -->
+		            </t>
+		        </t>
+		    </t>
+		</xpath>
+	</template>
+
+
+	<!-- <template id="portal_paslips_form_view" inherit_id="portal.portal_sidebar">
+		<xpath expr="///div[hasclass('o_portal_sidebar')]" position="inside">
+			<t t-if="page_name == 'payslips_form_view'">
+				<span t-field="payslip.name"/>
+				<span t-field="payslip.employee_id.name"/>
+			</t>
+		</xpath>
+	</template>
+ -->
+	<template id="portal_create_payslip" name="Create Payslip">
+    <t t-call="portal.portal_layout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Create a new payslip</h1>
+                </div>
+            </div>
+        </div>
+        <form action="/submitted/payslip" method="POST" class="form-horizontal mt-32" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            <div class="row">
+                <div class="col-6 col-md-6">
+                    <div class="form-group pb-2">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" required="True"/>
+                    </div>
+                    <div class="form-group pb-2">
+                        <label for="employee">Employee</label>
+                        <select class="form-control" id="employee" name="employee" required="true">
+                            <t t-foreach="employees" t-as="employee">
+                                <option t-attf-value="#{employee.id}">
+                                    <t t-esc="employee.name" />
+                                </option>
+                            </t>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-6 col-md-6">
+				    <div class="form-group pb-1">
+				        <label for="name">Month/Year</label>
+				        <div class="d-flex align-items-center">
+				            <select name="months" id="months" class="form-control mx-2" required="True">
+				                <t t-foreach="months.items()" t-as="month">
+				                    <option t-att-value="month[0]">
+				                        <t t-esc="month[1]" />
+				                    </option>
+				                </t>
+				            </select>
+				            <input type="text" name="year" id="year" required="True" class="form-control mx-2" />
+				        </div>
+				    </div>
+                    <!-- <div class="form-group pb-2">
+                        <label for="name">Designation</label>
+                        <input type="text" name="designation" id="designation" class="form-control" required="True"/>
+                    </div> -->
+                    <div class="form-group pb-2">
+                        <label for="name">Department</label>
+                        <input type="text" name="department" id="department" class="form-control" required="True"/>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group pb-2">
+			            <label for="name">Designation</label>
+			            <input type="text" name="designation" id="designation" class="form-control" required="True"/>
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group pb-2">
+			            <label for="name">Employee ID</label>
+			            <input type="text" name="emp_id" id="emp_id" class="form-control" required="True"/>
+			        </div>
+			    </div>
+			</div>
+
+            <div class="row">
+                <div class="col-6 col-md-6">
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Basic Salary</label>
+				        <input type="text" name="basic_salary" id="basic_salary" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">HRA</label>
+				        <input type="text" name="hra" id="hra" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Conveyance</label>
+				        <input type="text" name="conveyance" id="conveyance" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Medical</label>
+				        <input type="text" name="medical" id="medical" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Special Allowance</label>
+				        <input type="text" name="special_allowance" id="special_allowance" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Employer Contribution to Provident fund</label>
+				        <input type="text" name="earning_epf" id="earning_epf" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Others</label>
+				        <input type="text" name="others" id="others" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Total earnings</label>
+				        <input type="text" name="total_earning" id="total_earning" class="form-control" style="width: 220px;"/>
+				        <!-- <input type="text" name="total_earning" id="total_earning" class="form-control" style="width: 220px;" required="True"/> -->
+				    </div>
+				</div>
+
+               <div class="col-6 col-md-6">
+                    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Employer Contribution to Provident Fund</label>
+				        <input type="text" name="deduct_employer_pf" id="deduct_employer_pf" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+					    <label for="employee_pf" class="mr-2" style="width: 400px;">Employee Contribution to Provident Fund</label>
+					    <input type="text" name="deduct_employee_pf" id="deduct_employee_pf" class="form-control" style="width: 220px;" required="True"/>
+					</div>
+
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">ESI</label>
+				        <input type="text" name="esi" id="esi" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Professional Tax</label>
+				        <input type="text" name="professional_tax" id="professional_tax" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">TDS</label>
+				        <input type="text" name="tds" id="tds" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Advance</label>
+				        <input type="text" name="advance" id="advance" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Leave Deductions</label>
+				        <input type="text" name="leave_deduct" id="leave_deduct" class="form-control" style="width: 220px;" required="True"/>
+				    </div>
+				    <div class="form-group pb-2 d-flex align-items-center">
+				        <label for="name" class="mr-2" style="width: 400px;">Total Deductions</label>
+				        <input type="text" name="deduct_total" id="deduct_total" class="form-control" style="width: 220px;"/>
+				        <!-- <input type="text" name="deduct_total" id="deduct_total" class="form-control" style="width: 220px;" required="True"/> -->
+				    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-6">
+                <div class="form-group pb-2">
+                    <label for="name">Net Pay</label>
+                    <input type="text" name="net_pay" id="net_pay" class="form-control"/>
+                    <!-- <input type="text" name="net_pay" id="net_pay" class="form-control" required="True"/> -->
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button class="btn btn-primary btn-lg">Submit Payslip</button>
+            </div>
+        </form>
+    </t>
+</template>
+
+
+</odoo>

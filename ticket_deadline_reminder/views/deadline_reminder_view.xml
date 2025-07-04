@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+  <data>
+      <record model="ir.ui.view" id="ticket_deadline_reminder_form">
+          <field name="name">ProjectTaskRemainder</field>
+          <field name="model">helpdesk.ticket</field>
+          <field name="inherit_id" ref="helpdesk_mgmt.ticket_view_form"/>
+          <field name="arch" type="xml">
+                <field name="channel_id" position="after">
+                    <field name="task_reminder"/>
+                </field>
+          </field>
+      </record>
+  </data>
+</odoo>

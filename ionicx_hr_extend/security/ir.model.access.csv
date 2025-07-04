@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ionicx_hr_extend.access_hr_complaint_type,access_hr_complaint_type,ionicx_hr_extend.model_hr_complaint_type,base.group_user,1,1,1,1
+ionicx_hr_extend.access_hr_employee_complaint,access_hr_employee_complaint,ionicx_hr_extend.model_hr_employee_complaint,base.group_user,1,1,1,1
+ionicx_hr_extend.access_service_request_wizard,access_service_request_wizard,ionicx_hr_extend.model_service_request_wizard,base.group_user,1,1,1,1
+ionicx_hr_extend.access_project_profitability,access_project_profitability,ionicx_hr_extend.model_project_profitability,base.group_user,1,1,1,1
+ionicx_hr_extend.access_project_expenses,access_project_expenses,ionicx_hr_extend.model_project_expenses,base.group_user,1,1,1,1

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="customer_enquiry_tree_view" model="ir.ui.view">
+			<field name="name">customer.enquiry.tree</field>
+			<field name="model">customer.enquiry</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="email"/>
+					<field name="phone"/>
+					<field name="product_id"/>
+					<field name="quantity"/>
+					<field name="unit_price"/>
+					<field name="expected_pur_date"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="customer_enquiry_form_view" model="ir.ui.view">
+			<field name="name">customer.enquiry.form</field>
+			<field name="model">customer.enquiry</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<group>
+							<group>
+								<field name="name"/>
+								<field name="email"/>
+								<field name="phone"/>
+								<field name="product_id"/>
+							</group>
+							<group>
+								<field name="quantity"/>
+								<field name="unit_price"/>
+								<field name="expected_pur_date"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="customer_enquiry_action_view" model="ir.actions.act_window">
+			<field name="name">Customer Enquiry</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">customer.enquiry</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<menuitem id="customer_enquiry_menu" name="Customer Enquiry"/>
+		<menuitem id="customer_enquiry" name="Customer Enquiry" parent="customer_enquiry_menu" action="customer_enquiry_action_view" sequence="1"/>
+
+		<template id="portal_customer_enquiry_menu" name="Customer Enquiry" inherit_id="portal.portal_my_home" customize_show="True">
+			<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+				<t t-call="portal.portal_docs_entry">
+					<t t-set="url">/customer/enquiry</t>
+					<t t-set="title">Customer Enquiry</t>
+					<t t-set="placeholder_count" t-value="'customer_enquiry_count'" />
+				</t>
+				<form method="POST" t-attf-action="/new/customer/enquiry">
+					<input
+						type="hidden"
+						name="csrf_token"
+						t-att-value="request.csrf_token()"/>
+					<button
+						name="create_new_customer_enquiry"
+						type="action"
+						class="btn btn-primary"
+						style="float: right; margin-right: 0px; margin-bottom: 5px;">Customer Enquiry</button>
+				</form>
+			</xpath>
+		</template>
+
+		<template id="portal_customer_enquiry" name="Customer Enquiry">
+			<t t-call="portal.portal_layout">
+				<t t-set="breadcrumbs_searchbar" t-value="True" />
+
+				<t t-call="portal.portal_searchbar">
+					<t t-set="title">Customer Enquiry</t>
+				</t>
+
+				<form method="POST" t-attf-action="/new/customer/enquiry">
+					<button
+						name="create_new_customer_enquiry"
+						type="action"
+						class="btn btn-primary"
+						style="float: right; margin-right: 0px; margin-bottom: 5px;">New Customer Enquiry</button>
+					<input
+						type="hidden"
+						name="csrf_token"
+						t-att-value="request.csrf_token()"/>
+				</form>
+
+				<t>
+					<div class="alert alert-warning mt8" role="alert">
+						<p>No Customer Enquiry found.</p>
+					</div>
+				</t>
+				<t t-call="interview_task.portal_customer_enquiry_list_view" />
+			</t>
+		</template>
+
+		<!-- <template id="portal_my_customer_enquiry" name="Customer Enquiry" customize_show="True" inherit_id="portal.portal_my_home" priority="20">
+	        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+	            <t t-call="portal.portal_docs_entry">
+	                <t t-set="title">Customer Enquiry</t>
+	                <t t-set="url">/my/customer/enquiry</t>>
+	                <t t-set="placeholder_count" t-value="'customer_enquiry_count'"/>
+	            </t>
+	        </xpath>
+	    </template> -->
+
+	    <template id="portal_customer_enquiry_list_view" name="Customer Enquiry">
+			<t t-call="portal.portal_layout">
+				<t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+		        <t t-call="portal.portal_searchbar">
+		            <t t-set="title">Customer Enquiry</t>
+		        </t>
+				<t t-call="portal.portal_table">
+					<thead>
+						<tr class="active">
+							<!-- <th class="text-center">Name</th> -->
+							<th class="text-left">Name</th>
+							<th class="text-right">Email</th>
+							<th class="text-right">Product</th>
+							<th class="text-right">Unit Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<t t-foreach="payslips" t-as="payslip">
+							<tr>
+								<!-- <td class="text-center">
+										<span t-esc="payslip.name" />
+									</a>
+								</td> -->
+								<td>
+									<!-- <a t-attf-href="/my/payslip/#{payslip.id}">
+										<span t-field="payslip.employee_id.name" />
+									</a> -->
+								</td>
+								<td>
+									<!-- <span t-field="payslip.emp_id" /> -->
+								</td>
+								<td>
+									<!-- <span t-field="payslip.months" /> -->
+									<!-- <span t-field="payslip.year" /> -->
+								</td>
+								<td>
+									<!-- <span t-field="payslip.designation" /> -->
+								</td>
+							</tr>
+						</t>
+					</tbody>
+				</t>
+			</t>
+		</template>
+
+
+		<template id="portal_create_payslip" name="Create Payslip">
+    <t t-call="portal.portal_layout">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">Create a new payslip</h1>
+                </div>
+            </div>
+        </div>
+        <form action="/submitted/payslip" method="POST" class="form-horizontal mt-32" enctype="multipart/form-data">
+            <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+            <div class="row">
+			    <div class="col-md-6">
+			        <div class="form-group pb-2">
+			            <label for="name">Designation</label>
+			            <input type="text" name="designation" id="designation" class="form-control" required="True"/>
+			        </div>
+			    </div>
+			    <div class="col-md-6">
+			        <div class="form-group pb-2">
+			            <label for="name">Employee ID</label>
+			            <input type="text" name="emp_id" id="emp_id" class="form-control" required="True"/>
+			        </div>
+			    </div>
+			</div>
+            <div class="form-group text-center">
+                <button class="btn btn-primary btn-lg">Submit Payslip</button>
+            </div>
+        </form>
+    </t>
+</template>
+
+	
+	</data>
+</odoo>

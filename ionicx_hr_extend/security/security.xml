@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        
+        <!-- Employe Complaint Category -->
+        <record id="module_category_complaint_section" model="ir.module.category">
+            <field name="name">Service Request</field>
+            <field name="sequence">17</field>
+        </record>
+
+        <!-- Employee Complaint User Group -->
+        <record id="complaint_master_user" model="res.groups">
+            <field name="name">Officer : Own or department requests only</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_category_complaint_section" />
+        </record>
+
+        <!-- Employee Complaint Manager Group -->
+        <record id="complaint_master_manager" model="res.groups">
+            <field name="name">Administrator: All Requests</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_category_complaint_section" />
+        </record>
+
+        <!-- Employee Complaint Assign User Group As Default -->
+        <record id="base.default_user" model="res.users">
+            <field name="groups_id" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+        
+        <!-- Assign To All Admin -->
+        <record id="base.group_system" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_manager'))]"/>
+        </record>
+
+        <!-- Employe Complaint Category -->
+        <record id="module_approver_department_section" model="ir.module.category">
+            <field name="name">Approver Department(Service Request)</field>
+            <field name="sequence">20</field>
+        </record>
+
+        <!-- HR Department Group -->
+        <record id="hr_department" model="res.groups">
+            <field name="name">HR Department</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_approver_department_section" />
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- IT Department Group -->
+        <record id="it_department" model="res.groups">
+            <field name="name">IT Department</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_approver_department_section" />
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- Ticketing Department Group -->
+        <record id="ticketing_department" model="res.groups">
+            <field name="name">Ticketing Department</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_approver_department_section" />
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- Finance Department -->
+        <record id="finance_department" model="res.groups">
+            <field name="name">Finance Department</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_approver_department_section" />
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- Recruitment Department -->
+        <record id="recruitment_department" model="res.groups">
+            <field name="name">Recruitment Department</field>
+            <field name="category_id" ref="ionicx_hr_extend.module_approver_department_section" />
+            <field name="implied_ids" eval="[(4, ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- Manager Rule To Sell All Complaaints -->
+        <record id="all_service_request_rule_manager" model="ir.rule">
+            <field name="name">All Service Request</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">[(1,'=',1)]</field>
+            <field name="groups" eval="[(4, ref('ionicx_hr_extend.complaint_master_manager'))]"/>
+        </record>
+
+        <!-- User Rule To See Own Complaints Only -->
+        <record id="rule_user_complaint_master_no_department" model="ir.rule">
+            <field name="name">User Own Service Request Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.complaint_master_user'))]"/>
+        </record>
+
+        <!-- HR Department Rule -->
+        <record id="rule_user_complaint_master_hr_department" model="ir.rule">
+            <field name="name">User Own Service Request And HR Department Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|',('employee_id.user_id', '=', user.id), ('approver_department', '=', 'hr_department')]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.hr_department'))]"/>
+        </record>
+
+        <!-- IT Department Rule -->
+        <record id="rule_user_complaint_master_it_department" model="ir.rule">
+            <field name="name">User Own Service Request And IT Department Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('approver_department', '=', 'team_department')]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.it_department'))]"/>
+        </record>
+
+        <!-- Ticket Department Rule -->
+        <record id="rule_user_complaint_master_ticket_department" model="ir.rule">
+            <field name="name">User Own Service Request And Ticketing Department Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('approver_department', '=', 'ticketing_department')]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.ticketing_department'))]"/>
+        </record>
+
+        <!-- Finance Department Rule -->
+        <record id="rule_user_complaint_master_finance_department" model="ir.rule">
+            <field name="name">User Own Service Request And Finance Department Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('approver_department', '=', 'finance_department')]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.finance_department'))]"/>
+        </record>
+
+        <!-- Recruitment Department Rule -->
+        <record id="rule_user_complaint_master_recruitment_department" model="ir.rule">
+            <field name="name">User Own Service Request And Recruitment Department Only</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|', ('employee_id.user_id', '=', user.id), ('approver_department', '=', 'recruitment_department')]</field>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+            <field name="groups" eval="[(4,ref('ionicx_hr_extend.recruitment_department'))]"/>
+        </record>
+
+        <!-- Filter Record Company wise -->
+        <record id="account_move_comp_rule" model="ir.rule">
+            <field name="name">Service Request</field>
+            <field name="model_id" ref="model_hr_employee_complaint"/>
+            <field name="domain_force">['|',('company_id','=',False),('company_id', 'in', company_ids)]</field>
+        </record>
+
+        <!-- Access Rights for Timsheee, Get All Timesheet for that user set as project manager -->
+
+        <record id="group_hr_timesheet_set_as_project_manager" model="res.groups">
+            <field name="name"> All timesheets: Set As Followers Too</field>
+            <field name="category_id" ref="base.module_category_services_timesheets"/>
+            <field name="implied_ids" eval="[(4, ref('hr_timesheet.group_hr_timesheet_approver'))]"/>
+        </record>
+
+        <record id="timesheet_analysis_report_approver_by_project_manager" model="ir.rule">
+            <field name="name">Timesheets Analysis Report approve by Project Manager</field>
+            <field name="model_id" ref="analytic.model_account_analytic_line" />
+            <field name="domain_force">[('project_id.user_id', '=', user.id)]</field>
+            <field name="domain_force">[
+                ('project_id', '!=', False),
+                '|',
+                    ('project_id.privacy_visibility', '!=', 'followers'),
+                    ('project_id.message_partner_ids', 'in', [user.partner_id.id])
+            ]</field>
+            <field name="groups" eval="[(4, ref('ionicx_hr_extend.group_hr_timesheet_set_as_project_manager'))]" />
+        </record>
+
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_timesheet'), ('name', '=', 'timesheet_line_rule_approver')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+        <record id="hr_timesheet.timesheet_line_rule_approver" model="ir.rule">
+            <field name="name">account.analytic.line.timesheet.approver.by.project.manager</field>
+            <field name="model_id" ref="analytic.model_account_analytic_line" />
+            <field name="domain_force">[
+                ('project_id.user_id', '=', user.id),
+                '&amp;',
+                ('employee_id.user_id', '!=', user.id),
+                '|',
+                ('project_id.privacy_visibility', '!=', 'followers'),
+                ('project_id.message_partner_ids', 'in', [user.partner_id.id])
+            ]</field>
+           <!--  <field name="domain_force">[
+                ('project_id', '!=', False),
+                '|',
+                    ('project_id.privacy_visibility', '!=', 'followers'),
+                    ('project_id.message_partner_ids', 'in', [user.partner_id.id])
+            ]</field> -->
+            <field name="groups" eval="[(4, ref('hr_timesheet.group_hr_timesheet_approver'))]" />
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="False"/>
+            <field name="perm_create" eval="True"/>
+            <field name="perm_unlink" eval="True"/>
+        </record>
+
+        <function name="write" model="ir.model.data">
+            <function name="search" model="ir.model.data">
+                <value eval="[('module', '=', 'hr_timesheet'), ('name', '=', 'timesheet_line_rule_approver')]"/>
+            </function>
+            <value eval="{'noupdate': False}"/>
+        </function>
+
+
+    </data>
+</odoo>

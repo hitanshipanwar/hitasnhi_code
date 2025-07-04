@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<template id="report_project_profitability">
+		    <t t-call="web.html_container">
+	            <t t-call="web.external_layout">
+	                <div class="page">
+	                    <div class="content">
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th class="text-center" style="width: 170px; text-align: left;" scope="col">Project</th>
+										<th class="text-center" style="width: 59px; text-align: right;" scope="col">Planned Date</th>
+										<th class="text-center" style="width: 81px; text-align: right;" scope="col">Deadline</th>
+										<th class="text-center" style="width: 92px; text-align: right;" scope="col">% Work Complete</th>
+										<th class="text-center" style="width: 74px; text-align: right;" scope="col">Planned Cost</th>
+										<th class="text-center" style="width: 108px; text-align: right;" scope="col">Actual Cost</th>
+										<th class="text-center" style="width: 70px; text-align: right;" scope="col">Planned Revenue</th>
+									</tr>
+								</thead>
+								<tbody>
+									<t t-foreach="docs" t-as="o">
+										<tr>
+											<td class="text-center" style="width: 170px; text-align: left;"><span t-esc="o.name"/></td>
+											<td class="text-center" style="width: 59px; text-align: right;"><span t-esc="o.date_start"/></td>
+											<td class="text-center" style="width: 81px; text-align: right;"><span t-esc="o.date"/></td>
+											<td class="text-center" style="width: 92px; text-align: right;"><span t-esc="'%.2f'%(o.progress)"/>%</td>
+											<td class="text-center" style="width: 74px; text-align: right;"><span t-esc="'%.2f'%(o.gross_margin)"/></td>
+											<td class="text-center" style="width: 108px; text-align: right;"><span t-esc="'%.2f'%(o.time_cost)"/></td>
+											<td class="text-center" style="width: 70px; text-align: right;"><span t-esc="'%.2f'%(o.gross_margin - o.time_cost)"/></td>
+										</tr>
+									</t>
+								</tbody>
+							</table>
+	                    </div>
+	                </div>
+	            </t>
+		    </t>
+		</template>
+
+
+		<record id="action_project_profitability_report" model="ir.actions.report">
+            <field name="name">Project Profitability (PDF)</field>
+            <field name="model">project.project</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="groups_id" eval="[(4, ref('base.group_system'))]"/>
+            <field name="report_name">ionicx_hr_extend.report_project_profitability</field>
+            <field name="report_file">ionicx_hr_extend.report_project_profitability</field>
+            <field name="print_report_name">'Project Profitability'</field>
+            <field name="binding_model_id" ref="project.model_project_project"/>
+            <field name="binding_type">report</field>
+        </record>
+	</data>
+</odoo>

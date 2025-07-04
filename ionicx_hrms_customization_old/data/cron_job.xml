@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="ir_cron_timesheet_daily" model="ir.cron">
+            <field name="name">Timesheet Reminder: For Daily Update</field>
+            <field name="model_id" ref="model_account_analytic_line"/>
+            <field name="type">ir.action.server</field>
+            <field name="state">code</field>
+            <field name="code">model.send_timesheets()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_timesheet_daily" model="ir.cron">
+            <field name="name">Timesheet Reminder: For Daily Update</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="type">ir.action.server</field>
+            <field name="state">code</field>
+            <field name="code">model.check_employee_timesheet()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=19, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+        </record>
+    </data>
+</odoo>
+
+
+
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <!-- CRON - Timesheet Reminder -->
+        <record id="ir_cron_timesheet_daily" model="ir.cron">
+            <field name="name">Timesheet Reminder: For Daily Update</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="type">ir.action.server</field>
+            <field name="state">code</field>
+            <field name="code">model.check_employee_timesheet()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=13, minute=30) + timedelta(days=0)).strftime('%Y-%m-%d %H:%M:%S')" />
+            <!-- <field name="nextcall" eval="(DateTime.now().replace(hour=19, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" /> -->
+        </record>
+
+        <!-- Cron Monthly Leave Record -->
+
+        <record model="ir.cron" id="ir_cron_leave_record_monthly">
+            <field name="name">Leave Record: For Monthly Update</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.check_employee_leave()</field>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(day=1, months=1)).strftime('%Y-%m-%d 04:00:00')" />
+        </record>
+
+        <!-- <record id="ir_cron_leave_record_monthly" model="ir.cron">
+            <field name="name">Leave Record: For Monthly Update</field>
+            <field name="model_id" ref="hr.model_hr_leave"/>
+            <field name="type">ir.action.server</field>
+            <field name="state">code</field>
+            <field name="code">model.check_employee_leave()</field>
+            <field name="active" eval="True"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(day=1, months=1)).strftime('%Y-%m-%d 04:00:00')" />
+            <field name="nextcall" eval="(DateTime.now().replace(hour=19, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')" />
+        </record> -->
+
+
+    </data>
+</odoo>
+
+
+
+        <!-- CRON- LEAVE RECORD -->
+        <!-- <record model="ir.cron" id="ir_cron_leave_record_monthly">
+            <field name="name">Leave Record: For Monthly Update</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="state">code</field>
+            <field name="code">model.check_employee_leave()</field>
+            <field name="nextcall" eval="(DateTime.now() + relativedelta(day=3, months=1)).strftime('%Y-%m-%d 04:00:00')" />
+        </record> -->
+
+        
+<!-- <table style="border-collapse: collapse; width: 100%; height: 160px;" border="1">
+<tbody>
+<tr style="height: 160px;">
+<td style="width: 30%; height: 160px;">&nbsp;</td>
+<td style="width: 70%; height: 160px;">
+<p style="font-weight: bold; font-size: 22px; padding-left: 5px; margin-top: -40px; text-align: center;">IONICX IT SOLUTIONS</p>
+<p style="font-weight: bold; font-size: 18px; padding-left: 5px;">Office Address:-</p>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 45px;" border="1">
+<tbody>
+<tr style="height: 27px;">
+<td style="width: 100%; height: 27px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 75px;" border="1">
+<tbody>
+<tr style="height: 21px;">
+<td style="width: 50%; height: 21px; font-weight: bold; font-size: 14px; padding-left: 5px;">Employee Name:</td>
+<td style="width: 50%; height: 21px; font-weight: bold; font-size: 14px; padding-left: 5px;">Designation:</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">Date of Joining:</td>
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">No of Days in the Month:</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">Bank Name :</td>
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">Working Days :</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">PAN No:</td>
+<td style="width: 50%; height: 18px; font-weight: bold; font-size: 14px; padding-left: 5px;">Account Number:</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 18px;" border="1">
+<tbody>
+<tr style="height: 18px;">
+<td style="width: 100%; height: 18px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 33px;" border="1">
+<tbody>
+<tr style="height: 33px;">
+<td style="width: 50%; height: 33px; font-weight: bold; font-size: 14px; padding-left: 5px; text-align: center;">Earnings</td>
+<td style="width: 50%; height: 33px; font-weight: bold; font-size: 14px; padding-left: 5px; text-align: center;">Deductions</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 140px;" border="1">
+<tbody>
+<tr style="height: 27px;">
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 27px;">Components</td>
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 27px;">Amount (Rs.)</td>
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 27px;">Common Deductions</td>
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 27px;">Amount (Rs.)</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 25%; height: 18px;">Basic &amp; DA</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">Provident Fund</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 25%; height: 18px;">HRA</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">E.S.I</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 25%; height: 18px;">Conveyance</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">Loan</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">Professional Tax</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+</tr>
+<tr style="height: 18px;">
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+<td style="width: 25%; height: 18px;">TSD/IT</td>
+<td style="width: 25%; height: 18px;">&nbsp;</td>
+</tr>
+<tr style="height: 23px;">
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 23px;">Gross Earning (A)</td>
+<td style="width: 25%; height: 23px;">&nbsp;</td>
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 23px;">Total Deductions (B)</td>
+<td style="width: 25%; height: 23px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 30px;" border="1">
+<tbody>
+<tr style="height: 30px;">
+<td style="width: 25%; font-weight: bold; font-size: 14px; padding-left: 5px; height: 30px;">Total Pay</td>
+<td style="width: 25%; height: 30px;">&nbsp;</td>
+<td style="width: 50%; height: 30px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 27px;" border="1">
+<tbody>
+<tr style="height: 27px;">
+<td style="width: 100%; height: 27px;">
+<p style="font-weight: bold; font-size: 14px; padding-left: 5px;">Note:</p>
+</td>
+</tr>
+</tbody>
+</table> -->

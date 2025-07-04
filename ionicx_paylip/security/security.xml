@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+     <record id="module_payslip" model="ir.module.category">
+          <field name="name">Payslip Access</field>
+          <field name="sequence">17</field>
+     </record>
+
+     <!-- Payslip User Group -->
+     <record id="payslip_user" model="res.groups">
+          <field name="name">Officer : Own Payslips only</field>
+          <field name="category_id" ref="ionicx_paylip.module_payslip" />
+     </record>
+
+     <!-- Payslip Manager Group -->
+     <record id="payslip_manager" model="res.groups">
+          <field name="name">Administrator: All Payslips</field>
+          <field name="category_id" ref="ionicx_paylip.module_payslip" />
+     </record>
+     
+     <record id="payroll_rule_my_payslip_user" model="ir.rule">
+          <field name="name">Own Payslips Only</field>
+          <field name="model_id" ref="model_payslip_payslip"/>
+          <field name="domain_force">[('employee_id', '=', user.id)]</field>
+          <!-- <field name="domain_force">[('create_uid','=',user.id)]</field> -->
+          <field name="groups" eval="[(4, ref('ionicx_paylip.payslip_user'))]"/>
+    </record>
+
+     <record id="payroll_rule_my_payslip_manager" model="ir.rule">
+          <field name="name">All Payslips</field>
+          <field name="model_id" ref="model_payslip_payslip"/>
+          <field name="domain_force">[(1,'=',1)]</field>
+          <field name="groups" eval="[(4, ref('ionicx_paylip.payslip_manager'))]"/>
+     </record>
+
+</odoo>

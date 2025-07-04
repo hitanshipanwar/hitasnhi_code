@@ -1,0 +1,424 @@
+Type of models, controllers and deep questioning:
+
+	Abstract model: Does not save/record any data and does not create any table in our DB
+	we are using this for reporting.
+
+	Models : can save and create record in DB
+
+	transient: in transient model data will be deleted periodically, use for wizard creation in which we no need to store data permanently
+
+	Json controller - handles json requests.
+	Http controller - handles http requests and responses.
+
+	1. HTTP Controllers: These controllers are used to handle HTTP requests and responses. HTTP controllers can be used ""to create custom web pages"", handle form submissions, and provide RESTful web services. HTTP controllers are defined as Python classes that inherit from the "odoo.http.Controller" class.
+
+	2. Report Controllers: These controllers are used"" to generate ""reports in various formats, ""such as PDF, Excel, or CSV "". Report controllers are defined as Python classes that inherit from the "odoo.report.report_controller" class.
+
+==============================================================================================
+
+All ORM Methods with functionality and diff search and browse method
+
+	create : will create new record set/is used to create a new record in the database
+		Returns: A new record created with the specified values.
+	write: will update one or more than one record set
+		Returns: True if the write operation is successful.
+	copy:  used to create new record based on existing record set
+	unlink:  to delete record from db
+		Returns: True if the record deletion is successful.
+	default_get : get default value for specific given fields
+	name_create: create record with name field
+	name_get: to display in fileds
+	name_search: used to search by other field
+	exists():
+		Returns: True if there are records in the recordset, False otherwise.
+
+	search(): This method is used to search for records based on specified criteria. It returns a list of record ids matching the search criteria.
+
+	browse(): This method is used to retrieve records from the database based on their IDs. It returns a recordset that represents the matched records.
+
+	filtered:  filtered will return the recordsets that match the criteri(simplify the code by avoiding unwanted loop conditions)lambda
+
+	mappped:applies the provided function to each record in the recordset, returns a recordset if the results are recordsets
+
+
+
+=============================================================================================
+
+Constrants and Decorators in ODOO:
+	Constrants : name field (that alreasdy exist)field names on which the checks will be performed .@constrains only support field names, not dotted fields(related fields, Eg:partner_id.city).
+
+
+	Computed fields are dynamic fields whose value is calculated based on the values of other fields.
+	They are defined using the @api.depends decorator.
+	Creating a New Module in Odoo:
+
+	decorators: Decorators allow you to change the behavior of a method
+
+				api.onchange: onchange method will be triggered while we change the value of any of the fields specified with the onchange decorator from the form view
+				api.depends: The depends decorator is used to specify the compute dependencies for a computing method.
+				api.depends_context: The depends_context decorator is used with non-stored “compute” methods to specify the context dependencies for the methods. The arguments passed will be the key in the context's dictionary and the dependencies must be hashable.
+				api.autovacuum: method decorator will be invoked by the daily vacuum cron job defined with the model ir.autovacuum.
+				api.model: where self is a record set
+				api.model_create_multi :  methods that create multiple records from a single dictionary or a list of dictionaries.
+				api.returns :  	used with the methods that return instances of the model.
+				api.ondelete: method which is to be called on unlinking the records
+
+				@api.one is used when the method operates on a single record.
+				@api.multi is used when the method can handle multiple records.
+				@api.model is used for methods that don't require records.
+
+
+				super() is used to call a method in a parent class.
+				It is commonly used in overridden methods to extend or customize behavior.
+
+===========================================================================================
+
+Postgres basic query knowledge and asked how to change user password using query:
+
+	Postgres basic query :
+		psql db_name
+		update res_users set password='a';
+		delete from ir_mail_server;
+		select from res_users where id=2;
+		select login,id from res_users where id=2;
+		update ir_config_parameter set value='2025-12-01 09:18:17' where key='database.expiration_date';
+		Select  *  from res_users ; 
+
+		python3.8 ./odoo-bin --addons-path=./addons,./data --xmlrpc-port=2828 -d db_name -u module_name
+
+==========================================================================================
+
+Diff. types of actions and explain all actions:
+
+	Types of Actions
+
+		Server Action(ir.actions.server): work on the base model
+
+		Client Action(ir.actions.client): Client actions are used to trigger actions that are fully implemented on the client.
+
+		Automated Action( ir.cron): Automated action is triggered automatically on a predefined frequency.
+
+		URL Action(ir.actions.act_url):The URL action is used to allow opening a website or webpage(URL) via an Odoo action. It can be customized via two fields, the first one is URL, and the other one is the target.
+
+		Report Action( ir.actions.report): Report actions used to trigger the printing of a report. 
+
+		Window Action(ir.actions.act_window): trigger different views of the model. (used to visualize the model in different types of views.)
+
+============================================================================================
+
+onchange and depands mai diff?
+
+	api.depends decorator will trigger if any of the fields specified in the decorator is changed and saved from form view. Whereas api.onchange decorator will trigger if any of the fields specified in the decorator is changed in the form before you save, it will trigger.
+
+=========================================================================================
+
+
+Inventory Adjustment:
+
+	situations where certain adjustments should be made in the inventory based on the physical stocks available in your company.
+	. You can update the quantity of this product by clicking on the Update Quantity button
+
+==========================================================================================
+
+diff lot and serial number:
+
+
+	Manufacturers assign a lot number to a group of products that have a common property. There is a one-to-many relationship, as multiple goods can have the same lot ID. A serial number is for an individual item.These have a one-to-one relationship — each product owns a unique set of serial number.
+
+===========================================================================================
+
+diff. inherit and inherits:
+
+	Inheritance allows extending or modifying existing models.
+
+	inherit mai features/methods use kar skte hai new table mai
+
+	inherits mai features/methods + data bhi use kar skte hai new table mai
+
+	product.product is inherits from product.template
+
+============================================================================================
+
+website snippet how to create:
+
+	static:
+		Create a template view for the snippet.
+		Register the snippet as static(xpath)
+
+	dynamic:
+		To create a dynamic snippet, you need to create an XML file to define the view, a Python controller to fetch data from the Odoo backend, and a Javascript file to display the content from the backend on your website. 
+	
+=========================================================================================
+
+odoo code standard:
+
+	1. controllers: contains the HTTP routes (python files).
+	2. data: Contains the model data (XML file).
+	3. demo: Contains the demo data for the module (load if only the ‘load demo data’ is checked ).
+	4. doc: Contains the module documentation. 
+	5. I18n: Contains the Translations.
+	6. models: All model definitions and its functions. (python files)
+	7. report: All report related files (both xml and py files.)
+	8. security: contains files which define the permission for the users (csv file) and record rules.
+	9. static: contains the web assets for the module,also contains subfolders description,css/, js/, img/, lib/, …
+	10. tests: contains the Python tests files.
+	11. views: contains the views and template definitions.
+	12. wizard: wizard related and their views.
+	14. __init__.py: To import the python directories (models, controllers, reports, ..,)
+	15. __manifest__.py: Core file of a module.
+	 __manifest__.py file contains metadata about the module, such as the module name, version, dependencies, and other information.
+
+==========================================================================================
+
+python and postgres sql constrant how use:
+	
+	1. PRIMARY Key Constraint: Each row/record in a database table is uniquely identified by the primary key field
+
+	2. FOREIGN KEY constraint: the foreign key is a field (or set of fields) in one table that refers to the PRIMARY KEY in a different table. The child table is the one with the foreign key, while the referred or parent table is the one with the primary key.
+
+	3. UNIQUE Constraint ensures that every value in a column is unique.
+
+	4. CHECK Constraint: The CHECK constraint guarantees that all values in a column meet particular criteria.
+
+======================================================================================
+
+python list and tuple diff and various methods:
+	list mutuable tuple immutable
+	count() Method.
+	index() Method.
+	len() Method.
+	sorted() Method.
+	min() and max() Methods.
+	tuple() Function.
+
+	List:
+	append()
+	extend()
+	insert()
+	pop()
+	delete()
+	sort()
+	min()
+	max()
+	len()
+
+=======================================================================================
+
+Odoo uses access rights, groups, and record rules for security.
+Access rights define read, write, create, and delete permissions.
+Groups categorize users, and record rules filter records based on specific conditions.
+
+Access Rights: Apply at the model level.
+Record Rules: Apply at the record level.
+
+Actions define user interactions, such as opening a form or a list view.
+Menus organize actions into a hierarchy.
+
+import pdb
+pdb.set trace()
+
+client_max_body_size
+
+self.env.cr.commit()
+
+Widgets control the ""presentation and behavior"" of fields in views. Custom widgets can be created for specific requirements, such as creating a custom date picker or color selector.
+
+Domain filters in Odoo models define restrictions on records that should be displayed or used in certain contexts.
+They are specified using a domain expression, which is a list of conditions.
+
+
+=====================================================================================
+
+accounting report : partner ladger, general ledger, trial balance, profit loss explain
+
+	Partner Ledger:
+
+	Purpose:
+	The Partner Ledger is a detailed report that provides a comprehensive overview of financial transactions related to a specific partner, which can be a customer or a supplier.
+
+	Information Included:
+		Invoices issued or received from the partner.
+		Payments made or received from the partner.
+		Outstanding balances.
+
+	--------------------------------
+
+	General Ledger:
+
+	Purpose:
+		The General Ledger is a comprehensive summary of all financial transactions within an organization, organized by accounts.
+
+		Information Included:
+			Debits and credits for each account.
+			Opening balances at the beginning of a specified period.
+			Closing balances at the end of the period.
+			Detailed transaction history for each account.
+
+	------------------------------------
+
+	Trial Balance:
+
+	Purpose:
+		The Trial Balance is a snapshot of a company's financial balances at a specific point in time. It is used to ensure that the accounting equation (Assets = Liabilities + Equity) is balanced.
+
+	Information Included:
+		Debit and credit balances for all accounts.
+		The total of debits should equal the total of credits.
+
+	--------------------------------------
+
+	Profit and Loss (Income Statement):
+
+	Purpose:
+		The Profit and Loss (P&L) or Income Statement provides an overview of a company's financial performance over a specific period, typically a month, quarter, or year.
+
+	Information Included:
+		Revenues or sales.
+		Cost of Goods Sold (COGS) if applicable.
+		Operating expenses (e.g., salaries, rent, utilities).
+		Gross profit, operating profit, and net profit or loss.
+
+	------------------------------------------
+
+	Key Concepts:
+
+	Debits and Credits:
+
+	In accounting, each transaction involves at least two accounts, and for each account, there are debits and credits. Debits increase asset and expense accounts but decrease liability, income, and equity accounts. Credits have the opposite effect.
+
+	---------------------------------
+
+	Balancing Equation:
+
+	The accounting equation must always be in balance: Assets = Liabilities + Equity. This ensures that resources are accounted for accurately.
+
+	------------------------------
+
+	Accrual Basis vs. Cash Basis:
+
+	Financial reports, including the Profit and Loss statement, are typically prepared using either the accrual basis (recognizing revenue and expenses when incurred) or the cash basis (recognizing revenue and expenses when cash is received or paid).
+
+	-----------------------------
+
+	Gross Profit vs. Net Profit:
+
+	Gross profit is the difference between revenue and the cost of goods sold, while net profit is the remaining amount after deducting all other expenses.
+
+	-----------------------------------------
+	
+	Understanding and regularly reviewing these reports are essential for businesses to make informed financial decisions, comply with accounting standards, and track their overall financial health.
+
+
+=======================================================================================
+
+give real examples of you which you have worked and implement
+
+
+========================================================================================
+
+Postman mai API call kaise karte hai
+
+https://www.youtube.com/watch?v=9TIlmjRnOO4
+
+======================================================================================
+
+Qweb report, Excel report and wizard knowledge
+
+file = fields.Binary('File')
+
+def print_xlsx_report(self):
+		file_name = _('Project Profitability Report.xlsx')
+		# Creates a BytesIO object to store the Excel file in memory.
+		fp = BytesIO()
+
+		workbook = xlsxwriter.Workbook(fp)
+		date_format = workbook.add_format({'num_format': 'mm/dd/yyyy'})
+		header_text_format = workbook.add_format({'font_size': 12, 'align':'center','bold':True,'valign':'vcenter','bg_color':'#d0cece'})
+		value_format = workbook.add_format({'font_size': 13, 'align':'left','valign':'vcenter'})
+		value_format_1 = workbook.add_format({'font_size': 13, 'align':'right','valign':'vcenter'})
+		number_value_format = workbook.add_format({'font_size': 13, 'align':'right', 'valign':'vcenter','num_format': '#,###0.00'})
+
+		worksheet = workbook.add_worksheet('Project Profitability Report')
+		worksheet.set_column('A:A', 30)
+		worksheet.set_column('B:B', 32)
+		worksheet.set_column('C:F', 20)
+		worksheet.set_column('G:G', 22)
+
+		row = 0
+
+		worksheet.write(row,0,'Project Name',header_text_format)
+		worksheet.write(row,1,'Planned Date',header_text_format)
+		worksheet.write(row,2,'Deadline',header_text_format)
+		worksheet.write(row,3,'% Work Complete',header_text_format)
+		worksheet.write(row,4,'Planned Cost',header_text_format)
+		worksheet.write(row,5,'Actual Cost',header_text_format)
+		worksheet.write(row,6,'Planned Revenue',header_text_format)
+
+		row+=1
+
+		all_projects = []
+		if self.project_ids:
+			for project in self.project_ids:
+				all_projects.append(project)
+		else:
+			project_id = self.env['project.project'].search([])
+			for project in project_id:
+				all_projects.append(project)
+
+		for project in all_projects:
+			worksheet.write(row,0,project.name or '',value_format)
+			worksheet.write(row,1,project.date_start or 0.0,date_format)
+			worksheet.write(row,2,project.date or 0.0, date_format)
+			worksheet.write(row,3,str(project.progress)+'%' or 0.0, number_value_format)
+			worksheet.write(row,4,project.gross_margin or 0.0,number_value_format)
+			worksheet.write(row,5,project.time_cost or 0.0,number_value_format)
+			worksheet.write(row,6,project.gross_margin - project.time_cost or 0.0,number_value_format)
+			row+=1
+
+		workbook.close()
+
+		#  Encodes the Excel file content into base64 for download.
+		file_download = base64.b64encode(fp.getvalue())
+		# Closes the BytesIO object.
+		fp.close()
+
+		#  Stores the base64-encoded file content in the file attribute of the instance.
+		self.file = file_download
+
+		# Returns an action dictionary to trigger the download in the Odoo interface.
+		return {
+			'name': file_name,
+			'type': 'ir.actions.act_url',
+			'url': '/web/content/%s/%d/file/%s?download=false' % (self._name, self.id, file_name),
+		}
+		#  Specifies the action type (ir.actions.act_url).
+		#  Constructs the URL for downloading the file using Odoo's web content endpoint.
+
+PDF:
+	<record id="action_service_request_report" model="ir.actions.report">
+            <field name="name">Service Request(PDF)</field>
+            <field name="model">hr.employee.complaint</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">ionicx_hr_extend.report_service_request</field>
+            <field name="report_file">ionicx_hr_extend.report_service_request</field>
+            <field name="print_report_name">'Service Request'</field>
+            <field name="binding_model_id" ref="ionicx_hr_extend.model_hr_employee_complaint"/>
+            <field name="binding_type">report</field>
+        </record>
+
+
+
+Update System Packages 
+: Install Dependencies(pip3, psql)
+Create PostgreSQL User and Database
+ Install Wkhtmltopdf
+  Install Odoo(sudo pip3 install odoo16)
+  Configure Odoo
+  Start Odoo Service
+   Access Odoo
+
+
+odoo is vast
+ i need to learn and grow more
+ i will give you part time
+ i will not support you for full time

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="hr_emplohyee_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.form.view</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr.view_employee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='hr_settings']" position="after">
+                	<page string="Employee Service Request" name="employee_complaint">
+                		<field name="employee_complaint_ids">
+                			<tree delete="0" create="0" edit="0">
+                				<field name="name"/>
+                				<field name="complaint_type"/>
+                				<!-- <field name="has_effect_on_work_efficiency"/> -->
+                				<!-- <field name="has_financial_effect"/> -->
+                				<field name="state"/>
+                			</tree>
+                		</field>
+                	</page>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group/field[@name='passport_id']" position="after">
+                    <field name="passport_expire"/>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group/field[@name='country_of_birth']" position="after">
+                    <field name="passport_attachment_id" widget="many2many_binary"  colspan="2"/>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group/group[3]" position="replace"/>
+                <xpath expr="//page[@name='personal_information']/group/group[2]" position="after">
+                    <group string="Education">
+                        <field name="certificate"/>
+                        <field name="study_field"/>
+                        <field name="study_school"/>
+                        <separator name="has_work_permit" string="Work Permit"/>
+                        <field name="visa_no"/>
+                        <field name="visa_expire"/>
+                        <field name="permit_no"/>
+                        <field name="work_permit_expiration_date"/>
+                        <field name="has_work_permit" widget="work_permit_upload"/>
+                        <field name="visa_attachment_id" widget="many2many_binary" colspan="2"/>
+                    </group>
+                </xpath>
+                <xpath expr="//page[@name='personal_information']/group" position="after">
+                    <group>
+                        <group string="Emirates Id">
+                            <field name="pcc_status"/>
+                            <field name="emirates_id"/>
+                            <field name="emirates_expire"/>
+                            <field name="emirates_attachment_id" widget="many2many_binary" colspan="2"/>
+                        </group>
+                        <group string="Insurance Id">
+                            <field name="insurance_id"/>
+                            <field name="insurance_expire"/>
+                            <field name="insurance_attachment_id" widget="many2many_binary" colspan="2"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="hr_emplohyee_public_form_view" model="ir.ui.view">
+            <field name="name">hr.employee.public.form.view</field>
+            <field name="model">hr.employee.public</field>
+            <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='public']" position="after">
+                    <page string="Employee Service Request" name="employee_complaint">
+                        <field name="employee_complaint_ids">
+                            <tree delete="0" create="0" edit="0">
+                                <field name="name"/>
+                                <field name="complaint_type"/>
+                                <!-- <field name="has_effect_on_work_efficiency"/> -->
+                                <!-- <field name="has_financial_effect"/> -->
+                                <field name="state"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page string="Private Information" name="personal_information">
+                        <group>
+                            <field name="pcc_status" invisible="1"/>
+                            <field name="emirates_id" invisible="1"/>
+                            <field name="emirates_expire" invisible="1"/>
+                            <field name="emirates_attachment_id" widget="many2many_binary" colspan="2" invisible="1"/>
+                            <field name="insurance_id" invisible="1"/>
+                            <field name="insurance_expire" invisible="1"/>
+                            <field name="insurance_attachment_id" widget="many2many_binary" colspan="2" invisible="1"/>
+                            <field name="visa_attachment_id" widget="many2many_binary" colspan="2" invisible="1"/>
+                            <field name="passport_expire" invisible="1"/>
+                            <field name="passport_attachment_id" widget="many2many_binary"  colspan="2" invisible="1"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+       <!--  <menuitem
+            id="hr.menu_hr_root"
+            name="Employees"
+            web_icon="hr,static/description/icon.svg"
+            groups="group_hr_manager,group_hr_user,base.group_user"
+            sequence="185"/> -->
+
+        <menuitem
+            id="hr.menu_hr_employee"
+            name="Directory"
+            action="hr.hr_employee_public_action"
+            parent="hr.menu_hr_root"
+            groups="hr.group_hr_manager,hr.group_hr_user"
+            sequence="4"/>
+
+        <menuitem
+            id="hr.menu_hr_root"
+            name="Employee Request"
+            web_icon="hr,static/description/icon.svg"
+            groups="hr.group_hr_manager,hr.group_hr_user"
+            sequence="185"/>
+            
+	</data>
+</odoo>

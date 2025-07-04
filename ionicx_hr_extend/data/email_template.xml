@@ -1,0 +1,195 @@
+<odoo>
+    <data>
+        <!-- Email Template For Service Request Resolution -->
+        <record id="service_request_email_template" model="mail.template">
+            <field name="name">Service Request Resolution</field>
+            <field name="model_id" ref="ionicx_hr_extend.model_hr_employee_complaint"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Pending Service Request Resolution</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Hello <t t-out="object.approver_department_label"/>,</p>
+            <p>I hope this message finds you well. I wanted to bring to your attention that a service request for "<t t-out="object.name"/>" has been submitted by "<t t-out="object.employee_id.name"/>" , and it is still not resolved.</p>
+            <p>We understand the importance of timely responses to service requests and kindly request your prompt action on this matter. The candidate's request should be resolved within the next 24 hours to ensure a positive experience.</p>
+            <p>Your swift attention to this issue is greatly appreciated. </p>
+            <p>Thank you for your cooperation.</p>
+            
+            <br/><br/>
+            <p>Thanks & Regards,</p>
+            <p>Team! PMO</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <!-- Email Template For Visa Expire -->
+
+        <record id="reminder_visa_expire_to_department" model="mail.template">
+            <field name="name">Visa Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Important: Expiry Notification - Candidate's Visa</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear Team, </p>
+            <p>I hope this message finds you well. We wanted to bring to your attention that the visa of "<t t-out="object.name"/>" is set to expire on "<t t-out="object.visa_expire"/>". It's crucial that we address this matter promptly.</p>
+            <p> Kindly review the details and ensure that the necessary actions are taken to renew or update the required documentation. Your prompt attention to this issue is greatly appreciated.</p>
+            <p>If you have any questions or require further information, please do not hesitate to reach out to "<t t-out="object.name"/>" for guidance and support.</p>
+            <p>Thank you for your cooperation in this matter.</p>
+            <br/><br/>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <record id="reminder_visa_expire_to_candidate" model="mail.template">
+            <field name="name">Visa Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Urgent: Visa Expiry Notice</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear <t t-out="object.name"/>, </p>
+            <p>I hope this email finds you well. We wanted to inform you that your visa is set to expire on "<t t-out="object.visa_expire"/>". To ensure a smooth renewal process, we kindly request that you contact our HR department at your earliest convenience.</p>
+            <p>Our HR team will guide you through the necessary steps and documentation required for the renewal process. It's essential that we address this promptly to avoid any disruptions.</p>
+            <p>Please reach out to our HR department by contacting this number: "7034618550".</p>
+            <p>Your cooperation in this matter is greatly appreciated, and we're here to assist you through the renewal process.</p>
+            <p>Thank you for your prompt attention to this important matter.</p>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <!-- Email Template for Passport Expire -->
+
+        <record id="reminder_passport_expire_to_department" model="mail.template">
+            <field name="name">Passport Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Important: Expiry Notification - Candidate's Passport</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear Team, </p>
+            <p>I hope this message finds you well. We wanted to bring to your attention that the Passport of "<t t-out="object.name"/>" is set to expire on "<t t-out="object.passport_expire"/>". It's crucial that we address this matter promptly.</p>
+            <p> Kindly review the details and ensure that the necessary actions are taken to renew or update the required documentation. Your prompt attention to this issue is greatly appreciated.</p>
+            <p>If you have any questions or require further information, please do not hesitate to reach out to "<t t-out="object.name"/>" for guidance and support.</p>
+            <p>Thank you for your cooperation in this matter.</p>
+            <br/><br/>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <record id="reminder_passport_expire_to_candidate" model="mail.template">
+            <field name="name">Passport Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Urgent: Passport Expiry Notice</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear <t t-out="object.name"/>, </p>
+            <p>I hope this email finds you well. We wanted to inform you that your Passport is set to expire on "<t t-out="object.passport_expire"/>". To ensure a smooth renewal process, we kindly request that you contact our HR department at your earliest convenience.</p>
+            <p>Our HR team will guide you through the necessary steps and documentation required for the renewal process. It's essential that we address this promptly to avoid any disruptions.</p>
+            <p>Please reach out to our HR department by contacting this number: "7034618550".</p>
+            <p>Your cooperation in this matter is greatly appreciated, and we're here to assist you through the renewal process.</p>
+            <p>Thank you for your prompt attention to this important matter.</p>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <!-- Email Template for Emirates Expire -->
+
+        <record id="reminder_emirates_expire_to_department" model="mail.template">
+            <field name="name">Emirates Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Important: Expiry Notification - Candidate's Emirates</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear Team, </p>
+            <p>I hope this message finds you well. We wanted to bring to your attention that the Emirates ID of "<t t-out="object.name"/>" is set to expire on "<t t-out="object.emirates_expire"/>". It's crucial that we address this matter promptly.</p>
+            <p> Kindly review the details and ensure that the necessary actions are taken to renew or update the required documentation. Your prompt attention to this issue is greatly appreciated.</p>
+            <p>If you have any questions or require further information, please do not hesitate to reach out to "<t t-out="object.name"/>" for guidance and support.</p>
+            <p>Thank you for your cooperation in this matter.</p>
+            <br/><br/>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <record id="reminder_emirates_expire_to_candidate" model="mail.template">
+            <field name="name">Emirates Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Urgent: Emirates Expiry Notice</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear <t t-out="object.name"/>, </p>
+            <p>I hope this email finds you well. We wanted to inform you that your Emirates ID is set to expire on "<t t-out="object.emirates_expire"/>". To ensure a smooth renewal process, we kindly request that you contact our HR department at your earliest convenience.</p>
+            <p>Our HR team will guide you through the necessary steps and documentation required for the renewal process. It's essential that we address this promptly to avoid any disruptions.</p>
+            <p>Please reach out to our HR department by contacting this number: "7034618550".</p>
+            <p>Your cooperation in this matter is greatly appreciated, and we're here to assist you through the renewal process.</p>
+            <p>Thank you for your prompt attention to this important matter.</p>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <!-- Email Template for Insurance Expire -->
+
+        <record id="reminder_insurance_expire_to_department" model="mail.template">
+            <field name="name">Insurance Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Important: Expiry Notification - Candidate's Insurance</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear Team, </p>
+            <p>I hope this message finds you well. We wanted to bring to your attention that the Insurance of "<t t-out="object.name"/>" is set to expire on "<t t-out="object.insurance_expire"/>". It's crucial that we address this matter promptly.</p>
+            <p> Kindly review the details and ensure that the necessary actions are taken to renew or update the required documentation. Your prompt attention to this issue is greatly appreciated.</p>
+            <p>If you have any questions or require further information, please do not hesitate to reach out to "<t t-out="object.name"/>" for guidance and support.</p>
+            <p>Thank you for your cooperation in this matter.</p>
+            <br/><br/>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <record id="reminder_insurance_expire_to_candidate" model="mail.template">
+            <field name="name">Insurance Expiry Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Urgent: Insurance Expiry Notice</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear <t t-out="object.name"/>, </p>
+            <p>I hope this email finds you well. We wanted to inform you that your Insurance is set to expire on "<t t-out="object.insurance_expire"/>". To ensure a smooth renewal process, we kindly request that you contact our HR department at your earliest convenience.</p>
+            <p>Our HR team will guide you through the necessary steps and documentation required for the renewal process. It's essential that we address this promptly to avoid any disruptions.</p>
+            <p>Please reach out to our HR department by contacting this number: "7034618550".</p>
+            <p>Your cooperation in this matter is greatly appreciated, and we're here to assist you through the renewal process.</p>
+            <p>Thank you for your prompt attention to this important matter.</p>
+            <p>Best Regards,</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+       
+    </data>
+</odoo>

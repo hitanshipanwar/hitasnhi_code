@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding='UTF-8' ?>
+<odoo noupdate="1">
+    <!-- <record model="ir.cron" id="contract_cron_alert">
+        <field name="name">Generate Helpdesk SLA alerts from cron</field>
+        <field name="model_id" ref="model_helpdesk_sla" />
+        <field name="state">code</field>
+        <field name="code">model.check_sla()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <field name="numbercall">-1</field>
+        <field eval="False" name="doall" />
+    </record>
+ -->
+    <record id="contract_cron_alert" model="ir.cron">
+        <field name="name">Generate Helpdesk SLA alerts from cron</field>
+        <field name="interval_number">5</field>
+        <field name="interval_type">minutes</field>
+        <!-- <field name="nextcall" eval="(DateTime.now().replace(hour=14, minute=30, second=0) + timedelta(days=0)).strftime('%Y-%m-%d %H:%M:%S')"/> -->
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="model_helpdesk_sla"/>
+        <field name="state">code</field>
+        <field name="code">model.check_sla()</field>
+        <field name="active" eval="True"/>
+    </record>
+
+    <record id="availability_create_cron" model="ir.cron">
+        <field name="name">Ticket Deadline Reminder</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="nextcall" eval="(DateTime.now().replace(hour=4, minute=30, second=0) + timedelta(days=0)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="numbercall">-1</field>
+        <field name="model_id" ref="helpdesk_mgmt_sla.model_helpdesk_ticket"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_deadline_reminder()</field>
+        <field name="user_id" ref="base.user_root" />
+        <field name="active" eval="True"/>
+        <!-- <field name="doall" eval="False"/> -->
+    </record>
+</odoo>

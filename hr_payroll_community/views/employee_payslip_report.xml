@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="employee_report_payslipdetails">
+        <t t-call="web.html_container">
+            <div class="header" />
+            <t t-call="web.external_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <table style="border-collapse: collapse; width: 100%; height: 50px; border-top: 1px solid; border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid;" border="0">
+                            <tbody>
+                                <tr style="height: 50px;">
+                                    <td style="width: 30%; height: 50px;">
+                                        <t t-if="o.employee_id.company_id.name == 'Cognicx IT Solutions'">
+                                            <img style="height:100px;width:190px;margin-top:5px; margin-bottom:-40px; margin-left:10px;" src='/hr_payroll_community/static/img/ionicx.png'></img>
+                                        </t>
+                                        <t t-elif="o.employee_id.company_id.name == 'WEBQNEX Technologies FZCO'">
+                                            <img style="height:110px;width:185px;margin-top:5px; margin-left:10px; margin-bottom:-60px;" src='/hr_payroll_community/static/img/webQnex_logo.png'></img>
+                                        </t>
+                                        <t t-else="">
+                                        </t>
+                                    </td>
+                                    <td style="width: 70%; height: 50px; border-left: 1px solid; padding-bottom:5px;">
+                                        <p style="font-weight: bold; font-size: 22px; padding-left: 5px;text-align: center; ">
+                                            <t t-if="o.employee_id">
+                                                <t t-if="o.employee_id.company_id.name == 'Cognicx IT Solutions'">
+                                                    <h4 style="padding-left: 5px;text-align: center; margin-top: -28px;"><strong>Ionicx IT solutions</strong></h4>
+                                                </t>
+                                                <t t-elif="o.employee_id.company_id.name == 'WEBQNEX Technologies FZCO'">
+                                                    <t t-esc="o.employee_id.company_id.name"/>
+                                                </t>
+                                                <t t-else="">
+                                                </t>
+                                            </t>
+                                        </p>
+                                        <p style="padding-left:10px; padding-top:2px;"><strong style="font-weight: bold; font-size: 22px;">Office Address: </strong>
+                                        <t t-esc=" o.employee_id.company_id.street"/>,
+                                            <t t-esc="o.employee_id.company_id.street2"/>,
+                                            <t t-esc="o.employee_id.company_id.city"/><br/>
+                                            <t t-esc="o.employee_id.company_id.zip"/>,
+                                            <t t-esc="o.employee_id.company_id.state_id.name"/>,
+                                            <t t-esc="o.employee_id.company_id.country_id.name"/>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100%; border-top: 0px; height: 80px; border-left: 1px solid; border-right: 1px solid;" border="0">
+                            <tbody>
+                                <tr style="height: 40px; border-bottom: 1px solid; text-align:center;">
+                                    <td style="width: 100%; height: 33px; margin-top: 10px; padding-top: 10px;">
+                                        <strong>
+                                            Salary Slip For
+                                            <t t-esc="o.date_from.strftime('%B')" />
+                                            -
+                                            <t t-esc="o.date_from.strftime('%Y')" />
+                                        </strong>
+                                    </td>
+                                </tr>
+                                <tr style="height: 40px;">
+                                    <td style="width: 100%; height: 28px;" />
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100.047%; border-top: 0px; height: 140px; border-top: 1px solid; border-bottom: 1px solid; border-left: 1px solid; border-right: 1px solid;" border="0">
+                            <tbody>
+                                <tr style="height: 35px; border-bottom: 1px solid;">
+                                    <td style="width: 50%; height: 29px; font-size: 18px; padding-left: 5px;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>Employee Name:</strong>
+                                        <t t-esc="o.employee_id.name" />
+                                    </td>
+                                    <td style="width: 52.2352%; height: 29px; font-size: 18px; padding-left: 5px;border-left: 1px solid;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>Designation:</strong>
+                                        <t t-esc="o.employee_id.job_id.name" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px; border-bottom: 1px solid;">
+                                    <td style="width: 50%; height: 29px; font-size: 18px; padding-left: 5px;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>Date of Joining:</strong>
+                                        <t t-esc="o.date_from" />
+                                    </td>
+                                    <td style="width: 52.2352%; height: 29px; font-size: 18px; padding-left: 5px;border-left: 1px solid;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>No of Working Days in the Month:</strong>
+                                        <t t-esc="get_leaves_deduct_amt(o)[2]" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px; border-bottom: 1px solid;">
+                                    <td style="width: 50%; height: 29px; font-size: 18px; padding-left: 5px;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>Bank Name :</strong>
+                                        <t t-esc="o.bank_name" />
+                                    </td>
+                                    <td style="width: 52.2352%; height: 29px; font-size: 18px; padding-left: 5px;border-left: 1px solid;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>Working Days :</strong>
+                                        <t t-esc="get_leaves_deduct_amt(o)[1]" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 35px; border-bottom: 1px solid;">
+                                    <td style="width: 50%; height: 29px; font-size: 18px; padding-left: 5px;  margin-top: 10px; padding-top: 10px;">
+                                        <strong>PAN No:</strong>
+                                        <t t-esc="o.pan_no" />
+                                    </td>
+                                    <td style="width: 52.2352%; height: 29px; font-size: 18px; padding-left: 5px;border-left: 1px solid;  margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <strong>Account Number:</strong>
+                                        <t t-esc="o.account_no" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100%; border-top: 0px; border-bottom: 0px; height: 30px;" border="0">
+                            <tbody>
+                                <tr style="height: 30px; border-left: 1px solid; border-right: 1px solid; border-bottom:0px;">
+                                    <td style="width: 100%; height: 30px;" />
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-set="total_earning" t-value="0.0" />
+                        <t t-set="total_deduction" t-value="0.0" />
+                        <table style="border-collapse: collapse; width: 100.048%; height: 179px; border: 1px solid;" border="0">
+                            <tbody>
+                                <tr style="height: 30px; border-left: 1px solid; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; font-weight: bold; padding-left: 5px; height: 30px; text-align:bottom; margin-top: 10px; padding-top: 10px; font-size:18px;">Earnings</td>
+                                    <td style="width: 11.5701%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid;text-align:bottom;margin-top: 10px; padding-top: 10px; font-size:18px; ">Scale</td>
+                                    <td style="width: 10.1233%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid; text-align:bottom;margin-top: 10px; padding-top: 10px; font-size:18px;">Amount</td>
+                                    <td style="width: 25.9128%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid; text-align:bottom;margin-top: 10px; padding-top: 10px; font-size:18px;">Deductions</td>
+                                    <td style="width: 10.4078%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid; text-align:bottom;margin-top: 10px; padding-top: 10px; font-size:18px;">Scale</td>
+                                    <td style="width: 13.9335%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid; text-align:bottom;margin-top: 10px; padding-top: 10px; font-size:18px;">Amount</td>
+                                </tr>
+                                <tr style="height: 25px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 25px; margin-top: 10px; padding-top: 10px; font-size:18px;">Basic Salary</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'BASIC'))" />
+                                    </td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'BASIC'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'BASIC') + total_earning" />
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">Employer Contribution to Provident Fund</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'DEPF'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'DEPF'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'DEPF') + total_deduction" />
+                                </tr>
+                                <tr style="height: 25px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 25px; margin-top: 10px; padding-top: 10px; font-size:18px;">HRA</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'HRA'))" />
+                                    </td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'HRA'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'HRA') + total_earning" />
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">Employee Contribution to Provident Fund</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'DEPF'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'DEPF'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'DEPF') + total_deduction" />
+                                </tr>
+                                <tr style="height: 20px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 20px; margin-top: 10px; padding-top: 10px; font-size:18px;">Conveyance</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'CONV'))" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 20px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'CONV'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'CONV') + total_earning" />
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 20px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">ESI</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 20px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'ESI'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 20px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'ESI'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'ESI') + total_deduction" />
+                                </tr>
+                                <tr style="height: 18px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px;">Medical</td>
+                                    <td style="width: 11.5701%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'Medical'))" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'Medical'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'Medical') + total_earning" />
+                                    <td style="width: 25.9128%; padding-left: 5px; border-left: 1px solid; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px;">Professional Tax</td>
+                                    <td style="width: 10.4078%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'PT'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'PT'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'PT') + total_deduction" />
+                                </tr>
+                                <tr style="height: 18px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">Special Allowance</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 21px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'SA'))" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 21px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'SA'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'SA') + total_earning" />
+                                    <td style="width: 25.9128%; padding-left: 5px; border-left: 1px solid; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">TDS</td>
+                                    <td style="width: 10.4078%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'TDS'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'TDS'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'TDS') + total_deduction" />
+                                </tr>
+                                <tr style="height: 18px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">Employer Contribution to Provident Fund</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 21px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'EEPF'))" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 21px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'EEPF'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'EEPF') + total_earning" />
+                                    <td style="width: 25.9128%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">Advance</td>
+                                    <td style="width: 10.4078%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'ADV'))" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'ADV'))" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_amount_percentage_base(o,'ADV') + total_deduction" />
+                                </tr>
+                                <tr style="height: 18px; border-bottom: 1px solid;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:18px; ">Others</td>
+                                    <td style="width: 11.5701%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'Other'))" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_amount_percentage_base(o,'Other'))" />
+                                    </td>
+                                    <t t-set="total_earning" t-value="get_amount_percentage_base(o,'Other') + total_earning" />
+                                    <td style="width: 25.9128%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">Leave Deductions</td>
+                                    <td style="width: 10.4078%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_leaves_deduct_amt(o)[0])" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(get_leaves_deduct_amt(o)[0])" />
+                                    </td>
+                                    <t t-set="total_deduction" t-value="get_leaves_deduct_amt(o)[0] + total_deduction" />
+                                </tr>
+                                <tr style="height: 30px;">
+                                    <td style="width: 26.0307%; font-weight: bold; padding-left: 5px; height: 22px; margin-top: 10px; padding-top: 10px; font-size:18px;">Total</td>
+                                    <td style="width: 11.5701%; height: 22px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <span t-esc="'{0:,.2f}'.format(total_earning)" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 22px; border-left: 1px solid; padding-left: 5px; ">
+                                        <span t-esc="'{0:,.2f}'.format(total_earning)" />
+                                    </td>
+                                    <td style="width: 25.9128%; font-weight: bold; border-left: 1px solid; padding-left: 5px; height: 22px;margin-top: 10px; padding-top: 10px; font-size:18px; ">Total</td>
+                                    <td style="width: 10.4078%; height: 22px; border-left: 1px solid; padding-left: 5px; ">
+                                        <span t-esc="'{0:,.2f}'.format(total_deduction)" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 22px; border-left: 1px solid; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:18px; ">
+                                        <span t-esc="'{0:,.2f}'.format(total_deduction)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100.048%; border-left: 1px solid; border-bottom: 1px solid; border-right: 1px solid;" border="0">
+                            <tbody>
+                                <t t-set="net_pay" t-value="0"/>
+                                <t t-set="net_pay" t-value="net_pay + (total_earning - total_deduction)"/>
+                                <tr style="border-top:0px; border-bottom:0px;">
+                                    <td style="width: 26.18%%; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:18px;">
+                                        <strong>Net Pay</strong>
+                                    </td>
+                                    <td style="width: 11.6%; border-left: 1px solid; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:18px; font-weight: bold;">
+                                        <span t-esc="'{0:,.2f}'.format(total_earning - total_deduction)" />
+                                    </td>
+                                    <td style="width: 62.45%; border-left: 1px solid; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:18px; font-weight: bold;"><t t-esc="o.currency_id.amount_to_text(net_pay)"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100.048%; border-top: 0px; height: 27px; border-left: 1px solid; border-right: 1px solid; border-bottom: 1px solid;" border="0">
+                            <tbody>
+                                <tr style="height: 27px;">
+                                    <td style="width: 100.048%; height: 27px;">
+                                        <p style="font-weight: bold; font-size: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:18px;">Note:</p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+                <div class="footer" />
+            </t>
+        </t>
+    </template>
+    <record id="employee_payslip_details_report" model="ir.actions.report">
+        <field name="name">Employee Payslip</field>
+        <field name="model">hr.payslip</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="binding_model_id" ref="model_hr_payslip" />
+        <field name="report_name">hr_payroll_community.employee_report_payslipdetails</field>
+        <field name="report_file">hr_payroll_community.employee_report_payslipdetails</field>
+        <field name="print_report_name">('Payslip Details - %s' % (object.employee_id.name))</field>
+    </record>
+</odoo>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- Candidate Profile Tree View -->
+
+		<record id="view_candidate_profile_tree" model="ir.ui.view">
+			<field name="name">Candidate ProfileTree</field>
+			<field name="model">candidate.profile</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="father_name" optional="hide"/>
+					<field name="email" optional="hide"/>
+					<field name="contact" optional="hide"/>
+					<field name="probationary_period" optional="hide"/>
+					<field name="employement_type" optional="hide"/>
+					<field name="hours" optional="hide"/>
+					<field name="joining_date"/>
+					<field name="job_description"/>
+					<field name="work_ex"/>
+					<field name="current_ctc"/>
+					<field name="expectation"/>
+					<field name="attachment_ids" optional="hide"/>
+					<field name="is_running" invisible="1"/>
+					<field name="is_closed" invisible="1"/>
+					<field name="company_id" invisible="1"/>
+					<field name="stage_id" widget="badge" decoration-success="is_closed == True"
+                    decoration-info="is_running == True"
+                    decoration-warning="is_running == False and is_closed == False"/>
+				</tree>
+			</field>
+		</record>
+
+		 <!-- Candidate Profile Form View -->
+
+		<record id="view_candidate_profile_form" model="ir.ui.view">
+			<field name="name">Candidate Profile Form</field>
+			<field name="model">candidate.profile</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<!-- <button string="Send email" name="send_email_to_candidate" type="object" class="oe_highlight"/> -->
+						<field
+							name="stage_id"
+							widget="statusbar"
+							options="{'clickable': '1'}"
+						/>
+					</header>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" string="Candidate Name"/>
+							<h1>
+								<div class="d-flex">
+									<field class="text-break" name="name" placeholder="e.g. Sophia"/>
+								</div>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="father_name"/>
+								<field name="job_description"/>
+								<field name="employement_type"/>
+								<label for="hours" string="Working Hrs"/>
+								<div>
+									<field name="hours" class="oe_inline"/>Hrs
+								</div>
+								<field name="work_ex"/>
+								<field name="current_ctc"/>
+								<field name="expectation"/>
+							</group>
+							<group>
+								<field name="contact"/>
+								<field name="email"/>
+								<field name="joining_date"/>
+								<label for="probationary_period" string="Probationay Period"/>
+								<div>
+									<field name="probationary_period" class="oe_inline"/>
+									-
+									<field name="day_month" class="oe_inline"/>
+								</div>
+								<field name="company_id" required="1"/>
+								<field name="attachment_ids" widget="many2many_binary" colspan="2"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Description">
+								<field name="description"/>
+							</page>
+						</notebook>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" options="{'post_refresh':True}" groups="base.group_user"/>
+						<field name="activity_ids"/>
+						<field name="message_ids"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		 <!-- Candidate Profile Action View -->
+
+		<record id="candidate_profile_action_view" model="ir.actions.act_window">
+			<field name="name">Candidate's Profile</field>
+			<field name="type">ir.actions.act_window</field>
+			<field name="res_model">candidate.profile</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- Serach Filter action -->
+
+		<record id='candidate_profil_search_view' model='ir.ui.view'>
+			<field name='name'>candidate.profil.search</field>
+			<field name='model'>candidate.profile</field>
+			<field name='arch' type='xml'>
+				<search string='Name'>
+					<field name="name" />
+					<field name="job_description" />
+					<field name="work_ex" />
+					<separator/>
+					<filter string='Work Experiance' name="work_ex" domain="[('work_ex','!=', False)]"/>
+					<group>
+						<filter string='Stage' name='stage_id'
+						 context="{'group_by':'stage_id'}"/>
+						<filter string='Name' name='name'
+							context="{'group_by':'name'}"/>
+						<filter string='Work Experiance' name='work_ex'
+						 context="{'group_by':'work_ex'}"/>
+						<filter string='Job Description' name='job_description'
+						 context="{'group_by':'job_description'}"/>
+					</group>
+				</search>
+			</field>        
+		</record>
+
+		<menuitem
+			id="menu_candidate_profile"
+			name="Candidates Profile"
+			web_icon="web_tech_candidate_profile,static/description/icon.png9"
+			/>
+
+			<menuitem
+				id="candidate_profile_child_menu"
+				name="Candidate Profile"
+				parent="menu_candidate_profile"
+				sequence="1"
+				action="candidate_profile_action_view"/>
+
+		
+	</data>
+</odoo>

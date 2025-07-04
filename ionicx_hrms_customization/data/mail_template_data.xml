@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <!-- Email Template -->
+        <record id="update_email_template" model="mail.template">
+            <field name="name">Update Timesheet Reminder</field>
+            <field name="model_id" ref="hr.model_hr_employee"/>
+            <field name="email_to">${object.work_email}</field>
+            <field name="subject">Employee Timesheet Reminder</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Dear <t t-out="object.name"/>,</p>
+            <p>Greetings! We are reaching out to kindly remind you about the importance of submitting your daily timesheet.</p>
+            <p>As you know, accurate and timely timesheet entries are essential for efficient project management, resource allocation, and overall operational effectiveness.</p>
+            <p>To submit your <span t-esc="datetime.datetime.now().strftime('%d-%m-%y')"></span> timesheet, please access
+             <a t-att-href="ctx['action_url']"
+                                                        style="background-color: #875A7B; padding: 10px 15px 10px 15px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;">
+                                                        Here
+                                                    </a> and enter your hours for the corresponding dates.</p>
+            <br/><br/>
+
+            <table class="table" width="100%" border="1">
+                <tr>
+                    <th>Date / Day</th>
+                    <th>Total effort logged</th>
+                    <th>Missing effort</th>
+                </tr>
+                <t t-foreach="ctx['missing_datas']" t-as="missing_data">
+                    <tr>
+                        <th><t t-out="missing_data['date']"/></th>
+                        <th><t t-out="missing_data['total_effort']"/> hrs</th>
+                        <th><t t-out="missing_data['missing_effort']"/> hrs</th>
+                    </tr>
+                </t>
+            </table>
+
+            <br/><br/>
+            <p>Thanks & Regards,</p>
+            <p>Team! PMO</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

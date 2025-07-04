@@ -1,0 +1,97 @@
+<odoo>
+    <data>
+        <!-- Email Template -->
+        <record id="update_project_email_template" model="mail.template">
+            <field name="name">Estimated Timesheet Reminder</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <!-- <field name="email_to">${object.work_email}</field> -->
+            <field name="subject">Estimated Timesheet Reminder</field>
+            <field name="body_html">
+                <![CDATA[
+            <p>Hello, Team Leader,</p>
+            <p>Greetings! We are reaching out to kindly remind you about the importance of maintaining accurate records for your project <t t-out="object.name"/>.</p>
+            <p>As you are aware, delivering projects on time is crucial for effective client management, resource allocation, and overall operational efficiency.</p>
+            
+            <table class="table" width="100%" border="1">
+                <tr>
+                    <th>Project Name</th>
+                    <th>Manager</th>
+                    <th>Planned Date</th>
+                    <th>Deadline</th>
+                    <th>Estimated Hours</th>
+                    <th>Actual Effort</th>
+                    <th>% Of work completed</th>
+                </tr>
+                <t t-set="project_name_displayed" t-value="False"/>
+                <t t-foreach="ctx['missing_datas']" t-as="missing_data">
+                    <tr>
+                        <t t-if="not project_name_displayed">
+                        <td><t t-out="missing_data['project_name']"/></td>
+                        <td><t t-out="missing_data['project_manager']"/></td>
+                        <td><t t-out="missing_data['project_date_start']"/></td>
+                        <td><t t-out="missing_data['project_date']"/></td>
+                        <td><t t-out="missing_data['project_allocated_hrs']"/></td>
+                        <td><t t-out="missing_data['project_total_hrs_spent']"/></td>
+                        <td><t t-out="missing_data['project_progress']"/>%</td>
+                        <t t-set="project_name_displayed" t-value="True"/>
+                        </t>
+                    </tr>
+                </t>
+                <tr>
+                    <th></th>
+                    <th>Task Name</th>
+                    <th>Planned Date</th>
+                    <th>Task Deadline</th>
+                    <th>Estimated Hours</th>
+                    <th>Actual Effort</th>
+                    <th>% Of work completed</th>
+                </tr>
+                <t t-set="project_name_displayed" t-value="False"/>
+                <t t-foreach="ctx['missing_datas']" t-as="missing_data">
+                    <tr>
+                        <td></td>
+                        <td><t t-out="missing_data['task_name']"/></td>
+                        <td><t t-out="missing_data['planned_date']"/></td>
+                        <td><t t-out="missing_data['task_deadline']"/></td>
+                        <td><t t-out="missing_data['estimated_time']"/></td>
+                        <td><t t-out="missing_data['acctual_hrs']"/></td>
+                        <td><t t-out="missing_data['progress']"/>%</td>
+                    </tr>
+                </t>
+            </table>
+
+            <br/><br/>
+            <p>Thanks & Regards,</p>
+            <p>Team! PMO</p>
+            <br/><br/>
+            <p>Note: This is auto generated E-mail. Please do not reply.</p>
+        ]]>
+            </field>
+        </record>
+
+        <record id="mail_template_project_exceed" model="mail.template">
+            <field name="name">Exceeded Timesheet to Allocated Hours</field>
+            <field name="model_id" ref="project.model_project_project"/>
+            <!-- <field name="email_to">${object.work_email}</field> -->
+            <field name="subject">Exceede Timesheet</field>
+            <field name="body_html">
+            <![CDATA[
+                <p>Dear <t t-out="ctx['missing_datas']['user']"/>,</p>
+                <p>This is a notification regarding the timesheet hours for the following:</p>
+                
+                <h3>Project/Task: <t t-out="ctx['missing_datas']['project_name']"/></h3>
+                <p>Total Recorded Hours: <t t-out="ctx['missing_datas']['total_hours']"/></p>
+            <p>Allocated Hours: <t t-out="ctx['missing_datas']['allocated_hours']"/></p>
+                
+                <p>
+                    The recorded hours have exceeded the allocated hours. 
+                    Please review the project and ensure corrective actions are taken.
+                </p>
+                
+                <p>Best Regards,<br/>
+                The Management Team</p>
+                ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

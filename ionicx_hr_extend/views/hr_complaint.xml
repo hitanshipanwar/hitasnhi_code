@@ -1,0 +1,572 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<!-- HR Service Request Tree, Form, Action view -->
+
+		<record id="search_hr_employee_complaint" model="ir.ui.view">
+	        <field name="name">hr.employee.complaint.search</field>
+	        <field name="model">hr.employee.complaint</field>
+	        <field name="arch" type="xml">
+	            <search>
+	            	<!-- <field
+	                    string="Request Name"
+	                    name="name"
+	                    filter_domain="[('name', 'ilike', self)]"
+	                /> -->
+	                <field name="employee_id"/>
+	                <field name="name"/>
+	                <filter
+	                    string="Employee"
+	                    name="employee_id"
+	                    domain="[('employee_id', 'ilike', self)]"
+	                />
+	                <filter
+	                    string="Name"
+	                    name="name"
+	                    domain="[('name', 'ilike', self)]"
+	                />
+	               <!--  <field name="name" filter_domain="[('name','ilike',self)]" />
+	                <filter
+	                    string="All Files"
+	                    name="all"
+	                    domain="['|',('active', '=',  False), ('active', '!=',  False)]"
+	                /> -->
+	            </search>
+	        </field>
+	    </record>
+
+		<record id="view_hr_employee_complaint_tree" model="ir.ui.view">
+			<field name="name">Service Request Tree</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<tree decoration-success="is_request_deadline == True and resolved_date"
+              	decoration-warning="is_request_deadline ==  False and resolved_date ">
+					<field name="active" invisible="1"/>
+					<field name="name" string="Request Name"/>
+					<field name="employee_id"/>
+					<field name="company_id" invisible="1"/>
+					<field name="approver_department" readonly="1"/>
+					<field name="req_approver_id" groups="base.group_erp_manager"/>
+					<field name="complaint_type" />
+					<field name="date"/>
+					<field name="is_request_deadline" invisible="1"/>
+					<field name="resolved_date"/>
+					<field name="hours_spent"/>
+					<field name="delay_req_reason" invisible="1"/>
+					<field name="to_be_resolved_date" optional="hide"/>
+					<field name="state" widget="badge" decoration-primary="state == 'send_request'" decoration-info="state == 'draft'" decoration-warning="state in ('cancel','pending')" decoration-success="state == 'resolved'"/>
+					<field name="issue" optional="hide"/>
+					<!-- <field name="has_effect_on_work_efficiency" optional="hide" /> -->
+					<!-- <field name="has_financial_effect" optional="hide"/> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_complaint_tree_approval" model="ir.ui.view">
+			<field name="name">Service Request Tree</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<tree decoration-success="is_request_deadline == True and resolved_date"
+              	decoration-warning="is_request_deadline ==  False and resolved_date ">
+					<field name="active" invisible="1"/>
+					<field name="name"/>
+					<field name="employee_id"/>
+					<field name="company_id" invisible="1"/>
+					<field name="approver_department" readonly="1"/>
+					<field name="req_approver_id" groups="base.group_erp_manager" />
+					<field name="complaint_type" />
+					<field name="date"/>
+					<field name="resolved_date" />
+					<field name="hours_spent" />
+					<field name="delay_req_reason" invisible="1"/>
+					<field name="to_be_resolved_date" optional="hide"/>
+					<field name="is_request_deadline" invisible="1"/>
+					<field name="state" widget="badge" decoration-primary="state == 'send_request'" decoration-info="state == 'draft'" decoration-warning="state in ('cancel','pending')" decoration-success="state == 'resolved'"/>
+					<field name="issue" optional="hide"/>
+					<!-- <field name="has_effect_on_work_efficiency" optional="hide"/> -->
+					<!-- <field name="has_financial_effect" optional="hide"/> -->
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_complaint_form_approval" model="ir.ui.view">
+			<field name="name">All Service Request Form</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button string="Draft" name="action_draft" states="cancel" type="object" class="oe_highlight"/>
+						<button string="Cancel" name="action_cancel" attrs="{'invisible': [('state', 'in', ['resolved','cancel', 'draft', 'send_request', 'approve', 'in_process'])]}" type="object" class="oe_highlight"/>
+						<button string="Send Service Request" name="action_send_request" states="draft" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['resolved','pending', 'send_request','rejected', 'approve', 'in_process'])]}"/>
+						<button string="Approve" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'approve', 'in_process'])]}"  groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="In Process" name="action_inprocess" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'rejected', 'send_request', 'in_process'])]}" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Resolved" name="action_resolve" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'send_request'])]}"  groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Rejected" name="action_rejected" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'cancel', 'rejected', 'resolved', 'send_request'])]}" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Back To Pending" name="action_pending" states="resolved" type="object" class="oe_highlight" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,send_request,approve,pending,resolved,rejected"/>
+					</header>
+					<sheet>
+						<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+						<div class="oe_title">
+							<label for="name" string="Request Name"/>
+							<h1>
+								<div class="d-flex">
+									<field class="text-break" name="name" placeholder="e.g. Need Payslip"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								</div>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="active" invisible="1"/>
+								<field name="is_user" invisible="1"/>
+								<field name="is_current_login_user" invisible="1"/>
+								<field name="company_id" invisible="1"/>
+								<field name="employee_id" attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('is_user', '=', True)]}"/>
+								<field name="complaint_type" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="approver_department" readonly="1"/>
+								<field name="issue" attrs="{'readonly': [('state', '!=', 'draft')]}" placeholder="January Month Payslip Needed"/>
+								<field name="job_position" attrs="{'invisible': [('approver_department', '!=', 'recruitment_department')]}"/>
+								<field name="work_ex" attrs="{'invisible': [('approver_department', '!=', 'recruitment_department')]}"/>
+								<field name="add_attachment_ids" widget="many2many_binary" colspan="2" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							</group>
+							<group>
+								<field name="req_approver_id" groups="base.group_erp_manager" />
+								<field name="date" readonly="1"/>
+								<field name="is_resolved_date" invisible="1"/>
+								<field name="resolved_date" readonly="1"/>
+								<field name="to_be_resolved_date" invisible="1"/>
+								<field name="hours_spent"/>
+								<field name="delay_req_reason" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							</group>
+							<notebook>
+								<page string="Other Information" name="other_info">
+									<group>
+										<group>
+											<field name="last_comment_by" readonly="1"/>
+											<field name="last_comment_date" readonly="1"/>
+										</group>
+									</group>
+								</page>
+							</notebook>
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_complaint_kanban" model="ir.ui.view">
+			<field name="name">Service Request kanban</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<kanban class="o_kanban_mobile" create="0" sample="1">
+					<field name="name"/>
+					<field name="employee_id"/>
+					<field name="complaint_type"/>
+					<field name="issue"/>
+					<field name="state"/>
+					<templates>
+						<t t-name="kanban-box">
+							<div t-attf-class="oe_kanban_card oe_kanban_global_click">
+								<div class="row">
+									<div class="col-6">
+										<strong><span><t t-esc="record.name.value"/></span></strong>
+									</div>
+									<div class="col-6 text-end">
+										<strong><t t-esc="record.employee_id.value"/></strong>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6 text-muted">
+										<span><t t-esc="record.complaint_type.value"/></span>
+									</div>
+									<div class="col-6">
+										<span class="float-end text-end">
+											<span><t t-esc="record.issue.value"/></span>
+										</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6 text-muted">
+										<span class="text-muted">Apply Date: </span>
+										<field name="date" widget="date"/>
+										<span class="text-muted">Resolve Date: </span>
+										<field name="resolved_date" widget="date"/>
+									</div>
+									<div class="col-6">
+									</div>
+								</div>
+								<div class="d-flex justify-content-end">
+									<div class="me-2 d-flex align-items-center" t-if="['resolved', 'pending'].includes(record.state)">
+										<span t-if="record.state === 'resolved'" class="fa fa-check text-muted me-1" aria-label="resolved"/>
+										<span t-else="" class="fa fa-ban text-muted me-1" aria-label="pending"/>
+										<t t-set="classname" t-value="{'resolved': 'text-bg-success', 'pending': 'text-bg-danger'}[record.state] || 'text-bg-light'"/>
+										<span t-attf-class="badge rounded-pill {{ classname }}"><t t-esc="record.state"/></span>
+									</div>
+									<div class="me-2 align-items-center">
+										<button name="action_resolve" type="object" class="btn btn-link btn-sm ps-0" attrs="{'invisible': [('state', 'in', ['resolved', 'rejected', 'pending'])]}">
+											<i class="fa fa-thumbs-up" /> Resolve
+										</button>
+										<button name="action_pending" type="object" class="btn btn-link btn-sm ps-0" attrs="{'invisible': [('state', 'in', ['pending', 'resolved', 'rejected'])]}">
+											<i class="fa fa-times"/> Pending
+										</button>
+										<button name="action_rejected" type="object" class="btn btn-link btn-sm ps-0" attrs="{'invisible': [('state', 'in', ['pending', 'resolved', 'rejected'])]}">
+											<i class="fa fa-times"/> Rejected
+										</button>
+									</div>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+
+		<record id="view_hr_employee_complaint_form" model="ir.ui.view">
+			<field name="name">Service Request Form</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<form>
+					<header>
+						<button string="Draft" name="action_draft" states="cancel" type="object" class="oe_highlight"/>
+						<button string="Cancel" name="action_cancel" attrs="{'invisible': [('state', 'in', ['resolved','cancel', 'draft', 'send_request', 'approve', 'in_process'])]}" type="object" class="oe_highlight"/>
+						<button string="Send Service Request" name="action_send_request" states="draft" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['resolved','pending', 'send_request', 'rejected', 'approve', 'in_process'])]}"/>
+						<button string="Approve" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'approve', 'in_process'])]}"  groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="In Process" name="action_inprocess" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'rejected', 'send_request', 'in_process'])]}" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Rejected" name="action_rejected" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'rejected', 'send_request'])]}" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Resolved" name="action_resolve" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'in', ['draft', 'resolved', 'cancel', 'send_request'])]}" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<button string="Back To Pending" name="action_pending" states="resolved" type="object" class="oe_highlight" groups="ionicx_hr_extend.complaint_master_manager"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,send_request,approve,pending,resolved,rejected"/>
+					</header>
+					<sheet>
+						<widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+						<div class="oe_title">
+							<label for="name" string="Request Name"/>
+							<h1>
+								<div class="d-flex">
+									<field class="text-break" name="name" placeholder="e.g. Need Payslip"  attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								</div>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="active" invisible="1"/>
+								<field name="is_user" invisible="1"/>
+								<field name="is_current_login_user" invisible="1"/>
+								<field name="company_id" invisible="1"/>
+								<field name="employee_id" attrs="{'readonly': ['|', ('state', '!=', 'draft'), ('is_user', '=', True)]}"/>
+								<field name="complaint_type" options="{'no_create': True, 'no_create_edit':True}" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="approver_department" readonly="1"/>
+								<field name="issue" attrs="{'readonly': [('state', '!=', 'draft')]}" placeholder="January Month Payslip Needed"/>
+								<field name="job_position" attrs="{'invisible': [('approver_department', '!=', 'recruitment_department')]}"/>
+								<field name="work_ex" attrs="{'invisible': [('approver_department', '!=', 'recruitment_department')]}"/>
+								<field name="add_attachment_ids" widget="many2many_binary" colspan="2" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<!-- <field name="has_effect_on_work_efficiency" attrs="{'readonly': [('state', '!=', 'draft')]}"/> -->
+							</group>
+							<group>
+								<field name="req_approver_id" groups="base.group_erp_manager" />
+								<field name="date" readonly="1"/>
+								<field name="is_resolved_date" invisible="1"/>
+								<field name="resolved_date" readonly="1"/>
+								<field name="to_be_resolved_date" invisible="1"/>
+								<field name="hours_spent"/>
+								<field name="delay_req_reason" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<!-- <field name="has_financial_effect" attrs="{'readonly': [('state', '!=', 'draft')]}"/> -->
+							</group>
+							<notebook>
+								<page string="Other Information" name="other_info">
+									<group>
+										<group>
+											<field name="last_comment_by" readonly="1"/>
+											<field name="last_comment_date" readonly="1"/>
+										</group>
+									</group>
+								</page>
+							</notebook>
+						</group>
+					</sheet>
+					<div class="oe_chatter">
+						<field name="message_follower_ids" widget="mail_followers"/>
+						<field name="activity_ids"/>
+						<field name="message_ids" widget="mail_thread"/>
+					</div>
+				</form>
+			</field>
+		</record>
+
+		<record id="view_my_hr_employee_complaint_kanban" model="ir.ui.view">
+			<field name="name">Service Request kanban</field>
+			<field name="model">hr.employee.complaint</field>
+			<field name="arch" type="xml">
+				<kanban class="o_kanban_mobile" create="0" sample="1">
+					<field name="name"/>
+					<field name="employee_id"/>
+					<field name="complaint_type"/>
+					<field name="issue"/>
+					<field name="state"/>
+					<field name="resolved_date"/>
+					<templates>
+						<t t-name="kanban-box">
+							<div t-attf-class="oe_kanban_card oe_kanban_global_click">
+								<div class="row">
+									<div class="col-6">
+										<strong><span><t t-esc="record.name.value"/></span></strong>
+									</div>
+									<div class="col-6 text-end">
+										<strong><t t-esc="record.employee_id.value"/></strong>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6 text-muted">
+										<span><t t-esc="record.complaint_type.value"/></span>
+									</div>
+									<div class="col-6">
+										<span class="float-end text-end">
+											<span><t t-esc="record.issue.value"/></span>
+										</span>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6 text-muted">
+										<span class="text-muted">Apply Date: </span>
+										<field name="date" widget="date"/>
+										<div t-if="is_request_deadline == false">
+											<span class="text-muted">Resolve Date: </span>
+						                    <span style="color: red; font-weight: bold;">
+						                        <field name="resolved_date" />
+						                    </span>
+						                </div>
+						                <div t-if="is_request_deadline == True">
+											<span class="text-muted">Resolve Date: </span>
+						                    <span style="color: green; font-weight: bold;">
+						                        <field name="resolved_date" />
+						                    </span>
+						                </div>
+									</div>
+									<div class="col-6">
+									</div>
+								</div>
+								<div class="d-flex justify-content-end">
+									<div class="me-2 d-flex align-items-center" t-if="['resolved', 'pending'].includes(record.state)">
+										<span t-if="record.state === 'resolved'" class="fa fa-check text-muted me-1" aria-label="resolved"/>
+										<span t-else="" class="fa fa-ban text-muted me-1" aria-label="pending"/>
+										<t t-set="classname" t-value="{'resolved': 'text-bg-success', 'pending': 'text-bg-danger'}[record.state] || 'text-bg-light'"/>
+										<span t-attf-class="badge rounded-pill {{ classname }}"><t t-esc="record.state"/></span>
+									</div>
+								</div>
+							</div>
+						</t>
+					</templates>
+				</kanban>
+			</field>
+		</record>
+
+		<record id="hr_employee_complaint_action_view" model="ir.actions.act_window">
+			<field name="name">My Service Request</field>
+			<field name="res_model">hr.employee.complaint</field>
+			<field name="domain">[('employee_id.user_id', '=', uid)]</field>
+			<field name="view_mode">kanban,tree,form</field>
+		</record>
+
+		<record id="action_view_tree_user" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="view_hr_employee_complaint_tree"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view"/>
+	    </record>
+
+	    <record id="action_view_form_user" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="view_hr_employee_complaint_form"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view"/>
+	    </record>
+
+		<record id="action_view_kanban_user" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">kanban</field>
+	        <field name="view_id" ref="view_my_hr_employee_complaint_kanban"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view"/>
+	    </record>
+
+	    <record id="hr_employee_complaint_action_view_approval" model="ir.actions.act_window">
+		    <field name="name">All Service Requests</field>
+		    <field name="res_model">hr.employee.complaint</field>
+		    <field name="view_mode">kanban,tree,form</field>
+		</record>
+
+		<record id="action_view_tree_manager_approval" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">tree</field>
+	        <field name="view_id" ref="view_hr_employee_complaint_tree_approval"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view_approval"/>
+	    </record>
+
+	    <record id="action_view_form_manager_approval" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">form</field>
+	        <field name="view_id" ref="view_hr_employee_complaint_form_approval"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view_approval"/>
+	    </record>
+
+	    <record id="action_view_kanban_manager_approval" model="ir.actions.act_window.view">
+	        <field name="sequence" eval="1"/>
+	        <field name="view_mode">kanban</field>
+	        <field name="view_id" ref="view_my_hr_employee_complaint_kanban"/>
+	        <field name="act_window_id" ref="hr_employee_complaint_action_view_approval"/>
+	    </record>
+			
+		<record model="ir.actions.act_window" id="employee_complaint_action_kanban">
+		    <field name="name">Service Request (Kanban)</field>
+		    <field name="res_model">hr.employee.complaint</field>
+		    <field name="view_mode">kanban</field>
+		    <field name="view_id" ref="view_hr_employee_complaint_kanban"/>
+		    <field name="help" type="html">
+		        <p class="o_view_nocontent_empty_folder">
+		            No activity yet
+		        </p>
+		    </field>
+		</record>
+
+		<!-- Service Request Search View -->
+
+		<record model="ir.ui.view" id="employee_complaint_extension_search_view">
+		    <field name="name">Service Request (Serach View)</field>
+		    <field name="model">hr.employee.complaint</field>
+		    <field name="arch" type="xml">
+		        <search string="Archive">
+		        	<field name="active"/>
+		        	<separator/>
+		        	<filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+		        </search>
+		    </field>
+		</record>
+
+
+		<!-- HR Complaint Type Tree, Form, Action view -->
+
+		<record id="view_hr_complaint_tree" model="ir.ui.view">
+			<field name="name">Service Request Type Tree</field>
+			<field name="model">hr.complaint.type</field>
+			<field name="arch" type="xml">
+				<tree>
+					<field name="name"/>
+					<field name="approver_department"/>
+				</tree>
+			</field>
+		</record>
+
+		<record id="view_hr_complaint_form" model="ir.ui.view">
+			<field name="name">Service Request Type Form</field>
+			<field name="model">hr.complaint.type</field>
+			<field name="arch" type="xml">
+				<form>
+					<sheet>
+						<div class="oe_title">
+							<label for="name" string="Request Type"/>
+							<h1>
+								<div class="d-flex">
+									<field class="text-break" name="name" placeholder="e.g. Service Request"/>
+								</div>
+							</h1>
+						</div>
+						<group>
+							<group>
+								<field name="approver_department"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+
+		<record id="hr_complaint_action_view" model="ir.actions.act_window">
+			<field name="name">Request Type</field>
+			<field name="res_model">hr.complaint.type</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<!-- Report wizard -->
+
+		<record id="service_request_report_wizardview" model="ir.ui.view">
+            <field name="name">service.request.wizard</field>
+            <field name="model">service.request.wizard</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Service Request">
+                	<h3>Service Request</h3>
+                	<br/>
+                	<group>
+                		<group>
+                    		<field name="employee_ids" widget="many2many_tags"/>
+                    	</group>
+                    </group>
+                    <group>
+                    	<group>
+                    		<field name="from_date" />
+                    	</group>
+                    	<group>
+                    		<field name="to_date" />
+                    	</group>
+                    </group>
+                    <br/>
+                    <footer>
+                        <button name="print_pdf_report" type="object" string="Print PDF" class = "oe_highlight" />
+                        <button string="Cancel" class="btn-primary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Action For Wizard -->
+        <record id="service_request_report_wizard_action" model="ir.actions.act_window">
+            <field name="name">Service Request</field>
+            <field name="res_model">service.request.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="service_request_report_wizardview"/>
+            <field name="target">new</field>
+        </record>
+
+		<menuitem
+			id="menu_employee_complaint"
+			name="Service Request"
+			parent="hr.menu_hr_root"
+			/>
+
+			<menuitem
+		        id="menu_service_request_approvals"
+		        name="All Service Request"
+		        parent="menu_employee_complaint"
+		        sequence="2"
+		        action="hr_employee_complaint_action_view_approval"/>
+
+			<menuitem
+				id="menu_hr_employee_complaint"
+				name="My Service Request"
+				action="hr_employee_complaint_action_view"
+				parent="menu_employee_complaint"
+				sequence="1"/>
+
+			<menuitem
+				id="menu_hr_employee_complaint_type"
+				name="Request Type"
+				action="hr_complaint_action_view"
+				parent="menu_employee_complaint"
+				sequence="3"
+				groups="ionicx_hr_extend.complaint_master_manager"/>
+
+			<menuitem
+				id="menu_service_request_report"
+				name="Service Requeset Report"
+				action="service_request_report_wizard_action"
+				parent="menu_employee_complaint"
+				sequence="4"
+				groups="ionicx_hr_extend.complaint_master_manager"/>
+	</data>
+</odoo>

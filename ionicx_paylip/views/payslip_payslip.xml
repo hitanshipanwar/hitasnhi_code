@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    
+    <record id="res_users_form_view_inherited" model="ir.ui.view">
+        <field name="name">res.users.form.view</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='login']" position="after">
+               <label for="is_payslip_admin" />
+                <field name="is_payslip_admin" class="oe_inline"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_company_form_view_inherited" model="ir.ui.view">
+        <field name="name">res.company.form.view</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+                <field name="signature"/>
+            </xpath>
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="seal"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_emplohyee_public_form_view_inherited" model="ir.ui.view">
+        <field name="name">hr.employee.public.form.view</field>
+        <field name="model">hr.employee.public</field>
+        <field name="inherit_id" ref="hr.hr_employee_public_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="password"/>
+                <field name="password_name" attrs="{'invisible': [('password', '=',False)]}" password="True"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_emplohyee_form_view_inherited" model="ir.ui.view">
+        <field name="name">hr.employee.form.view</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='work_email']" position="after">
+                <field name="password"/>
+                <field name="password_name" attrs="{'invisible': [('password', '=',False)]}" password="True"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_payslip_payslip_tree" model="ir.ui.view">
+        <field name="name">payslip.payslip.tree</field>
+        <field name="model">payslip.payslip</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="employee_id" />
+                <field name="months" />
+                <field name="year" />
+                <field name="emp_id" />
+                <field name="password" optional="hide"/>
+                <field name="password_name" optional="hide"/>
+                <field name="designation" optional="hide"/>
+                <field name="department" optional="hide"/>
+                <field name="basic_salary" optional="hide"/>
+                <field name="hra" optional="hide"/>
+                <field name="conveyance" optional="hide"/>
+                <field name="medical" optional="hide" />
+                <field name="special_allowance" optional="hide" />
+                <field name="earning_epf" optional="hide"/>
+                <field name="others" optional="hide"/>
+                <field name="total_earning" optional="hide"/>
+                <field name="deduct_employer_pf" optional="hide"/>
+                <field name="deduct_employee_pf" optional="hide"/>
+                <field name="esi" optional="hide"/>
+                <field name="tds" optional="hide"/>
+                <field name="advance" optional="hide"/>
+                <field name="leave_deduct" optional="hide"/>
+                <field name="deduct_total" optional="hide"/>
+                <field name="net_pay" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_payslip_payslip_form" model="ir.ui.view">
+        <field name="name">payslip.payslip.form</field>
+        <field name="model">payslip.payslip</field>
+        <field name="arch" type="xml">
+            <form string="Payslips">
+                <header>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="employee_id" class="oe_edit_only" />
+                        <h1>
+                            <field name="employee_id" required="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Employee Details">
+                            <field name="name" required="1" />
+                            <field name="hr_employee" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                            <field name="months"  />
+                            <field name="year"  />
+                            <field name="designation"  />
+                            <field name="emp_id"  />
+                            <field name="department"  />
+                            
+                        </group>
+                        <group string="Totals">
+                            <field name="total_earning" />
+                            <field name="deduct_total" />
+                            <field name="net_pay" />
+                            <field name="password" invisible="1"/>
+                            <field name="password_name" attrs="{'invisible': [('password', '=',False)]}" password="True" invisible="1"/>
+                            <field name="company_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Earnings">
+                            <field name="basic_salary"  />
+                            <field name="hra"  />
+                            <field name="conveyance"  />
+                            <field name="medical"  />
+                            <field name="special_allowance"  />
+                            <field name="earning_epf"  />
+                            <field name="others"  />
+                        </group>
+                        <group string="Deductions">
+                            <field name="deduct_employer_pf" />
+                            <field name="deduct_employee_pf" />
+                            <field name="esi" />
+                            <field name="professional_tax" />
+                            <field name="tds" />
+                            <field name="advance" />
+                            <field name="leave_deduct" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_payslip_payslip_kanban" model="ir.ui.view">
+        <field name="name">payslip.payslip.kanban</field>
+        <field name="model">payslip.payslip</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="employee_id"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="row mb4">
+                                <div class="col-8">
+                                    <strong>
+                                        <field name="employee_id"/>
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="payslip_payslip_action_view" model="ir.actions.act_window">
+        <field name="name">Payslips</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">payslip.payslip</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+
+    <menuitem
+        id="payslip_menu"
+        name="Payslip"
+        groups="ionicx_paylip.payslip_user"
+        />
+        <!-- groups="base.group_system" -->
+        <!-- web_icon="web_tech_candidate_profile,static/description/icon.png9" -->
+
+        <menuitem
+            id="payslip_child_menu"
+            name="Payslips"
+            parent="payslip_menu"
+            sequence="1"
+            action="payslip_payslip_action_view"/>
+
+
+    <record model="ir.ui.view" id="act_report_secure_form_view_inherit">
+        <field name="name">report.secure.form.view.inherit</field>
+        <field name="model">ir.actions.report</field>
+        <field name="inherit_id" ref="base.act_report_xml_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='advanced']" position="inside">
+                <group>
+                    <field name="password"/>
+                    <field name="password_name" attrs="{'invisible': [('password', '=',False)]}" password="True"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

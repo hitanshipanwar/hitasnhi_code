@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<template id="external_layout_payslip_report">
+		<t t-call="ionicx_paylip.external_layout_header_payslip_report"/>
+		<t t-raw="0"/>
+		<t t-call="ionicx_paylip.external_layout_footer_payslip_report"/>
+		<div class="article" t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id" t-att-data-oe-lang="o and o.env.context.get('lang')">
+			<t t-raw="0"/>
+		</div>
+	</template>
+	<template id="external_layout_header_payslip_report">
+		<div class="header" style="padding:0px;">
+			<div class="row" style="height:105px;color:#13274F;">
+				<div class="col-7">
+					<t t-if="o.company_id"><img t-if="o.company_id.logo" t-att-src="image_data_uri(o.company_id.logo)" alt="Logo" style="height:165px;margin-top:-25px;"/></t>
+					<br/>
+					<div style="margin-left:20px;">
+						<span t-esc="o.company_id.name" style="font-size:17px;font-weight:900"/>
+						<br/>
+						<t t-if="o.company_id.street">
+							<br/>
+							<span><t t-esc="o.company_id.street"/></span>
+							<br/>
+						</t>
+						<t t-if="o.company_id.street2">
+							<span><t t-esc="o.company_id.street2"/></span>
+							<br/>
+						</t>
+						<t t-if="o.company_id.phone">
+							<br/>
+							<span>Tel <t t-esc="o.company_id.phone"/></span><br/>
+						</t>
+					</div>
+				</div>
+				<div class="col-5" style="background-color:#41729F;height:100px;margin-right:-10px;">
+					<div >
+						
+					</div>
+					<!-- 
+					<br/>
+					<div style="font-size: 12px;text-align:left;padding-left:12px;">
+						<b style="line-height: 1.5;">MD Brick (NSW) Pty Ltd</b>
+						<br/>
+						<b style="line-height: 1.5;">PO Box 3679</b>
+						<br/>
+						<b style="line-height: 1.5;">WAMBERAL NSW 2260</b>
+						<br/>
+						<br/>
+						<b style="line-height: 1.5;">Ph: 1300 884 363</b>
+						<br/>
+						<b style="line-height: 1.5;">Email: sales@mdbrick.com.au</b>
+					</div> -->
+				</div>
+			</div>
+		</div>
+	</template>
+	<template id="external_layout_footer_payslip_report">
+		<div class="footer">
+			<div class="row">
+				<div class="col-7">
+					<div style="margin-left:60px;"><t t-esc="o.company_id.seal"/></div>
+				</div>
+				<div class="col-5" style="color:#003B73;font-weight:bold;font-family:ui-sans-serif;">
+					<span>
+						FOR <t t-if="o.company_id"><t t-esc="o.company_id.name.upper()"/></t><br/>
+						<!-- PRIVATE LIMITED -->
+					</span>
+					<div style="height:60px;" />
+					<div style="margin-left:80px;">
+						<span><t t-esc="o.company_id.signature"/></span>
+						<span>Authorized Signatory</span>
+					</div>
+				</div>
+				<!-- <table style="width:100%;">
+					<tr style="color:#003B73;">
+						<td>
+						</td>
+						<td>
+							FOR IONICX DIGITAL TECHNOLOGIES<br/>
+							PRIVATE LIMITED
+						</td>
+					</tr>
+				</table> -->
+			</div>
+			<!-- <table style="width:100%;font-size:13px;text-align:center;border-top: 2px solid black;">
+				<tr style="border:1px solid white;">
+					<td style="width:70%;text-align:left;padding:5px;border:1px solid white;"/>
+					<td style="width:10%;text-align:left;padding:5px;border:1px solid white;font-weight:bold;">Subtotal</td>
+					<td style="width:20%;text-align:right;padding:5px;border:1px solid white;font-weight:bold;"><t t-esc="doc.amount_untaxed"/></td>
+				</tr>
+				<tr style="border:1px solid white;">
+					<td style="width:70%;text-align:left;padding:5px;border:1px solid white;"/>
+					<td style="width:10%;text-align:left;padding:5px;border:1px solid white;font-weight:bold;">Tax</td>
+					<td style="width:25%;text-align:right;padding:5px;border:1px solid white;font-weight:bold;"><t t-esc="doc.amount_tax"/></td>
+				</tr>
+				<tr style="border:1px solid white;">
+					<td style="width:70%;text-align:left;padding:5px;border:1px solid white;"/>
+					<td style="width:10%;text-align:left;padding:5px;border:1px solid white;font-weight:bold;">Total</td>
+					<td style="width:20%;text-align:right;padding:5px;border:1px solid white;font-weight:bold;"><t t-esc="doc.amount_total"/></td>
+				</tr>
+			</table>
+			<br/>
+			<table style="width:100%;font-size:12px;text-align:center;border-top: 2px solid black;color:blue;">
+				<tr style="border:1px solid white;">
+					<td style="width:33%;text-align:left;padding:5px;border:1px solid white;">CRInvoice.CLF</td>
+					<td style="width:33%;text-align:center;padding:5px;border:1px solid white;"/>
+					<td style="width:33%;text-align:right;padding:5px;border:1px solid white;">Page <span class="page"/> of <span class="topage"/></td>
+				</tr>
+				<tr style="border:1px solid white;">
+					<td style="width:33%;text-align:left;padding:5px;border:1px solid white;">MD Brick (NSW) Pty Ltd</td>
+					<td style="width:33%;text-align:right;padding:5px;border:1px solid white;"/>
+					<td style="width:33%;text-align:right;padding:5px;border:1px solid white;"><span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M:%S %p')"/></td>
+				</tr>
+			</table> -->
+		</div>
+	</template>
+		<template id="payslip_report">
+			<t t-call="web.html_container">
+				<t t-foreach="docs" t-as="o">
+					<t t-call="ionicx_paylip.external_layout_payslip_report">
+						<div class="page">
+							<div style="text-align:center;color:#13274F;font-weight:900;font-size:20px;">
+								<span>Salary Slip</span>
+							</div>
+							<br/>
+							<div class="row">
+								<div class="col-12" style="margin-left:20px;">
+									<style>
+										table,tr,td,th{
+											border: none;
+										}
+										td,th{
+											padding:5px;
+											text-align:left;
+											height:38px;
+										}
+									</style>
+									<table class="table-borderless" style="width:100%;color:#003B73;">
+										<tr>
+											<td style="width:20%;">Month/Year: </td>
+											<td style="width:30%;">
+												<t t-esc="dict(o._fields['months'].selection).get(o.months)" />/<t t-esc="o.year" />
+											</td>
+											<td style="width:20%;">Employee Name: </td>
+											<td style="width:30%;"><t t-esc="o.employee_id.name" /></td>
+										</tr>
+										<tr>
+											<td style="width:20%;">Designation: </td>
+											<td style="width:30%;"><t t-esc="o.designation" /></td>
+											<td style="width:20%;">Department Name: </td>
+											<td style="width:30%;"><t t-esc="o.department" /></td>
+										</tr>
+										<tr>
+											<td style="width:20%;">Employee Id: </td>
+											<td style="width:30%;"><t t-esc="o.emp_id" /></td>
+											<td style="width:20%;"></td>
+											<td style="width:30%;"></td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<!-- <div class="row"> -->
+                        <table style="width: 100%;" class="table-borderless">
+                            <tbody>
+                                <tr style="height: 30px;">
+                                    <td style="width: 100%;font-style:italic;text-align:center;font-weight:900;font-size:18px;text-decoration:underline;">
+                                    	Particulars of salary for the month of <t t-esc="dict(o._fields['months'].selection).get(o.months)" />, <t t-esc="o.year" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <t t-set="total_earning" t-value="0.0" />
+                        <t t-set="total_deduction" t-value="0.0" />
+                        <table style="width: 100%; height: 169px; border: 2px solid black;color:#003B73;margin-top:-20px;" border="0">
+                            <tbody>
+                                <tr style="height: 30px;border-bottom: 2px solid black;">
+                                    <td style="width: 26.0307%; font-weight: bold; padding-left: 5px; height: 30px; text-align:bottom; margin-top: 10px;font-size:16px;">Earnings</td>
+                                    <td style="width: 11.5701%; font-weight: bold; padding-left: 5px; height: 30px;text-align:bottom;margin-top: 10px;font-size:16px;text-align:right; ">Scale</td>
+                                    <td style="width: 10.1233%; font-weight: bold; padding-left: 5px; height: 30px;text-align:bottom;margin-top: 10px;font-size:16px;text-align:right;">Amount</td>
+                                    <td style="width: 25.9128%; font-weight: bold; padding-left: 5px; height: 30px; border-left: 1px solid; text-align:bottom;margin-top: 10px;font-size:16px;">Deductions</td>
+                                    <td style="width: 10.4078%; font-weight: bold; padding-left: 5px; height: 30px;text-align:bottom;margin-top: 10px;font-size:16px;text-align:right;">Scale</td>
+                                    <td style="width: 13.9335%; font-weight: bold; padding-left: 5px; height: 30px;text-align:bottom;margin-top: 10px;font-size:16px;text-align:right;">Amount</td>
+                                </tr>
+                                <tr style="height: 25px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 25px; margin-top: 10px; padding-top: 10px; font-size:16px;">Basic Salary</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px;font-size:16px;text-align:right;">
+                                        <span t-esc="o.basic_salary" />
+                                    </td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.basic_salary" />
+                                    </td>
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:16px;">Employer Contribution to Provident Fund</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.deduct_employer_pf" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.deduct_employer_pf" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 25px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 25px; margin-top: 10px; padding-top: 10px; font-size:16px;">HRA</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.hra" />
+                                    </td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.hra" />
+                                    </td>
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 25px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:16px;">Employee Contribution to Provident Fund</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.deduct_employee_pf" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.deduct_employee_pf" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 20px; ">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 20px; margin-top: 10px; padding-top: 10px; font-size:16px;">Conveyance</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 25px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.conveyance" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 20px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.conveyance" />
+                                    </td>
+                                    <td style="width: 25.9128%; padding-left: 5px; height: 20px; border-left: 1px solid; margin-top: 10px; padding-top: 10px; font-size:16px;">ESI</td>
+                                    <td style="width: 10.4078%; padding-left: 5px; height: 20px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.esi" />
+                                    </td>
+                                    <td style="width: 13.9335%; padding-left: 5px; height: 20px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.esi" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:16px;">Medical</td>
+                                    <td style="width: 11.5701%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.medical" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.medical" />
+                                    </td>
+                                    <td style="width: 25.9128%; padding-left: 5px; border-left: 1px solid; height: 18px; margin-top: 10px; padding-top: 10px; font-size:16px;">Professional Tax</td>
+                                    <td style="width: 10.4078%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.professional_tax" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.professional_tax" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px;margin-top: 10px; padding-top: 10px; font-size:16px;">Special Allowance</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 21px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.special_allowance" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 21px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.special_allowance" />
+                                    </td>
+                                    <td style="width: 25.9128%; padding-left: 5px; border-left: 1px solid; height: 18px; margin-top: 10px; padding-top: 10px; font-size:16px;">TDS</td>
+                                    <td style="width: 10.4078%; height: 18px;padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.tds" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.tds" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:16px; ">Employer Contribution to Provident Fund</td>
+                                    <td style="width: 11.5701%; padding-left: 5px; height: 21px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.earning_epf" />
+                                    </td>
+                                    <td style="width: 10.1233%; padding-left: 5px; height: 21px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.earning_epf" />
+                                    </td>
+                                    <td style="width: 25.9128%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px; ">Advance</td>
+                                    <td style="width: 10.4078%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.advance" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px;padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.advance" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 18px;">
+                                    <td style="width: 26.0307%; padding-left: 5px; height: 18px; margin-top: 10px; padding-top: 10px; font-size:16px; ">Others</td>
+                                    <td style="width: 11.5701%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.others" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.others" />
+                                    </td>
+                                    <td style="width: 25.9128%; height: 18px; border-left: 1px solid; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px; ">Leave Deductions</td>
+                                    <td style="width: 10.4078%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.leave_deduct" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 18px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.leave_deduct" />
+                                    </td>
+                                </tr>
+                                <tr style="height: 30px;">
+                                    <td style="width: 26.0307%;padding-left: 5px; height: 22px; margin-top: 10px; padding-top: 10px; font-size:16px;">Total</td>
+                                    <td style="width: 11.5701%; height: 22px; padding-left: 5px; margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right;">
+                                        <span t-esc="o.total_earning" />
+                                    </td>
+                                    <td style="width: 10.1233%; height: 22px; padding-left: 5px;font-size:16px;text-align:right; ">
+                                        <span t-esc="o.total_earning" />
+                                    </td>
+                                    <td style="width: 25.9128%;border-left: 1px solid; padding-left: 5px; height: 22px;margin-top: 10px; padding-top: 10px; font-size:16px;">Total</td>
+                                    <td style="width: 10.4078%; height: 22px; padding-left: 5px;font-size:16px;text-align:right;">
+                                        <span t-esc="o.deduct_total" />
+                                    </td>
+                                    <td style="width: 13.9335%; height: 22px; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:16px;text-align:right; ">
+                                        <span t-esc="o.deduct_total" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table style="border-collapse: collapse; width: 100.048%; border-left: 2px solid black;border-bottom: 2px solid black; border-right: 2px solid black;color:#003B73;" border="0">
+                            <tbody>
+                                <t t-set="net_pay" t-value="0"/>
+                                <t t-set="net_pay" t-value="net_pay + (total_earning - total_deduction)"/>
+                                <tr style="border-top:0px solid black; border-bottom:0px solid black;">
+                                    <td style="width: 26.18%%; padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:16px;">
+                                        <strong>Net Pay</strong>
+                                    </td>
+                                    <td style="width: 11.6%;padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:16px; font-weight: bold;">
+                                        <span t-esc="o.net_pay" />
+                                    </td>
+                                    <td style="width: 62.45%;padding-left: 5px;margin-top: 10px; padding-top: 10px; font-size:16px; font-weight: bold;"><t t-if="o.company_id"><t t-esc="o.company_id.currency_id.amount_to_text(o.net_pay)"/></t></td>
+                                </tr>
+                            </tbody>
+                        </table>
+							<!-- </div> -->
+						</div>
+					</t>
+				</t>
+			</t>
+		</template>
+
+				<!-- Paper Format -->
+		<record id="paperformat_payslip_report" model="report.paperformat">
+			<field name="name">Payslip Report Format</field>
+			<field name="default" eval="False"/>
+			<field name="format">custom</field>
+			<field name="page_height">300</field>
+			<field name="page_width">200</field>
+			<field name="orientation">Portrait</field>
+			<field name="margin_top">65</field>
+			<field name="margin_bottom">60</field>
+			<field name="margin_left">0</field>
+			<field name="margin_right">0</field>
+			<field name="header_line" eval="False"/>
+			<field name="header_spacing">65</field>
+			<field name="dpi">90</field>
+		</record>
+
+		<record id="action_payslip_report" model="ir.actions.report">
+			<field name="name">Payslip Report (PDF)</field>
+			<field name="model">payslip.payslip</field>
+			<field name="report_type">qweb-pdf</field>
+			<field name="report_name">ionicx_paylip.payslip_report</field>
+			<field name="report_file">ionicx_paylip.payslip_report</field>
+			<!-- <field name="print_report_name">'payslip'</field> -->
+			<field name="print_report_name">('%s payslip of month %s' % (object.employee_id.name, object.months))</field>
+			<field name="binding_model_id" ref="ionicx_paylip.model_payslip_payslip"/>
+			<field name="binding_type">report</field>
+			<field name="paperformat_id" ref="ionicx_paylip.paperformat_payslip_report"/>
+		</record>
+	</data>
+</odoo>

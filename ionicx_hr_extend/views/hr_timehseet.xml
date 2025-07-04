@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="hr_timesheet_line_tree_view" model="ir.ui.view">
+	        <field name="name">account.analytic.line.tree.view</field>
+	        <field name="model">account.analytic.line</field>
+	        <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//tree" position="replace">
+		        	<tree editable="top" string="Timesheet Activities" sample="1" decoration-danger="is_weekend">
+		        		<field name="is_weekend" invisible="1"/>
+	                    <field name="date" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="employee_id" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="project_id" required="1" options="{'no_create_edit': True, 'no_open': 1}" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="partner_id"/>
+	                    <field name="client_name"/>
+	                    <!-- <field name="from_date"/> -->
+	                    <!-- <field name="to_date"/> -->
+	                    <field name="task_id" optional="show" options="{'no_create_edit': True, 'no_open': True}" widget="task_with_hours" context="{'default_project_id': project_id}" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="name" optional="show" required="0" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	            		<!--  -->
+	            		<field name="planned_date" readonly="1"/>
+	            		<field name="date_deadline" readonly="1"/>
+	            		<field name="estimated_time" readonly="1"/>
+	            		<field name="effective_hours" readonly="1"/>
+	            		<!--  -->
+	                    <field name="unit_amount" optional="show" widget="timesheet_uom" sum="Total" decoration-danger="unit_amount &gt; 24 or unit_amount &lt; 0" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="state" widget="badge" decoration-info="state == 'draft'" decoration-warning="state == 'refuse'" decoration-success="state == 'approve'" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <button string="Approve" name="action_approve" type="object" icon="fa-check" states="draft,re_submit" groups="hr_timesheet.group_hr_timesheet_approver"/>
+	                	<button string="Refuse" name="action_refuse" type="object" icon="fa-times" states="draft,re_submit" groups="hr_timesheet.group_hr_timesheet_approver"/>
+	                	<button string='Re-Submit' name="action_re_submit" type="object" icon="fa-times" states="refuse"/>
+	                	<button string="Set As Draft" name="action_set_as_draft" type="object" icon="fa-times" states="approve" groups="hr_timesheet.group_hr_timesheet_approver"/>
+	                    <field name="company_id" invisible="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                    <field name="user_id" invisible="1" attrs="{'readonly': [('state', '=', 'approve')]}"/>
+	                </tree>
+	            </xpath>
+	        </field>
+	    </record>
+
+	   <!--  <record id="hr_timesheet_tree_view" model="ir.ui.view">
+	        <field name="name">account.analytic.line.tree.view</field>
+	        <field name="model">account.analytic.line</field>
+	        <field name="inherit_id" ref="hr_timesheet.timesheet_view_tree_user"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//field[@name='task_id']" position="before">
+	            	<field name="from_date" invisible="1"/>
+	            	<field name="to_date" invisible="1"/>
+	            </xpath>
+	        </field>
+	    </record>
+ -->
+	    <record id="hr_timesheet_form_view" model="ir.ui.view">
+	        <field name="name">account.analytic.line.form.view</field>
+	        <field name="model">account.analytic.line</field>
+	        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//form/sheet" position="before">
+	            	<header>
+	            		<field name="state" widget="statusbar" statusbar_visible="draft,approve,refuse"/>
+	                </header>
+	            </xpath>
+	        </field>
+	    </record>
+
+	    <record id="inherit_view_account_analytic_line_kanban" model="ir.ui.view">
+	        <field name="name">account.analytic.line.kanban</field>
+	        <field name="model">account.analytic.line</field>
+	        <field name="inherit_id" ref="analytic.view_account_analytic_line_kanban"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//kanban" position="replace">
+	                <kanban class="o_kanban_mobile" >
+	                    <field name="date"/>
+	                    <field name="name"/>
+	                    <field name="account_id"/>
+	                    <field name="currency_id"/>
+	                    <field name="amount"/>
+	                    <field name="unit_amount"/>
+	                    <field name="state"/>
+	                    <templates>
+	                        <t t-if="record.state == 'approve'">
+	                        </t>
+	                        <t t-else="">
+	                            <t t-name="kanban-box">
+	                                <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+	                                    <div class="row">
+	                                        <div class="col-6">
+	                                            <strong><span><t t-esc="record.account_id.value"/></span></strong>
+	                                        </div>
+	                                        <div class="col-6 text-end">
+	                                            <strong><t t-esc="record.date.value"/></strong>
+	                                        </div>
+	                                    </div>
+	                                    <div class="row">
+	                                        <div class="col-6 text-muted">
+	                                            <span><t t-esc="record.name.value"/></span>
+	                                        </div>
+	                                        <div class="col-6">
+	                                            <span class="float-end text-end">
+	                                            	<field name="unit_amount" /> hrs
+	                                            </span>
+	                                        </div>
+	                                    </div>
+
+	                                    <div class="d-flex justify-content-end">
+	                                        <div class="me-2 d-flex align-items-center" t-if="['approve', 'refuse'].includes(record.state)">
+	                                            <span t-if="record.state == 'approve'" class="fa fa-check text-muted me-1" aria-label="approve"/>
+	                                            <span t-else="" class="fa fa-ban text-muted me-1" aria-label="refuse"/>
+	                                            <t t-set="classname" t-value="{'approve': 'text-bg-success', 'refuse': 'text-bg-danger'}[record.state] || 'text-bg-light'"/>
+	                                            <span t-attf-class="badge rounded-pill {{ classname }}"><t t-esc="record.state"/></span>
+	                                        </div>
+	                                        <div class="me-2 align-items-center">
+	                                            <button name="action_approve" type="object" class="btn btn-link btn-sm ps-0">
+	                                                <i class="fa fa-thumbs-up"/> Approve
+	                                            </button>
+	                                            <button name="action_refuse" type="object" class="btn btn-link btn-sm ps-0">
+	                                                <i class="fa fa-times"/> Refuse
+	                                            </button>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </t>
+	                        </t>
+	                    </templates>
+	                </kanban>
+	            </xpath>
+	        </field>
+	    </record>
+
+	    <record model="ir.actions.act_window" id="account_analytic_line_action_kanban">
+		    <field name="name">Analytic Items (Kanban)</field>
+		    <field name="res_model">account.analytic.line</field>
+		    <field name="view_mode">kanban</field>
+		    <field name="view_id" ref="inherit_view_account_analytic_line_kanban"/>
+		    <field name="domain">[('state', '!=', 'approve')]</field>
+		    <field name="help" type="html">
+		        <p class="o_view_nocontent_empty_folder">
+		            No activity yet
+		        </p>
+		    </field>
+		</record>
+
+        <record model="ir.actions.server" id="action_timesheet_approval">
+	        <field name="name">Timesheet Approval</field>
+	        <field name="model_id" ref="model_account_analytic_line"/>
+	        <field name="binding_model_id" ref="model_account_analytic_line" />
+	        <field name="state">code</field>
+	        <field name="code">
+	            if records:
+	                records.action_approve()
+	        </field>
+	    </record>
+
+	    <record model="ir.actions.server" id="action_timesheet_refuse">
+	        <field name="name">Timesheet Refuse</field>
+	        <field name="model_id" ref="model_account_analytic_line"/>
+	        <field name="binding_model_id" ref="model_account_analytic_line" />
+	        <field name="state">code</field>
+	        <field name="code">
+	            if records:
+	                records.action_refuse()
+	        </field>
+	    </record>
+
+	    <record id="hr_timesheet_line_search_inherited" model="ir.ui.view">
+            <field name="name">account.analytic.line.search</field>
+            <field name="model">account.analytic.line</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_search"/>
+            <field name="arch" type="xml">
+            	<search string="Timesheet">
+            		<filter name="mine_project" string="My Project Timesheets" domain="[('project_id.user_id', '=', uid)]"/>
+            	</search>
+            </field>
+        </record>
+
+	</data>
+</odoo>
