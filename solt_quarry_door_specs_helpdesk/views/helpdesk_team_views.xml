@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="specs_helpdesk_team_view_tree" model="ir.ui.view">
+        <field name="name">specs.helpdesk.team.tree</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="alias_email" position="after">
+                <field name="is_card_request_team"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="specs_helpdesk_team_view_form" model="ir.ui.view">
+        <field name="name">helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <div id="after-sales" position="after">
+                <h2>Card Request</h2>
+                    <div class="row mt32 o_settings_container" id="card-request-sp-ecs">
+                        <setting help="The Card request team">
+                            <field name="is_card_request_team"/>
+                        </setting>
+                    </div>
+            </div>
+        </field>
+    </record>
+
+    <record id="specs_helpdesk_team_view_search" model="ir.ui.view">
+        <field name="name">specs.helpdesk.team.search</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_search"/>
+        <field name="arch" type="xml">
+            <filter name="archived" position="after">
+                <filter string="Card request" domain="[('is_card_request_team', '=', True)]" name="is_card_request_filter"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

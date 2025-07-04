@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Declaration of the action for the form view of user.profiles -->
+        <record id="action_user_profiles" model="ir.actions.act_window">
+            <field name="name">User Profiles</field>
+            <field name="res_model">user.profiles</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Declaration of the action for user.management -->
+        <record id="action_user_management" model="ir.actions.act_window">
+            <field name="name">User Management</field>
+            <field name="res_model">user.management</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Declaration of the main menu item with icon -->
+        <menuitem id="menu_user" name="Profile User Manager" sequence="1" web_icon="access_users_manager,static/description/icon.png"/>
+
+        <!-- Submenu item for user.profiles form view -->
+        <menuitem id="menu_user_profiles" name="Profiles" parent="menu_user" action="action_user_profiles" sequence="10"/>
+
+        <!-- Menu item for user.management -->
+        <menuitem id="menu_user_management" name="User Management" parent="menu_user" action="action_user_management" sequence="30"/>
+    </data>
+</odoo>

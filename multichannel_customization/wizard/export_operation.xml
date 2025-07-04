@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="export_wizard_form_odoo_multi_channel_sale" model="ir.ui.view">
+            <field name="name">export.operation.view.form.inherit</field>
+            <field name="model">export.operation</field>
+            <field name="inherit_id" ref="odoo_multi_channel_sale.export_wizard_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//footer" position="before">
+                    <div>
+                        <p class="text-danger" invisible="object != 'product.template'">Exporting products is restricted.</p>
+                    </div>
+                </xpath>
+                <xpath expr="//button[@name='export_button']" position="attributes">
+                    <attribute name="invisible">object == 'product.template'</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

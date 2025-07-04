@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <template id="report_saleorder_image_inherit" inherit_id="sale.report_saleorder_document">
+
+        <xpath expr="//table//tr/th[@name='th_description']" position="before">
+            <th style="width:160px; text-align:center;">Image</th>
+        </xpath>
+
+        <xpath expr="//t[@t-foreach='doc.order_line']//td[@name='td_name']" position="before">
+            <td style="width:160px; text-align:center; vertical-align:middle;">
+                <div style="max-width:150px; max-height:120px; margin:auto;">
+                    <t t-if="line.product_image">
+                        <img t-att-src="image_data_uri(line.product_image)" alt="" style="height:80px !important;width:80px !important; max-width:100px; max-height:100px; object-fit:contain; padding:4px;"/>
+                    </t>
+                    <t t-else="">
+                        <img src="/sale_order_product_image/static/src/images/no-image-icon-6.png" alt="" style="height:80px !important;width:80px !important; max-width:100px; max-height:100px; object-fit:contain; padding:4px;"/>
+                    </t>
+                </div>
+            </td>
+        </xpath>
+
+    </template>
+</odoo>

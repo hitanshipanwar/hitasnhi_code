@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="specs_tag_view_form_inherit" model="ir.ui.view">
+        <field name="name">specs.tag.view.form.inherit</field>
+        <field name="model">documents.tag</field>
+        <field name="inherit_id" ref="documents.tag_view_form"/>
+        <field name="mode">primary</field>
+        <field name="priority">999</field>
+        <field name="arch" type="xml">
+            <field name="facet_id" position="attributes">
+                <attribute name="context">{'form_view_ref': 'solt_quarry_documents_specs.specs_facet_view_form_with_folder_inherit', 'documents_specs_folder': context.get('documents_specs_folder')}</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

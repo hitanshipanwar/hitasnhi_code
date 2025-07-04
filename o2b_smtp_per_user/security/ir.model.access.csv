@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_new_mail_server_model,new.mail_server.model,model_new_mail_server_model,,1,1,1,1
+"access_ir_mail_server","ir_mail_server","model_ir_mail_server",,1,1,1,1
+"access_res_users_employee","res_users all","model_res_users","base.group_user",1,1,0,0

@@ -1,0 +1,28 @@
+<odoo noupdate="1">
+
+    <record id="stage_in_progress" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Borrador</field>
+        <field name="description">El specs que se está ejecutando.</field>
+        <field name="sequence">1</field>
+    </record>
+    <record id="stage_planned" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Precio Actualizado </field>
+        <field name="description">Cotizacion Realizada.</field>
+        <field name="sequence">2</field>
+    </record>
+    <record id="stage_finish" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">BOM Creado.</field>
+        <field name="description">Orden realizada finalizado.</field>
+        <field name="sequence">3</field>
+    </record>
+    <record id="stage_cancel" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Cancelado.</field>
+        <field name="description">Orden Cancelada.</field>
+        <field name="sequence">4</field>
+    </record>
+    
+</odoo>

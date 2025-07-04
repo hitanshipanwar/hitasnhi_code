@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="ace_fulfillment_notification_template" model="mail.template">
+        <field name="name">Ace Courier Fulfillment</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="email_to">{{ object.partner_id.email }}</field>
+        <field name="subject">A shipment from order {{ object.sale_id.name }} is out for delivery</field>
+        <field name="body_html">
+            <![CDATA[
+            <div style="font-family:Arial, sans-serif; max-width:600px; margin:0 auto; padding:20px; border:1px solid #eee;">
+                <h2 style="color:#333;"> We hope you enjoy! </h2>
+                <p style="color:#555;">Your order has been packed and will be shipped out shortly. Standard delivery with Ace Courier is 2–10 days.</p>
+                
+                <a t-att-href="object.sale_id.get_portal_url()" style="display:inline-block; margin:20px 0; padding:10px 20px; background-color:#1d72b8; color:#fff; text-decoration:none; border-radius:5px;">View your order</a>
+                or <a t-att-href="object.shopify_instance_id.shopify_host" style="color:#1d72b8;">Visit our store</a>
+
+                <hr style="margin:30px 0;"/>
+
+                <h3 style="color:#333;">Order Summary</h3>
+                <table width="100%" style="border-collapse:collapse;">
+                    <tr style="background-color:#f9f9f9; text-align:left;">
+                        <th style="padding:10px;">Product</th>
+                        <th style="padding:10px;">Qty</th>
+                        <th style="padding:10px;">Price</th>
+                    </tr>
+                    <t t-foreach="object.move_line_ids_without_package" t-as="move">
+                        <tr>
+                            <td style="padding:10px;"><t t-out="move.product_id.display_name"/></td>
+                            <td style="padding:10px;"><t t-out="move.qty_done"/></td>
+                            <td style="padding:10px;">Rs. <t t-out="move.product_id.list_price"/></td>
+                        </tr>
+                    </t>
+                </table>
+
+                <div style="text-align: right; margin-top: 20px;">
+                    <p>Subtotal: Rs. <t t-out="sum([move.product_id.list_price * move.qty_done for move in object.move_line_ids_without_package])"/></p>
+                    <p>Shipping: Rs. 0.00</p>
+                    <p>Taxes: Rs. 0.00</p>
+                    <hr style="margin: 30px 0;" />
+                    <h4 style="color: #333;">Total: Rs. <t t-out="sum([move.product_id.list_price * move.qty_done for move in object.move_line_ids_without_package])"/></h4>
+                </div>
+
+
+                <h3 style="color:#333;">Shipping Information</h3>
+                <p><strong>Shipping Address:</strong><br/>
+                <t t-out="object.partner_id.name"/><br/>
+                <t t-out="object.partner_id.street"/><br/>
+                <t t-if="object.partner_id.street2"><t t-out="object.partner_id.street2"/><br/></t>
+                <t t-out="object.partner_id.city"/> <t t-out="object.partner_id.state_id.name"/> <t t-out="object.partner_id.zip"/><br/>
+                <t t-out="object.partner_id.country_id.name"/></p>
+
+                <p>Thank you!<br/>Ace Courier Team</p>
+            </div>
+            ]]>
+        </field>
+    </record>
+</odoo>

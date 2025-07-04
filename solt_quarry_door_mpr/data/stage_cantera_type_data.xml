@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+
+    <record id="stage_finish" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">In production</field>
+        <field name="code">bom</field>
+        <field name="description">Order Made Completed.</field>
+        <field name="sequence">5</field>
+        <field name="done" eval="True"/>
+    </record>
+    
+</odoo>

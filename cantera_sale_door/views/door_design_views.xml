@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_design_view_tree" model="ir.ui.view">
+            <field name="name">door.design.view.tree</field>
+            <field name="model">door.design</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Diseño">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_design" model="ir.actions.act_window">
+            <field name="name">Diseño</field>
+            <field name="res_model">door.design</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        
+        <menuitem id="door_design_sub_menu" name="Diseño" action="action_door_design" parent="cantera_sale_door.head_indicator" sequence="1"/>
+
+  </data>
+</odoo>

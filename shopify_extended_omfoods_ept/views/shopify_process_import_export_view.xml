@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_shopify_process_import_export_from_more_ts" model="ir.ui.view">
+            <field name="name">Process Update</field>
+            <field name="model">shopify.process.import.export</field>
+            <field name="arch" type="xml">
+                <form string="Update Product Tracks" style="height: 200px">
+                    <group>
+                        <field name="shopify_instance_ids" widget="many2many_tags"/>
+                    </group>
+                    <footer>
+                        <button name="update_product_tracks"
+                                string="Update product Tracks" type="object" class="oe_highlight"/>
+                        <button string="Cancel" class="oe_highlight" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+<!--        <act_window name="Update Product Track" res_model="shopify.process.import.export"-->
+<!--                    src_model="product.template" view_mode="form" view_type="form"-->
+<!--                    target="new" multi="True" key2="client_action_multi"-->
+<!--                    id="action_wizard_shopify_update_products"-->
+<!--                    view_id="view_shopify_process_import_export_from_more_ts"/>-->
+
+        <record id="action_wizard_shopify_update_products" model="ir.actions.act_window">
+        <field name="name">Update Product Track</field>
+        <field name="res_model">shopify.process.import.export</field>
+        <field name="binding_model_id" ref="model_product_template"/>
+        <field name="binding_view_types">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="view_shopify_process_import_export_from_more_ts"/>
+<!--        <field name="groups_id" eval="[(4, ref('shopify_ept.group_shopify_ept'))]"/>-->
+    </record>
+    </data>
+</odoo>

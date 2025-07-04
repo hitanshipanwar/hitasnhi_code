@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="document_specs_sale_view_form" model="ir.ui.view">
+            <field name="name">document.specs.sale.view.form.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.specs_sale_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button class="oe_stat_button" name="action_view_documents_specs"
+                            groups="documents.group_documents_user"
+                            type="object" icon="fa-file-text-o" invisible="not use_documents or not id"
+                            >
+                        <field string="Documents" name="document_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//page[@name='other_information']" position="after">
+                    <page name="specs_settings" string="Settings">
+                        <group string="Documents" col="1" class="row mt16 o_settings_container">
+                            <div>
+                                <setting class="col-lg-12" help="Categorize your documents with your customers"
+                                         id="specs_documents_setting">
+                                    <field name="use_documents"/>
+                                    <div invisible="not use_documents" class="mt-3">
+                                        <div class="row">
+                                            <div class="col-auto pe-0">
+                                                <label for="documents_folder_id" class="fw-bold" force_save="1"/>
+                                            </div>
+                                            <div class="col-9 ps-0">
+                                                <field name="documents_folder_id" class="ps-3 w-100"
+                                                       force_save="1"  readonly="block_changes == True"
+                                                       context="{'documents_project': True, 'default_company_id': company_id}"/>
+                                            </div>
+                                        </div>
+                                        <div class="row" invisible="not documents_folder_id">
+                                            <div class="col-auto pe-0">
+                                                <label for="documents_tag_ids" class="fw-bold"/>
+                                            </div>
+                                            <div class="col-9 ps-0">
+                                                <field name="documents_tag_ids" class="ps-3 w-100"  readonly="block_changes == True"
+                                                       widget="many2many_tags" options="{'no_quick_create': True}"
+                                                       context="{'form_view_ref': 'solt_quarry_documents_specs.specs_tag_view_form_inherit', 'documents_specs_folder': documents_folder_id}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </setting>
+                            </div>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="action_view_documents_project_task" model="ir.actions.act_window">
+            <field name="name">Documents</field>
+            <field name="res_model">documents.document</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[('res_model', '=', 'specs.sale'), ('res_id', '=', active_id)]</field>
+            <field name="context">{'default_res_model': 'specs.sale', 'default_res_id': active_id, 'limit_folders_to_specs': True}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Upload <span class="fw-normal">a file or </span>drag <span class="fw-normal">it here.</span>
+                </p>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<template id="report_custom_shipping_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <main>
+                    <div class="page">
+                        <table style="width: 100%; font-size: 10px;">
+                            <tr>
+                                <!-- Sender Address Section -->
+                                <td style="width: 50%; vertical-align: top; padding-right: 10px; border-right:2px solid #000;">
+                                    <p>
+                                        <strong>FROM:</strong> <span t-esc="shipper_phone"/><br/>
+                                        <span t-esc="shipper_name"/><br/>
+                                        <span t-esc="shipper_street"/><br/>
+                                        <t t-if="shipper_street2">
+                                            <span t-esc="shipper_street2"/><br/>
+                                        </t>
+                                        <span t-esc="shipper_city"/> <span t-esc="shipper_stateOrProvinceCode"/> <span t-esc="shipper_postalCode"/><br/>
+                                        <span t-esc="shipper_countryCode"/><br/>
+                                    </p>
+                                </td>
+
+                                <!-- Origin Details Section -->
+                                <td style="width: 50%; vertical-align: top; padding-left: 10px;">
+                                    <p>
+                                        <strong>ORIGIN ID:</strong> <span t-esc="origin"/><br/>
+                                        <strong>SHIP DATE:</strong> <span t-esc="ship_date"/><br/>
+                                        <strong>ACT WT:</strong> <span t-esc="totalWeight"/> <span t-esc="Weight_unit"/><br/>
+                                        <strong>PACK: </strong><span t-esc="package_length"/> x <span t-esc="package_width"/> x <span t-esc="package_height"/>CM<br/>
+                                        <strong>BILL SENDER</strong><br/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr style="margin: 10px 0; border: 1px solid #000;"/>
+                        <!-- Recipient Section -->
+                        <table style="width: 100%; font-size: 14px; margin-top: 10px;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; padding-right: 10px;">
+                                    <p>
+                                        <strong>TO:</strong><span t-esc="recipient_phone"/><br/>
+                                        <span t-esc="recipient_name"/><br/>
+                                        <span t-esc="recipient_street"/><br/>
+                                        <t t-if="recipient_street2">
+                                            <span t-esc="recipient_street2"/><br/>
+                                        </t>
+                                        <span t-esc="recipient_city"/> <span t-esc="recipient_stateOrProvinceCode"/> <span t-esc="recipient_postalCode"/><br/>
+                                        <span t-esc="recipient_countryCode"/><br/>
+                                    </p>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; padding-right: 10px;"></td>
+                            </tr>
+                        </table>
+
+                        <hr style="margin: 10px 0; border: 1px solid #000;"/>
+
+                        <table style="width: 100%; margin-top: 10px;">
+                            <tr>
+                                <td style="width: 70%; vertical-align: top;">
+                                    <!-- Main Barcode -->
+                                    <span><strong>Delivery Barocde</strong></span><br/>
+                                    <div t-field="doc.name" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:80px'}"/>
+                                </td>
+                                <td style="width: 30%; vertical-align: top; text-align: right;">
+                                    <t t-if="doc.carrier_id">
+                                        <strong><span t-esc="doc.carrier_id.name"/></strong><br/>
+                                        <span t-esc="doc.carrier_id.service_type"/>
+                                        <img t-if="doc.carrier_id.carrier_logo" t-att-src="image_data_uri(doc.carrier_id.carrier_logo)" style="height:80px; width:100%;" alt="Carrier Logo"/>
+                                    </t>
+                                </td>
+                            </tr>
+                        </table>
+                        <hr style="margin: 10px 0; border: 1px solid #000;"/>
+
+                        <!-- Routing and Additional Details -->
+                        <table style="width: 100%; font-size: 12px; margin-top: 20px;">
+                            <tr>
+                                <td style="width: 50%; vertical-align: top; padding-right: 10px;">
+                                    <p>
+                                        <span>TRK#</span>
+                                        <strong><span t-esc="tracking_num"/></strong><br/>
+                                    </p>
+                                </td>
+                                <td style="width: 50%; vertical-align: top; padding-right: 10px;">
+                                    <p style="text-align: right;">
+                                        <span t-esc="recipient_postalCode"/><br/>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+
+                        <!-- Final Barcode -->
+                        <table style="width: 100%; margin-top: 20px;">
+                            <tr>
+                                <td style="font-size: 18px;">
+                                    <span><strong>Package Barocde</strong></span><br/>
+                                    <p style="text-align: center;"></p>
+                                    <div t-esc="requestedPackageLineItems" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:80px'}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </main>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_4_6" model="report.paperformat">
+        <field name="name">New 4*6</field>
+        <field name="format">A6</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_custom_shipping_label" model="ir.actions.report">
+        <field name="name">Custom Label</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">o2b_stock_api.report_custom_shipping_label</field>
+        <field name="report_file">o2b_stock_api.report_custom_shipping_label</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking"/>
+        <field name="paperformat_id" ref="o2b_stock_api.paperformat_4_6"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

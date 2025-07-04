@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="action_server_blank_delivery_method" model="ir.actions.server">
+        <field name="name">Update Delivey Method</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="sale.model_sale_order"/>
+        <field name="binding_model_id" ref="sale.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">records.action_blank_delivery_method()</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,331 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* shopify_odoo_bridge
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-03-28 11:18+0000\n"
+"PO-Revision-Date: 2024-03-28 11:18+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "API Key"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "Access Token/Password"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "Access Token/Password of Channel API"
+msgstr "Zugriffstoken/Passwort der Kanal-API"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__shopify_filter_type__all
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__shopify_filter_type__all
+msgid "All"
+msgstr "Alle"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__shopify_filter_type__id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__shopify_filter_type__id
+msgid "By IDs"
+msgstr "Nach IDs"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__object__product_category
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__object__product_category
+msgid "Category"
+msgstr "Kategorie"
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.export_odoo_categories_form
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.export_odoo_templates_form
+msgid "Confirm Export/Update"
+msgstr "Bestätigen Sie Export/Aktualisierung"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_res_partner
+msgid "Contact"
+msgstr "Kontakt"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__object__res_partner
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__object__res_partner
+msgid "Customer"
+msgstr "Kunde"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__shopify_filter_type__data_range
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__shopify_filter_type__data_range
+msgid "Date Range"
+msgstr "Datumsbereich"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_export_categories
+msgid "Export Category"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_export_templates
+msgid "Export Template"
+msgstr "Vorlage exportieren"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_wk_feed
+msgid "Feed"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_filter_type
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_filter_type
+msgid "Filter Type"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_since_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_since_id
+msgid "From ID"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_import_operation
+msgid "Import Operation"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.actions.act_window,name:shopify_odoo_bridge.open_import_wizard_action
+msgid "Import Wizard"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_limit
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_limit
+msgid "Limit"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "Login With API Key"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_multi_channel_sale__login_with_apikey
+msgid "Login With Apikey"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_multi_channel_sale
+msgid "Multi Channel Sale"
+msgstr "Mehrkanal Verkauf"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_multi_channel_skeleton
+msgid "Multi Channel Skeleton"
+msgstr "Mehrkanal-Skelett"
+
+#. module: shopify_odoo_bridge
+#. odoo-javascript
+#: code:addons/shopify_odoo_bridge/static/src/xml/instance_dashboard.xml:0
+#, python-format
+msgid "Not Found!"
+msgstr "Nicht gefunden!"
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.import_wizard_form
+msgid "Note: In case of import with multiple ids, Ids must be \",\" separated."
+msgstr "Hinweis: Beim Import mit mehreren IDs müssen die IDs durch \",\" getrennt werden."
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.import_wizard_form
+msgid ""
+"Note: Will import number (entered in 'Limit') of objects that after 'From "
+"ID' entered."
+msgstr ""
+"Hinweis: Importiert die Anzahl (eingegeben in „Limit“) von Objekten, die nach „Von“ stehen"
+"ID' eingegeben."
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.import_wizard_form
+msgid "Note: Will import objects of 'All' the time period."
+msgstr "Hinweis: Importiert Objekte des gesamten Zeitraums."
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.import_wizard_form
+msgid ""
+"Note: Will import objects that are updated during the after 'Updated From' "
+"and before 'Updated Till'."
+msgstr ""
+
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__object
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__object
+msgid "Object"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_object_id
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_object_id
+msgid "Object IDs"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__object__sale_order
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__object__sale_order
+msgid "Order"
+msgstr "Auftrag"
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "Please make sure ShopifyAPI version is 12.3.0."
+msgstr "Bitte stellen Sie sicher, dass die ShopifyAPI-Version 12.3.0 ist."
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__object__product_template
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__object__product_template
+msgid "Product"
+msgstr "Produkt"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_attributes_value__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_categories__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_operation__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_orders__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_partners__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_products__shopify_filter_type__since_id
+#: model:ir.model.fields.selection,name:shopify_odoo_bridge.selection__import_templates__shopify_filter_type__since_id
+msgid "Since ID"
+msgstr "Seit ID"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model,name:shopify_odoo_bridge.model_stock_move
+msgid "Stock Move"
+msgstr "Lagerbuchung"
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_updated_at_min
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_updated_at_min
+msgid "Updated From"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_attributes_value__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_categories__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_operation__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_orders__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_partners__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_products__shopify_updated_at_max
+#: model:ir.model.fields,field_description:shopify_odoo_bridge.field_import_templates__shopify_updated_at_max
+msgid "Updated Till"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "Url"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "eg: sh545yghj0d0a1b83d5e527y9by99"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_form
+msgid "eg:http://example.com"
+msgstr ""
+
+#. module: shopify_odoo_bridge
+#: model_terms:ir.ui.view,arch_db:shopify_odoo_bridge.shopify_instance_view_kanban
+msgid "shopify_logo"
+msgstr ""

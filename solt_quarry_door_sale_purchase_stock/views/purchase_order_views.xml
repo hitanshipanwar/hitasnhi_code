@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="specs_purchase_order_form_button">
+            <field name= "name">specs.purchase.order.inherit.form.view</field>
+            <field name= "model">purchase.order</field>
+            <field name= "inherit_id" ref= "purchase.purchase_order_form"/>
+            <field name= "arch" type= "xml">
+                <xpath expr= "//field[@name='order_line']" position= "after">
+                    <field name="show_button_update_price" invisible='1' optional="hide"/>
+                    <div class="float-end d-flex gap-1 mb-2 ms-1"
+                         name="po_button_update_price_order_lines">
+                        <button string="Update price from Specs"
+                                name="action_update_cost_by_specs"
+                                type="object"
+                                class="btn btn-primary"
+                                invisible="not show_button_update_price"/>
+                    </div>
+                </xpath>
+            </field>                        
+        </record> 
+    </data> 
+</odoo>

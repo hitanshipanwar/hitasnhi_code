@@ -1,0 +1,48 @@
+<odoo>
+    <record id="custom_project_creation_form_view" model="ir.ui.view">
+        <field name="name">custom.project.creation.form</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" required="1"/>
+                            <field name="label_tasks"/>
+                            <field name="user_id"/>
+                            <field name="partner_id"/>
+                            <label for="date_start" string="Dates"/>
+                            <div name="dates" class="o_row">
+                                <field name="date_start" widget="daterange" options="{&quot;related_end_date&quot;: &quot;date&quot;}"/>
+                                <i class="fa fa-long-arrow-right mx-2 oe_edit_only" aria-label="Arrow icon" title="Arrow"/>
+                                <i class="fa fa-long-arrow-right mx-2 oe_read_only" aria-label="Arrow icon" title="Arrow" attrs="{'invisible': [('date_start', '=', False), ('date', '=', False)]}"/>
+                                <field name="date" widget="daterange" options="{&quot;related_start_date&quot;: &quot;date_start&quot;}"/>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="analytic_account_id" domain="['|',('company_id', '=', company_id),('company_id', '=', False)]"/>
+                            <field name="company_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                            <field name="privacy_visibility" widget="radio"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Save" type="object" name="action_save" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_create_project_from_crm" model="ir.actions.act_window">
+        <field name="name">Create Project</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">project.project</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="custom_project_creation_form_view"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

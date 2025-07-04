@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_withcarrier_out_form" model="ir.ui.view">
+        <field name="name">delivery.stock.picking_withcarrier.form.view.inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']" position="after">
+                <xpath expr="//field[@name='carrier_id']" position="move"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_calculate_product_stock_condition" model="ir.actions.server">
+        <field name="name">Calculate Product Stock Condition</field>
+        <field name="model_id" ref="product.model_product_product"/>
+        <field name="binding_model_id" ref="product.model_product_product"/>
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">
+if not records and record:
+    records = record
+if records:
+    records.sudo()._compute_quantities_in_om_wh()
+else:
+    model._cron_compute_stock_conditions_in_om_wh()
+        </field>
+    </record>
+
+    <menuitem id="menu_calculate_product_stock_condition" 
+        action="action_calculate_product_stock_condition" 
+        name="Calculate Product Stock Condition" 
+        parent="stock.menu_stock_warehouse_mgmt" 
+        sequence="200" />
+
+</odoo>

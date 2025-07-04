@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <group>
+                    <group>
+                        <field name="act_available" />
+                        <field name="us_last_vendor_id" readonly="1"/>
+                        <field name="us_low_stock_qty" attrs="{'invisible': [('type', '!=', 'product')]}" />
+                        <field name="us_stock_condition" attrs="{'invisible': [('type', '!=', 'product')]}" />
+                        <field name="us_sales_estimate" />
+                        <field name="us_sales_estimate_2wk" />
+                        <field name="ca_last_vendor_id" readonly="1"/>
+                        <field name="ca_low_stock_qty" attrs="{'invisible': [('type', '!=', 'product')]}" />
+                        <field name="ca_stock_condition" attrs="{'invisible': [('type', '!=', 'product')]}" />
+                        <field name="ca_sales_estimate" />
+                        <field name="ca_sales_estimate_2wk" />
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Planning Information" name="planning_information">
+                    <group>
+                        <group>
+                            <field name="component_id"/>
+                            <field name="component_us_stock_condition"/>
+                            <field name="component_ca_stock_condition"/>
+                            <field name="component_qty_available"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_tree_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='virtual_available']" position="after">
+                <field name="us_sales_estimate_2wk" optional="hide"/>
+                <field name="ca_sales_estimate_2wk" optional="hide"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_search_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.product.search.inherit</field>
+        <field name="model">product.product</field>
+        <!-- <field name="mode">primary</field> -->
+        <field name="inherit_id" ref="product.product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='categ_id']" position="after">
+                <filter string="US Stock Condition" name="us_stock_condition" context="{'group_by':'us_stock_condition'}"/>
+                <filter string="CA Stock Condition" name="ca_stock_condition" context="{'group_by':'ca_stock_condition'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,404 @@
+<odoo>
+    <template id="session_expired_template">
+    <html t-att="html_data or {}">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <!-- <link rel="shortcut icon" type="image/png" href="/client_vendor_dashboard/static/src/images/fav fluent.png" /> -->
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/main.css" />
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/style.css" />
+    <title>Vendor Login</title>
+    <link async="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" crossorigin="" />
+
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap');
+    @font-face {
+        font-family: 'Eurostile';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Eurostile'), url('eurostile.woff') format('woff');
+    }
+    
+    @font-face {
+    font-family: 'EuroStyle Normal';
+    font-style: normal;
+    font-weight: normal;
+    src: local('EuroStyle Normal'), url('EuroStyle Normal.woff') format('woff');
+    }
+
+    .fv_banner {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .fv_right {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100vh;
+    }
+
+    .fv_right {
+        flex: 1;
+    }
+
+    @media (min-width:1200px) {
+        .fv_left {
+            flex: 2;
+        }
+
+        .fv_right {
+            flex: 7;
+        }
+
+    }
+
+    .fv_left #showcase {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url(/client_vendor_dashboard/static/src/images/Image_Frame_1.svg) no-repeat center center / cover;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .fv_nav {
+        padding: 40px;
+        height: 90px;
+    }
+
+    .fv_card {
+        margin-top: 2rem;
+    }
+
+    .fv_mid {
+        position: absolute;
+        margin: 0 auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .fv_form {
+        width: 365px;
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    @media screen and (max-width:992px) {
+        .fv_mid {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: translate(0%, 0%);
+        }
+
+    }
+
+    h1, h2 {
+        font-family: 'Eurostile';
+    }
+
+    .fv_title {
+        font-size: 22px;
+        font-weight: 800;
+        text-shadow: 0px 0px 0px #00000094;
+    }
+
+    .fv_subtitle {
+        color: #585858;
+        font-size: 14px;
+    }
+
+    .fv_card form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .import_f {
+        color: #ff0000;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .fv_card input {
+        padding: 6px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        padding: 8px;
+        padding-left: 35px;
+        width: 100%;
+        font-family: "Lato", sans-serif;
+    }
+    .fv_card input:focus {
+        outline: 1px solid #6a6a6a40;
+    }
+    .fv_card label {
+        color: #585858;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .fv_phone, .fv_text, .fv_pass {
+        position: relative;
+    }
+
+    .fv_cicon {
+        position: absolute;
+        color: #5858589e;
+        left: 12px;
+        top: 6px;
+    }
+
+    .fv_cicon img {
+        height: 17px;
+    }
+
+    .fv_card button[type="submit"] {
+        width: 100%;
+        padding: 10px 0;
+        background: #3462ae;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        cursor: pointer;
+        transition: 0.3s;
+        font-family: "Lato", sans-serif;
+    }
+    .fv_card button.bg-color[type="submit"] {
+        background: #bfbfbf91;
+    }
+    .fv_card button[type="submit"]:hover {
+        background: #444;
+    }
+
+    .fv_card button[type="submit"] {
+    }
+
+    .fv_arrow {
+        display: inline-block;
+        height: 10px;
+        position: relative;
+        width: 10px;
+        margin-left: 10px;
+    }
+
+    .fv_arrow::after {
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-right-style: solid;
+        border-right-width: 2px;
+        content: "";
+        display: inline-block;
+        height: 10px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 10px;
+    }
+
+    .fv_arrow.fv_arrow-bar::before {
+        bottom: 1px;
+        content: "";
+        height: 16px;
+        position: absolute;
+        right: 0;
+        transform-origin: bottom;
+        width: 2px;
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .fv_arrow.is-right {
+        -moz-transform: rotate(315deg);
+        -ms-transform: rotate(315deg);
+        -webkit-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+
+    .fv_arrow::after, .fv_arrow .fv_arrow::after {
+        border-color: white;
+    }
+
+    .fv_arrow::before, .fv_arrow .fv_arrow::before {
+        background-color: white;
+    }
+
+    .fv_or {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1.2rem;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .fv_or .bar {
+        flex: auto;
+        border: none;
+        height: 1px;
+        background: #aaaaaa52;
+    }
+
+    .fv_or span {
+        color: #b7b5b5;
+        padding: 0 0.8rem;
+        font-size: 12px;
+    }
+
+    .fv_form_bottom.btom_center {
+        text-align: center
+    }
+
+    .fv_form_bottom a {
+        color: #1f3ab5;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    .fv_form_bottom.color_gray a{
+        color: #b9babb;
+    }
+    .fv_form_bottom a:hover {
+        color: #0080f1;
+        text-decoration: none;
+    }
+
+    .ven_chat {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+    }
+
+    @media screen and (max-width:768px) {
+        .ven_chat {
+            display: none;
+        }
+
+    }
+    .fv_text{
+        position: relative;
+    }
+    .fv_check {
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        font-size: 14px;
+        color: #5858589e;
+    }
+   /* .fv_check.check_green i{
+        color: green;
+
+    }*/
+    </style>
+
+
+
+  </head>
+    <body>
+<!--       <t t-if="logout_message">
+        <div id="logoutMessageDiv" style="width:300px; width: 255px; background: #F95F5F; padding: 10px; border-radius: 6px; color: white; font-weight: 600;" >
+            <t t-esc="logout_message"/>
+            <i class="fas fa-check-circle"></i>
+        </div>
+      </t> -->
+      <div class="fv_banner">
+        <div class="fv_left">
+            <!-- <div id="showcase">
+            </div> -->
+        </div>
+        <div class="fv_mid">
+                <div class="fv_form">
+                    <div class="">
+                        <h1 class="fv_title">Subscription Expired</h1>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <div class="ven_chat">
+        <svg width="74" height="74" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g filter="url(#filter0_d_5479_92156)">
+            <path d="M37.0003 23.667C44.3643 23.667 50.3337 29.6363 50.3337 37.0003C50.3337 44.3643 44.3643 50.3337 37.0003 50.3337C34.8723 50.3366 32.7748 49.8281 30.8843 48.851L25.783 50.2737C25.4984 50.3531 25.1978 50.3554 24.912 50.2804C24.6262 50.2054 24.3654 50.0558 24.1565 49.8468C23.9475 49.6379 23.7979 49.3772 23.7229 49.0914C23.6479 48.8055 23.6502 48.5049 23.7297 48.2203L25.1537 43.123C24.1741 41.2309 23.6642 39.1309 23.667 37.0003C23.667 29.6363 29.6363 23.667 37.0003 23.667ZM37.0003 25.667C33.9946 25.667 31.1119 26.861 28.9865 28.9864C26.861 31.1119 25.667 33.9945 25.667 37.0003C25.667 38.9603 26.1643 40.8443 27.0977 42.5163L27.2977 42.8763L25.815 48.1883L31.131 46.7057L31.491 46.9057C33.0035 47.7466 34.6885 48.23 36.4168 48.3187C38.1451 48.4075 39.8707 48.0993 41.4615 47.4178C43.0522 46.7363 44.4657 45.6995 45.5936 44.387C46.7215 43.0745 47.5339 41.5211 47.9684 39.846C48.4029 38.1709 48.4481 36.4185 48.1004 34.7232C47.7527 33.028 47.0214 31.4348 45.9625 30.066C44.9037 28.6972 43.5454 27.589 41.9919 26.8265C40.4384 26.064 38.7309 25.6673 37.0003 25.667ZM32.667 38.3337H38.6643C38.9177 38.3337 39.1616 38.43 39.3467 38.603C39.5319 38.7759 39.6444 39.0127 39.6617 39.2655C39.679 39.5183 39.5997 39.7682 39.4398 39.9647C39.2799 40.1613 39.0513 40.2898 38.8003 40.3243L38.6643 40.3337H32.667C32.4136 40.3336 32.1697 40.2373 31.9846 40.0644C31.7995 39.8914 31.6869 39.6546 31.6696 39.4018C31.6524 39.149 31.7317 38.8991 31.8916 38.7026C32.0515 38.5061 32.28 38.3775 32.531 38.343L32.667 38.3337ZM32.667 33.667H41.3403C41.5936 33.6674 41.8372 33.7639 42.0221 33.937C42.207 34.11 42.3193 34.3468 42.3364 34.5995C42.3535 34.8522 42.2741 35.1019 42.1142 35.2983C41.9543 35.4947 41.7259 35.6231 41.475 35.6577L41.3403 35.667H32.667C32.4136 35.6669 32.1697 35.5707 31.9846 35.3977C31.7995 35.2247 31.6869 34.9879 31.6696 34.7352C31.6524 34.4824 31.7317 34.2325 31.8916 34.0359C32.0515 33.8394 32.28 33.7109 32.531 33.6763L32.667 33.667Z" fill="#2C3539"/>
+            </g>
+            <defs>
+                <filter id="filter0_d_5479_92156" x="-2" y="-2" width="82" height="82" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+                    <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+                    <feOffset dx="2" dy="2"/>
+                    <feGaussianBlur stdDeviation="2"/>
+                    <feComposite in2="hardAlpha" operator="out"/>
+                    <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+                    <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_5479_92156"/>
+                    <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_5479_92156" result="shape"/>
+                </filter>
+            </defs>
+        </svg>
+    </div>
+
+    </body>
+    <script type="text/javascript">
+      $(document).ready(function(){
+          setTimeout(function(){
+              $("#logoutMessageDiv").fadeOut("slow");
+          }, 5000); // 5 seconds
+      });
+    </script>
+    <script type="text/javascript">
+        <!-- for USA contry code -->
+        function formatPhoneNumber(input) {
+            console.log("we are in number format log:")
+            let phoneNumber = input.value.replace(/\D/g, '');
+            if (phoneNumber.substring(0, 1) !== '1') {
+            phoneNumber = '1' + phoneNumber;
+            }
+            let formattedPhoneNumber = '+1(' + phoneNumber.substring(1, 4) + ')' +
+            phoneNumber.substring(4, 7) + '-' +
+            phoneNumber.substring(7, 12);
+            // Update the input value
+            input.value = formattedPhoneNumber;
+        }
+        
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            var emailLoginForm = document.getElementById('emailLoginForm');
+            var mobileLoginForm = document.getElementById('mobileLoginForm');
+            var toggleToMobileLogin = document.getElementById('toggleToMobileLogin');
+            var toggleToEmailLogin = document.getElementById('toggleToEmailLogin');
+            var wrongPhoneNumber = document.getElementById('wrongPhoneMessage');
+
+            if (wrongPhoneNumber )
+              {
+                emailLoginForm.style.display = 'none';
+                mobileLoginForm.style.display = 'block';
+                toggleToMobileLogin.parentElement.style.display = 'none';
+                toggleToEmailLogin.parentElement.style.display = 'block';
+
+
+              }
+            
+            toggleToMobileLogin.addEventListener('click', function () {
+                emailLoginForm.style.display = 'none';
+                mobileLoginForm.style.display = 'block';
+                toggleToMobileLogin.parentElement.style.display = 'none';
+                toggleToEmailLogin.parentElement.style.display = 'block';
+            });
+
+            toggleToEmailLogin.addEventListener('click', function () {
+                emailLoginForm.style.display = 'block';
+                mobileLoginForm.style.display = 'none';
+                toggleToMobileLogin.parentElement.style.display = 'block';
+                toggleToEmailLogin.parentElement.style.display = 'none';
+            });
+        });
+    </script>
+    
+  </html>
+</template>
+</odoo>

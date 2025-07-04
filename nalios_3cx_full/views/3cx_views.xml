@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="3cx_form_view" model="ir.ui.view">
+        <field name="name">3cx.form.view</field>
+        <field name="model">config.3cx</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="filename" invisible="1"/>
+                        <field name="db_url"/>
+                        <field name="db_token"/>
+                        <field name="configuration" filename="filename" readonly="1"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button string="Generate config" type="object" name="generate_configuration" class="btn-primary"/>
+                    <button string="Close" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="res_call_log_tree_view" model="ir.ui.view">
+        <field name="name">res.call.log.tree.view</field>
+        <field name="model">res.call.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id"/>
+                <field name="name"/>
+                <field name="date"/>
+                <field name="ttype"/>
+                <field name="entitytype"/>
+                <field name="agentname"/>
+                <field name="agent"/>
+                <field name="call_start"/>
+                <field name="call_established"/>
+                <field name="call_end"/>
+                <field name="duration"/>
+                <field name="details"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_call_logs" model="ir.actions.act_window">
+        <field name="name">3CX Call Logs</field>
+        <field name="res_model">res.call.log</field>
+        <field name="view_mode">tree</field>
+    </record>
+    
+
+    <record id="action_open_3cx_configuration" model="ir.actions.act_window">
+        <field name="name">3CX Configuration</field>
+        <field name="res_model">config.3cx</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_3cx_root"
+        name="3CX"
+        sequence="25"
+        web_icon="nalios_3cx_full,static/description/icon.png">
+        <menuitem id="menu_3cx_call_logs"
+            name="Call Logs"
+            sequence="1"
+            action="action_call_logs"/>
+        <menuitem id="menu_3cx_configuration"
+            name="3CX Configuration"
+            sequence="6"
+            action="action_open_3cx_configuration"/>
+    </menuitem>
+</odoo>

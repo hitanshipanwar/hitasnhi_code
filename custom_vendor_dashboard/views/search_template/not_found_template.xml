@@ -1,0 +1,429 @@
+<odoo>
+    <template id="vendor_dashboard_not_found_page">
+    <html t-att="html_data or {}">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <!-- <link rel="shortcut icon" type="image/png" href="/custom_vendor_dashboard/static/src/images/fav fluent.png" /> -->
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/main.css" />
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/style.css" />
+    <title>Vendor Dashboard</title>
+    <link async="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" crossorigin="" />
+    <style>
+      <!-- =============================change color===================== -->
+       /*------*/
+          .sidebar.has-bg-image .sidebar-layout {
+              background: #f4f8ff;
+          }
+          .layout .sidebar .menu .menu-item a {
+              color: #262627;
+          }
+          .layout .sidebar .menu .menu-item a .menu-title{
+                /*color: #4e7cc9;*/
+              font-weight: 600;
+          }
+          .layout .sidebar .menu .menu-item a .menu-title.active{
+                color: #3e52df;
+              font-weight: 600;
+          }
+          <!-- .top-header p {
+              padding-left: 32px;
+          } -->
+          .layout .sidebar .sidebar-collapser{
+            top: 22px;
+                left: calc(275px - 20px);
+           color: #2c3539;
+           background: none;
+               box-shadow: 1px 1px 4px #0c1e3500;
+          }
+          .top-header{
+                box-shadow: 1px 1px 4px #9aa0b900;
+          }
+          <!-- ====================status color==============     -->
+          .venspan_status {
+              font-size: 10px;
+              color: #ff0000ba;
+              background: #ff1e070f;
+              padding: 3px 9px;
+              border-radius: 10px;
+              font-weight: 400;
+          }
+            .cobrowse_btn{
+                  <!-- border: 1px solid #012970; -->
+                  border-radius: 8px;
+                  font-size: 14px;
+                  font-weight: 600;
+                  color: #012970;
+              }
+              . bottom_border1 {
+                    border-bottom: 1px solid #00000017;
+                }
+      <!-- ===============================search bar================= -->
+      .search_frm input {
+            background: white;
+            border: 1px solid #f2f2f2;
+            border-radius: 43px;
+            padding: 8px;
+            padding-left: 36px;
+            width: 100%;
+            font-size: 12px;
+        }
+        .search_bar_n {
+                width: 100%;
+            }
+            .search_frm {
+                position: relative;
+            }
+            .logo_icon {
+                position: absolute;
+                top: 6px;
+                left: 6px;
+            }
+            .border_bottom {
+                    border-bottom: 1px solid #00000017;
+              }
+
+              #search_field
+                {
+                  display:none;
+
+                }
+                #icon{
+                   cursor:pointer;
+                }
+                .border_bottom {
+                    border-bottom: 1px solid #00000017;
+                }
+                .venspan_status {
+                    font-size: 10px;
+                    color: #ff0000ba;
+                    background: #ff1e070f;
+                    padding: 3px 9px;
+                    border-radius: 10px;
+                    font-weight: 400;
+                }
+                  .border_bottom {
+                                    border-bottom: 1px solid #00000017;
+                              }
+                              .border_bottom {
+                        border-bottom: 1px solid #00000017;
+                    }
+    </style>
+  </head>
+  <body style="font-family: 'Eurostile';">
+    <div class="layout has-sidebar fixed-sidebar fixed-header">
+      <aside id="sidebar" class="sidebar break-point-lg has-bg-image">
+        <!-- <a id="btn-collapse" class="sidebar-collapser"><i class="fas fa-angle-left"></i></a> -->
+        <div class="image-wrapper">
+          <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
+        </div>
+        <div class="sidebar-layout">
+           <div class="sidebar-header">
+                    <div class="search_bar_n">
+                        <div class="search_frm">
+                          <input type="search" class="search-input" value="" name="s" placeholder="Company name" />
+                          <!-- <div class="logo_icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="12" fill="#0AA749"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6223 2.99974L13.0685 6.61436C9.11979 12.4743 8.4921 15.3261 8.93385 16.6733C9.10486 17.1792 9.48188 17.4622 9.48188 17.4622L7.80537 16.2772L7.81263 16.2702C6.4239 15.2809 5.76416 12.1399 11.6223 2.99974ZM13.6838 8.15047L14.7535 10.8242C11.6621 15.1782 11.0186 17.3457 11.2747 18.3703C11.3759 18.7653 11.6679 18.9944 11.6679 18.9944L10.2553 18.0095L10.2601 18.0048C9.25099 17.2866 9.01785 14.9252 13.6838 8.15047ZM14.1265 16.8963L15.4959 17.8996C15.426 17.9532 14.3889 18.7458 13.3113 19.0752C12.8108 19.2263 12.4006 19.243 12.0007 18.8976C11.6623 18.5819 11.6102 18.2521 11.5969 18.0302C12.6052 17.8664 13.6399 17.2312 14.1241 16.8987L14.1265 16.8963Z" fill="white"/>
+                            </svg>
+                          </div> -->
+                        </div>
+                      </div>
+                              <!-- <div class="pro-sidebar-logo">
+                                <img src="/custom_vendor_dashboard/static/src/images/Fluent-Logo (1).png" class="img-fluid" id="abc" alt="" style="visibility:visible" />
+                              </div> -->
+                    </div>
+          <div class="sidebar-content">
+            <nav class="menu open-current-submenu">
+              <ul>
+                <li class="menu-item">
+                  <a href="/vendor/home">
+                    <span class="menu-icon">
+                     <![CDATA[
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.79167 2.11022C9.12981 1.82524 9.55779 1.66895 10 1.66895C10.4422 1.66895 10.8702 1.82524 11.2083 2.11022L16.8333 6.85356C17.2558 7.21022 17.5 7.73439 17.5 8.28689V16.4561C17.5 16.8428 17.3464 17.2138 17.0729 17.4873C16.7994 17.7607 16.4284 17.9144 16.0417 17.9144H13.125C12.7382 17.9144 12.3673 17.7607 12.0938 17.4873C11.8203 17.2138 11.6667 16.8428 11.6667 16.4561V11.8727C11.6667 11.8175 11.6447 11.7645 11.6056 11.7254C11.5666 11.6863 11.5136 11.6644 11.4583 11.6644H8.54167C8.48641 11.6644 8.43342 11.6863 8.39435 11.7254C8.35528 11.7645 8.33333 11.8175 8.33333 11.8727V16.4561C8.33333 16.8428 8.17969 17.2138 7.9062 17.4873C7.63271 17.7607 7.26177 17.9144 6.875 17.9144H3.95833C3.76682 17.9144 3.57719 17.8767 3.40025 17.8034C3.22332 17.7301 3.06255 17.6227 2.92714 17.4873C2.79172 17.3518 2.6843 17.1911 2.61101 17.0141C2.53772 16.8372 2.5 16.6476 2.5 16.4561V8.28689C2.5 7.73439 2.74417 7.21022 3.16667 6.85356L8.79167 2.11022ZM10.4025 3.06606C10.2898 2.97121 10.1473 2.9192 10 2.9192C9.85272 2.9192 9.71017 2.97121 9.5975 3.06606L3.9725 7.80856C3.90289 7.86716 3.84691 7.94025 3.80848 8.02272C3.77005 8.1052 3.75009 8.19507 3.75 8.28606V16.4552C3.75 16.5702 3.84333 16.6636 3.95833 16.6636H6.875C6.93025 16.6636 6.98324 16.6416 7.02231 16.6025C7.06138 16.5635 7.08333 16.5105 7.08333 16.4552V11.8719C7.08333 11.0661 7.73667 10.4136 8.54167 10.4136H11.4583C12.2633 10.4136 12.9167 11.0661 12.9167 11.8719V16.4552C12.9167 16.5702 13.01 16.6636 13.125 16.6636H16.0417C16.0969 16.6636 16.1499 16.6416 16.189 16.6025C16.2281 16.5635 16.25 16.5105 16.25 16.4552V8.28689C16.2499 8.1959 16.2299 8.10603 16.1915 8.02355C16.1531 7.94108 16.0971 7.86799 16.0275 7.80939L10.4025 3.06606Z" fill="#000000"/>
+                          </svg>
+                          ]]>
+                    </span>
+                    <span class="menu-title font_lato">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a t-att-href="'/vendor/purchase?email=%s&amp;password=%s&amp;client_url=%s&amp;partner_id=%s' %(user_email, user_password, client_url, partner_id)">
+                    <span class="menu-icon">
+                      <!-- <i class="fas fa-file-invoice"></i> -->
+                      <![CDATA[
+                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 5.625C2.5 4.7962 2.82924 4.00134 3.41529 3.41529C4.00134 2.82924 4.7962 2.5 5.625 2.5H14.375C15.2038 2.5 15.9987 2.82924 16.5847 3.41529C17.1708 4.00134 17.5 4.7962 17.5 5.625V14.375C17.5 15.2038 17.1708 15.9987 16.5847 16.5847C15.9987 17.1708 15.2038 17.5 14.375 17.5H5.625C4.7962 17.5 4.00134 17.1708 3.41529 16.5847C2.82924 15.9987 2.5 15.2038 2.5 14.375V5.625ZM5.625 3.75C5.12772 3.75 4.65081 3.94754 4.29917 4.29917C3.94754 4.65081 3.75 5.12772 3.75 5.625V14.375C3.75 14.8723 3.94754 15.3492 4.29917 15.7008C4.65081 16.0525 5.12772 16.25 5.625 16.25H14.375C14.8723 16.25 15.3492 16.0525 15.7008 15.7008C16.0525 15.3492 16.25 14.8723 16.25 14.375V5.625C16.25 5.12772 16.0525 4.65081 15.7008 4.29917C15.3492 3.94754 14.8723 3.75 14.375 3.75H5.625ZM10.625 13.125C10.625 12.9592 10.6908 12.8003 10.8081 12.6831C10.9253 12.5658 11.0842 12.5 11.25 12.5H14.0625C14.2283 12.5 14.3872 12.5658 14.5044 12.6831C14.6217 12.8003 14.6875 12.9592 14.6875 13.125C14.6875 13.2908 14.6217 13.4497 14.5044 13.5669C14.3872 13.6842 14.2283 13.75 14.0625 13.75H11.25C11.0842 13.75 10.9253 13.6842 10.8081 13.5669C10.6908 13.4497 10.625 13.2908 10.625 13.125ZM11.25 7.5C11.0842 7.5 10.9253 7.56585 10.8081 7.68306C10.6908 7.80027 10.625 7.95924 10.625 8.125C10.625 8.29076 10.6908 8.44973 10.8081 8.56694C10.9253 8.68415 11.0842 8.75 11.25 8.75H14.0625C14.2283 8.75 14.3872 8.68415 14.5044 8.56694C14.6217 8.44973 14.6875 8.29076 14.6875 8.125C14.6875 7.95924 14.6217 7.80027 14.5044 7.68306C14.3872 7.56585 14.2283 7.5 14.0625 7.5H11.25ZM9.1925 11.4325C9.2507 11.4906 9.29688 11.5595 9.32839 11.6355C9.3599 11.7114 9.37612 11.7928 9.37612 11.875C9.37612 11.9572 9.3599 12.0386 9.32839 12.1145C9.29688 12.1905 9.2507 12.2594 9.1925 12.3175L7.3175 14.1925C7.25944 14.2507 7.19047 14.2969 7.11454 14.3284C7.03861 14.3599 6.95721 14.3761 6.875 14.3761C6.79279 14.3761 6.71139 14.3599 6.63546 14.3284C6.55953 14.2969 6.49056 14.2507 6.4325 14.1925L5.4975 13.2575C5.43939 13.1994 5.3933 13.1304 5.36185 13.0545C5.3304 12.9786 5.31421 12.8972 5.31421 12.815C5.31421 12.7328 5.3304 12.6514 5.36185 12.5755C5.3933 12.4996 5.43939 12.4306 5.4975 12.3725C5.61486 12.2551 5.77403 12.1892 5.94 12.1892C6.02218 12.1892 6.10355 12.2054 6.17948 12.2368C6.2554 12.2683 6.32439 12.3144 6.3825 12.3725L6.875 12.8663L8.3075 11.4325C8.36556 11.3743 8.43453 11.3281 8.51046 11.2966C8.58639 11.2651 8.66779 11.2489 8.75 11.2489C8.83221 11.2489 8.91361 11.2651 8.98954 11.2966C9.06547 11.3281 9.13444 11.3743 9.1925 11.4325ZM9.1925 7.3175C9.25061 7.25939 9.29671 7.1904 9.32815 7.11448C9.3596 7.03856 9.37579 6.95718 9.37579 6.875C9.37579 6.79282 9.3596 6.71144 9.32815 6.63552C9.29671 6.5596 9.25061 6.49061 9.1925 6.4325C9.13439 6.37439 9.0654 6.32829 8.98948 6.29685C8.91356 6.2654 8.83218 6.24921 8.75 6.24921C8.66782 6.24921 8.58644 6.2654 8.51052 6.29685C8.4346 6.32829 8.36561 6.37439 8.3075 6.4325L6.875 7.86625L6.3825 7.3725C6.26514 7.25514 6.10597 7.18921 5.94 7.18921C5.77403 7.18921 5.61486 7.25514 5.4975 7.3725C5.38014 7.48986 5.31421 7.64903 5.31421 7.815C5.31421 7.98097 5.38014 8.14014 5.4975 8.2575L6.4325 9.1925C6.49056 9.2507 6.55953 9.29688 6.63546 9.32839C6.71139 9.3599 6.79279 9.37612 6.875 9.37612C6.95721 9.37612 7.03861 9.3599 7.11454 9.32839C7.19047 9.29688 7.25944 9.2507 7.3175 9.1925L9.1925 7.3175Z" fill="#000000"/>
+                        </svg>
+                      ]]>
+                    </span>
+                    <span class="menu-title font_lato">Purchase Order<span style=" font-size: 11px; border-radius: 30px; background: #ff000026; padding: 1px 3px 1px 1px; color: red ;font-weight: 700; margin-right: 0px;"><t t-esc="len(purchase_records)"/>+</span></span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/vendor/unpaidinvoice">
+                    <span class="menu-icon">
+                      <!-- <i class="fas fa-file upload"></i> -->
+                      <![CDATA[
+                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.8539 2.14565C2.80741 2.09917 2.75222 2.06229 2.69148 2.03713C2.63074 2.01197 2.56564 1.99902 2.4999 1.99902C2.43416 1.99902 2.36906 2.01197 2.30832 2.03713C2.24758 2.06229 2.19239 2.09917 2.1459 2.14565C2.09941 2.19214 2.06254 2.24733 2.03738 2.30807C2.01222 2.36881 1.99927 2.43391 1.99927 2.49966C1.99927 2.5654 2.01222 2.6305 2.03738 2.69124C2.06254 2.75198 2.09941 2.80717 2.1459 2.85366L3.3059 4.01266C2.9448 4.05975 2.61317 4.2366 2.37287 4.51021C2.13256 4.78382 2 5.1355 1.9999 5.49966V12.4997C1.9999 12.8975 2.15793 13.279 2.43924 13.5603C2.72054 13.8416 3.10207 13.9997 3.4999 13.9997H13.2929L14.2929 14.9997H4.0849C4.18834 15.2922 4.37998 15.5455 4.63341 15.7246C4.88684 15.9037 5.18957 15.9998 5.4999 15.9997H14.4999C14.7466 15.9997 14.9862 15.975 15.2189 15.9257L17.1459 17.8537C17.2398 17.9475 17.3671 18.0003 17.4999 18.0003C17.6327 18.0003 17.76 17.9475 17.8539 17.8537C17.9478 17.7598 18.0005 17.6324 18.0005 17.4997C18.0005 17.3669 17.9478 17.2395 17.8539 17.1457L2.8539 2.14565ZM11.9999 12.7067V12.9997H5.9999V11.9997C5.9999 11.4692 5.78919 10.9605 5.41411 10.5854C5.03904 10.2104 4.53033 9.99965 3.9999 9.99965H2.9999V7.99965H3.9999C4.4235 7.99985 4.83623 7.86555 5.17859 7.6161C5.52096 7.36665 5.77528 7.01494 5.9049 6.61166L7.2769 7.98365C7.05062 8.36574 6.95793 8.81227 7.01345 9.25285C7.06897 9.69344 7.26954 10.103 7.58354 10.417C7.89754 10.731 8.30712 10.9316 8.7477 10.9871C9.18828 11.0426 9.63481 10.9499 10.0169 10.7237L11.9999 12.7067ZM4.2929 4.99966L4.9999 5.70665V5.99965C4.9999 6.26487 4.89454 6.51923 4.70701 6.70676C4.51947 6.8943 4.26512 6.99965 3.9999 6.99965H2.9999V5.49966C2.9999 5.36705 3.05258 5.23987 3.14635 5.1461C3.24011 5.05233 3.36729 4.99966 3.4999 4.99966H4.2929ZM8.0329 8.74065L9.2599 9.96565C9.0903 10.0112 8.91171 10.0112 8.74209 9.96579C8.57246 9.92038 8.41779 9.8311 8.29362 9.70693C8.16946 9.58276 8.08018 9.42809 8.03476 9.25847C7.98934 9.08884 7.98939 8.91025 8.0349 8.74065M3.4999 12.9997C3.36729 12.9997 3.24011 12.947 3.14635 12.8532C3.05258 12.7594 2.9999 12.6323 2.9999 12.4997V10.9997H3.9999C4.26512 10.9997 4.51947 11.105 4.70701 11.2925C4.89454 11.4801 4.9999 11.7344 4.9999 11.9997V12.9997H3.4999ZM13.9999 9.99965C13.4769 9.99965 13.0019 10.1997 12.6459 10.5277L13.3539 11.2367C13.5344 11.0837 13.7633 10.9997 13.9999 10.9997H14.9999V12.4997C14.9998 12.6036 14.9673 12.705 14.9069 12.7897L15.6169 13.4997C15.8549 13.2347 15.9999 12.8837 15.9999 12.4997V5.49966C15.9999 5.10183 15.8419 4.7203 15.5606 4.43899C15.2793 4.15769 14.8977 3.99966 14.4999 3.99966H6.1169L7.1169 4.99966H11.9999V5.99965C11.9999 6.53009 12.2106 7.0388 12.5857 7.41387C12.9608 7.78894 13.4695 7.99965 13.9999 7.99965H14.9999V9.99965H13.9999ZM14.4999 4.99966C14.6325 4.99966 14.7597 5.05233 14.8535 5.1461C14.9472 5.23987 14.9999 5.36705 14.9999 5.49966V6.99965H13.9999C13.7347 6.99965 13.4803 6.8943 13.2928 6.70676C13.1053 6.51923 12.9999 6.26487 12.9999 5.99965V4.99966H14.4999ZM16.3259 14.2077L17.0329 14.9157C17.6329 14.2867 17.9999 13.4357 17.9999 12.4997V7.49965C18.0001 7.18933 17.904 6.88659 17.7249 6.63316C17.5458 6.37974 17.2925 6.1881 16.9999 6.08465V12.4997C16.9999 13.1597 16.7439 13.7607 16.3259 14.2077Z" fill="#000000"/>
+                          </svg>
+                      ]]>
+                    </span>
+                    <span class="menu-title font_lato">Unpaid Invoices</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="/vendor/paidinvoice">
+                    <span class="menu-icon">
+                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1.66675 5.62533C1.66675 4.82033 2.32008 4.16699 3.12508 4.16699H14.3751C15.1801 4.16699 15.8334 4.82033 15.8334 5.62533V12.7087C15.8334 13.0954 15.6798 13.4664 15.4063 13.7399C15.1328 14.0133 14.7619 14.167 14.3751 14.167H3.12508C2.73831 14.167 2.36737 14.0133 2.09388 13.7399C1.82039 13.4664 1.66675 13.0954 1.66675 12.7087V5.62533ZM4.16675 5.20866V6.04199C4.16675 6.20775 4.1009 6.36672 3.98369 6.48393C3.86648 6.60114 3.70751 6.66699 3.54175 6.66699H2.70841V7.91699H3.54175C3.78798 7.91699 4.03179 7.86849 4.25928 7.77427C4.48677 7.68004 4.69346 7.54193 4.86757 7.36782C5.04168 7.19371 5.1798 6.98701 5.27402 6.75952C5.36825 6.53204 5.41675 6.28822 5.41675 6.04199V5.20866H4.16675ZM8.75008 11.2503C9.24736 11.2503 9.72428 11.0528 10.0759 10.7012C10.4275 10.3495 10.6251 9.87261 10.6251 9.37533C10.6251 8.87804 10.4275 8.40113 10.0759 8.0495C9.72428 7.69787 9.24736 7.50033 8.75008 7.50033C8.2528 7.50033 7.77589 7.69787 7.42426 8.0495C7.07263 8.40113 6.87508 8.87804 6.87508 9.37533C6.87508 9.87261 7.07263 10.3495 7.42426 10.7012C7.77589 11.0528 8.2528 11.2503 8.75008 11.2503ZM2.70841 11.667H3.54175C3.70751 11.667 3.86648 11.7328 3.98369 11.8501C4.1009 11.9673 4.16675 12.1262 4.16675 12.292V13.1253H5.41675V12.292C5.41675 11.7947 5.2192 11.3178 4.86757 10.9662C4.51594 10.6145 4.03903 10.417 3.54175 10.417H2.70841V11.667ZM13.3334 12.292C13.3334 12.1262 13.3993 11.9673 13.5165 11.8501C13.6337 11.7328 13.7927 11.667 13.9584 11.667H14.7917V10.417H13.9584C13.4611 10.417 12.9842 10.6145 12.6326 10.9662C12.281 11.3178 12.0834 11.7947 12.0834 12.292V13.1253H13.3334V12.292ZM13.3334 6.04199V5.20866H12.0834V6.04199C12.0834 6.28822 12.1319 6.53204 12.2261 6.75952C12.3204 6.98701 12.4585 7.19371 12.6326 7.36782C12.9842 7.71945 13.4611 7.91699 13.9584 7.91699H14.7917V6.66699H13.9584C13.7927 6.66699 13.6337 6.60114 13.5165 6.48393C13.3993 6.36672 13.3334 6.20775 13.3334 6.04199ZM3.66758 15.417C3.88707 15.7972 4.20278 16.1128 4.58298 16.3322C4.96317 16.5517 5.39444 16.6671 5.83342 16.667H14.3751C14.8949 16.667 15.4096 16.5646 15.8899 16.3657C16.3701 16.1668 16.8065 15.8752 17.174 15.5076C17.5416 15.1401 17.8332 14.7037 18.0321 14.2234C18.231 13.7432 18.3334 13.2285 18.3334 12.7087V8.33366C18.3336 7.89469 18.2181 7.46342 17.9987 7.08322C17.7792 6.70303 17.4636 6.38731 17.0834 6.16783V12.7087C17.0834 13.427 16.7981 14.1158 16.2902 14.6237C15.7823 15.1317 15.0934 15.417 14.3751 15.417H3.66758Z" fill="#000000"/>
+                      </svg>
+                    </span>
+                    <span class="menu-title font_lato">Paid Invoices</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a t-att-href="'/vendor/setting/email?url=%s&amp;partner_id=%s' % (client_url, partner_id)">
+                    <span class="menu-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11.9991 8.95401C11.0768 8.95401 10.1922 9.32042 9.53994 9.97264C8.88772 10.6249 8.52131 11.5095 8.52131 12.4318C8.52131 13.3542 8.88772 14.2388 9.53994 14.891C10.1922 15.5432 11.0768 15.9096 11.9991 15.9096C12.9215 15.9096 13.8061 15.5432 14.4583 14.891C15.1105 14.2388 15.4769 13.3542 15.4769 12.4318C15.4769 11.5095 15.1105 10.6249 14.4583 9.97264C13.8061 9.32042 12.9215 8.95401 11.9991 8.95401ZM10.2602 12.4318C10.2602 11.9706 10.4434 11.5283 10.7695 11.2022C11.0956 10.8761 11.5379 10.6929 11.9991 10.6929C12.4603 10.6929 12.9026 10.8761 13.2287 11.2022C13.5548 11.5283 13.738 11.9706 13.738 12.4318C13.738 12.893 13.5548 13.3353 13.2287 13.6614C12.9026 13.9875 12.4603 14.1707 11.9991 14.1707C11.5379 14.1707 11.0956 13.9875 10.7695 13.6614C10.4434 13.3353 10.2602 12.893 10.2602 12.4318ZM16.5516 6.16828C16.2309 6.22719 15.8999 6.15647 15.6313 5.97162C15.3626 5.78677 15.1783 5.50291 15.1187 5.18232L14.6666 2.72002C14.6444 2.60011 14.5872 2.48949 14.502 2.40218C14.4169 2.31488 14.3077 2.25483 14.1884 2.22965C12.7444 1.92345 11.2522 1.92345 9.8081 2.22965C9.68879 2.25483 9.57964 2.31488 9.4945 2.40218C9.40937 2.48949 9.35208 2.60011 9.3299 2.72002L8.87953 5.18232C8.84664 5.35769 8.77613 5.52385 8.67286 5.66935C8.56959 5.81485 8.436 5.93624 8.28131 6.02516C8.12661 6.11408 7.95448 6.16841 7.77677 6.18441C7.59906 6.20041 7.42 6.1777 7.25191 6.11785L4.88873 5.27622C4.77406 5.23515 4.6498 5.22892 4.5316 5.25832C4.4134 5.28771 4.30654 5.35142 4.22447 5.44141C3.23402 6.53163 2.48606 7.81952 2.02996 9.22006C1.99233 9.33588 1.9901 9.46029 2.02355 9.57738C2.05701 9.69447 2.12463 9.79892 2.21776 9.87737L4.13404 11.4963C4.2702 11.6112 4.37964 11.7545 4.4547 11.916C4.52977 12.0776 4.56866 12.2537 4.56866 12.4318C4.56866 12.61 4.52977 12.786 4.4547 12.9476C4.37964 13.1092 4.2702 13.2524 4.13404 13.3674L2.21776 14.9863C2.12463 15.0647 2.05701 15.1692 2.02355 15.2863C1.9901 15.4034 1.99233 15.5278 2.02996 15.6436C2.48639 17.0444 3.23496 18.3323 4.2262 19.4222C4.30828 19.5122 4.41514 19.5759 4.53334 19.6053C4.65154 19.6347 4.7758 19.6285 4.89047 19.5874L7.25538 18.7458C7.42345 18.6853 7.60266 18.6622 7.78058 18.6779C7.9585 18.6936 8.13087 18.7479 8.28572 18.8369C8.44058 18.9259 8.57421 19.0475 8.67735 19.1933C8.78049 19.3392 8.85067 19.5057 8.883 19.6813L9.33164 22.1436C9.37686 22.3871 9.5664 22.5818 9.80984 22.6323C11.2545 22.9386 12.7473 22.9386 14.1919 22.6323C14.3108 22.6071 14.4195 22.5473 14.5043 22.4603C14.5891 22.3733 14.6462 22.2631 14.6684 22.1436L15.1205 19.6813C15.1534 19.506 15.2239 19.3398 15.3271 19.1943C15.4304 19.0488 15.564 18.9274 15.7187 18.8385C15.8734 18.7496 16.0455 18.6953 16.2232 18.6793C16.4009 18.6633 16.58 18.686 16.7481 18.7458L19.1113 19.5874C19.346 19.6709 19.6086 19.6048 19.7755 19.4222C20.766 18.332 21.5139 17.0441 21.97 15.6436C22.0077 15.5278 22.0099 15.4034 21.9764 15.2863C21.943 15.1692 21.8754 15.0647 21.7822 14.9863L19.866 13.3674C19.7295 13.2526 19.6199 13.1094 19.5446 12.9478C19.4694 12.7862 19.4304 12.6101 19.4304 12.4318C19.4304 12.2536 19.4694 12.0775 19.5446 11.9158C19.6199 11.7542 19.7295 11.611 19.866 11.4963L21.7822 9.87737C21.8754 9.79892 21.943 9.69447 21.9764 9.57738C22.0099 9.46029 22.0077 9.33588 21.97 9.22006C21.5131 7.81911 20.764 6.53115 19.7721 5.44141C19.69 5.35142 19.5831 5.28771 19.4649 5.25832C19.3467 5.22892 19.2225 5.23515 19.1078 5.27622L16.7429 6.11785C16.6801 6.14043 16.6155 6.15787 16.5499 6.17002M5.03828 7.17858L6.66763 7.75764C7.07306 7.90197 7.50498 7.95659 7.93357 7.91771C8.36216 7.87882 8.7772 7.74738 9.15004 7.53244C9.52287 7.3175 9.8446 7.0242 10.093 6.67279C10.3414 6.32138 10.5106 5.92023 10.5889 5.49706L10.8967 3.81032C11.6271 3.71912 12.366 3.71912 13.0964 3.81032L13.4059 5.49706C13.4836 5.92052 13.6525 6.32203 13.9007 6.67376C14.149 7.0255 14.4708 7.31905 14.8438 7.53408C15.2168 7.7491 15.6321 7.88047 16.0609 7.91907C16.4897 7.95768 16.9217 7.90259 17.3271 7.75764L18.9548 7.17511C19.3982 7.7559 19.7668 8.38887 20.0503 9.06008L18.7391 10.1678C18.4097 10.4459 18.1449 10.7926 17.9633 11.1837C17.7817 11.5747 17.6876 12.0007 17.6876 12.4318C17.6876 12.863 17.7817 13.289 17.9633 13.68C18.1449 14.071 18.4097 14.4177 18.7391 14.6959L20.052 15.8036C19.7676 16.4755 19.3995 17.1088 18.9565 17.6886L17.3271 17.1078C16.9217 16.9634 16.4898 16.9088 16.0612 16.9477C15.6326 16.9866 15.2176 17.118 14.8447 17.333C14.4719 17.5479 14.1502 17.8412 13.9018 18.1926C13.6533 18.544 13.4842 18.9452 13.4059 19.3683L13.0964 21.0551C12.366 21.1464 11.6271 21.1464 10.8967 21.0551L10.5889 19.3683C10.5112 18.9449 10.3423 18.5434 10.094 18.1916C9.84576 17.8399 9.52397 17.5464 9.15098 17.3313C8.77799 17.1163 8.3627 16.9849 7.9339 16.9463C7.5051 16.9077 7.07303 16.9628 6.66763 17.1078L5.04349 17.6886C4.60048 17.1088 4.2324 16.4755 3.94798 15.8036L5.25912 14.6942C5.58826 14.416 5.85277 14.0694 6.03421 13.6785C6.21565 13.2876 6.30964 12.8619 6.30964 12.431C6.30964 12 6.21565 11.5743 6.03421 11.1834C5.85277 10.7925 5.58826 10.4459 5.25912 10.1678L3.94624 9.06008C4.23185 8.38877 4.59985 7.75559 5.04175 7.17511" fill="#000000"/>
+                          </svg>
+                      </span>
+                      <span class="menu-title font_lato">Setting</span>
+                  </a>
+              </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </aside>
+      <div id="overlay" class="overlay"></div>
+      <div class="layout" style="background: #f6f6f5;">
+        <header class="header top-header">
+          <p>Vendor Dashboard</p>
+          <ul class="d-flex align-items-center" style="margin-left: auto;">
+            <li class="nav-item">
+              <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                <i class="fas fa-bell"></i>
+                <span class="badge bg-primary badge-number">4</span>
+              </a>
+            </li>
+            <li class="nav-item dropdown pe-3">
+              <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <!-- dynamic image fetch from database start here -->
+                <t t-if="user_image">
+                  <img t-if="user_image" t-att-src="'data:image/png;base64,' + user_image" alt="Profile" class="rounded-circle"/>
+                   <!-- <img t-if="user.image_1920" t-att-src="image_data_uri(user.image_1920)" alt="Profile" class="rounded-circle"  /> -->
+                </t>
+                <t t-else="">
+                  <!-- <img src="/custom_vendor_dashboard/static/src/images/profile-img.jpg" alt="Profile" class="rounded-circle" /> -->
+                  <i class="fa fa-user rounded-circle" aria-hidden="true" ></i>
+                </t>
+                <!-- dynamic image fetch from database end here -->
+                <span class="d-none d-md-block dropdown-toggle ps-2"><t t-esc="user_name"/></span>
+              </a>
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <!-- <li>
+              <a class="dropdown-item d-flex align-items-center" href="/vendor/manage/email">
+                <i class="bi bi-person"></i>
+                <span>Manage Email Address</span>
+              </a>
+            </li> 
+            <hr class="dropdown-divider"/> -->
+            <li>
+              <a class="dropdown-item d-flex align-items-center" t-att-href="'/api/render/client?menu=reset_password&amp;url=%s&amp;login=%s&amp;password=%s' % (client_url ,user_email, user_password)">
+                <i class="bi bi-person"></i>
+                <span>Reset Password</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider"/>
+            </li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="/vendor/login">
+                <i class="bi bi-person"></i>
+                <span>Login</span>
+              </a>
+            </li>
+            <li>
+              <!-- <a class="dropdown-item d-flex align-items-center" href="/web/session/logout?redirect=/vendor/logout"> -->
+              <a class="dropdown-item d-flex align-items-center" t-att-href="'/vendor/logout?url=%s' % (client_url)">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Log Out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+          </ul>
+          <a id="btn-toggle" href="#" class="sidebar-toggler break-point-lg">
+            <i class="fas fa-bars"></i>
+          </a>
+        </header>
+        <main class="content">
+          <div class="page-content">
+            <div class="pagetitle d-flex align-items-center justify-content-between mb-5 pt-3">
+              <h1>Welcome <t t-esc="user_name"/></h1>
+              <div class="search-bar">
+                <span id="search_field" >
+                <form class="search-form d-flex align-items-center"  method="POST" action="/vendor/paidinvoice/search">
+                  <input type="text" name="query"   placeholder="Search by Vendor Invoice# or PO#" title="Enter search keyword" required="true" />
+                  <button type="submit" title="Search"><i class="fas fa-search"></i></button>
+                </form>
+                </span>
+              </div>
+            </div>
+            <div class="section dashboard">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <a href="" style="color:white;">VIEW ALL</a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title">Open Purchase Orders ($)</h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                                <h6><t t-esc="len(purchase_records)"/></h6>
+                            </div>
+                            <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <span>
+                                <![CDATA[
+                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 17L10.3 17.86C10.1 17.28 10 16.65 10 16C10 15.76 10 15.5 10.04 15.29L9 14.6L6 16.6L3 14.6L2 15.26V2H16V10C16.7 10 17.37 10.12 18 10.34V0H0V19L3 17L6 19L9 17ZM14 6V4H4V6H14ZM12 10V8H4V10H12ZM12.5 16L15.25 19L20 14.23L18.84 12.82L15.25 16.41L13.66 14.82L12.5 16Z" fill="#D2D2D2"/>
+                                </svg>
+                                ]]>
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <a href="" style="color:white;">VIEW ALL</a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title">Invoice (Billed)</h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                              <h6><t t-esc="len(billed_invoice)"/></h6>
+                            </div>
+                            <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                             <span class="menu-icon">
+                            <!-- <i class="fas fa-file upload"></i> -->
+                            <![CDATA[
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.86 21.43L9 22L6 20L3 22V3H21V10.2C20.37 9.93 19.64 9.93 19 10.22V5H5V18.26L6 17.6L9 19.6L9.86 19V21.43ZM11.86 19.96L18 13.83L20.03 15.87L13.9 22H11.86V19.96ZM21.71 14.19L20.73 15.17L18.69 13.13L19.67 12.15L19.68 12.14L19.69 12.13C19.86 11.97 20.12 11.96 20.31 12.09C20.34 12.1 20.37 12.13 20.39 12.15L21.71 13.47C21.91 13.67 21.91 14 21.71 14.19ZM17 9V7H7V9H17ZM15 13V11H7V13H15Z" fill="#D2D2D2"/>
+                            </svg>
+                            ]]>
+                          </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <a href="" style="color:white;">VIEW ALL</a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title">Paid Invoices ($)</h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                              <h6><t t-esc="len(paid_invoice)"/></h6>
+                            </div>
+                            <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="fas fa-file-invoice"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="d-flex align-items-center justify-content-center vh-100">
+                  <div class="text-center row">
+                  <div class=" col-md-6">
+                  <img src="https://cdn.pixabay.com/photo/2017/03/09/12/31/error-2129569__340.jpg" alt=""
+                  class="img-fluid"/>
+                  </div>
+                 
+                  <div class=" col-md-6 mt-5 text-info">
+                     <!-- start for error alert for user -->
+                  <t t-if="not login_status">
+                    <div class="alert alert-danger" role="alert">
+                      User is not logged  Properly.
+                    </div>
+                  </t>
+                  <!-- end for error alert for user -->
+                  <p class="fs-3"> <span class="text-danger">Opps!</span> Whether you are not Portal User or Page not found due to wrong URL or  Unauthorized access.</p>
+                  <p class="lead">
+                  The page you’re looking for doesn’t exist. 
+                  <p>User Name : <t t-esc="user_name"/></p>
+                  <p>Requested URL Endpoint: <t t-esc="request.httprequest.path"/></p>
+                  </p>
+                  <a href="/vendor/login" class="btn btn-primary">Login</a>
+                  </div>
+                  </div>
+                  </div>
+                </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <div class="horz-list">
+              <ul>
+                <li><a href="#" style="text-decoration: underline;">Terms &amp; Conditions</a></li>
+                <li><a href="#" style="text-decoration: underline;">Warranty</a></li>
+                <!-- <li><a href="#" style="text-decoration: underline;">Address</a></li> -->
+                <!-- <li><a href="#" style="text-decoration: underline;">CoBrowse</a></li> -->
+                <li><a href="#" style="text-decoration: underline;"><t t-esc="company_name"/></a></li>
+                <li><a href="#">Email: <t t-esc="company_email"/></a></li>
+                <li><a href="#">Toll Free<t t-esc="company_mobile"/></a></li>
+              </ul>
+              <ul>
+              <!-- <li><a href="#">©Copyright <t t-call="custom_vendor_dashboard.vendor_dashboard_time_menu"/>. Fluent Conveyors</a></li> -->
+              <li><a href="#"><t t-esc="company_address"/></a></li>
+              <li><a href="#">Copyright© <t t-call="custom_vendor_dashboard.vendor_dashboard_time_menu"/> <t t-esc="company_name"/> LLC. All right reserved</a></li>
+              </ul>
+          </div>
+          <div class="overlay"></div>
+        </div>
+      </div>
+      <script>
+
+               let icon = document.getElementById('icon');
+               let searchField = document.getElementById('search_field');
+               let count = 0;
+
+                icon.addEventListener('click', function() 
+                {
+                  count++;
+                   if(count%2 !=0){
+                    searchField.style.display = 'block' ;
+                   }
+                   else{
+                    searchField.style.display = 'none' ;
+                    }
+                });
+            </script>
+      <script src="/custom_vendor_dashboard/static/src/js/main.js"></script>
+      <script src="/custom_vendor_dashboard/static/src/js/bootstrap.bundle.min.js"></script>
+    </body>
+  </html>
+</template>
+</odoo>

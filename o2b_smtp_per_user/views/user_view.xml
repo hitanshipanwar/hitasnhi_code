@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record model="ir.ui.view" id="product_template_only_form_view_modules">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+        
+            <xpath expr="//field[@name='email']" position="after">
+                <field name="login" invisible="1"/>
+                <label for="mail_server_id" string="Outgoing Mail Server"/>
+                <field name="mail_server_id" nolabel="1" options="{'no_create_edit': True}" domain="[('smtp_user', '=', login)]" />
+                <button name="action_create_add" string="Create &amp; Add" type="object" 
+                    invisible="mail_server_id" 
+                    />
+                <button name="action_remove" string="Remove" type="object" invisible="not mail_server_id" />
+          </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_users_form_smtp_o2b">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="before">
+                <field name="mail_server_id" options="{'no_create_edit': True}" domain="[('smtp_user', '=', login)]" groups="base.group_no_one"/>
+            </xpath>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="ir_mail_server_form_default">
+        <field name="name">ir.mail_server.form.inherit</field>
+        <field name="model">ir.mail_server</field>
+        <field name="inherit_id" ref="base.ir_mail_server_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='smtp_debug']" position="after">
+                <field name="default"/>
+          </xpath>
+      </field>
+    </record>
+
+        <record model="ir.ui.view" id="ir_mail_server_add_form">
+            <field name="model">new.mail_server.model</field>
+            <field name="arch" type="xml">
+                <form string="Outgoing Mail Servers">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group col="4" string="Connection Information">
+                            <field name="smtp_host"/>
+                            <field name="smtp_port"/>
+                            <field name="smtp_debug" groups="base.group_no_one"/>
+                         </group>
+                        <group col="4" string="Security and Authentication" colspan="4">
+                            <field name="smtp_encryption"/>
+                            <field name="smtp_user"/>
+                            <field name="smtp_pass" password="True"/>
+                        </group>
+                    </sheet> 
+                    <footer>
+                        <button name="action_add_records" string="ADD" type="object" class="oe_highlight"/>
+                        or
+                        <button special="cancel" string="Cancel" class="oe_link"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ir_mail_server_form_outlook">
+            <field name="name">ir.mail_server.form.inherit</field>
+            <field name="model">ir.mail_server</field>
+            <field name="inherit_id" ref="microsoft_outlook.ir_mail_server_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[contains(@class, 'alert') and contains(@class, 'mt-2') and @type='action' and @name='%(base.res_config_setting_act_window)d'][ancestor::div[contains(@invisible, 'outlook')]]"
+                   position="replace">
+                <button name="action_check_settings_access"
+                        string="Setup your Outlook API credentials in the general settings to link a Outlook account."
+                        class="alert alert-warning d-block mt-2 text-start"
+                        type="object"
+                        icon="oi-arrow-right"
+                        invisible="is_microsoft_outlook_configured or smtp_authentication != 'outlook'"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="ir_mail_server_form_gmail">
+        <field name="name">ir.mail_server.form.inherit</field>
+        <field name="model">ir.mail_server</field>
+        <field name="inherit_id" ref="google_gmail.ir_mail_server_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[contains(@class, 'alert') and contains(@class, 'mt-2') and @type='action' and @name='%(base.res_config_setting_act_window)d'][ancestor::div[contains(@invisible, 'gmail')]]"
+               position="replace">
+            <button name="action_check_settings_access"
+                    string="Setup your Gmail API credentials in the general settings to link a Gmail account."
+                    class="alert alert-warning d-block mt-2 text-start"
+                    type="object"
+                    icon="oi-arrow-right"
+                    invisible="smtp_authentication != 'gmail' or google_gmail_uri"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

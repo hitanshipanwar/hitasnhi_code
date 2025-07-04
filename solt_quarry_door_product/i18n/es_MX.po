@@ -1,0 +1,611 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* solt_quarry_door_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-07 08:29+0000\n"
+"PO-Revision-Date: 2024-08-07 08:29+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__anchor
+#, python-format
+msgid "Anchor Attribute"
+msgstr "Atributo Ancla"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__arc
+msgid "Arc Attribute"
+msgstr "Atributo Arco"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_assembly
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_assembly_view_tree
+msgid "Assembly Preparation"
+msgstr "Preparación de Ensamble"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__product_attribute_id
+msgid "Attribute"
+msgstr "Atributo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_product_attribute_value
+msgid "Attribute Value"
+msgstr "Valor del atributo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_product_attribute__attribute_type
+msgid "Attribute type"
+msgstr "Tipo de atributo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_product_product__classification_type
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_product_template__classification_type
+msgid "Classification Type"
+msgstr "Tipo de clasificación"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__color
+#, python-format
+msgid "Color Attribute"
+msgstr "Atributo Color"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_level
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_level_view_tree
+msgid "Complexity Level"
+msgstr "Nivel de complejidad"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__custom
+msgid "Custom"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__darla
+msgid "Darla"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__deadbolt
+msgid "Deadbolt Attribute"
+msgstr "Atributo Picaporte"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_metal
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_metal_view_tree
+msgid "Deadbolt Model"
+msgstr "Modelo de cerradura"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_design
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_design_view_tree
+msgid "Design"
+msgstr "Diseño"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_template__classification_type__door
+msgid "Door"
+msgstr "Puerta"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_forge
+msgid "Door Forging"
+msgstr "Forja de puertas"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_assembly
+msgid "Door assembly"
+msgstr "Montaje de puerta"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_board_type
+msgid "Door board type"
+msgstr "Tipo de tablero"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_design
+msgid "Door design"
+msgstr "Diseño"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_family
+msgid "Door family"
+msgstr "Familia"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_position
+msgid "Door fixed position"
+msgstr "Posicin fija"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_glass_piece
+msgid "Door glass piece"
+msgstr "Piezas de vidrios"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_handing
+msgid "Door handing"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_handing_glass
+msgid "Door handing glass"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_handle
+msgid "Door handle"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_level
+msgid "Door level"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_metal
+msgid "Door metal"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_traslape
+msgid "Door overlap"
+msgstr "Traslape"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_radius
+msgid "Door radius"
+msgstr "Radio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_suffix
+msgid "Door suffix"
+msgstr "Sufijo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_type_arc
+msgid "Door type of arc"
+msgstr "Tipo de arco"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_type_glass
+msgid "Door type of glass"
+msgstr "Tipo de vidrio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__dust_guard
+msgid "Dust Guard Attribute"
+msgstr "Atributo Guardapolvo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__eliptical
+msgid "Eliptical"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_traslape__type__external
+msgid "External"
+msgstr "Externo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_handle__type__external_active
+msgid "External Active Handle"
+msgstr "Jaladera Activa Exterior"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_handle__type__external_inactive
+msgid "External Inactive Handle"
+msgstr "Jaladera Inactiva Exterior"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__eyebrow
+msgid "Eyebrow"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__family
+#, python-format
+msgid "Family Attribute"
+msgstr "Atributo Familia"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_board_type
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_board_type_view_tree
+msgid "Fixed Board Type"
+msgstr "Tipo de tablero fijo"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_position
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_position_view_tree
+msgid "Fixed Position"
+msgstr "Posición fija"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__flashing
+msgid "Flashing Attribute"
+msgstr "Atributo Flashing"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__forge
+#, python-format
+msgid "Forge Attribute"
+msgstr "Atributo Forjas"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_forge
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_forge_view_tree
+msgid "Forging"
+msgstr "Forjas"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__full
+msgid "Full"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__glass
+msgid "Glass Attribute"
+msgstr "Atributo Vidrio"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_glass_piece
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_glass_piece_view_tree
+msgid "Glass Part ID"
+msgstr "ID Piezas de vidrios"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__gothic
+msgid "Gothic"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_handing
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_handing_view_tree
+msgid "Handing"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_handing_glass
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_handing_glass_view_tree
+msgid "Handing Glass"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__handle
+msgid "Handle Attribute"
+msgstr "Atributo Jaladeras"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_handle
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_handle_view_tree
+msgid "Handles"
+msgstr "Jaladeras"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__hinge
+#, python-format
+msgid "Hinge Attribute"
+msgstr "Atributo Bisagra"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__id
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__id
+msgid "ID"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_traslape__type__internal
+msgid "Internal"
+msgstr "Interno"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_handle__type__internal_active
+msgid "Internal Active Handle"
+msgstr "Jaladera Activa Interior"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_handle__type__internal_inactive
+msgid "Internal Inactive Handle"
+msgstr "Jaladera Inactiva Interior"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__latch
+msgid "Latch Attribute"
+msgstr "Atributo Picaporte"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_attribute__attribute_type__molding
+#, python-format
+msgid "Molding Attribute"
+msgstr "Atributo Molduras"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_abstract__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__name
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__none
+msgid "None"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_traslape
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_traslape_view_tree
+msgid "Overlap"
+msgstr "Traslape"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_abstract__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_assembly__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_board_type__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_design__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_forge__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_glass_piece__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handing_glass__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_level__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_metal__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_position__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_radius__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_suffix__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__price
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_glass__price
+msgid "Price"
+msgstr "Precio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_family__pricelist_id
+msgid "Pricelist"
+msgstr "Lista de precio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_product_template
+msgid "Product"
+msgstr "Producto"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_product_attribute
+msgid "Product Attribute"
+msgstr "Atributo de producto"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_family
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_family_view_tree
+msgid "Product Family"
+msgstr "Familia de producto"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_product_attribute_value__family_product_id
+msgid "Product family"
+msgstr "Familia de producto"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__provenzal
+msgid "Provenzal"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_radius
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_radius_view_tree
+msgid "Radius"
+msgstr "Radio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_template__classification_type__railing
+msgid "Railing"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__door_type_arc__type_arc__simulated_eyebrow
+msgid "Simulated Eyebrow arch"
+msgstr ""
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_suffix
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_suffix_view_tree
+msgid "Suffix"
+msgstr "Sufijo"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,help:solt_quarry_door_product.field_product_attribute__attribute_type
+msgid "Technical field to identify the type of attribute"
+msgstr "Campo técnico para identificar el tipo de atributo"
+
+#. module: solt_quarry_door_product
+#. odoo-python
+#: code:addons/solt_quarry_door_product/models/product_attribute.py:0
+#, python-format
+msgid "There is already an attribute marked as the {}."
+msgstr "Ya existe un atributo marcado como {}."
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_handle__type
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_traslape__type
+#: model:ir.model.fields,field_description:solt_quarry_door_product.field_door_type_arc__type_arc
+msgid "Type"
+msgstr "Tipo"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_type_arc
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_type_arc_view_tree
+msgid "Type of Door Arc"
+msgstr "Tipo de arco de puerta"
+
+#. module: solt_quarry_door_product
+#: model:ir.actions.act_window,name:solt_quarry_door_product.action_door_type_glass
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_product.door_type_glass_view_tree
+msgid "Type of glass"
+msgstr "Tipo de vidrio"
+
+#. module: solt_quarry_door_product
+#: model:ir.model.fields.selection,name:solt_quarry_door_product.selection__product_template__classification_type__windows
+msgid "Windows"
+msgstr "Ventana"
+
+#. module: solt_quarry_door_product
+#: model:ir.model,name:solt_quarry_door_product.model_door_abstract
+msgid "door.abstract"
+msgstr ""

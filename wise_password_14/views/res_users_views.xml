@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wise_password_14.view_users_form_inherit" model="ir.ui.view">
+        <field name="name">wise.view.res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <!-- Add button to create inital password and send email if user does not have a password -->
+            <xpath expr="//button[@name='action_reset_password']" position="after">
+                <field name="date_password_changed" invisible="1"/>
+                <button type="object" string="Create Initial Password And Send Invitational Email" name="button_set_initial_password" attrs="{'invisible':[('date_password_changed','!=',False)]}"/>
+            </xpath>
+            <!-- Hide the previous button to send an invitational email -->
+            <xpath expr="//button[@name='action_reset_password'][2]" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

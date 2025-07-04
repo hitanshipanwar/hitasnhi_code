@@ -1,0 +1,33 @@
+<odoo>
+    <record id="res_config_settings_view_form_inherit_create_batch_payment" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.create.batch.payment</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//setting[@id='access_rights']" position="before">
+            <!-- <xpath expr="//div[hasclass('settings')]" position="inside"> -->
+                <div class="app_settings_block" data-string="Bista ODOO-Bill.com Connector" string="Bill.com"
+                     data-key="client_bista_odoo_bill_com_connector"
+                     groups="client_bista_odoo_bill_com_connector.group_bill_com_access">
+                    <h2>Bill.com</h2>
+                    <div class="row mt16 o_settings_container" name="batch_bill_com_setting_container">
+                        <div class="col-12 col-lg-8 o_setting_box" id="batch_bill_com_setting"
+                             title="Group Bill.Com payments into a single batch to ease the reconciliation process.">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane">
+                                    <field name="create_batch_payment"/>
+                                </div>
+                                <div class="o_setting_right_pane">
+                                    <label for="create_batch_payment"/>
+                                    <div class="text-muted">
+                                        Group Bill.Com payments into a single batch to ease the reconciliation process
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

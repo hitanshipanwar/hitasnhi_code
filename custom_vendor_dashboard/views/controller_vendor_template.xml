@@ -1,0 +1,751 @@
+<odoo>
+    <template id="vendor_dashboard_home">
+    <html t-att="html_data or {}">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <!-- <link rel="shortcut icon" type="image/png" href="/custom_vendor_dashboard/static/src/images/fav fluent.png" /> -->
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/main.css" />
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/custom_vendor_dashboard/static/src/css/style.css" />
+    <title>Vendor Dashboard</title>
+    <link async="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" crossorigin="" />
+
+  </head>
+  <!-- <body style="font-family: 'Eurostile';"> -->
+  <body>
+    <style>
+   <!--  @font-face {
+    font-family: 'Eurostile';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Eurostile'), url('eurostile.woff') format('woff');
+    }
+    
+
+    @font-face {
+    font-family: 'EuroStyle Normal';
+    font-style: normal;
+    font-weight: normal;
+    src: local('EuroStyle Normal'), url('EuroStyle Normal.woff') format('woff');
+    }
+
+    h2{
+    font-family:"Eurostile";
+    } -->
+    table {
+      width: 100%;
+    }
+
+
+    table.fold-table > tbody > tr.fold {
+      display: none;
+    }
+    table.fold-table > tbody > tr.fold.open {
+      display: table-row;
+          background: #ebeced3d;
+    }
+    .footer-side{
+        margin-top:179px;
+      }
+      <!-- ==============================Changes==================================== -->
+      /*------*/
+      .sidebar.has-bg-image .sidebar-layout {
+          background: #f4f8ff;
+      }
+      .layout .sidebar .menu .menu-item a {
+          color: #262627;
+      }
+      .layout .sidebar .menu .menu-item a .menu-title{
+            /*color: #4e7cc9;*/
+          font-weight: 600;
+      }
+      .layout .sidebar .menu .menu-item a .menu-title.active{
+            color: #3e52df;
+          font-weight: 600;
+      }
+      <!-- .top-header p {
+          padding-left: 32px;
+      } -->
+      .layout .sidebar .sidebar-collapser{
+        top: 22px;
+            left: calc(275px - 20px);
+       color: #2c3539;
+       background: none;
+           box-shadow: 1px 1px 4px #0c1e3500;
+      }
+      .top-header{
+            box-shadow: 1px 1px 4px #9aa0b900;
+      }
+      <!-- =====================SERCH status============================== -->
+         .search_bar_n {
+                width: 100%;
+            }
+            .logo_icon{
+                  position: absolute;
+              top: 6px;
+              left: 6px;
+            }
+            .search_frm{
+              position: relative;
+            }
+            .search_frm input{
+                  background: white;
+                border: 1px solid #f2f2f2;
+                border-radius: 43px;
+                padding: 8px;
+                padding-left: 36px;
+                width: 100%;
+                    font-size: 12px;
+            }
+        <!-- ===============================nav item button======================== -->
+          .cobrowse_btn{
+              <!-- border: 1px solid #012970; -->
+              border-radius: 8px;
+              font-size: 14px;
+              font-weight: 600;
+              color: #012970;
+          }    
+
+          .venspan_status {
+              font-size: 10px;
+              color: #ff0000ba;
+              background: #ff1e070f;
+              padding: 3px 9px;
+              border-radius: 10px;
+              font-weight: 400;
+          }
+        .circle {
+          border: 1px solid #0067bf;
+          padding: 5px;
+          height: 24px;
+          width: 24px;
+          border-radius: 50%;
+          color: #0067bf;
+           display:block;
+          }
+          #search_field{
+            display:none;
+          }
+          #icon{
+            cursor:pointer;
+          }
+           
+    </style>
+    <!-- <style>          
+    .layout .sidebar .menu .menu-item a {
+    margin: 0 8px 0 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    }
+    .layout .sidebar .menu .menu-item a .menu-icon {
+    font-size: 12px;
+    margin-right: 0px;
+    }
+    .menu-item.active {
+    overflow: hidden;
+    border-right: 4px solid #ffc107;
+    }
+    .menu-item.active a {
+    background: #c9c7c72b;
+    }
+    </style>
+    <script>
+   document.addEventListener("DOMContentLoaded", function() {
+      var menuItems = document.querySelectorAll(".menu-item");
+      menuItems.forEach(function(item) {
+        item.addEventListener("click", function() {
+          // Remove "active" class from all menu items
+          menuItems.forEach(function(item) {
+            item.classList.remove("active");
+          });
+
+          // Add "active" class to the clicked menu item
+          this.classList.add("active");
+        });
+      });
+    });
+  </script> -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <div class="layout has-sidebar fixed-sidebar fixed-header">
+      <aside id="sidebar" class="sidebar break-point-lg has-bg-image">
+        <!-- <a id="btn-collapse" class="sidebar-collapser">
+          <i class="fas fa-angle-left"></i>
+        </a> -->
+        <div class="image-wrapper">
+          <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
+        </div>
+        <div class="sidebar-layout">
+          <!-- call template of side menu bar -->
+          <t t-call="custom_vendor_dashboard.vendor_dashboard_side_menu"/>
+          <!-- <div class="" style="padding:20px">
+            <p style="color:#73a8ed; font-size:12px; margin-bottom: 10px; ">Powered By</p>
+            <img src="/custom_vendor_dashboard/static/src/images/Fluent-Logo.png" loading="lazy" />
+        </div> -->
+          <!-- <div class="sidebar-footer" style="padding:0; margin-top:250px;">
+            <div class="footer-side">
+              <img src="/custom_vendor_dashboard/static/src/images/Frame_99.svg" class="img-fluid" alt="" style="visibility:hidden" id="loadingImage"/>
+          </div>
+          </div> -->
+          <!-- end here side mmenu bar -->
+        </div>
+      </aside>
+      <div id="overlay" class="overlay"></div>
+      <div class="layout font" >
+        <!-- call menu header template  -->
+        <t t-call="custom_vendor_dashboard.vendor_dashboard_header"/>
+        <!-- end here menu template -->
+        <!-- <main class="content"> -->
+        <main class="content">
+          <div class="page-content">
+            <div class="pagetitle d-flex align-items-center justify-content-between mb-3 pt-3 font_lato" style="border-bottom: 1px solid #00000017;">
+              <h1 style="font-family: 'Eurostile';"> Welcome <t t-esc="user_name"/></h1>
+              <div class="search-bar d-flex">
+                <!-- <div class="filter-box"> 
+                  <div id="filter-icon"><span class="first"></span><span class="second"></span><span class="third"></span></div>
+                Filter</div> -->
+                <span id="search_field" >
+                <form class="search-form d-flex align-items-center" method="POST" t-attf-action="/vendor/search?partner_id=#{partner_id}&amp;client_url=#{client_url}">
+                  <input type="text" class="font_lato" name="query" placeholder="Search By PO # or Invoice #" title="Enter search keyword"  required="true"/>
+                  <button type="submit" title="Search"><i class="fas fa-search"></i></button>
+                </form>
+                </span>
+              </div>
+            </div>
+            <div class="section dashboard">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <!-- <a href="/vendor/purchase"><span class="circle"> <i class="fas fa-arrow-right"></i></span></a> -->
+                            <a t-att-href="'/vendor/purchase?client_url=%s&amp;partner_id=%s' %(client_url, partner_id)"><span class="circle"> <i class="fas fa-arrow-right"></i></span></a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title font_lato">Purchase Orders </h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                                <h6><t t-esc="len(purchase_records)"/></h6>
+                            </div>
+                            <!-- <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <span>
+                                <![CDATA[
+                                <svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 17L10.3 17.86C10.1 17.28 10 16.65 10 16C10 15.76 10 15.5 10.04 15.29L9 14.6L6 16.6L3 14.6L2 15.26V2H16V10C16.7 10 17.37 10.12 18 10.34V0H0V19L3 17L6 19L9 17ZM14 6V4H4V6H14ZM12 10V8H4V10H12ZM12.5 16L15.25 19L20 14.23L18.84 12.82L15.25 16.41L13.66 14.82L12.5 16Z" fill="#D2D2D2"/>
+                                </svg>
+                                ]]>
+                              </span>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <a t-att-href="'/vendor/paidinvoice?partner_id=%s&amp;client_url=%s' %(partner_id, client_url)"><span class="circle"> <i class="fas fa-arrow-right"></i></span></a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title font_lato">Paid Invoices</h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                              <h6><t t-esc="len(paid_invoice)"/></h6>
+                            </div>
+                            <!-- <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                              <i class="fas fa-file-invoice-dollar"></i>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="info-card">
+                        <div class="filter">
+                          <p>
+                            <a t-att-href="'/vendor/unpaidinvoice?partner_id=%s&amp;client_url=%s' %(partner_id, client_url)"><span class="circle"> <i class="fas fa-arrow-right"></i></span></a>
+                          </p>
+                        </div>
+                        <div class="info-body">
+                          <h2 class="info-title font_lato">Unpaid Invoices</h2>
+                          <div class="d-flex align-items-center justify-content-between pt-4">
+                            <div class="ps-3">
+                              <h6><t t-esc="len(billed_invoice)"/></h6>
+                            </div>
+                            <!-- <div class="info-icon rounded-circle d-flex align-items-center justify-content-center">
+                             <span class="menu-icon">
+                            <i class="fas fa-file upload"></i>
+                            <![CDATA[
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.86 21.43L9 22L6 20L3 22V3H21V10.2C20.37 9.93 19.64 9.93 19 10.22V5H5V18.26L6 17.6L9 19.6L9.86 19V21.43ZM11.86 19.96L18 13.83L20.03 15.87L13.9 22H11.86V19.96ZM21.71 14.19L20.73 15.17L18.69 13.13L19.67 12.15L19.68 12.14L19.69 12.13C19.86 11.97 20.12 11.96 20.31 12.09C20.34 12.1 20.37 12.13 20.39 12.15L21.71 13.47C21.91 13.67 21.91 14 21.71 14.19ZM17 9V7H7V9H17ZM15 13V11H7V13H15Z" fill="#D2D2D2"/>
+                            </svg>
+                            ]]>
+                          </span>
+                            </div> -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="vendor-order">
+                    <div class="ventitles d-flex align-items-center justify-content-between">
+                      <h2>Open Purchase Orders [ Need Invoiced ]</h2>
+                      <p class="vensub">
+                        <a t-att-href="'/vendor/purchase?client_url=%s&amp;partner_id=%s' %(client_url, partner_id)" style=";">VIEW ALL
+                        <i class="fas fa-arrow-right"></i></a></p>
+                    </div>
+                  </div>
+                  <div class="ven-table">
+                    <div class="">
+                      <!-- <table class="table vendor-table"> -->
+                       <table class="table vendor-table fold-table font_lato"> 
+                        <thead style=" color: rgba(0, 0, 0, 0.5);">
+                          <t t-set="sort_order" t-value="'ASC'" t-if="request.params and request.params.get('sortby') == 'ASC'"/>
+                          <t t-set="sort_order" t-value="'DESC'" t-elif="request.params and request.params.get('sortby') == 'DESC'"/>
+                          <t t-set="sort_order" t-value="false" t-else=""/>
+                          <tr>
+                            <th scope="col">PO Date</th>
+                            <th scope="col">Vendor</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Balance</th>
+                            <th scope="col">Amount
+                              <t t-if="sort_order == 'ASC'">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=AMOUNT&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                              <t t-else="">
+                                <!-- /vendor?db=%s&amp;partner_id=%s' % (client_db, partner_id) -->
+                                <!-- <a t-attf-href="/vendor/home?fillterby=AMOUNT&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span> -->
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=AMOUNT&amp;sortby=ASC" style="color:white;">
+                                <span class="tbarrow up-tbarrow"></span>
+                                <!-- </a> -->
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                            </th>
+                            <!-- <th scope="col">TOTAL</th> -->
+                            <th scope="col">PO #
+                              <t t-if="sort_order == 'ASC'">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=PO&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                              <t t-else="">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=PO&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                            </th>
+                            <!-- <th scope="col" class="vensth">ACTION</th> -->
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <t t-set="limit" t-value="5"/>
+                          <t t-foreach="purchase_records[:limit]" t-as="record">
+                          <!-- <t t-foreach="purchase_records" t-as="record"> -->
+                              <tr class="view">
+                                  <td class="font_lato ligt_font_weight">
+                                    <!-- <t t-if="record.date_approve"> -->
+                                    <t t-if="record['date_approve']">
+                                      <t t-esc="record['date_approve']"/>
+                                      <!-- <t t-esc="record.date_approve.strftime('%m/%d/%Y')"/> -->
+                                      <!-- <t t-esc="record.date_approve.strftime('%m/%d/%Y')"/> -->
+                                    </t>
+                                    <t t-else="">
+                                      <t t-esc="record['date_approve']"/>
+                                      <!-- <t t-esc="record.date_approve"/> -->
+                                    </t>
+                                    </td>
+                                    <!-- <td class="ligt_font_weight"><t t-esc="record.partner_id.name"/></td> -->
+                                    <td class="ligt_font_weight"><t t-esc="record['name']"/></td>
+                                    <td><span class="venspan"> 
+                                   <!--  <t t-if="record.invoice_status=='to invoice'">
+                                    NEED INVOICED
+                                    </t> -->
+                                    <t t-if="record['invoice_status']=='to invoice'">
+                                     INVOICE NEEDED
+                                    </t>
+                                    <t t-else="record['invoice_status']=='invoiced'">
+                                    FULLY INVOICED
+                                    </t>
+                                    <!-- <t t-if="record.invoice_status=='needs_billed'">
+                                     INVOICE NEEDED
+                                    </t>
+                                    <t t-else="record.invoice_status=='partial_billing'">
+                                    PARTIALLY INVOICED
+                                    </t> -->
+                                    </span>
+                                    </td>
+                                    <!-- <td>$<![CDATA[&nbsp;]]><t t-esc="record.amount_total" t-options='{"widget": "float", "precision": 2}'/></td> -->
+                                    <!-- <t t-set="invoice_balance_total" t-value="0.0"/>
+                                      <t t-set="open_balance" t-value="0.0"/>
+                                      <t t-foreach="record.invoice_ids" t-as="rec">
+                                         <t t-set="invoice_balance_total" t-value="invoice_balance_total + rec.amount_total" />
+                                      </t>
+                                      <t t-set="open_balance" t-value="record.amount_total - invoice_balance_total" /> -->
+                                    <!-- <td class="font_lato" style="font-weight:700">$<![CDATA[&nbsp;]]><t t-esc="open_balance" t-options='{"widget": "float", "precision": 2}'/></td> -->
+                                    <td class="font_lato" style="font-weight:700">$<![CDATA[&nbsp;]]><t t-esc="record['amount_total']"/></td>
+                                    <td class="font_lato" style="font-weight:700">$<![CDATA[&nbsp;]]><t t-esc="record['amount_total']"/></td>
+                                    <th scope="row" class="font_lato" style="color:gray; font-weight:500"><t t-esc="record['name']"/></th>
+                                    <!-- <th scope="row" class="font_lato" style="color:gray; font-weight:500"><t t-esc="record.name"/></th> -->
+                                    <td class="vensth"> 
+                                    <!-- <span class="venspan1">    -->
+                                    <span>   
+                                   <a t-attf-href="/vendor/create/invoice?purchase_id=#{record['id']}&amp;purchase_name=#{record['name']}&amp;purchase_status=#{record['invoice_status']}&amp;payment_term=#{record['payment_term_id']}&amp;created_from=#{'dashboard'}&amp;partner_id={{ partner_id }}&amp;client_url=#{client_url}" style="color:black;">
+                                      CREATE INVOICE <i class="fas fa-arrow-right"></i>
+                                    </a>
+                                    </span></td>
+                                  </tr>
+                                  <!-- <t t-if="record.invoice_status!='needs_billed'">
+                                    <tr class="fold">
+                                      <td colspan="7">
+                                        <div class="fold-content">
+                                          <t t-foreach="record.invoice_ids" t-as="move_record">
+                                            <table>
+                                              <tbody>
+                                                <tr>
+                                                  <td><t t-esc="move_record.name" /></td>
+                                                  <td colspan="1">
+                                                    <t t-esc="record.product_id.name" />
+                                                  </td>
+                                                  <td style="width: 100px;"><t t-esc="move_record.amount_total" /></td>
+                                                  <td colspan="2"></td>
+                                                  <td><t t-esc="move_record.vendors_bill_per" /></td>         
+                                                  <td colspan="3"></td>
+                                                  <td class="vensth" style="font-weight:700; width: 120px;">$<t t-esc="move_record.amount_total" /></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          </t>
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </t> -->
+                                </t>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="vendor-order">
+                    <div class="ventitles d-flex align-items-center justify-content-between">
+                      <h2>Unpaid Invoice</h2>
+                      <p class="vensub">
+                        <a t-att-href="'/vendor/unpaidinvoice?partner_id=%s&amp;client_url=%s' %(partner_id, client_url)" style=";">VIEW ALL
+                        <i class="fas fa-arrow-right"></i></a></p>
+                    </div>
+                  </div>
+                  <div class="ven-table">
+                    <div class="">
+                      <table class="table vendor-table font_lato">
+                        <thead style=" color: rgba(0, 0, 0, 0.5);">
+                          <t t-set="sort_order" t-value="'ASC'" t-if="request.params and request.params.get('sortby') == 'ASC'"/>
+                          <t t-set="sort_order" t-value="'DESC'" t-elif="request.params and request.params.get('sortby') == 'DESC'"/>
+                          <t t-set="sort_order" t-value="false" t-else=""/>
+                          <tr>
+                            <th scope="col">Invoice Date
+                              <t t-if="sort_order == 'DESC'">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=INVDATE&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                              <t t-else="">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=INVDATE&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                            </th>
+                            <th scope="col">Invoice #
+                                <t t-if="sort_order == 'DESC'">
+                                  <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=INVOICE&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                  <span class="tbarrow down-tbarrow"></span></a>
+                                </t>
+                                <t t-else="">
+                                  <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=INVOICE&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                  <span class="tbarrow down-tbarrow"></span></a>
+                                </t>
+                            </th>
+                            <th scope="col">Bill #</th>
+                            <th scope="col">Due Date
+                              <t t-if="sort_order == 'DESC'">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=DUEDATE&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                              <t t-else="">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=DUEDATE&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                            </th>
+                            <th scope="col">TotaL
+                              <t t-if="sort_order == 'DESC'">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=TOTAL&amp;sortby=ASC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                              <t t-else="">
+                                <a t-attf-href="vendor?db={{ client_db }}&amp;partner_id={{ partner_id }}&amp;client_url={{ client_url }}&amp;fillterby=TOTAL&amp;sortby=DESC" style="color:white;"><span class="tbarrow up-tbarrow"></span>
+                                <span class="tbarrow down-tbarrow"></span></a>
+                              </t>
+                            </th>
+                            <th scope="col">PO #</th>
+                            <th scope="col" class="vensth">STATUS</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="limit" t-value="5"/>
+                            <t t-foreach="invoice_records[:limit]" t-as="record">
+                              <!-- <t t-foreach="invoice_records" t-as="record"> -->
+                              <tr>
+                                <td class="font_lato">
+<!--                                   <t t-if="record.invoice_date">
+                                    <span style=" color: rgba(0, 0, 0, 0.5);"><t t-esc="record.invoice_date.strftime('%m/%d/%Y')"/></span>
+                                  </t>
+                                  <t t-else="">
+                                    <t t-esc="record.invoice_date"/>
+                                  </t> -->
+                                  <t t-if="record['invoice_date']">
+                                    <span style=" color: rgba(0, 0, 0, 0.5);"><t t-esc="record['invoice_date']"/></span>
+                                  </t>
+                                  <t t-else="">
+                                    <t t-esc="record['invoice_date']"/>
+                                  </t>
+                                </td>
+
+                                <td class="font_lato ligt_font_weight">
+                                  <t t-esc="record['payment_reference']"/>
+                                  <!-- <t t-esc="record.payment_reference"/> -->
+                                </td>
+
+                                <th scope="row" class="font_lato ligt_font_weight">
+                                  <!-- <a t-attf-href="/vendor/open/invoice?invoice_id=#{record.id}&amp;bill_name=#{record.name}&amp;invoice_status=#{record.payment_state}" style="color: black;">
+                                    <t t-esc="record.name"/>
+                                  </a> -->
+                                    <t t-esc="record['name']"/>
+                                </th>
+                                
+                                <td class="font_lato ligt_font_weight">
+                                  <!-- <t t-if="record.invoice_date_due">
+                                    <t t-esc="record.invoice_date_due.strftime('%m/%d/%Y')"/>
+                                  </t>
+                                  <t t-else="">
+                                    <t t-esc="record.invoice_date_due"/>
+                                  </t> -->
+                                  <t t-if="record['invoice_date_due']">
+                                    <t t-esc="record['invoice_date_due']"/>
+                                  </t>
+                                  <t t-else="">
+                                    <t t-esc="record['invoice_date_due']"/>
+                                  </t>
+                                </td>
+                                <!-- <td class="font_lato ligt_font_weight" style="font-weight:700">$<![CDATA[&nbsp;]]><t t-esc="record.amount_total_signed" t-options='{"widget": "float", "precision": 2}'/></td> -->
+                                <td class="font_lato ligt_font_weight" style="font-weight:700">$<![CDATA[&nbsp;]]><t t-esc="record['amount_total_signed']"/></td>
+                                <!-- <td class="font_lato ligt_font_weight"><t t-esc="record.invoice_purchase_order"/></td> -->
+                                <td class="font_lato ligt_font_weight"><t t-esc="record['invoice_purchase_order']"/></td>
+
+
+                                <!-- <t t-if="record.payment_state=='not_paid'">
+                                <td class="vensth"> <span class="venspan_status"> 
+                                    NOT PAID
+                                </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='in_payment'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                    IN PAYMENT
+                                    </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='paid'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                  PAID
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='partial'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                  PARTIAL PAID
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='reversed'">
+                                <td class="vensth"> <span class="venspan"> 
+                                  REVERSED
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='invoicing_legacy'">
+                                    <td class="vensth"> <span class="venspan"> 
+                                  INVOICE APP LAGACY
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record.payment_state=='scheduled'">
+                                <td class="vensth"> <span class="venspan"> 
+                                  SCHEDULED
+                                  </span>
+                                </td>
+                                </t> -->
+                                <t t-if="record['payment_state']=='not_paid'">
+                                <td class="vensth"> <span class="venspan_status"> 
+                                    NOT PAID
+                                </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='in_payment'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                    IN PAYMENT
+                                    </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='paid'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                  PAID
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='partial'">
+                                <td class="vensth"> <span class="venspan2"> 
+                                  PARTIAL PAID
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='reversed'">
+                                <td class="vensth"> <span class="venspan"> 
+                                  REVERSED
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='invoicing_legacy'">
+                                    <td class="vensth"> <span class="venspan"> 
+                                  INVOICE APP LAGACY
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-elif="record['payment_state']=='scheduled'">
+                                <td class="vensth"> <span class="venspan"> 
+                                  SCHEDULED
+                                  </span>
+                                </td>
+                                </t>
+                                <t t-else="">
+                                  <td class="vensth"> <span class="venspan"> 
+                                  <t t-esc="record.payment_state"/>
+                                <!-- <t t-else="">
+                                  <td class="vensth"> <span class="venspan"> 
+                                  <t t-esc="record['payment_state']"/> -->
+                                </span>
+                              </td>
+                                </t>
+                              </tr>
+                            </t>
+                        </tbody>
+                      </table>
+                      </div>
+                    </div>
+                    <!-- pagination start here invoices -->
+                   <!--  <div class="blog-pagination pb-1">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-5">
+                          <p class="page-count text-right arrow-container" style="border: 1px solid #00000017;float: inline-end; padding: 6px 10px;border-radius: 4px;font-size: 14px;">10 / Page <span class="pagtbarrow pagdown-tbarrow"></span> </p>
+                        </div>
+                      
+                      <div class="col-md-7">
+                        <ul class="pagination">
+                            <li class="page-item disabled">
+                                <a class="page-link arrow-container" href=""><span class="left-arrow"></span> BACK</a>
+                            </li>
+                            
+                            <li class="page-item active"> <a class="page-link" href="/blog">1</a></li>
+                            
+                            <li class="page-item"> <a class="page-link" href="/blog/page/2">2</a></li>
+                            
+                            <li class="page-item"> <a class="page-link" href="/blog/page/3">3</a></li>
+                            
+                            <li class="page-item"> <a class="page-link" href="/blog/page/4">4</a></li>
+                            
+                            <li class="page-item"> <a class="page-link" href="/blog/page/5">5</a></li>
+                            
+                            <li class="page-item">
+                                <a class="page-link arrow-container" href="/blog/page/2">NEXT <span class="right-arrow"></span></a>
+                            </li>
+                        </ul>
+                    </div></div></div>
+                  </div> -->
+                <!-- pagination end -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </main>
+          <div class="horz-list">
+          <ul>
+            <li><a href="#" style="text-decoration: underline;">Terms &amp; Conditions</a></li>
+            <li><a href="#" style="text-decoration: underline;">Warranty</a></li>
+            <!-- <li><a href="#" style="text-decoration: underline;">Address</a></li> -->
+            <!-- <li><a href="#" style="text-decoration: underline;">CoBrowse</a></li> -->
+            <li><a href="#" style="text-decoration: underline;"><t t-esc="company_name"/></a></li>
+            <!-- <li><a href="#" style="text-decoration: underline;">Fluent AI</a></li> -->
+            <li><a href="#">Email: <t t-esc="company_email"/></a></li>
+            <!-- <li><a href="#">Email: support@fluentconvyors.com</a></li> -->
+            <li><a href="#">Toll Free<t t-esc="company_mobile"/></a></li>
+            <!-- <li><a href="#">Toll Free(866) 764-2980</a></li> -->
+          </ul>
+          <ul>
+          <!-- <li><a href="#">©Copyright <t t-call="custom_vendor_dashboard.vendor_dashboard_time_menu"/>. Fluent Conveyors</a></li> -->
+          <li><a href="#"><t t-esc="company_address"/></a></li>
+          <!-- <li><a href="#">383 N Corona Street, Suite 707 Denver, CO 80218</a></li> -->
+          <li><a href="#">Copyright© <t t-call="custom_vendor_dashboard.vendor_dashboard_time_menu"/> <t t-esc="company_name"/> All right reserved</a></li>
+          </ul>
+          </div>
+          <div class="overlay"></div>
+        </div>
+      </div>
+      <script>
+            let icon = document.getElementById('icon');
+               let searchField = document.getElementById('search_field');
+               let count = 0;
+
+                icon.addEventListener('click', function() 
+                {
+                  count++;
+                   if(count%2 !=0){
+                   console.log("inside odd");
+                    searchField.style.display = 'block' ;
+                   }
+                   else{
+                    console.log("inside even");
+                    searchField.style.display = 'none' ;
+                    }
+                });
+
+             <!--  document.getElementById("btn-collapse").onclick = function() {  
+                toggleAside()  
+              }; -->
+              function toggleAside() {
+                var asideElement = document.getElementById("sidebar");
+                var isCollapsed = asideElement.classList.contains("collapsed");
+
+                if (isCollapsed) {
+                  document.getElementById('side-bar-id').style.display='block';   
+                  document.getElementById('loadingImage').style.visibility='hidden';  
+                } 
+                else {
+                  document.getElementById('side-bar-id').style.display='none';   
+                  document.getElementById('loadingImage').style.visibility='visible';
+                }
+              }
+              $(function(){
+              $(".fold-table tr.view").on("click", function(){
+                $(this).toggleClass("open").next(".fold").toggleClass("open");
+              });
+            });
+      </script>  
+      <script src="/custom_vendor_dashboard/static/src/js/main.js"></script>
+      <script src="/custom_vendor_dashboard/static/src/js/bootstrap.bundle.min.js"></script>
+    </body>
+  </html>
+</template>
+</odoo>

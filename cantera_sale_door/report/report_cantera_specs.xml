@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+       
+        <template id="report_specs_sale">
+            <t t-call="web.basic_layout">
+                <t t-call="web.html_container">
+                    <div class="page">
+                        <h5 class="card-title">Cotización</h5>
+                        <form method="POST" action="" class="">
+                            <t t-foreach="docs" t-as="o">
+                                <table class="table table-bordered" style="table-layout: fixed">
+                                    <thead style="display: table-row-group">
+                                        <group>
+                                            <group>
+                                                <label for="specs_type">Tipo de Specs:</label>
+                                                <t t-set="values" t-value="dict([('door','Puerta'),('windows', 'Ventana'),('railing', 'Barandal')])"/> 
+                                                <t t-esc="values[o.specs_type]"/> 
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <label for="specs_sd">single door:</label>
+                                                    <t t-if="o.specs_sd" readonly="readonly">
+                                                        <input type="checkbox" checked="checked"/>
+                                                    </t>
+                                                </group>
+                                            </group>
+                                        </group>
+                                    </thead>
+                                </table>
+                            </t>
+                        </form>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <report id="action_cantera_especs_xml" 
+            string="Cotizacion" model="specs.sale" 
+            name="cantera_sale_door.report_specs_sale" 
+            file="cantera_sale_door.report_specs_sale" 
+            report_type="qweb-pdf" />
+
+
+    </data>
+</odoo>

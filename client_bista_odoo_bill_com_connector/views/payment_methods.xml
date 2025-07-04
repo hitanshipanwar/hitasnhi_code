@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_bill_com_payment_methods_tree" model="ir.ui.view">
+        <field name="name">view.bill.com.payment.methods.tree</field>
+        <field name="model">bill.com.payment.methods</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="payment_method"/>
+                <field name="journal_id"/>
+                <field name="company_id"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bill_com_payment_methods_search" model="ir.ui.view">
+        <field name="name">view.bill.com.payment.methods.search</field>
+        <field name="model">bill.com.payment.methods</field>
+        <field name="arch" type="xml">
+            <search string="Payment Methods">
+                <field name="payment_method"/>
+                <field name="journal_id"/>
+                <field name="company_id"/>
+                <group expand="0" string="Group By...">
+                    <filter string="Company" name="company_id" context="{'group_by':'company_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- form view definition -->
+    <record model="ir.ui.view" id="view_bill_com_payment_methods_form">
+        <field name="name">view.bill.com.payment.methods.form</field>
+        <field name="model">bill.com.payment.methods</field>
+        <field name="arch" type="xml">
+            <form string="Bill.com Payment Methods" duplicate="0">
+                <sheet>
+                    <group>
+                        <field name="payment_method" required="1" style="width: 33%"/>
+                        <field name="company_id" required="1" style="width: 33%"/>
+                        <field name="journal_id" required="1" domain="[('company_id', '=', company_id)]" style="width: 33%"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bill_com_payment_methods" model="ir.actions.act_window">
+            <field name="name">Bill.Com Payment Methods</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">bill.com.payment.methods</field>
+            <field name="view_mode">list,form</field>
+    </record>
+    <menuitem name="Payment Methods" id="bill_com_payment_methods_menu"
+              sequence="3"
+              parent="menu_bill_com_main"
+              action="action_bill_com_payment_methods" groups="client_bista_odoo_bill_com_connector.group_bill_com_access"/>
+</odoo>

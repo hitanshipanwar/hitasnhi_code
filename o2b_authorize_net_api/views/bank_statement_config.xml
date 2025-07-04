@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+	    
+	   <!--  <record id="auth_view_bank_statement_form_inherit" model="ir.ui.view">
+	        <field name="name">authorize.bank.statement.config.form</field>
+	        <field name="model">authorize.bank.statement.config</field>
+	        <field name="inherit_id" ref="o2b_client.view_bank_statement_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//sheet/notebook/page[@name='update']" position="before">
+                    <page string="Authorize Credentials" invisible="provider != 'authorize'">
+                    	<group>
+                            <group>
+                                <field name="authorize_login"/>
+                                <field name="authorize_transaction_key"/>
+                                <field name="authorize_signature_key"  password="True"/>
+                                <label for="authorize_client_key"  password="True"/>
+			                    <div class="o_row" col="2">
+			                        <field name="authorize_client_key"/>
+			                        <button class="oe_link" icon="fa-refresh" type="object" name="action_generate_client_key" string="Generate Client Key"/>
+			                    </div>
+                            </group>
+                        </group>
+                    </page>
+	        	</xpath>
+
+	        </field>
+	    </record> -->
+
+	    <!-- Tree View -->
+	    <record id="view_bank_statement_tree" model="ir.ui.view">
+	        <field name="name">authorize.bank.statement.config.tree</field>
+	        <field name="model">authorize.bank.statement.config</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	                <field name="provider"/>
+	            </tree>
+	        </field>
+	    </record>
+
+	    <!-- Form View -->
+	    <record id="view_bank_statement_form" model="ir.ui.view">
+	        <field name="name">authorize.bank.statement.config.form</field>
+	        <field name="model">authorize.bank.statement.config</field>
+	        <field name="arch" type="xml">
+	            <form>
+	            	<header>
+	            		<field name="statement_state" widget="statusbar" statusbar_visible="draft,connected,disconnected" readonly="1"/>
+	            	</header>
+	                <sheet>
+	                	<widget name="web_ribbon" title="Subscription Activated" bg_color="bg-success" invisible="statement_state in ['disconnected', 'draft']"/>
+	            		<widget name="web_ribbon" title="Subscription Expired" bg_color="bg-danger" invisible="statement_state in ['connected', 'draft']"/>
+	            		<widget name="web_ribbon" title="Draft Subscription" bg_color="bg-warning" invisible="statement_state in ['connected', 'disconnected']"/>
+	                    <group>
+	                        <field name="name"/>
+	                        <field name="state" invisible="1"/>
+	                        <field name="statement_state" invisible="1"/>
+	                        <field name="provider"/>
+	                		<!-- <field name="url"/> -->
+	                		<!-- <field name="user_id"/> -->
+	                		<field name="journal_id"/>
+	                		<field name="company_id"/>
+	                		<field name="from_date"/>
+	                		<field name="to_date"/>
+	                    </group>
+	                    <group>
+	                        <div style="display: flex; gap: 10px;">
+						        <!-- <button class="btn btn-sm btn-primary" type="object" name="authorize_action_connect_provider" string="Connect"/>
+						        <button class="btn btn-sm btn-primary" type="object" name="authorize_action_disconnect_provider" string="Disconnect"/> -->
+						        <button class="btn btn-sm btn-primary" type="object" name="get_transaction_list" string="Fetch Transactions"/>
+						        <button class="btn btn-sm btn-primary" type="object" name="authorize_check_connection" string="Update Credentials"/>
+						    </div>
+	                    </group>
+
+	                    <notebook>
+	                        <page string="Authorize Credentials" invisible="provider != 'authorize'">
+		                    	<group>
+		                            <group>
+		                                <field name="authorize_login"/>
+		                                <field name="authorize_transaction_key"/>
+		                                <field name="authorize_signature_key"  password="True"/>
+		                                <label for="authorize_client_key"  password="True"/>
+					                    <div class="o_row" col="2">
+					                        <field name="authorize_client_key"/>
+					                        <button class="oe_link" icon="fa-refresh" type="object" name="action_generate_client_key" string="Generate Client Key"/>
+					                    </div>
+		                            </group>
+		                        </group>
+                    		</page>
+	                        <page name="update" string="Update">
+	                        	<group>
+	                        		<group>
+	                        			<field name="last_update"/>
+	                        			<field name="next_update"/>
+	                        		</group>
+	                        	</group>
+	                        </page>
+	                    </notebook>
+	                </sheet>
+	                <div class="oe_chatter">
+	                    <field name="message_follower_ids"/>
+	                    <field name="activity_ids"/>
+	                    <field name="message_ids"/>
+	                </div>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action -->
+	    <record id="action_authorize_bank_statement_config" model="ir.actions.act_window">
+	        <field name="name">Authorize.net Configuration</field>
+	        <field name="res_model">authorize.bank.statement.config</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Menuitem -->
+		<menuitem id="menu_authorize_bank_statement_config" name="Authorize.net Configuration" action="action_authorize_bank_statement_config" parent="account.account_banks_menu" sequence="4"/>
+
+	</data>
+</odoo>

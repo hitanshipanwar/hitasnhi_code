@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_order_tag" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.order.tag</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='sales_person']/field[@name='tag_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="tag_ids" widget="many2many_tags"/>
+                </xpath>
+                 <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="channel_name"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

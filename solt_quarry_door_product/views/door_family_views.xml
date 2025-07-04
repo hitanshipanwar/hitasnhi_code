@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+        <record id="door_family_view_tree" model="ir.ui.view">
+            <field name="name">door.family.view.tree</field>
+            <field name="model">door.family</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Product Family">
+                    <field name="name"/>
+                    <field name="pricelist_ids" widget="many2many_tags"/>
+                    <field name="product_attribute_id" options="{'no_create': True}"/>
+                    <field name="price" widget="monetary" string="Price"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_family" model="ir.actions.act_window">
+            <field name="name">Product Family</field>
+            <field name="res_model">door.family</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+  </data>
+</odoo>

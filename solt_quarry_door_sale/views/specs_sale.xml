@@ -1,0 +1,441 @@
+<odoo>
+    <data>
+        <record id="specs_sale_view_form" model="ir.ui.view">
+            <field name="name">specs.sale.view.form</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <form string="Specs">
+                    <header>
+                        <button name="action_save_total_specs" string="Confirm" type="object" class="btn-primary"
+                                invisible="state not in ['draft'] or confirmed_spec"/>
+                        <button name="action_state_cancel" string="Cancel" type="object" class="btn-secondary"
+                                invisible="state == 'cancel'"/>
+                        <button name="action_state_return" string="Draft" type="object" class="btn-secondary"
+                                invisible="state != 'cancel'"/>
+                        <field name="stage_id" widget="statusbar" readonly='1'/>
+                    </header>
+                    <div class="alert alert-warning" role="alert" invisible="not message_warning">
+                        <field name="message_warning"/>
+                    </div>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1" force_save="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="creation_date" readonly='1' force_save="1"/>
+                                <field name="version" readonly='1' force_save="1"/>
+                                <field name="sequence_name" readonly='1' force_save="1"/>
+                                <field name="state" invisible='1'/>
+                                <field name="specs_product_id_domain" invisible='1'/>
+                                <field name="specs_color_id_domain" invisible='1'/>
+                                <field name="specs_anchor_id_domain" invisible='1'/>
+                                <field name="specs_hinge_id_domain" invisible='1'/>
+                                <field name="specs_molding_int_id_domain" invisible='1'/>
+                                <field name="specs_molding_ext_id_domain" invisible='1'/>
+                                <field name="specs_moce_id_domain" invisible='1'/>
+                                <field name="specs_tyarct_id_domain" invisible='1'/>
+                                <field name="specs_latchsup_id_domain" invisible='1'/>
+                                <field name="specs_latchin_id_domain" invisible='1'/>
+                                <field name="specs_typeguar_id_domain" invisible='1'/>
+                                <field name="specs_flashing_id_domain" invisible='1'/>
+                                <field name="specs_board_id_domain" invisible='1'/>
+                                <field name="specs_forging_id_domain" invisible='1'/>
+                                <field name="specs_jac_id_domain" invisible='1'/>
+                                <field name="specs_type_arc_id_domain" invisible='1'/>
+                                <field name="block_changes" invisible='1'/>
+                                <field name="field_ui_modifications" invisible='1'/>
+                                <field name="field_ui_invisible" invisible='1'/>
+                                <field name="field_ui_readonly" invisible='1'/>
+                                <field name="can_edit_spec_in_manufacturing" invisible='1'/>
+                                <field name="can_show_button_update_cost" invisible='1'/>
+                                <field name="can_show_sale_field" invisible='1'/>
+                                <field name="confirmed_spec" invisible='1'/>
+                                <field name="create_uid" invisible='1'/>
+                            </group>
+                            <group>
+                                <field name="specs_product_type_id" required='specs_sale_id != False'
+                                       options="{'no_create': True}" readonly="block_changes == True"/>
+                                <field name="specs_type"/>
+                                <field name="unit_id" required='specs_sale_id != False' readonly="block_changes == True"/>
+                                <field name="specs_product_id" options="{'no_create': True}"
+                                       domain="specs_product_id_domain"
+                                       required='1' readonly="block_changes == True"/>
+                                <field name="specs_dc_id"  options="{'no_create': True}" required='1'
+                                       readonly="block_changes == True"/>
+                            </group>
+                        </group>
+                        <group name="note_group" col="6">
+                                <group colspan="4"/>
+                                <group class="oe_right" colspan="2" name="sale_total">
+                                    <field name="specs_amount_total" widget='monetary' options="{'currency_field': 'currency_id'}" force_save="1" invisible="not can_show_sale_field"/>
+                                    <field name="amount_total_manufacturing" string="Total Price" widget='monetary' options="{'currency_field': 'currency_id'}" force_save="1" invisible="1"/>
+                                    <field name="specs_cost_total" widget='monetary' options="{'currency_field': 'currency_id'}" force_save="1" invisible="not can_edit_spec_in_manufacturing"/>
+                                </group>
+                                <div class="oe_clear"/>
+                            </group>
+                        <notebook>
+                            <page string="Quotation Info" name="quotation_information">
+                                <group string="Header" name="group_quotation_header">
+                                    <group>
+                                        <field name="specs_sale_id" required='1' readonly="1" force_save="1"/>
+                                        <field name="specs_opportunity_name" force_save="1" readonly="block_changes == True"/>
+                                        <field name="specs_opportunity_id" invisible="1"/>
+                                        <field name="product_uom_qty" readonly="block_changes == True"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_design_id" options="{'no_create': True}" required='1'
+                                               readonly="block_changes == True"/>
+                                        <field name="specs_color_id" options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}" required='1'
+                                               domain="specs_color_id_domain" readonly="block_changes == True"/>
+                                        <label for="specs_mtrs"/>
+                                        <div name="specs_mtrs_uom">
+                                            <field name="specs_mtrs" class="oe_inline"/>
+                                            <span groups="uom.group_uom">per
+                                                <field name="uom_id" readonly="True" class="oe_inline" force_save="1"
+                                                       options="{'no_create': True, 'no_open': True}"/>
+                                            </span>
+                                        </div>
+                                        <label for="specs_mtrs_uom_convert"/>
+                                        <div name="specs_mtrs_uom_convert">
+                                            <field name="specs_mtrs_uom_convert" class="oe_inline"/>
+                                            <span groups="uom.group_uom">per
+                                                <field name="specs_mtrs_uom_name" class="oe_inline"/>
+                                            </span>
+                                        </div>
+                                        <field name="specs_suffix_id" options="{'no_create': True}"
+                                               readonly="block_changes == True"/>
+                                    </group>
+                                </group>
+                                <group string="General" name="group_general">
+                                    <group>
+                                        <field name="specs_total_ant"/>
+                                        <field name="specs_total_alt"/>
+                                        <field name="specs_antmarc"/>
+                                        <field name="specs_altmarc"/>
+                                        <field name="specs_bast"/>
+                                        <field name="specs_porfbast"/>
+                                        <field name="specs_antleaft"/>
+                                        <field name="specs_altleaft"/>
+                                        <field name="specs_board_id" domain="specs_board_id_domain"
+                                               context="{'not_show_attribute_specs': True}"
+                                               options="{'no_create': True}"/>
+                                        <field name="specs_altboard"/>
+                                        <field name="specs_huacal"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_forging_id" options="{'no_create': True}"
+                                               domain="specs_forging_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_operable" string="W/I operable"/>
+                                        <field name="specs_handing_id" options="{'no_create': True}"/>
+                                        <field name="specs_type_arc_id" options="{'no_create': True}"
+                                               domain="specs_type_arc_id_domain" context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_altarc"/>
+                                        <field name="specs_tolsup"/>
+                                        <field name="specs_tolcen"/>
+                                        <field name="specs_tollat"/>
+                                        <field name="specs_fixed_glass"/>
+                                        <field name="specs_type_glass_id"/>
+                                        <field name="specs_mbas"/>
+                                        <field name="specs_mbai"/>
+                                    </group>
+                                </group>
+                                <group name="group_frame">
+                                    <group string="Frame">
+                                        <field name="specs_ancmarc"/>
+                                        <field name="specs_profmarc"/>
+                                        <field name="specs_anchor_id" options="{'no_create': True}"
+                                               domain="specs_anchor_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_hinges_id" options="{'no_create': True}"
+                                               domain="specs_hinge_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_amount_hinges"/>
+                                    </group>
+                                    <group string="Frame Brickmolding">
+                                        <field name="specs_molding_int_id" options="{'no_create': True}"
+                                               domain="specs_molding_int_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_traslape_int_id" options="{'no_create': True}"/>
+                                        <field name="specs_molding_ext_id" options="{'no_create': True}"
+                                               domain="specs_molding_ext_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_traslape_ext_id" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                                <group string="Pull Handles" name="group_frame">
+                                    <group>
+                                        <field name="specs_jac_id" domain="specs_jac_id_domain"
+                                               options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_jacin_id" domain="specs_jac_id_domain"
+                                               options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_jin_id" domain="specs_jac_id_domain"
+                                               options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_jinin_id" domain="specs_jac_id_domain"
+                                               options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                    </group>
+                                </group>
+                                <group string='Deadbolt' name="group_deadbolt">
+                                    <group>
+                                        <field name="specs_pch_id" options="{'no_create': True}"/>
+                                        <field name="specs_moce_id" options="{'no_create': True}"
+                                               context="{'not_show_attribute_specs': True}"
+                                        />
+                                        <field name="specs_altce"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_rlat"/>
+                                        <field name="specs_bac"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string='Transom'>
+                                        <field name="specs_tyarct_id" options="{'no_create': True}"
+                                               domain="specs_tyarct_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_taltarc"/>
+                                        <field name="specs_antra"/>
+                                        <field name="specs_altra"/>
+                                        <field name="specs_ddm"/>
+                                        <field name="specs_typet_glass_id" options="{'no_create': True}"/>
+                                    </group>
+                                    <group string='Sidelight'>
+                                        <field name="specs_anfi"/>
+                                        <field name="specs_alfi"/>
+                                        <field name="specs_board_type_id" options="{'no_create': True}"/>
+                                        <field name="specs_saltboard_type"/>
+                                        <field name="specs_sidelight_glassf"/>
+                                        <field name="specs_typef_glass_id" options="{'no_create': True}"/>
+                                        <field name="specs_ddmf"/>
+                                        <field name="specs_posfi_id" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string='Latch'>
+                                        <field name="specs_latchsup_id" options="{'no_create': True}"
+                                               domain="specs_latchsup_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_cls"/>
+                                        <field name="specs_latchin_id" options="{'no_create': True}"
+                                               domain="specs_latchin_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_cli"/>
+                                    </group>
+                                    <group string='Installation Items'>
+                                        <field name="specs_tolerance"/>
+                                        <field name="specs_typeguar_id" options="{'no_create': True}"
+                                               domain="specs_typeguar_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_flashing_id" options="{'no_create': True}"
+                                               domain="specs_flashing_id_domain"
+                                               context="{'not_show_attribute_specs': True}"/>
+                                        <field name="specs_assembly_id" options="{'no_create': True}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="description" readonly="block_changes == True"/>
+                                </group>
+                                <notebook>
+                                    <page name="specs_type_glass_info" string="Glass Specifications"
+                                          invisible="specs_type_glass_id == False">
+                                        <field name="specs_glass_line_ids">
+                                            <tree editable="bottom">
+                                                <field name="sequence" widget="handle"/>
+                                                <field name="glass_piece_id" options="{'no_create': True}"/>
+                                                <field name="handing_glass_id" options="{'no_create': True}"/>
+                                                <field name="glass_type_id" options="{'no_create': True}"
+                                                       optional="show"/>
+                                                <field name="radius_id"/>
+                                                <field name="glass_width"/>
+                                                <field name="glass_height"/>
+                                                <field name="glass_qty"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                    <page name="hardware_info" string="Accessories, HW, Special preparations">
+                                        <field name="specs_hardware_line_ids">
+                                            <tree editable="bottom">
+                                                <field name="sequence" widget="handle"/>
+                                                <field name="hardware_id" options="{'no_create': True}"/>
+                                                <field name="include_in_spec_price"/>
+                                                <field name="amount"/>
+                                            </tree>
+                                        </field>
+                                    </page>
+                                </notebook>
+                            </page>
+                            <page string="Other Info" name="other_information">
+                                <group>
+                                    <group>
+                                        <field name="salesman_id" widget="many2one_avatar_user" force_save="1" readonly="1"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="company_id" force_save="1" readonly="1"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="specs_sale_view_tree" model="ir.ui.view">
+            <field name="name">specs.sale.view.tree</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <tree string="Specs">
+                    <field name="sequence_name"/>
+                    <field name="specs_product_type_id"/>
+                    <field name="specs_opportunity_id"/>
+                    <field name="specs_sale_id"/>
+                    <field name="creation_date" optional="show"/>
+                    <field name="version" optional="show"/>
+                    <field name="salesman_id" optional="hide"/>
+                    <field name="company_id" optional="hide" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_specs_sale_filter" model="ir.ui.view">
+            <field name="name">specs.sale.search</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <search string="Search Sales Order">
+                    <field name="name" string="Specs"
+                           filter_domain="['|', ('name', 'ilike', self), ('unit_id', 'ilike', self)]"/>
+                    <field name="specs_product_type_id" string="Product Type"/>
+                    <field name="specs_product_id" string="Product Family"/>
+                    <field name="specs_dc_id" string="Setup"/>
+                    <filter string="My Specs" domain="[('salesman_id', '=', uid)]" name="my_specs_filter"/>
+                    <separator/>
+                    <filter string="Valids" name="valid_specs" domain="[('state', 'in', ('draft', 'price'))]"/>
+                    <filter string="Cancelled" name="cancel_specs" domain="[('state', '=', 'cancel')]"/>
+                    <separator/>
+                    <filter string="Create Date" name="filter_create_date" date="creation_date"/>
+                    <filter string="Today" name="specs_today"
+                            domain="[('creation_date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Salesperson" name="salesperson" domain="[]" context="{'group_by': 'create_uid'}"/>
+<!--                        <filter name="company_group" string="Company" domain="[]" context="{'group_by': 'company_id'}"/>-->
+                        <filter string="Specs Date" name="specs_month" domain="[]"
+                                context="{'group_by': 'creation_date'}"/>
+                    </group>
+                    <searchpanel>
+                        <field name="stage_id" icon="fa-filter" enable_counters="1"/>
+                        <field name="specs_dc_id" icon="fa-filter" enable_counters="1"/>
+                    </searchpanel>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_specs_sale_kanban">
+            <field name="name">specs.sale.kanban</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile" sample="1" quick_create="false">
+                    <field name="creation_date"/>
+                    <field name="name"/>
+                    <field name="specs_sale_id"/>
+                    <field name="version"/>
+                    <field name="specs_dc_id"/>
+                    <field name="state"/>
+                    <field name="specs_amount_total"/>
+                    <field name="specs_cost_total"/>
+                    <field name="specs_mtrs_uom_convert"/>
+                    <field name="specs_mtrs"/>
+                    <field name="specs_product_type_id"/>
+                    <field name="specs_product_id"/>
+                    <field name="salesman_id"/>
+                    <field name="company_id"/>
+                    <field name="currency_id"/>
+                    <field name="stage_id"/>
+                    <field name="uom_id"/>
+                    <field name="specs_mtrs_uom_name"/>
+                    <field name="can_show_sale_field"/>
+                    <field name="can_edit_spec_in_manufacturing"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <span>
+                                                <field name="name"/>
+                                            </span>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="o_kanban_record_body">
+                                    <span t-if="record.state.value=='draft'"
+                                          class="badge text-bg-muted ms-1">
+                                        Draft
+                                    </span>
+                                    <span id="price_span" t-if="record.state.value=='price'"
+                                          class="badge text-bg-success ms-1">
+                                        Updated Price
+                                    </span>
+                                    <span t-if="record.state.value=='cancel'"
+                                          class="badge text-bg-danger ms-1">
+                                        Cancelled
+                                    </span>
+                                    <br/>
+                                    <span><strong>Sale Order: </strong><field name="specs_sale_id"/><br/></span>
+                                    <span><strong>Product: </strong><field name="specs_product_type_id"/><br/></span>
+                                    <span><strong>Family: </strong><field name="specs_product_id"/><br/></span>
+                                    <span><strong>Setup: </strong><field name="specs_dc_id"/><br/></span>
+                                    <span><strong>Version: </strong><field name="version"/><br/></span>
+                                    <span><strong>Square meters: </strong><field name="specs_mtrs"/><strong>per <field name="uom_id" class="oe_inline" /></strong><br/></span>
+                                    <span><strong>Square feet: </strong><field name="specs_mtrs_uom_convert"/><strong>per <field name="specs_mtrs_uom_name" class="oe_inline" /></strong><br/></span>
+                                    <span t-if="record.can_show_sale_field">
+                                        <strong>Total Price: </strong><field name="specs_amount_total" widget="monetary"/><br/>
+                                    </span>
+                                    <span t-if="record.can_edit_spec_in_manufacturing">
+                                        <strong>Total Cost: </strong><field name="specs_cost_total" widget="monetary"/><br/>
+                                    </span>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <span><strong>Creation date: </strong>
+                                            <field name="creation_date"/>
+                                        </span>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <field name="company_id" groups="base.group_multi_company"/>
+                                        <field name="salesman_id" widget="many2one_avatar_user"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="action_specs_sale" model="ir.actions.act_window">
+            <field name="name">Specs</field>
+            <field name="res_model">specs.sale</field>
+            <field name="search_view_id" ref="view_specs_sale_filter"/>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

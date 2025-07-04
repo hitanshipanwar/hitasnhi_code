@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data noupdate="0">
+        <record id="ir_cron_sync_authorize_subscription_state" model="ir.cron">
+            <field name="name">Sync Authorize Subscription State</field>
+            <field name="model_id" ref="model_authorize_bank_statement_config"/>
+            <field name="state">code</field>
+            <field name="code">model.authorize_fetch_and_update_state()</field>
+            <field name="interval_type">days</field>
+            <field name="interval_number">1</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="ir_cron_fetch_authorize_transactions" model="ir.cron">
+            <field name="name">Fetch Authorize Transactions</field>
+            <field name="model_id" ref="model_authorize_bank_statement_config"/>
+            <field name="state">code</field>
+            <field name="code">model.get_transaction_list(from_cron=True)</field>
+            <field name="interval_type">days</field>
+            <field name="interval_number">1</field>
+            <field name="numbercall">-1</field>
+        </record>
+        
+    </data>
+</odoo>

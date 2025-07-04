@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_show_lost_phone_number" model="ir.ui.view">
+        <field name="name">Helpdesk Form: Show Lost Phone Number</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <!-- <field name="sequence" eval="17"/> -->
+        <field name="priority">17</field>
+        <field name="arch" type="xml">
+            <button name="assign_ticket_to_self" position="before">
+                <field name="is_user_assigned" invisible="1"/>
+            </button>
+            <button name="assign_ticket_to_self" position="attributes">
+                <attribute name="attrs">{'invisible': [('is_user_assigned','=',True)]}</attribute>
+            </button>
+            <field name="is_partner_email_update" position="before">
+                <field name="phone_lost" widget="phone"/>
+            </field>
+        </field>
+    </record>
+</odoo>

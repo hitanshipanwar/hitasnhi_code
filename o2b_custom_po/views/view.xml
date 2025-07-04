@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+     <!-- task HSO-1838 starts -->
+    
+    <data>
+        <record id="res_config_settings_view_form_inherit_purchase_notes" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.purchase.notes</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="purchase.res_config_settings_view_form_purchase"/>
+            <field name="arch" type="xml">
+                <div class="row mt16 o_settings_container" name="purchase_setting_container" position="inside">
+                    <div class="col-12 col-lg-6 o_setting_box" id="po_order_notes">
+                        <div class="o_setting_left_pane">
+                            <field name="purchase_setting_container"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="purchase_setting_container"/>
+                            <!-- <div class="text-muted">Request managers to approve orders above a minimum amount
+                                </div> -->
+                            <div class="mt16">
+                                <div attrs="{'invisible': [('purchase_setting_container', '=', False)]}" class="content-group">
+                                    <field class="w-100" attrs="{'invisible': [('purchase_setting_container', '=', False)]}"  name="purchase_order_notes"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </field>
+        </record>
+    </data>
+    <!-- task HSO-1838 ends -->
+
+    <!-- task HSO-1839 starts -->
+
+    <record id="view_partner_form_inherit_sales_order_notes" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit.sales.order.notes</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_purchases']/group/group[@name='sale']" position="inside">
+                <label for="sales_order_notes_enabled" string="Sales Order Notes"/>
+                <div>
+                    <field name="sales_order_notes_enabled" string="Sales Order Notes"/>
+                    <field name="sales_order_notes" nolabel="1" attrs="{'invisible': [('sales_order_notes_enabled', '=', False)]}"/>
+                </div>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!-- task HSO-1839 ends -->
+
+    <!-- task HSO-1840 starts -->
+
+    <record id="view_sale_order_template_form_notes" model="ir.ui.view">
+        <field name="name">sale.order.template.form.inherit</field>
+        <field name="model">sale.order.template</field>
+        <field name="inherit_id" ref="sale_management.sale_order_template_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='confirmation']" position="after">
+                <page string="Order Notes" name="order_notes">
+                    <group >
+                        <group string="Order Notes">
+                            <label for="order_notes_enabled" string="Order Notes"/>
+                            <div>
+                                <field name="order_notes_enabled"/>
+                                <field name="order_notes" nolabel="1" attrs="{'invisible': [('order_notes_enabled', '=', False)]}"/>
+                            </div>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- task HSO-1840 ends -->
+
+</odoo>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_product_view_form_inherit_ts" model="ir.ui.view">
+        <field name="name">product.product.view.form.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='inventory']//group[@name='operations']" position="after">
+                <group name="averaged_month_qty" string="Averaged/Month QTY">
+                    <field name="averaged_sales_qty"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- <record id="view_product_product_tree_inherit" model="ir.ui.view">
+        <field name="name">product.product.tree.inherit</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='standard_price']" position="after">
+                <field name="averaged_sales_qty"/>
+            </xpath>
+        </field>
+    </record> -->
+</odoo>

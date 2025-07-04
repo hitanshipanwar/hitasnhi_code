@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_cron_sezzle_transaction_create_job" model="ir.cron">
+        <field name="name">Sezzle Transaction Create Job</field>
+        <field name="model_id" ref="o2b_sezzle_integration.model_sezzle_settings"/>
+        <field name="state">code</field>
+        <field name="code">model.sezzle_transaction_create_via_cron(start_date=None, end_date=None, offset=None, currency_code=None)</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="active">True</field>
+    </record>
+
+</odoo>

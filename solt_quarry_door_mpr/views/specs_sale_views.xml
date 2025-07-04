@@ -1,0 +1,73 @@
+<odoo>
+    <data>
+        <record id="specs_sale_mrp_view_form_inherit" model="ir.ui.view">
+            <field name="name">specs.sale.mrp.form.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.specs_sale_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//button[@name='action_state_cancel']" position="before">
+                    <button name="action_create_materials_bills" string="Create Bill of Materials" type="object"
+                            class="btn-primary" invisible="state != 'sale_confirm'"
+                            groups="solt_quarry_door_sale.group_quarry_manager"/>
+                </xpath>
+
+                <xpath expr="//div[@name='button_box']" position="inside">
+                    <button name="view_action_bom"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-flask"
+                            invisible="state != 'bom'"
+                            groups="solt_quarry_door_sale.group_quarry_manager">
+                        <field string="BoM" name="bom_count" widget="statinfo"/>
+                        <field name="bom_ids" invisible='1'/>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_specs_sale_filter_inherit" model="ir.ui.view">
+            <field name="name">specs.sale.search.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.view_specs_sale_filter"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//filter[@name='valid_specs']" position="after">
+                    <filter string="BOM created" name="bom_specs" domain="[('state', '=', 'bom')]"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_specs_sale_kanban_inherit" model="ir.ui.view">
+            <field name="name">mrp.specs.sale.kanban.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.view_specs_sale_kanban"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//span[@id='price_span']" position="after">
+                    <span id="bom_span" t-if="record.state.value=='bom'"
+                          class="badge text-bg-info ms-1">
+                        BOM Created
+                    </span>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="mrp_update_price_specs_sale_view_form" model="ir.ui.view">
+        <field name="name">mrp.update.price.specs.sale.view.form</field>
+        <field name="model">specs.sale</field>
+        <field name="inherit_id" ref="solt_quarry_door_sale_purchase_stock.update_price_specs_sale_view_form"/>
+        <field name="arch" type="xml">
+
+            <button name="action_update_cost" position="attributes">
+                <attribute name="invisible">not can_show_button_update_cost or state not in ['sale_confirm',
+                    'bom']</attribute>
+            </button>
+
+        </field>
+    </record>
+    </data>
+</odoo>

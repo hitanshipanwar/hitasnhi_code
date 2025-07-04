@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_account_payment_form_bill_com_payment_term_id" model="ir.ui.view">
+        <field name="name">view.account_payment.form.bill.com.payment.term.id</field>
+        <field name="model">account.payment.term</field>
+        <field name="inherit_id" ref="account.view_payment_term_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet[1]" position="replace">
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                            invisible="active == True"/>
+                    <group>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="name"/>
+                            <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <label for="note"/>
+                    <field name="note" placeholder="Payment term explanation for the customer..."/>
+                    <notebook>
+                        <page string="Terms">
+                            <separator string="Terms"/>
+                            <p class="text-muted">
+                                The last line's computation type should be "Balance" to ensure that the whole amount
+                                will be
+                                allocated.
+                            </p>
+                            <field name="line_ids"/>
+                        </page>
+                        <page string="Bill.Com" invisible="not bill_com_payment_term_ids">
+                            <group>
+                                <group>
+                                    <field name="bill_com_payment_term_ids" readonly="1">
+                                        <list>
+                                            <field name="bill_com_payment_term_id"/>
+                                            <field name="company_id"/>
+                                        </list>
+                                    </field>
+                                </group>
+                                <group/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </xpath>
+        </field>
+    </record>
+</odoo>

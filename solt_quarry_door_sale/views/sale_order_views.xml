@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="counter_specs_form_button">
+            <field name= "name">counter.specs.inherit.form.view</field>
+            <field name= "model">sale.order</field>
+            <field name= "inherit_id" ref= "sale.view_order_form"/>
+            <field name= "arch" type= "xml">
+                <xpath expr= "//div[hasclass('oe_button_box')]/button[@name='action_view_invoice']" position= "before">
+                    <button name="specs_call_view" type="object" class="oe_stat_button" icon="fa-hand-o-right">
+                        <field string="Specs" name="specs_sale_count" widget="statinfo"/>
+                        <field name="specs_sale_ids" invisible='1'/>
+                    </button>
+                </xpath>
+
+                <xpath expr="//field[@name='order_line']//tree/field[@name='product_template_id']" position="after">
+                    <field name="sale_specs_name" force_save='1' readonly="1" optional="show"/>
+                </xpath>
+                <xpath expr="//button[@name='action_confirm'][last()]" position="attributes">
+                    <attribute name="string">Send to Production</attribute>
+                </xpath>
+                <button id="action_confirm" position="attributes">
+                    <attribute name="string">Send to Production</attribute>
+                </button>
+            </field>                        
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <record id="action_specs_sale_order_menu" model="ir.actions.act_window">
+            <field name="name">Specs</field>
+            <field name="res_model">specs.sale</field>
+            <field name="search_view_id" ref="view_specs_sale_filter"/>
+            <field name="context">{'edit': False, 'delete': False, 'create': False, 'search_default_my_specs_filter': 1}</field>
+            <field name="domain">['|', ('salesman_id', '=', uid), ('salesman_id', '=', False)]</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+
+        <menuitem id="menu_specs_order"
+                  name="Specs"
+                  parent="sale.sale_order_menu"
+                  action="action_specs_sale_order_menu"
+                  sequence="45"
+                  groups="sales_team.group_sale_salesman"/>
+    </data> 
+</odoo>

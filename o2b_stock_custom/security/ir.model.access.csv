@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_mrp_production_checkin_checkout,mrp_production_checkin_checkout,model_mrp_production_checkin_checkout,,1,1,1,1
+access_update_stock_aisle,update_stock_aisle,model_update_stock_aisle,,1,1,1,1
+o2b_stock_custom.access_stock_aisle_warehouse,access_stock_aisle_warehouse,o2b_stock_custom.model_stock_aisle_warehouse,base.group_user,1,1,1,1
+o2b_stock_custom.access_stock_aisle_line,access_stock_aisle_line,o2b_stock_custom.model_stock_aisle_line,base.group_user,1,1,1,1
+o2b_stock_custom.access_update_aisle_line,access_update_aisle_line,o2b_stock_custom.model_update_aisle_line,base.group_user,1,1,1,1
+o2b_stock_custom.access_product_aisle,access_product_aisle,o2b_stock_custom.model_product_aisle,base.group_user,1,1,1,1
+o2b_stock_custom.access_edit_stock_aisle,access_edit_stock_aisle,o2b_stock_custom.model_edit_stock_aisle,base.group_user,1,1,1,1
+o2b_stock_custom.access_edit_stock_aisle_line,access_edit_stock_aisle_line,o2b_stock_custom.model_edit_stock_aisle_line,base.group_user,1,1,1,1
+o2b_stock_custom.access_aisle_location,access_aisle_location,o2b_stock_custom.model_aisle_location,base.group_user,1,1,1,1

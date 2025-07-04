@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- CATEGORÍA-->
+
+    <record id="xma_cantera" model="ir.module.category">
+      <field name="name">Cantera</field>
+    </record>
+
+     <!-- GRUPOS -->
+
+    <record id="cant_usuario" model="res.groups">
+        <field name="name">Usuario</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="xma_cantera"/>
+    </record>
+
+    <record id="cant_ventas" model="res.groups">
+        <field name="name">Ventas</field>
+        <field name="implied_ids" eval="[(4, ref('cantera_sale_door.cant_usuario'))]"/>
+        <field name="category_id" ref="xma_cantera"/>
+    </record>
+
+    <record id="cant_administrador" model="res.groups">
+        <field name="name">Administrador</field>
+        <field name="implied_ids" eval="[(4, ref('cantera_sale_door.cant_ventas'))]"/>
+        <field name="category_id" ref="xma_cantera"/>
+    </record>
+
+</odoo>

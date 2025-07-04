@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_travel_report_user,access.travel.report,model_periodic_travel_report,,1,1,1,1
+access_expense_line_user,access.expense.line,model_periodic_expense_line,,1,1,1,1
+access_travel_expense_type_user,access.travel.expense.type,model_periodic_travel_expense_type,,1,1,1,1

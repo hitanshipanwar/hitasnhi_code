@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	 <!-- Mask Data Category -->
+        <!-- <record id="maskdata_category" model="ir.module.category">
+            <field name="name">Mask Data</field>
+            <field name="sequence">17</field>
+        </record> -->
+
+        <!--  Mask Data User Group -->
+       <!--  <record id="maskdata_user" model="res.groups">
+            <field name="name">User</field>
+            <field name="category_id" ref="o2b_masking_data.maskdata_category" />
+        </record> -->
+
+        <!--  Mask Data Manager Group -->
+      <!--   <record id="maskdata_manager" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="o2b_masking_data.maskdata_category" />
+        </record> -->
+</odoo>

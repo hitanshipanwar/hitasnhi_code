@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_type_glass_view_tree" model="ir.ui.view">
+            <field name="name">door.type.glass.view.tree</field>
+            <field name="model">door.type.glass</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Tipo de Vidrio">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_type_glass" model="ir.actions.act_window">
+            <field name="name">Tipo de Vidrio</field>
+            <field name="res_model">door.type.glass</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        
+        <menuitem id="door_type_glass_sub_menu" name="Tipo de Vidrio" action="action_door_type_glass" parent="cantera_sale_door.general_indicator" sequence="8"/>
+
+  </data>
+</odoo>

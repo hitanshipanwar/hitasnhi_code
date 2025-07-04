@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_metal_view_tree" model="ir.ui.view">
+            <field name="name">door.metal.view.tree</field>
+            <field name="model">door.metal</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Preparación de Chapa">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_metal" model="ir.actions.act_window">
+            <field name="name">Preparación de Chapa</field>
+            <field name="res_model">door.metal</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="Deadbolt_indicator" name="Deadbolt" parent="offering_menu" sequence="6"/>
+            <menuitem id="door_metal_sub_menu" name="Preparación de Chapa" action="action_door_metal" parent="Deadbolt_indicator" sequence="1"/>
+
+  </data>
+</odoo>

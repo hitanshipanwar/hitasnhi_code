@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+	<record id="email_template_form_allow_email" model="ir.ui.view">
+        <field name="name">mail.template.form</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.email_template_form"/>
+        <field name="arch" type="xml">
+        	<field name="auto_delete" position="after">
+        		<field name="allow_email"/>
+        	</field>
+        </field>
+    </record>
+
+    <record id="helpdesk_team_view_form_O2B" model="ir.ui.view">
+        <field name="name">helpdesk.team.form</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <sheet position="after">
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </sheet>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_cra_d_date" model="ir.ui.view">
+    <field name="name">view.helpdesk.form.cra.d_date</field>
+    <field name="model">helpdesk.ticket</field>
+    <field name="inherit_id" ref="wise_helpdesk.helpdesk_ticket_view_form_cra"/>
+    <field name="arch" type="xml">   
+        <xpath expr="//field[@name='competition']" position="after">
+            <field name="disenrollment_date"/>
+        </xpath>
+    </field>
+    </record>
+
+</odoo>

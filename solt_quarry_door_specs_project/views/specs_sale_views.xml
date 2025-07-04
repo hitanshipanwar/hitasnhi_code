@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="specs_sale_project_view_form_inherit" model="ir.ui.view">
+            <field name="name">specs.sale.project.form.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.specs_sale_view_form"/>
+            <field name="arch" type="xml">
+
+                <field name="state" position="after">
+                    <field name="task_id" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='action_state_cancel']" position="before">
+                    <button name="action_create_task" string="Create Project CAD Request Task" type="object"
+                            class="btn-primary" invisible="task_id != False or state != 'price'" groups="solt_quarry_door_sale.group_quarry_manager,solt_quarry_door_sale.group_quarry_sale"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

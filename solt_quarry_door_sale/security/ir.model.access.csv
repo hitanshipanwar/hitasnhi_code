@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_specs_type,specs.type,model_specs_type,,1,1,1,1
+access_specs_sale,specs.sale,model_specs_sale,,1,1,1,1
+access_door_glass_specs,door.glass.specs,model_door_glass_specs,,1,1,1,1
+access_door_accessories,door.accessories,model_door_accessories,,1,1,1,1
+access_door_special_preparations,door.special.preparations,model_door_special_preparations,,1,1,1,1
+access_door_family_field_line,door.family.field.line,model_door_family_field_line,,1,1,1,1
+access_door_hardware,door.hardware,model_door_hardware,,1,1,1,1

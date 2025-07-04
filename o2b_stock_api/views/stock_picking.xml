@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+        <record id="stock_picking_form_view" model="ir.ui.view">
+            <field name="name">Stock Picking</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='carrier_data']" position="inside">
+                    <field name="tracking_num" groups="base.group_no_one"/>
+                </xpath>
+                <xpath expr="//header" position="inside">
+                    <button name="action_revert" attrs="{'invisible': ['|', '|', '|', ('is_pick_sequence', '=', 'PICK'), ('state', '!=', 'done'), ('is_reverted', '=', True), ('show_mo_validation', '=', False)]}" string="Revert" type="object" class="oe_highlight"/>
+                    <button name="action_open_return_with_label" string="Return" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('show_mo_validation', '=', False)]}" type="object" groups="base.group_user" data-hotkey="k"/>
+                    <button name="action_open_return_without_label" string="Return without label" attrs="{'invisible': ['|', ('state', '!=', 'done'), ('show_mo_validation', '=', False)]}" type="object" groups="base.group_user" data-hotkey="k"/>
+                    <button name="action_open_return_eo_company" string="Return" attrs="{'invisible': ['|',('state', '!=', 'done'), ('show_mo_validation', '=', True)]}" type="object" groups="base.group_user" data-hotkey="k"/>
+                </xpath>
+                <xpath expr="//header/button[@name='%(stock.act_stock_return_picking)d']" position="replace">
+                </xpath>
+            	<xpath expr="//field[@name='carrier_id']" position="before">
+                    <field name="show_mo_validation" invisible="1"/>
+                    <field name="has_po_box_address" invisible="1"/>
+                    <field name="is_reverted" invisible="1"/>
+                    <field name="is_pick_sequence" invisible="1"/>
+                    <field name="shippment_comparison_rate" invisible="1"/>
+                    <label for="get_min_cost"/>
+                    <div class="o_row">
+                        <field name="get_min_cost"/>
+                        <button name="get_min_delivery_chrg" type="object" string="Get Rate"/>
+                    </div>
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='detailed_operations']/button[@name='action_put_in_pack']" position="replace">
+                    <button
+                        class="oe_highlight"
+                        name="action_put_in_pack"
+                        type="object"
+                        string="Put in Pack"
+                        attrs="{'invisible': ['|', ('is_pick_sequence', 'in', ['PICK', 'IN']), ('state', 'in', ('draft', 'done', 'cancel'))]}"
+                        groups="stock.group_tracking_lot"
+                        data-hotkey="shift+g"
+                    />
+                </xpath>
+                <xpath expr="//sheet/notebook/page[@name='operations']/button[@name='action_put_in_pack']" position="replace">
+                    <button
+                        class="oe_highlight"
+                        name="action_put_in_pack"
+                        type="object"
+                        string="Put in Pack"
+                        attrs="{'invisible': ['|', ('is_pick_sequence', 'in', ['PICK', 'IN']), ('state', 'in', ('draft', 'done', 'cancel'))]}"
+                        groups="stock.group_tracking_lot"
+                        data-hotkey="shift+g"
+                    />
+                </xpath>
+                <xpath expr="//notebook" position="inside">
+                    <page  string="Time Trackings" name="time_tracking">
+                        <field name="time_tracking_ids" options="{'no_create': True}">
+                            <tree string="Time Track" editable="bottom">
+                                <field name="s_no"/>
+                                <field name="employee_id"/>
+                                <field name="start_time"/>
+                                <field name="end_time"/>
+                                <field name="time_taken"/>
+                            </tree>
+                        </field>
+                        <group>
+                            <group class="oe_subtotal_footer oe_right" name="project_hours">
+                                <field name="total_time_taken"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_server_regenerate_shipping_label" model="ir.actions.server">
+            <field name="name">Regenerate Shipping Label</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="stock.model_stock_picking"/>
+            <field name="binding_model_id" ref="stock.model_stock_picking"/>
+            <field name="state">code</field>
+            <field name="code">records.action_regenerate_shipping_label()</field>
+        </record>
+        
+    </data>
+</odoo>

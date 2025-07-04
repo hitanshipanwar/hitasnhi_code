@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_specs_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.specs_sale_id.partner_id.lang)"/>
+            <t t-set="address">
+                <div t-if="doc.specs_sale_id.partner_id" t-field="doc.specs_sale_id.partner_id"
+                     t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+            </t>
+            <t t-set="information_block">
+                <t t-if="doc.specs_sale_id.warehouse_id">
+                    <strong>Warehouse Address:</strong>
+                    <div t-if="doc.specs_sale_id.warehouse_id and not doc.specs_sale_id.warehouse_id.partner_id"
+                         t-field="doc.specs_sale_id.warehouse_id"/>
+                    <div t-if="doc.specs_sale_id.warehouse_id and doc.specs_sale_id.warehouse_id.partner_id"
+                         t-field="doc.specs_sale_id.warehouse_id.partner_id"
+                         t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                </t>
+            </t>
+            <t t-set="field_ui_invisible" t-value="doc.field_ui_invisible"/>
+            <div class="page">
+
+                <h5 class="mt-0">General</h5>
+                <div class="row mt-0 mb-0" id="general_informations">
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <span><strong>Product Type:</strong></span>
+                        <span class="m-0" t-field="doc.specs_product_type_id">Single Door Product</span><br/>
+                        <span><strong>Product Family:</strong></span>
+                        <span class="m-0" t-field="doc.specs_product_id"/><br/>
+                        <span><strong>Setup:</strong></span>
+                        <span class="m-0" t-field="doc.specs_dc_id"/><br/>
+                        <span><strong>Unit id:</strong></span>
+                        <span class="m-0" t-field="doc.unit_id"/>
+                    </div>
+                    <div
+                            class="col-auto col-6 mw-100 mb-0"
+                            name="specs_product_family">
+                        <span><strong>Order No.:</strong></span>
+                        <span class="m-0" t-field="doc.specs_sale_id">SO0000</span><br/>
+                        <span><strong>Opportunity:</strong></span>
+                        <span class="m-0" t-field="doc.specs_opportunity_name"/><br/>
+                        <span><strong>Creation Date:</strong></span>
+                        <span class="m-0" t-field="doc.creation_date" t-options='{"widget": "date"}'>
+                            2023-12-31</span><br/>
+                        <span><strong>Salesperson:</strong></span>
+                        <span class="m-0" t-field="doc.salesman_id">Mitchell Admin</span>
+                    </div>
+                </div>
+                <h5 class="mt-0">Header</h5>
+                <div class="row mt-0 mb-0" id="header_informations_1">
+                    <div class="col-auto col-6 mw-100 mb-0" name="informations_order">
+                        <span><strong>Design:</strong></span>
+                        <span class="m-0" t-field="doc.specs_design_id"/><br/>
+                        <span><strong>Color:</strong></span>
+                        <span class="m-0" t-field="doc.specs_color_id"/><br/>
+                        <span><strong>Suffix:</strong></span>
+                        <span class="m-0" t-field="doc.specs_suffix_id"/><br/>
+                        <span><strong>Square meters:</strong></span>
+                        <span class="m-0" t-field="doc.specs_mtrs"/>
+                        <span t-field="doc.uom_id">m²</span><br/>
+                        <span><strong>Square feet:</strong></span>
+                        <span class="m-0" t-field="doc.specs_mtrs_uom_convert"/>
+                        <span t-field="doc.specs_mtrs_uom_name">ft²</span><br/>
+                        <span><strong>Door Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_antmarc"/><br/>
+                        <span><strong>Door Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_altmarc"/><br/>
+                        <span><strong>Handing:</strong></span>
+                        <span class="m-0" t-if="doc.specs_handing_id" t-field="doc.specs_handing_id"/><br/>
+                        <span><strong>Arch Type:</strong></span>
+                        <span class="m-0" t-if="doc.specs_type_arc_id" t-field="doc.specs_type_arc_id"/><br/>
+                        <span><strong>Leaf Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_antleaft"/><br/>
+                        <span><strong>Leaf Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_altleaft"/><br/>
+                        <span><strong>Tolerance Central:</strong></span>
+                        <span class="m-0" t-if="doc.specs_tolcen" t-field="doc.specs_tolcen"/><br/>
+                        <span><strong>Tolerance Sides:</strong></span>
+                        <span class="m-0" t-if="doc.specs_tollat" t-field="doc.specs_tollat"/><br/>
+                        <span><strong>Crate:</strong></span>
+                        <span class="m-0" t-if="doc.specs_huacal" t-field="doc.specs_huacal"/><br/>
+                    </div>
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <span><strong>Total Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_total_ant"/><br/>
+                        <span><strong>Total Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_total_alt"/><br/>
+                        <span><strong>WroughtIron:</strong></span>
+                        <span class="m-0" t-if="doc.specs_forging_id" t-field="doc.specs_forging_id"/><br/>
+                        <span><strong>W/I operable:</strong></span>
+                        <span class="m-0" t-if="doc.specs_operable" t-field="doc.specs_operable"/><br/>
+                        <span><strong>Stile Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_bast"/>
+                        <span><strong>Stile Depth:</strong></span>
+                        <span class="m-0" t-field="doc.specs_porfbast"/><br/>
+                        <span><strong>Arch Raise:</strong></span>
+                        <span class="m-0" t-if="doc.specs_altarc" t-field="doc.specs_altarc"/><br/>
+                        <span><strong>Tolerance Top:</strong></span>
+                        <span class="m-0" t-if="doc.specs_tolsup" t-field="doc.specs_tolsup"/><br/>
+                        <span><strong>Bottom Panel:</strong></span>
+                        <span class="m-0" t-if="doc.specs_board_id" t-field="doc.specs_board_id"/><br/>
+                        <span><strong>Bottom Panel Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_altboard"/><br/>
+                        <span><strong>Fixed Glass:</strong></span>
+                        <span class="m-0" t-if="doc.specs_fixed_glass" t-field="doc.specs_fixed_glass"/><br/>
+                        <span><strong>Door Glass Type:</strong></span>
+                        <span class="m-0" t-if="doc.specs_type_glass_id" t-field="doc.specs_type_glass_id"/><br/>
+                        <span><strong>Rail Top Width:</strong></span>
+                        <span class="m-0" t-if="doc.specs_mbas" t-field="doc.specs_mbas"/><br/>
+                        <span><strong>Rail Bottom Width:</strong></span>
+                        <span class="m-0" t-if="doc.specs_mbai" t-field="doc.specs_mbai"/><br/>
+                    </div>
+                </div>
+
+                <div class="row mt-0 mb-0" id="fram_info">
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Frame</h5>
+                        <span><strong>Frame Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_ancmarc"/><br/>
+                        <span><strong>Frame Depth:</strong></span>
+                        <span class="m-0" t-field="doc.specs_profmarc"/><br/>
+                        <span><strong>Hinge Quantity:</strong></span>
+                        <span class="m-0" t-field="doc.specs_amount_hinges"/><br/>
+                        <span><strong>FrameBrickmoldInt:</strong></span>
+                        <span class="m-0" t-if="doc.specs_molding_int_id" t-field="doc.specs_molding_int_id"/><br/>
+                        <span><strong>FrameOverlapInt:</strong></span>
+                        <span class="m-0" t-if="doc.specs_traslape_int_id" t-field="doc.specs_traslape_int_id"/><br/>
+                        <span><strong>Anchors:</strong></span>
+                        <span class="m-0" t-if="doc.specs_anchor_id" t-field="doc.specs_anchor_id"/><br/>
+                        <span><strong>Hinges:</strong></span>
+                        <span class="m-0" t-if="doc.specs_hinges_id" t-field="doc.specs_hinges_id"/><br/>
+                        <span><strong>FrameBrickmoldExt:</strong></span>
+                        <span class="m-0" t-if="doc.specs_molding_ext_id" t-field="doc.specs_molding_ext_id"/><br/>
+                        <span><strong>FrameOverlapExt:</strong></span>
+                        <span class="m-0" t-if="doc.specs_traslape_ext_id" t-field="doc.specs_traslape_ext_id"/><br/>
+                    </div>
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Pull Handles and Deadbolt</h5>
+                        <span><strong>PH Act-Ext:</strong></span>
+                        <span class="m-0" t-field="doc.specs_jac_id" t-if="doc.specs_jac_id"/><br/>
+                        <span><strong>PH Act-Int:</strong></span>
+                        <span class="m-0" t-field="doc.specs_jacin_id" t-if="doc.specs_jacin_id"/><br/>
+                        <span><strong>PH Inac-Ext:</strong></span>
+                        <span class="m-0" t-if="doc.specs_jin_id" t-field="doc.specs_jin_id"/><br/>
+                        <span><strong>PH Inac-Int:</strong></span>
+                        <span class="m-0" t-if="doc.specs_jinin_id" t-field="doc.specs_jinin_id"/><br/>
+                        <span><strong>Preparation:</strong></span>
+                        <span class="m-0" t-field="doc.specs_pch_id" t-if="doc.specs_pch_id"/><br/>
+                        <span><strong>Deadbolt Type:</strong></span>
+                        <span class="m-0" t-field="doc.specs_moce_id" t-if="doc.specs_moce_id"/><br/>
+                        <span><strong>Deadbolt Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_altce" t-if="doc.specs_altce"/><br/>
+                        <span><strong>Roller Latches:</strong></span>
+                        <span class="m-0" t-if="doc.specs_rlat" t-field="doc.specs_rlat"/><br/>
+                        <span><strong>Ball Catches:</strong></span>
+                        <span class="m-0" t-if="doc.specs_bac" t-field="doc.specs_bac"/><br/>
+                    </div>
+                </div>
+                <div class="row mt-0 mb-0" id="transom_info">
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Transom</h5>
+                        <span><strong>Arch Type in Transom:</strong></span>
+                        <span class="m-0" t-field="doc.specs_tyarct_id" t-if="doc.specs_tyarct_id"/><br/>
+                        <span><strong>Transom Arch Raise:</strong></span>
+                        <span class="m-0" t-field="doc.specs_taltarc" t-if="doc.specs_taltarc"/><br/>
+                        <span><strong>Transom Width:</strong></span>
+                        <span class="m-0" t-if="doc.specs_antra" t-field="doc.specs_antra"/><br/>
+                        <span><strong>Transom Height:</strong></span>
+                        <span class="m-0" t-if="doc.specs_altra" t-field="doc.specs_altra"/><br/>
+                        <span><strong>Transom Double Frame:</strong></span>
+                        <span class="m-0" t-field="doc.specs_ddm" t-if="doc.specs_ddm"/><br/>
+                        <span><strong>Transom Glass Type:</strong></span>
+                        <span class="m-0" t-field="doc.specs_typet_glass_id" t-if="doc.specs_typet_glass_id"/><br/>
+
+                    </div>
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Sidelight</h5>
+                        <span><strong>Sidelight Width:</strong></span>
+                        <span class="m-0" t-field="doc.specs_anfi" t-if="doc.specs_anfi"/><br/>
+                        <span><strong>Sidelight Height:</strong></span>
+                        <span class="m-0" t-field="doc.specs_alfi" t-if="doc.specs_alfi"/><br/>
+                        <span><strong>Sidelight Bottom Panel Type:</strong></span>
+                        <span class="m-0" t-if="doc.specs_board_type_id" t-field="doc.specs_board_type_id"/><br/>
+                        <span><strong>Sidelight Bottom Panel Height:</strong></span>
+                        <span class="m-0" t-if="doc.specs_saltboard_type" t-field="doc.specs_saltboard_type"/><br/>
+                        <span><strong>Sidelight Glass Fixed:</strong></span>
+                        <span class="m-0" t-field="doc.specs_sidelight_glassf" t-if="doc.specs_sidelight_glassf"/><br/>
+                        <span><strong>Sidelight Glass Type:</strong></span>
+                        <span class="m-0" t-field="doc.specs_typef_glass_id" t-if="doc.specs_typef_glass_id"/><br/>
+                        <span><strong>Sidelight Double Frame:</strong></span>
+                        <span class="m-0" t-if="doc.specs_ddmf" t-field="doc.specs_ddmf"/><br/>
+                        <span><strong>Sidelight Position:</strong></span>
+                        <span class="m-0" t-if="doc.specs_posfi_id" t-field="doc.specs_posfi_id"/><br/>
+                    </div>
+                </div>
+                <div class="row mt-0 mb-0" id="latch_info">
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Latch</h5>
+                        <span><strong>Upper latch:</strong></span>
+                        <span class="m-0" t-field="doc.specs_latchsup_id" t-if="doc.specs_latchsup_id"/><br/>
+                        <span><strong>Qty Upper latch:</strong></span>
+                        <span class="m-0" t-field="doc.specs_cls" t-if="doc.specs_cls"/><br/>
+                        <span><strong>Lower latch:</strong></span>
+                        <span class="m-0" t-if="doc.specs_latchin_id" t-field="doc.specs_latchin_id"/><br/>
+                        <span><strong>Qty Lower latch:</strong></span>
+                        <span class="m-0" t-if="doc.specs_cli" t-field="doc.specs_cli"/><br/>
+                    </div>
+                    <div class="col-auto col-6 mw-100 mb-0">
+                        <h5 class="mt-0">Installation Items</h5>
+                        <span><strong>Threshold tolerance:</strong></span>
+                        <span class="m-0" t-field="doc.specs_tolerance" t-if="doc.specs_tolerance"/><br/>
+                        <span><strong>Threshold Type:</strong></span>
+                        <span class="m-0" t-field="doc.specs_typeguar_id" t-if="doc.specs_typeguar_id"/><br/>
+                        <span><strong>Flashing/Sill Pan:</strong></span>
+                        <span class="m-0" t-if="doc.specs_flashing_id" t-field="doc.specs_flashing_id"/><br/>
+                        <span><strong>Assembly Preparation:</strong></span>
+                        <span class="m-0" t-if="doc.specs_assembly_id" t-field="doc.specs_assembly_id"/><br/>
+                    </div>
+                </div>
+
+                <!-- Glass Specifications -->
+                <h5 class="mt-0">
+                    <span>Glass Specifications</span>
+                </h5>
+                <t t-set="lines_to_report" t-value="doc.specs_glass_line_ids"/>
+                <t t-set="specs_hardware_line_ids" t-value="doc.specs_hardware_line_ids"/>
+                <table class="table table-sm o_main_table table-borderless mt-0" id="table_glass_line">
+                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th name="th_glass_piece_id" class="text-start">ID Glass Piece</th>
+                            <th name="th_handing_glass_id" class="text-start">Handing Glass</th>
+                            <th name="th_glass_type_id" class="text-start">Glass type</th>
+                            <th name="th_radius_id" class="text-start">Radius</th>
+                            <th name="th_glass_width" class="text-end">Width</th>
+                            <th name="th_glass_height" class="text-end">Height</th>
+                            <th name="th_glass_qty" class="text-end">
+                                <span>Quantity</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+
+                        <t t-set="current_subtotal" t-value="0"/>
+
+                        <t t-foreach="lines_to_report" t-as="line">
+                            <tr>
+                                <td name="td_glass_piece_id"><span t-field="line.glass_piece_id"/></td>
+                                <td name="td_handing_glass_id"><span t-field="line.handing_glass_id"/></td>
+                                <td name="td_glass_type_id"><span t-field="line.glass_type_id"/></td>
+                                <td name="td_radius_id"><span t-field="line.radius_id"/></td>
+                                <td name="td_glass_width" class="text-end">
+                                    <span t-field="line.glass_width">3</span>
+                                </td>
+                                <td name="td_glass_height" class="text-end">
+                                    <span t-field="line.glass_height">-</span>
+                                </td>
+                                <td name="td_glass_qty" class="text-end">
+                                    <span t-field="line.glass_qty">3</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <h5 class="mt-0">
+                    <span>Accessories, HW, Special preparations</span>
+                </h5>
+                <table class="table table-sm o_main_table table-borderless mt-0" id="table_hardware">
+                    <!-- In case we want to repeat the header, remove "display: table-row-group" -->
+                    <thead style="display: table-row-group">
+                        <tr>
+                            <th name="th_hardware_id" class="text-start">Products</th>
+                            <th name="th_include_in_spec_price" class="text-start">Include in spec price</th>
+                            <th name="th_amount" class="text-end">
+                                <span>Quantity</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody">
+                        <t t-set="current_subtotal" t-value="0"/>
+
+                        <t t-foreach="specs_hardware_line_ids" t-as="line">
+                            <tr>
+                                <td name="td_hardware_id"><span t-field="line.hardware_id"/></td>
+                                <t t-if="td_include_in_spec_price">
+                                    <span>Si</span>
+                                </t>
+                                <t t-else="">
+                                    <span>No</span>
+                                </t>
+                                <td name="td_amount" class="text-end">
+                                    <span t-field="line.amount">3</span>
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+                <div>
+                    <span t-field="doc.description"
+                          t-attf-style="#{'text-align:justify;text-justify:inter-word;' if doc.description else ''}"
+                          name="spec_description"/>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_specs">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="solt_quarry_door_sale.report_specs_document" t-lang="doc.specs_sale_id.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <!--  Purchase Agreement  -->
+    <template id="report_sale_purchase_agreement_document">
+        <t t-set="o" t-value="doc.with_context(lang=doc.partner_id.lang)"/>
+        <t t-set="company" t-value="o.company_id.sudo()"/>
+        <div class="page">
+            <div class="header">
+                <div class="o_background_header">
+                    <div class="float-end">
+                        <div class="mt0 text-end h3">
+                            <h4>Purchase Agreement</h4>
+                            <table class="table table-bordered" style="font-size: 0.90rem;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Date</th>
+                                        <th class="text-center">Estimate #</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-start"><span
+                                                t-esc="context_timestamp(datetime.datetime.now()).strftime('%m/%d/%Y')"/></td>
+                                        <td><t t-esc="o.name" t-if="o"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-start" alt="Logo"/>
+                    <div class="float-start company_address">
+                        <ul class="list-unstyled" name='company_address_list'>
+                            <li t-if="company.is_company_details_empty"><span t-field="company.partner_id"
+                                                                              t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'>
+                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                    <strong>Company address block</strong>
+                                    <div>Contains the company address.</div>
+                                </div>
+                            </span></li>
+                            <li t-else="">
+                                <span t-field="company.company_details">
+                                    <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
+                                        <strong>Company details block</strong>
+                                        <div>Contains the company details.</div>
+                                    </div>
+                                </span>
+                            </li>
+                            <li t-if="not forced_vat"/>
+                            <li t-else="">
+                                <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                                <span t-esc="forced_vat">US12345671</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clearfix mb8"/>
+                    <div class="row mt-0 mb8" style="font-size: 0.90rem;">
+                        <div class="col-auto col-6 mw-100 mb-0">
+                            <span><strong>Name/Address:</strong></span>
+                            <span class="m-0" t-field="o.partner_id.contact_address_inline"
+                                  t-if="o and o.partner_id"/><br/>
+                        </div>
+                        <div class="col-auto col-6 mw-100 mb-0">
+                            <span><strong>Project:</strong></span>
+                            <span class="m-0" t-field="o.opportunity_id" t-if="o and o.opportunity_id"/><br/>
+                            <span><strong>Rep:</strong></span>
+                            <span class="m-0" t-field="o.user_id" t-if="o and o.user_id"/><br/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="body" class="article o_report_layout_striped o_report_layout_background"
+                 t-attf-style="background-image: url({{ 'data:image/png;base64,%s' % company.layout_background_image.decode('utf-8') if company.layout_background_image and company.layout_background == 'Custom' else '/base/static/img/bg_background_template.jpg' if company.layout_background == 'Geometric' else ''}});"
+                 t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id"
+                 t-att-data-oe-lang="o and o.env.context.get('lang')">
+                <div class="row mt-2">
+                    <table class="table table-striped" style="font-size:0.90rem;">
+                        <tr>
+                            <td>Please read carefully before signing.</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-center">All Doors are made out of Steel unless specified on Estimate</span><br/>
+                                <span class="text-start">I. ORDER PLACEMENT:</span><br/>
+                                <span class="text-start">Doors will not be ordered until a signed Purchase Agreement, a signed CAD Drawing, a signed Estimate with ALL order information and a 50%
+Deposit (non refundable) are received by Cantera Doors. Upon signing, purchaser affirms that all information on the Estimate and CAD drawings are
+correct and accurate. Any changes after signing the Purchase Agreement may incur additional costs and delays.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">II. BILLING/PAYMENT:</span><br/>
+                                <span class="text-start">Payments will be scheduled as follows:</span><br/>
+                                <span class="text-start">Shipped/Customer Pick-up Orders:</span><br/>
+                                <ol class="s mb-0" style="line-height: 90%;">
+                                  <li>Invoice I – 50% deposit (non refundable) to place all orders, in the form of a check or credit card payment.</li>
+                                  <li>Invoice II – Final 50% balance due PRIOR to customer pick-up or release for shipment. Shipped units must be paid PRIOR to Cantera scheduling
+shipment/pickup.</li>
+                                </ol>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">III. DELIVERY:</span><br/>
+                                <span class="text-start">Delivery times will vary. Please consult your Sales Representative for the most up to date delivery information. Delivery dates are ESTIMATED at 20
+weeks from order date to arrival at Austin Headquarters. Please consult your Sales Representative for updated delivery information regarding arrival
+at the local showroom (if applicable), glass delivery and final install date. All product (doors, gates, railing, etc.) held in storage by Cantera Doors at
+the customer's request is subject to a storage fee of $100.00 per month, beginning 30 days from date received into Cantera Doors showroom or
+warehouse. If product is not requested for delivery or picked up within 120 days from the date of manufacturing completion, the product will be
+forfeited to Cantera Doors, with no rights to claim the product. All balances will be due in full for the product, regardless if it has been picked up or not
+after the 120 days. (Financial Charges will be applied)</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">IV. HARDWARE:</span><br/>
+                                <span class="text-start">Other than Cantera’s pull handles, certified door hardware and deadbolts, hardware will not be installed. For special circumstances see estimate.</span><br/>
+                                <span class="text-start">V. INSTALLATIONS:</span><br/>
+                                <span class="text-start">Cantera Doors DOES NOT include installation on shipped orders.</span><br/>
+                                <ol class="s mb-0" style="line-height: 90%;">
+                                  <li>Rough Opening needs to be perfectly leveled, plumb and void of obstructions upon scheduled installation. Triple studs are required to withstand the
+weight of the door and adequate blocking for support is required. Cantera Doors will not assume any responsibility where adequate structural framing
+has not been provided. For certified / impact units, check on local building codes. Purchaser agrees to pay $50 if Rough Opening is not ready a $75
+per hour for any work derived from the problems and delays that incorrect rough opening generates. Out of town installations will incur additional trip
+charges and will be rescheduled at our sole discretion based on our availability.</li>
+                                  <li>Remodel: Cantera Doors is not responsible for any remodeling work or removal of old door or components, unless explicitly included on door
+estimate. Additional charges may apply when structural changes to the opening are discovered during the remodel process.</li>
+                                    <li>Gates: Cantera Doors is not responsible for automation of gates and does not provide installation posts for driveway gates. Gates will be welded to
+the posts set by the builder.</li>
+                                    <li>Commercial: Cantera Doors does not install commercial hardware, which includes, but is not limited to, panic devices, automatic closers or
+commercial deadbolts.</li>
+                                    <li>Other: Cantera Doors does not provide any installation that is not expressed in the estimate. Additional installations requested at the site will incur
+additional charges and a signed Estimate Change Order will be required prior to services.</li>
+                                </ol>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">VI. INSULATION:</span><br/>
+                                <span class="text-start">Insulation in doors is designed to protect the product from the elements. It is not a thermal break system by itself. Please discuss with sales
+representative for additional information.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">VII. SHIPPING:</span><br/>
+                                <span class="text-start">FOR SHIPPED ORDERS: Shipping estimates may vary based on the weight of the final unit as well as the distance to the drop off location. To avoid
+damage to the product, crating is recommended on all Out-of-State orders at a charge. For overseas shipments, additional shipping costs may be
+incurred. Shipments must be inspected upon arrival and any damages must be reported to the freight company as well as Cantera Doors within 3
+days of arrival. In case of any visible damages notate on receiving document (Bill of Lading or BOL).</span><br/>
+                                <span class="text-start">Under Special circumstances, if unit is not able to be inspected and un crated upon arrival please make a note of “PENDING INSPECTION”</span><br/>
+                                <span class="text-start">Failure to properly document damages on Bill of Lading will void the ability to claim freight damage.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">VIII. WARRANTY:</span><br/>
+                                <span class="text-start">PLEASE SEE Standard Warranty for Cantera Doors Inc. Cantera Doors does not warrant any damage caused by others including any damage
+caused by or resulting from improper installation (if not installed by Cantera Doors). Please Note: Variations in finish occur due to custom
+applications of color. All glass is warranted for 90 day from date received, this is the STANDARD warranty from the glass manufacturer. All
+irregularities in glass (fogging/scratches/imperfections, etc. MUST be reported to the glass company within 3 days of receipt of glass). All warranties
+are void on product that is not Paid in Full.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">IX. FINANCE CHARGES:</span><br/>
+                                <span class="text-start">Credit cards accepted. Purchaser agrees to pay cost of collection, attorney fees, and 1.5% per month service charge on past due account. 50%
+deposit is non-refundable. All returned checks will incur a service charge of $35. Out-of-State sales are exempt from sales tax.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">X. LIMITATION OF LIABILITY:</span><br/>
+                                <span class="text-start">Notwithstanding anything to the contrary in this Purchase Agreement, in no event will Cantera Doors be liable for any special, indirect, incidental or
+consequential damages arising out of this Purchase Agreement or any products or services to be provided hereunder. Cantera Doors’ liability for
+damages for any cause whatsoever and regardless of the form of action, whether in contract or in tort, including negligence, shall be limited to the
+amount actually received by Cantera Doors from the purchaser for the product(s) hereunder.</span><br/>
+                                <span class="text-start">In the event of any dispute arising in litigation or arbitration with respect to the subject matter of this purchase agreement , the parties agree that the
+prevailing party shall be entitled to recover the reasonable attorney's fees and all reasonable related costs from the other party.</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span class="text-start">XI. NOTICE:</span><br/>
+                                <span class="text-start">This Purchase Agreement, any related CAD drawing(s), Estimate(s) and the Standard Warranty constitute the entire agreement between the parties
+with respect to the subject matter hereof and supersede any prior or contemporaneous agreements or drawings, oral or in writing. This Purchase
+Agreement may not be changed, modified, amended or supplemented, except in writing signed by all parties hereto. This Purchase Agreement shall
+be governed and construed by the laws of the State of Texas, without regard to principles of conflicts of laws.</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="footer o_background_footer">
+                <div class="text-center">
+                    <ul class="list-inline">
+                        <span style="0.85rem;">By signing this Purchase Agreement, I agree that I have read and understand the Cantera
+Doors policies as stated above and would like to proceed with this purchase.</span>
+                    </ul>
+                    <div>
+                        <div class="float-end"><strong>Date of Approval:</strong> <t t-esc="context_timestamp(o.signed_on).strftime('%Y-%m-%d')" t-if="o.signed_on"/> </div>
+                        <div t-if="not o.signature" class="float-start"><strong>Singature of Approval:</strong></div>
+                        <div t-else="" name="signature">
+                            <div class="float-start">
+                                <strong>Singature of Approval:</strong>
+                            </div>
+                            <img t-att-src="image_data_uri(o.signature)"  class="float-start" style="max-height: 1cm; max-width: 8cm;"/>
+                        </div>
+                    </div>
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page:
+                        <span class="page"/>
+                        of
+                        <span class="topage"/>
+                    </div>
+                    <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                        <span t-out="o.name">(document name)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="report_sale_purchase_agreement">
+        <t t-call="web.html_container">
+            <t t-set="data_report_margin_top" t-value="58"/>
+            <t t-set="data_report_header_spacing" t-value="50"/>
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="solt_quarry_door_sale.report_sale_purchase_agreement_document"/>
+            </t>
+        </t>
+    </template>
+
+</odoo>

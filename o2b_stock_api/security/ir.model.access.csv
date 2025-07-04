@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+o2b_stock_api.access_time_tracking,access_time_tracking,o2b_stock_api.model_time_tracking,base.group_user,1,1,1,1
+o2b_stock_api.access_shipping_carrier,access_shipping_carrier,o2b_stock_api.model_shipping_carrier,base.group_user,1,1,1,1

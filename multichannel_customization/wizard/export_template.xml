@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="export_odoo_templates_form_odoo_multi_channel_sale" model="ir.ui.view">
+            <field name="name">export.templates.view.form.inherit</field>
+            <field name="model">export.templates</field>
+            <field name="inherit_id" ref="odoo_multi_channel_sale.export_odoo_templates_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet" position="inside">
+                    <div>
+                        <p class="text-danger">Exporting products is restricted.</p>
+                    </div>
+                </xpath>
+                <xpath expr="//button[@name='export_shopify_templates']" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

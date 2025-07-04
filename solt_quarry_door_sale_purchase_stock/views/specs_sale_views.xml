@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+    <!-- Inherit Form View to Modify it -->
+    <record id="update_price_specs_sale_view_form" model="ir.ui.view">
+        <field name="name">update.price.specs.sale.view.form</field>
+        <field name="model">specs.sale</field>
+        <field name="inherit_id" ref="solt_quarry_door_sale.specs_sale_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//button[@name='action_save_total_specs']" position="after">
+                <button name="action_update_cost" string="Update Specs cost" type="object" class="btn-primary"
+                        invisible="not can_show_button_update_cost or state not in ['sale_confirm']"
+                        confirm="La acción va a actualizar el precio de la línea creada  por el Spec."
+                />
+            </xpath>
+
+        </field>
+    </record>
+
+  </data>
+</odoo>

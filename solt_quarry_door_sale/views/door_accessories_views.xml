@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+        <record id="door_accessories_view_tree" model="ir.ui.view">
+            <field name="name">door.accessories.view.tree</field>
+            <field name="model">door.accessories</field>
+            <field name="arch" type="xml">
+                <tree edit="0" create="0" delete="0" string="Accessories">
+                    <field name="accessories_id"/>
+                    <field name="amount_accessories"/> 
+                    <field name="sequence" invisible='1'/>
+                    <field name="specs_id" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_accessories" model="ir.actions.act_window">
+            <field name="name">Accessories</field>
+            <field name="res_model">door.accessories</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

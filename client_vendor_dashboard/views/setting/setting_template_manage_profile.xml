@@ -1,0 +1,1324 @@
+<odoo>
+    <template id="setting_template_manage_profile">
+        <html t-att="html_data or {}">
+        <head>
+            <meta charset="UTF-8" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="description" content="" />
+            <!-- <link rel="shortcut icon" type="image/png" href="/client_vendor_dashboard/static/src/images/fav fluent.png" /> -->
+            <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/main.css" />
+            <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/bootstrap.min.css" />
+            <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/style.css" />
+            <title>Vendor Dashboard</title>
+             <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+            <link async="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" crossorigin="" />
+            <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
+            <style>
+                .tbarrow {
+                    display: inline-block;
+                    width: 5px;
+                    height: 5px;
+                    border-top: 1px solid #787777;
+                    border-right: 1px solid #787777;
+                    margin-left: 5px;
+                }
+
+                .up-tbarrow {
+                    transform: rotate(-45deg);
+                    margin-bottom: 3px;
+                }
+                .down-tbarrow {
+                    transform: rotate(135deg);
+                    margin-left: -8px;
+                    margin-top: 3px;
+                }
+
+                .filter-box{
+                    display: flex;
+                    background: white;
+                    line-height: 30px;
+                    padding: 0px 11px;
+                    border-radius: 3px;
+                    font-size: 12px;
+                    color: #444;
+                    margin-right: 10px;
+                    border: 1px solid rgba(1, 41, 112, 0.2)
+                }
+                #filter-icon {
+                    display: block;
+                    margin-top: 10px;
+                    margin-right: 8px;
+                }
+                #filter-icon span {
+                    border: 1px solid #000000a6;
+                    width: 12px;
+                    margin-bottom: 2px;
+                    display: block;
+                    -webkit-transition: all .2s;
+                    transition: all .1s;
+                }
+                #filter-icon .first {
+                    width: 12px;
+                }
+                #filter-icon .second {
+                    width: 8px;
+                    margin-left: 2px;
+                }
+                #filter-icon .third {
+                    width: 4px;
+                    margin-left: 4px;
+                }
+                @font-face {
+                    font-family: 'Eurostile';
+                    font-style: normal;
+                    font-weight: normal;
+                    src: local('Eurostile'), url('eurostile.woff') format('woff');
+                }
+                @font-face {
+                    font-family: 'EuroStyle Normal';
+                    font-style: normal;
+                    font-weight: normal;
+                    src: local('EuroStyle Normal'), url('EuroStyle Normal.woff') format('woff');
+                }
+
+                .email_table .table {
+                    width: 100%;
+                    max-width: 100%;
+                    margin-bottom: 1rem;
+                    background-color: transparent;
+                }
+
+                .email_table .table th {
+                    padding: 8px 14px;
+                }
+
+                .email_table .table td {
+                    padding: 0.75rem;
+                }
+
+                .email_table .table td, .email_table .table th {
+                    vertical-align: top;
+                    color : black;
+                    border-top: 1px solid #dee2e600;
+                    font-size: 12px;
+                    font-weight: 500;
+                }
+
+                .email_table .table thead {
+                    color: gray;
+                    <!-- background: #d0e3ef29; -->
+                }
+
+                .email_table .tclr {
+                    color: gray;
+                }
+
+                .email_table .table thead th {
+                    vertical-align: bottom;
+                    background: white;
+                    color: #7c7a7aab;
+                    font-weight: 500;
+                    border-bottom: 2px solid #dee2e600;
+                    <!-- border-bottom: 2px solid #dee2e6; -->
+                }
+
+                .email_table .tverfie {
+                    outline: 1px solid green;
+                    border-radius: 50px;
+                    padding: 5px 17px;
+                    color: green;
+                    font-size: 10px;
+                    font-weight: 600;
+                }
+
+                .email_table .tunverfie {
+                    outline: 1px solid red;
+                    border-radius: 50px;
+                    padding: 5px 10px;
+                    color: red;
+                    font-size: 10px;
+                    font-weight: 600;
+                }
+
+                .email_table .table tr:hover {
+                    background: #d0e3ef29;
+                }
+
+
+                .email-tab {
+                    width: 100%;
+                    overflow: hidden;
+                    <!-- background: #74aedd0f; -->
+                    <!-- padding: 4px; -->
+                    margin-top: 15px;
+                    position: relative;
+                    box-shadow: inset 0 -1px 0 #dde6f6;
+                }
+
+
+                .email-tab button {
+                    <!-- background-color: transparent; -->
+                    background-color: #f4f8ff;
+                    border: 1px solid #dde6f6;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 5px 16px;
+                    <!-- font-weight: 500; -->
+                    transition: 0.3s;
+                    font-size: 13px;
+                    border-radius: 8px 8px 0 0;
+                    color: #7a7b7c;
+                }
+
+                .email-tab button.active, .email-tab button:focus {
+                      background-color: #ffffff;
+                      font-weight: 600;
+                      color: #3462ae;
+                      border-radius: 8px 8px 0 0;
+                      border-bottom: 1px solid #ffffff;
+                  }
+
+                .tabcontent {
+                    background: #fff;
+                    width: 100%;
+                    <!-- display: none; -->
+                    padding: 6px 12px;
+                    font-family: arial;
+                    line-height: 21px;
+                }
+                .tab_tops{
+                    margin: 20px 0;
+                    display: flex;
+                    justify-content: space-between;  
+                    align-items: center;
+                    border-bottom: 1px solid #2f62b629;
+                }
+
+                .tab_tops .t_title{
+                    font-size: 25px;
+                    font-weight: 300;
+                    margin-bottom: 0;
+                }
+                .tab_tops .ts_title{
+                    color: gray;
+                    font-size: 12px;
+                    margin-bottom: 8px;
+                }
+                .tab_tops .tab_btns{
+                    background: #0451a3;
+                    color: white;
+                    font-size: 11px;
+                }
+                .page-content h1 {
+                    margin-bottom: 0;
+                    font-size: 15px;
+                    font-weight: 700;
+                    font-family: 'Eurostile';
+                }
+                .eborder{
+                      border-bottom: 1px solid #0000001f;
+                }
+                .pNumber{
+                    color: #007bff;
+                    text-decoration: underline;
+                }
+
+                .tverfies {
+                    <!-- outline: 1px solid green; -->
+                    background: #16e71614;
+                    border-radius: 50px;
+                    padding: 8px 17px;
+                    color: #28df28;
+                    font-size: 10px;
+                    font-weight: 600;
+                }
+                .tunverfies {
+                            outline: 1px solid #3462ae;
+                            border-radius: 8px;
+                            padding: 9px 16px;
+                            color: #3462ae;
+                            font-size: 12px;
+                            font-weight: 600;
+                }
+                .tunverfies1 {
+                    border-radius: 4px;
+                    background-color: #8080802e;
+                    padding: 12px 36px;
+                    color: black;
+                    font-size: 13px;
+                    font-weight: 600;
+
+                }
+
+                .mgmLogin{
+                    <!-- background: #f6f6f5; -->
+                    padding: 20px 8px;
+                }
+                .mgmUser {
+                    margin-bottom: 31px;
+                }
+                .mgmTitle1{
+                    font-weight: 500;
+                }
+                .mgmBtn{
+                    line-height: 65px;
+                }
+                .mgmEmail{
+                    font-size: 13px;
+                    color: #007bff;
+                    text-decoration: underline;
+                }
+                .mgmPass input{
+                    border: none;
+                }
+                .mgmPass input:focus{
+                    outline: none;
+                }
+                .mgmPass input[type="password"]{
+                    border: none;
+                    width: 71px;
+                }
+                @media screen and (max-width: 768px) {
+                    .mgmUser {
+                        margin-bottom: 0px;
+                        display: flex;
+                        justify-content: space-between;
+                    }
+                    .mgmBtn {
+                       margin-bottom: 18px; 
+                       line-height: 2;
+                    }
+                    .mgmPassword{
+                        margin-bottom: 0px;
+                        display: flex;
+                        justify-content: space-between;
+                }
+               }
+               <!-- ====================search bar ========================== -->
+                 .search_bar_n {
+                      width: 100%;
+                  }
+                  .logo_icon{
+                        position: absolute;
+                    top: 6px;
+                    left: 6px;
+                  }
+                  .search_frm{
+                    position: relative;
+                  }
+                  .search_frm input{
+                        background: white;
+                      border: 1px solid #f2f2f2;
+                      border-radius: 43px;
+                      padding: 8px;
+                      padding-left: 36px;
+                      width: 100%;
+                          font-size: 12px;
+                  }
+
+                  <!-- ========================side bar=========================== -->
+                     /*------*/
+                    .sidebar.has-bg-image .sidebar-layout {
+                        background: #f4f8ff;
+                    }
+                    .layout .sidebar .menu .menu-item a {
+                        color: #262627;
+                    }
+                    .layout .sidebar .menu .menu-item a .menu-title{
+                          /*color: #4e7cc9;*/
+                        font-weight: 600;
+                    }
+                    .layout .sidebar .menu .menu-item a .menu-title.active{
+                          color: #3e52df;
+                        font-weight: 600;
+                    }
+                    .top-header p {
+                        padding-left: 32px;
+                    }
+                    .layout .sidebar .sidebar-collapser{
+                      top: 22px;
+                          left: calc(275px - 20px);
+                     color: #2c3539;
+                     background: none;
+                         box-shadow: 1px 1px 4px #0c1e3500;
+                    }
+                    .top-header{
+                          box-shadow: 1px 1px 4px #9aa0b900;
+                    }
+                    <!-- =========================================== -->
+                    .tab_tops {
+                        margin: 20px 0 12px;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                            border-bottom: 1px solid #2f62b629;
+                      }
+
+                      .tab_tops .t_title {
+                        font-size: 18px;
+                        /*font-weight: 600;*/
+                      }
+
+                      .tab_tops .ts_title {
+                        color: gray;
+                        font-size: 12px;
+                        margin-bottom: 8px;
+                      }
+
+                      .tab_tops .tab_btns {
+                        background: #3462ae;
+                        color: white;
+                        font-size: 11px;
+                      }
+                      .tab_btns {
+                          background: #3462ae;
+                          color: white;
+                          font-size: 12px;
+                        }
+                    #verify_phone{
+                      cursor: pointer;
+                    }    
+                    
+                    .mgmProfileinfo{
+                      position: relative;
+                    }
+                    .cover-bg {
+                      width: 100%;
+                      height: 120px;
+                      background: linear-gradient(45deg, #ddf8fe, #a9d7fc);
+                      border-radius: 3px;
+                  }
+                  .user-info-wrap {
+                margin-top: -35px;
+                display: flex;
+                padding: 0 20px;
+            }.user-bio {
+                padding: 20px;
+            }
+            .mgmAvtar{
+                  border: 7px solid #ffffff;
+                border-radius: 50%;
+            }
+
+
+        .mgmProfiledata {
+          position: relative;
+        }
+
+        .mgmPinfo {
+          display: flex;
+          justify-content: space-between;
+          width: 50%;
+          font-size: 11px;
+          margin: 14px 0;
+        }
+        @media screen and (max-width: 768px) {
+         .mgmPinfo {
+          width: 100%;
+         } 
+        }
+
+        .mgmPinfo i {
+          font-size: 10px;
+        }
+
+        .mgmPleft {
+        font-size: 13px;
+          color: #7c7a7a;
+        }
+
+        .mgmPinfo a {
+          font-size : 13px;
+          color: #3462ae;
+          text-decoration: underline;
+        }
+        .mgmEditinfo {
+            display: flex;
+            justify-content: space-between;
+            margin: 0px 0px 5px;
+            align-items: end;
+          }
+          .mgmVerified span {
+            background: #effdec;
+            border-radius: 50px;
+            padding: 5px 8px;
+            color: #65ca89;
+            font-size: 10px;
+            font-weight: 600;
+          }
+
+            .menu1 {
+                position: relative;
+                display: flex;
+            }
+
+            .menu1-link {
+                position: absolute;
+                top: calc(100% + 10px);
+                right: 0;
+                width: 160px;
+                background:white;
+                border-radius: 10px;
+                box-shadow: 4px 4px 16px rgba(0, 0, 0, .1);
+                padding: 0px 0;
+                z-index: 100;
+                opacity: 0;
+                pointer-events: none;
+                transition: all .3s ease;
+            }
+            .menu1-link{
+                list-style: none;
+                margin-bottom: 0;
+            }
+            .menu1-link li {
+                padding: 4px 15px;
+                    margin: 6px;
+                border-radius: 5px;
+                transition: 0.45s;
+            }
+            .menu1-link li:hover {
+                background: #afc9f41f;
+            }
+            .menu1-link a {
+                color: #212529;
+            }
+            .menu1-link a:hover {
+                color: #212529;
+                text-decoration: none;
+            }
+            .menu1-link.show {
+                top: 100%;
+                opacity: 1;
+                pointer-events: visible;
+            }
+            .icon {
+              cursor: pointer;
+            }
+
+             .modal-content{
+        border-radius: 25px;
+  }
+  .modal-title{
+    color: black;
+    font-weight: 700;
+    text-align: center;
+        font-size: 28px;
+       font-family:'Eurostile';
+  }
+  .title-bg{
+    border-radius: 14px 14px 0 0;
+  }
+.modal-btn{
+      width: 49%;
+    font-family: 'Eurostile';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+        padding: 9px;
+}
+.close{
+    font-size: 16px;width: 18px;height: 18px;border-radius: 30px;background: white;padding-bottom: 15px;
+}
+</style>
+<style>
+  .modal-content{
+        border-radius: 25px;
+  }
+  .modal-title{
+    color: black;
+    font-weight: 700;
+    text-align: center;
+        font-size: 28px;
+       font-family:'Eurostile';
+  }
+  .title-bg{
+        background: #e1ecff;
+    border-radius: 14px 14px 0 0;
+    padding: 32px;
+  }
+.modal-btn{
+      width: 49%;
+    font-family: 'Eurostile';
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+        padding: 9px;
+}
+.close{
+    font-size: 16px;width: 18px;height: 18px;border-radius: 30px;background: white;padding-bottom: 15px;
+}
+
+.fv_card label {
+    color: #585858;
+    font-size: 13px;
+    font-weight: 600;
+}
+.fv_phone, .fv_text, .fv_email {
+    position: relative;
+}.fv_card input {
+    padding: 6px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 16px;
+    padding-left: 35px;
+    width: 100%;
+    font-family: "Lato", sans-serif;
+}.fv_cicon {
+    position: absolute;
+    color: #5858589e;
+    left: 12px;
+    top: 10px;
+}.fv_cicon img {
+    height: 17px;
+}
+.fv_card {
+      border-top: 1px solid rgba(0, 0, 0, .1);
+      padding-top: 25px;
+}
+.import_f {
+    color: #ff0000;
+    font-size: 13px;
+    font-weight: 700;
+}
+.fv_profile_img {
+  position: relative;
+}
+.fv_profile_img i {
+      position: absolute;
+        top: 14%;
+    left: 63%;
+    transform: translate(-50%, -50%);
+}
+</style>
+
+          </head>
+          <body>         
+            <div class="layout has-sidebar fixed-sidebar fixed-header">
+                    <!-- <a id="btn-collapse" class="sidebar-collapser"><i class="fas fa-angle-left"></i></a> -->
+                <!-- <aside id="sidebar" class="sidebar break-point-lg has-bg-image">
+                    <div class="image-wrapper">
+                        <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
+                    </div>
+                    <div class="sidebar-layout">
+                        <div t-call="client_vendor_dashboard.vendor_dashboard_side_menu"/>
+                        <div class="sidebar-footer" style="padding:0; margin-top:250px;">
+                        <div class="footer-side">
+                          <img src="/client_vendor_dashboard/static/src/images/Frame_99.svg" class="img-fluid" alt="" style="visibility:hidden" id="loadingImage"/>
+                        </div>
+                      </div>
+                    </div>
+                </aside> -->
+                <aside id="sidebar" class="sidebar break-point-lg has-bg-image">
+                <!-- <a id="btn-collapse" class="sidebar-collapser">
+                  <i class="fas fa-angle-left"></i>
+                </a> -->
+                <div class="image-wrapper">
+                <img src="assets/images/sidebar-bg.jpg" alt="sidebar background" />
+                </div>
+                <div class="sidebar-layout">
+                   <div class="sidebar-header">
+                    <div class="search_bar_n">
+                      <div class="search_frm">
+                        <input type="search" class="search-input" value="" name="s" placeholder="Company name" />
+                        <!-- <div class="logo_icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <rect width="24" height="24" rx="12" fill="#0AA749"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.6223 2.99974L13.0685 6.61436C9.11979 12.4743 8.4921 15.3261 8.93385 16.6733C9.10486 17.1792 9.48188 17.4622 9.48188 17.4622L7.80537 16.2772L7.81263 16.2702C6.4239 15.2809 5.76416 12.1399 11.6223 2.99974ZM13.6838 8.15047L14.7535 10.8242C11.6621 15.1782 11.0186 17.3457 11.2747 18.3703C11.3759 18.7653 11.6679 18.9944 11.6679 18.9944L10.2553 18.0095L10.2601 18.0048C9.25099 17.2866 9.01785 14.9252 13.6838 8.15047ZM14.1265 16.8963L15.4959 17.8996C15.426 17.9532 14.3889 18.7458 13.3113 19.0752C12.8108 19.2263 12.4006 19.243 12.0007 18.8976C11.6623 18.5819 11.6102 18.2521 11.5969 18.0302C12.6052 17.8664 13.6399 17.2312 14.1241 16.8987L14.1265 16.8963Z" fill="white"/>
+                          </svg>
+                        </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="sidebar-content">
+                  <nav class="menu open-current-submenu">
+              <ul>
+                <li class="menu-item">
+                  <!-- <a href="/vendor/home"> -->
+                  <a t-att-href="'/api/render?menu=dashboard&amp;partner_id=%s' % (partner_id)">
+                    <span class="menu-icon">
+                      <![CDATA[
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M8.79167 2.11022C9.12981 1.82524 9.55779 1.66895 10 1.66895C10.4422 1.66895 10.8702 1.82524 11.2083 2.11022L16.8333 6.85356C17.2558 7.21022 17.5 7.73439 17.5 8.28689V16.4561C17.5 16.8428 17.3464 17.2138 17.0729 17.4873C16.7994 17.7607 16.4284 17.9144 16.0417 17.9144H13.125C12.7382 17.9144 12.3673 17.7607 12.0938 17.4873C11.8203 17.2138 11.6667 16.8428 11.6667 16.4561V11.8727C11.6667 11.8175 11.6447 11.7645 11.6056 11.7254C11.5666 11.6863 11.5136 11.6644 11.4583 11.6644H8.54167C8.48641 11.6644 8.43342 11.6863 8.39435 11.7254C8.35528 11.7645 8.33333 11.8175 8.33333 11.8727V16.4561C8.33333 16.8428 8.17969 17.2138 7.9062 17.4873C7.63271 17.7607 7.26177 17.9144 6.875 17.9144H3.95833C3.76682 17.9144 3.57719 17.8767 3.40025 17.8034C3.22332 17.7301 3.06255 17.6227 2.92714 17.4873C2.79172 17.3518 2.6843 17.1911 2.61101 17.0141C2.53772 16.8372 2.5 16.6476 2.5 16.4561V8.28689C2.5 7.73439 2.74417 7.21022 3.16667 6.85356L8.79167 2.11022ZM10.4025 3.06606C10.2898 2.97121 10.1473 2.9192 10 2.9192C9.85272 2.9192 9.71017 2.97121 9.5975 3.06606L3.9725 7.80856C3.90289 7.86716 3.84691 7.94025 3.80848 8.02272C3.77005 8.1052 3.75009 8.19507 3.75 8.28606V16.4552C3.75 16.5702 3.84333 16.6636 3.95833 16.6636H6.875C6.93025 16.6636 6.98324 16.6416 7.02231 16.6025C7.06138 16.5635 7.08333 16.5105 7.08333 16.4552V11.8719C7.08333 11.0661 7.73667 10.4136 8.54167 10.4136H11.4583C12.2633 10.4136 12.9167 11.0661 12.9167 11.8719V16.4552C12.9167 16.5702 13.01 16.6636 13.125 16.6636H16.0417C16.0969 16.6636 16.1499 16.6416 16.189 16.6025C16.2281 16.5635 16.25 16.5105 16.25 16.4552V8.28689C16.2499 8.1959 16.2299 8.10603 16.1915 8.02355C16.1531 7.94108 16.0971 7.86799 16.0275 7.80939L10.4025 3.06606Z" fill="#000000"/>
+                          </svg>
+                          ]]>
+                    </span>
+                    <span class="menu-title font_lato">Dashboard</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a t-att-href="'/api/render?menu=purchase&amp;partner_id=%s' % (partner_id)" style="margin: 0 10px; background: #ffffff2b; border-radius: 5px; padding: 10px;">
+                    <span class="menu-icon">
+                      <!-- <i class="fas fa-file-invoice"></i> -->
+                      <![CDATA[
+                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2.5 5.625C2.5 4.7962 2.82924 4.00134 3.41529 3.41529C4.00134 2.82924 4.7962 2.5 5.625 2.5H14.375C15.2038 2.5 15.9987 2.82924 16.5847 3.41529C17.1708 4.00134 17.5 4.7962 17.5 5.625V14.375C17.5 15.2038 17.1708 15.9987 16.5847 16.5847C15.9987 17.1708 15.2038 17.5 14.375 17.5H5.625C4.7962 17.5 4.00134 17.1708 3.41529 16.5847C2.82924 15.9987 2.5 15.2038 2.5 14.375V5.625ZM5.625 3.75C5.12772 3.75 4.65081 3.94754 4.29917 4.29917C3.94754 4.65081 3.75 5.12772 3.75 5.625V14.375C3.75 14.8723 3.94754 15.3492 4.29917 15.7008C4.65081 16.0525 5.12772 16.25 5.625 16.25H14.375C14.8723 16.25 15.3492 16.0525 15.7008 15.7008C16.0525 15.3492 16.25 14.8723 16.25 14.375V5.625C16.25 5.12772 16.0525 4.65081 15.7008 4.29917C15.3492 3.94754 14.8723 3.75 14.375 3.75H5.625ZM10.625 13.125C10.625 12.9592 10.6908 12.8003 10.8081 12.6831C10.9253 12.5658 11.0842 12.5 11.25 12.5H14.0625C14.2283 12.5 14.3872 12.5658 14.5044 12.6831C14.6217 12.8003 14.6875 12.9592 14.6875 13.125C14.6875 13.2908 14.6217 13.4497 14.5044 13.5669C14.3872 13.6842 14.2283 13.75 14.0625 13.75H11.25C11.0842 13.75 10.9253 13.6842 10.8081 13.5669C10.6908 13.4497 10.625 13.2908 10.625 13.125ZM11.25 7.5C11.0842 7.5 10.9253 7.56585 10.8081 7.68306C10.6908 7.80027 10.625 7.95924 10.625 8.125C10.625 8.29076 10.6908 8.44973 10.8081 8.56694C10.9253 8.68415 11.0842 8.75 11.25 8.75H14.0625C14.2283 8.75 14.3872 8.68415 14.5044 8.56694C14.6217 8.44973 14.6875 8.29076 14.6875 8.125C14.6875 7.95924 14.6217 7.80027 14.5044 7.68306C14.3872 7.56585 14.2283 7.5 14.0625 7.5H11.25ZM9.1925 11.4325C9.2507 11.4906 9.29688 11.5595 9.32839 11.6355C9.3599 11.7114 9.37612 11.7928 9.37612 11.875C9.37612 11.9572 9.3599 12.0386 9.32839 12.1145C9.29688 12.1905 9.2507 12.2594 9.1925 12.3175L7.3175 14.1925C7.25944 14.2507 7.19047 14.2969 7.11454 14.3284C7.03861 14.3599 6.95721 14.3761 6.875 14.3761C6.79279 14.3761 6.71139 14.3599 6.63546 14.3284C6.55953 14.2969 6.49056 14.2507 6.4325 14.1925L5.4975 13.2575C5.43939 13.1994 5.3933 13.1304 5.36185 13.0545C5.3304 12.9786 5.31421 12.8972 5.31421 12.815C5.31421 12.7328 5.3304 12.6514 5.36185 12.5755C5.3933 12.4996 5.43939 12.4306 5.4975 12.3725C5.61486 12.2551 5.77403 12.1892 5.94 12.1892C6.02218 12.1892 6.10355 12.2054 6.17948 12.2368C6.2554 12.2683 6.32439 12.3144 6.3825 12.3725L6.875 12.8663L8.3075 11.4325C8.36556 11.3743 8.43453 11.3281 8.51046 11.2966C8.58639 11.2651 8.66779 11.2489 8.75 11.2489C8.83221 11.2489 8.91361 11.2651 8.98954 11.2966C9.06547 11.3281 9.13444 11.3743 9.1925 11.4325ZM9.1925 7.3175C9.25061 7.25939 9.29671 7.1904 9.32815 7.11448C9.3596 7.03856 9.37579 6.95718 9.37579 6.875C9.37579 6.79282 9.3596 6.71144 9.32815 6.63552C9.29671 6.5596 9.25061 6.49061 9.1925 6.4325C9.13439 6.37439 9.0654 6.32829 8.98948 6.29685C8.91356 6.2654 8.83218 6.24921 8.75 6.24921C8.66782 6.24921 8.58644 6.2654 8.51052 6.29685C8.4346 6.32829 8.36561 6.37439 8.3075 6.4325L6.875 7.86625L6.3825 7.3725C6.26514 7.25514 6.10597 7.18921 5.94 7.18921C5.77403 7.18921 5.61486 7.25514 5.4975 7.3725C5.38014 7.48986 5.31421 7.64903 5.31421 7.815C5.31421 7.98097 5.38014 8.14014 5.4975 8.2575L6.4325 9.1925C6.49056 9.2507 6.55953 9.29688 6.63546 9.32839C6.71139 9.3599 6.79279 9.37612 6.875 9.37612C6.95721 9.37612 7.03861 9.3599 7.11454 9.32839C7.19047 9.29688 7.25944 9.2507 7.3175 9.1925L9.1925 7.3175Z" fill="#3e52df"/>
+                        </svg>
+                      ]]>
+                    </span>
+                    <span class="menu-title active font_lato">Purchase Order<span style=" font-size: 11px; border-radius: 30px; background: #ff000026; padding: 1px 5px 1px 1px; color: red ;font-weight: 700; margin-left: 2px;"><t t-esc="purchase_record_count"/>+</span></span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a t-att-href="'/api/render?menu=unpaidinvoice&amp;partner_id=%s' % (partner_id)">
+                    <span class="menu-icon">
+                      <!-- <i class="fas fa-file upload"></i> -->
+                      <![CDATA[
+                         <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M2.8539 2.14565C2.80741 2.09917 2.75222 2.06229 2.69148 2.03713C2.63074 2.01197 2.56564 1.99902 2.4999 1.99902C2.43416 1.99902 2.36906 2.01197 2.30832 2.03713C2.24758 2.06229 2.19239 2.09917 2.1459 2.14565C2.09941 2.19214 2.06254 2.24733 2.03738 2.30807C2.01222 2.36881 1.99927 2.43391 1.99927 2.49966C1.99927 2.5654 2.01222 2.6305 2.03738 2.69124C2.06254 2.75198 2.09941 2.80717 2.1459 2.85366L3.3059 4.01266C2.9448 4.05975 2.61317 4.2366 2.37287 4.51021C2.13256 4.78382 2 5.1355 1.9999 5.49966V12.4997C1.9999 12.8975 2.15793 13.279 2.43924 13.5603C2.72054 13.8416 3.10207 13.9997 3.4999 13.9997H13.2929L14.2929 14.9997H4.0849C4.18834 15.2922 4.37998 15.5455 4.63341 15.7246C4.88684 15.9037 5.18957 15.9998 5.4999 15.9997H14.4999C14.7466 15.9997 14.9862 15.975 15.2189 15.9257L17.1459 17.8537C17.2398 17.9475 17.3671 18.0003 17.4999 18.0003C17.6327 18.0003 17.76 17.9475 17.8539 17.8537C17.9478 17.7598 18.0005 17.6324 18.0005 17.4997C18.0005 17.3669 17.9478 17.2395 17.8539 17.1457L2.8539 2.14565ZM11.9999 12.7067V12.9997H5.9999V11.9997C5.9999 11.4692 5.78919 10.9605 5.41411 10.5854C5.03904 10.2104 4.53033 9.99965 3.9999 9.99965H2.9999V7.99965H3.9999C4.4235 7.99985 4.83623 7.86555 5.17859 7.6161C5.52096 7.36665 5.77528 7.01494 5.9049 6.61166L7.2769 7.98365C7.05062 8.36574 6.95793 8.81227 7.01345 9.25285C7.06897 9.69344 7.26954 10.103 7.58354 10.417C7.89754 10.731 8.30712 10.9316 8.7477 10.9871C9.18828 11.0426 9.63481 10.9499 10.0169 10.7237L11.9999 12.7067ZM4.2929 4.99966L4.9999 5.70665V5.99965C4.9999 6.26487 4.89454 6.51923 4.70701 6.70676C4.51947 6.8943 4.26512 6.99965 3.9999 6.99965H2.9999V5.49966C2.9999 5.36705 3.05258 5.23987 3.14635 5.1461C3.24011 5.05233 3.36729 4.99966 3.4999 4.99966H4.2929ZM8.0329 8.74065L9.2599 9.96565C9.0903 10.0112 8.91171 10.0112 8.74209 9.96579C8.57246 9.92038 8.41779 9.8311 8.29362 9.70693C8.16946 9.58276 8.08018 9.42809 8.03476 9.25847C7.98934 9.08884 7.98939 8.91025 8.0349 8.74065M3.4999 12.9997C3.36729 12.9997 3.24011 12.947 3.14635 12.8532C3.05258 12.7594 2.9999 12.6323 2.9999 12.4997V10.9997H3.9999C4.26512 10.9997 4.51947 11.105 4.70701 11.2925C4.89454 11.4801 4.9999 11.7344 4.9999 11.9997V12.9997H3.4999ZM13.9999 9.99965C13.4769 9.99965 13.0019 10.1997 12.6459 10.5277L13.3539 11.2367C13.5344 11.0837 13.7633 10.9997 13.9999 10.9997H14.9999V12.4997C14.9998 12.6036 14.9673 12.705 14.9069 12.7897L15.6169 13.4997C15.8549 13.2347 15.9999 12.8837 15.9999 12.4997V5.49966C15.9999 5.10183 15.8419 4.7203 15.5606 4.43899C15.2793 4.15769 14.8977 3.99966 14.4999 3.99966H6.1169L7.1169 4.99966H11.9999V5.99965C11.9999 6.53009 12.2106 7.0388 12.5857 7.41387C12.9608 7.78894 13.4695 7.99965 13.9999 7.99965H14.9999V9.99965H13.9999ZM14.4999 4.99966C14.6325 4.99966 14.7597 5.05233 14.8535 5.1461C14.9472 5.23987 14.9999 5.36705 14.9999 5.49966V6.99965H13.9999C13.7347 6.99965 13.4803 6.8943 13.2928 6.70676C13.1053 6.51923 12.9999 6.26487 12.9999 5.99965V4.99966H14.4999ZM16.3259 14.2077L17.0329 14.9157C17.6329 14.2867 17.9999 13.4357 17.9999 12.4997V7.49965C18.0001 7.18933 17.904 6.88659 17.7249 6.63316C17.5458 6.37974 17.2925 6.1881 16.9999 6.08465V12.4997C16.9999 13.1597 16.7439 13.7607 16.3259 14.2077Z" fill="#000000"/>
+                          </svg>
+                      ]]>
+                    </span>
+                    <span class="menu-title font_lato">Unpaid Invoices</span>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a t-att-href="'/api/render?menu=paidinvoice&amp;partner_id=%s' % (partner_id)">
+                    <span class="menu-icon">
+                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1.66675 5.62533C1.66675 4.82033 2.32008 4.16699 3.12508 4.16699H14.3751C15.1801 4.16699 15.8334 4.82033 15.8334 5.62533V12.7087C15.8334 13.0954 15.6798 13.4664 15.4063 13.7399C15.1328 14.0133 14.7619 14.167 14.3751 14.167H3.12508C2.73831 14.167 2.36737 14.0133 2.09388 13.7399C1.82039 13.4664 1.66675 13.0954 1.66675 12.7087V5.62533ZM4.16675 5.20866V6.04199C4.16675 6.20775 4.1009 6.36672 3.98369 6.48393C3.86648 6.60114 3.70751 6.66699 3.54175 6.66699H2.70841V7.91699H3.54175C3.78798 7.91699 4.03179 7.86849 4.25928 7.77427C4.48677 7.68004 4.69346 7.54193 4.86757 7.36782C5.04168 7.19371 5.1798 6.98701 5.27402 6.75952C5.36825 6.53204 5.41675 6.28822 5.41675 6.04199V5.20866H4.16675ZM8.75008 11.2503C9.24736 11.2503 9.72428 11.0528 10.0759 10.7012C10.4275 10.3495 10.6251 9.87261 10.6251 9.37533C10.6251 8.87804 10.4275 8.40113 10.0759 8.0495C9.72428 7.69787 9.24736 7.50033 8.75008 7.50033C8.2528 7.50033 7.77589 7.69787 7.42426 8.0495C7.07263 8.40113 6.87508 8.87804 6.87508 9.37533C6.87508 9.87261 7.07263 10.3495 7.42426 10.7012C7.77589 11.0528 8.2528 11.2503 8.75008 11.2503ZM2.70841 11.667H3.54175C3.70751 11.667 3.86648 11.7328 3.98369 11.8501C4.1009 11.9673 4.16675 12.1262 4.16675 12.292V13.1253H5.41675V12.292C5.41675 11.7947 5.2192 11.3178 4.86757 10.9662C4.51594 10.6145 4.03903 10.417 3.54175 10.417H2.70841V11.667ZM13.3334 12.292C13.3334 12.1262 13.3993 11.9673 13.5165 11.8501C13.6337 11.7328 13.7927 11.667 13.9584 11.667H14.7917V10.417H13.9584C13.4611 10.417 12.9842 10.6145 12.6326 10.9662C12.281 11.3178 12.0834 11.7947 12.0834 12.292V13.1253H13.3334V12.292ZM13.3334 6.04199V5.20866H12.0834V6.04199C12.0834 6.28822 12.1319 6.53204 12.2261 6.75952C12.3204 6.98701 12.4585 7.19371 12.6326 7.36782C12.9842 7.71945 13.4611 7.91699 13.9584 7.91699H14.7917V6.66699H13.9584C13.7927 6.66699 13.6337 6.60114 13.5165 6.48393C13.3993 6.36672 13.3334 6.20775 13.3334 6.04199ZM3.66758 15.417C3.88707 15.7972 4.20278 16.1128 4.58298 16.3322C4.96317 16.5517 5.39444 16.6671 5.83342 16.667H14.3751C14.8949 16.667 15.4096 16.5646 15.8899 16.3657C16.3701 16.1668 16.8065 15.8752 17.174 15.5076C17.5416 15.1401 17.8332 14.7037 18.0321 14.2234C18.231 13.7432 18.3334 13.2285 18.3334 12.7087V8.33366C18.3336 7.89469 18.2181 7.46342 17.9987 7.08322C17.7792 6.70303 17.4636 6.38731 17.0834 6.16783V12.7087C17.0834 13.427 16.7981 14.1158 16.2902 14.6237C15.7823 15.1317 15.0934 15.417 14.3751 15.417H3.66758Z" fill="#000000"/>
+                        </svg>
+                    </span>
+                    <span class="menu-title font">Paid Invoices</span>
+                  </a>
+                </li>
+                <li class="menu-item" style="border-right: 3px solid #3e52df;">
+                  <!-- <a href="/vendor/setting/email"> -->
+                  <a t-att-href="'/api/render?menu=setting&amp;partner_id=%s' % (partner_id)">
+                    <span class="menu-icon">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                              <path d="M11.9991 8.95401C11.0768 8.95401 10.1922 9.32042 9.53994 9.97264C8.88772 10.6249 8.52131 11.5095 8.52131 12.4318C8.52131 13.3542 8.88772 14.2388 9.53994 14.891C10.1922 15.5432 11.0768 15.9096 11.9991 15.9096C12.9215 15.9096 13.8061 15.5432 14.4583 14.891C15.1105 14.2388 15.4769 13.3542 15.4769 12.4318C15.4769 11.5095 15.1105 10.6249 14.4583 9.97264C13.8061 9.32042 12.9215 8.95401 11.9991 8.95401ZM10.2602 12.4318C10.2602 11.9706 10.4434 11.5283 10.7695 11.2022C11.0956 10.8761 11.5379 10.6929 11.9991 10.6929C12.4603 10.6929 12.9026 10.8761 13.2287 11.2022C13.5548 11.5283 13.738 11.9706 13.738 12.4318C13.738 12.893 13.5548 13.3353 13.2287 13.6614C12.9026 13.9875 12.4603 14.1707 11.9991 14.1707C11.5379 14.1707 11.0956 13.9875 10.7695 13.6614C10.4434 13.3353 10.2602 12.893 10.2602 12.4318ZM16.5516 6.16828C16.2309 6.22719 15.8999 6.15647 15.6313 5.97162C15.3626 5.78677 15.1783 5.50291 15.1187 5.18232L14.6666 2.72002C14.6444 2.60011 14.5872 2.48949 14.502 2.40218C14.4169 2.31488 14.3077 2.25483 14.1884 2.22965C12.7444 1.92345 11.2522 1.92345 9.8081 2.22965C9.68879 2.25483 9.57964 2.31488 9.4945 2.40218C9.40937 2.48949 9.35208 2.60011 9.3299 2.72002L8.87953 5.18232C8.84664 5.35769 8.77613 5.52385 8.67286 5.66935C8.56959 5.81485 8.436 5.93624 8.28131 6.02516C8.12661 6.11408 7.95448 6.16841 7.77677 6.18441C7.59906 6.20041 7.42 6.1777 7.25191 6.11785L4.88873 5.27622C4.77406 5.23515 4.6498 5.22892 4.5316 5.25832C4.4134 5.28771 4.30654 5.35142 4.22447 5.44141C3.23402 6.53163 2.48606 7.81952 2.02996 9.22006C1.99233 9.33588 1.9901 9.46029 2.02355 9.57738C2.05701 9.69447 2.12463 9.79892 2.21776 9.87737L4.13404 11.4963C4.2702 11.6112 4.37964 11.7545 4.4547 11.916C4.52977 12.0776 4.56866 12.2537 4.56866 12.4318C4.56866 12.61 4.52977 12.786 4.4547 12.9476C4.37964 13.1092 4.2702 13.2524 4.13404 13.3674L2.21776 14.9863C2.12463 15.0647 2.05701 15.1692 2.02355 15.2863C1.9901 15.4034 1.99233 15.5278 2.02996 15.6436C2.48639 17.0444 3.23496 18.3323 4.2262 19.4222C4.30828 19.5122 4.41514 19.5759 4.53334 19.6053C4.65154 19.6347 4.7758 19.6285 4.89047 19.5874L7.25538 18.7458C7.42345 18.6853 7.60266 18.6622 7.78058 18.6779C7.9585 18.6936 8.13087 18.7479 8.28572 18.8369C8.44058 18.9259 8.57421 19.0475 8.67735 19.1933C8.78049 19.3392 8.85067 19.5057 8.883 19.6813L9.33164 22.1436C9.37686 22.3871 9.5664 22.5818 9.80984 22.6323C11.2545 22.9386 12.7473 22.9386 14.1919 22.6323C14.3108 22.6071 14.4195 22.5473 14.5043 22.4603C14.5891 22.3733 14.6462 22.2631 14.6684 22.1436L15.1205 19.6813C15.1534 19.506 15.2239 19.3398 15.3271 19.1943C15.4304 19.0488 15.564 18.9274 15.7187 18.8385C15.8734 18.7496 16.0455 18.6953 16.2232 18.6793C16.4009 18.6633 16.58 18.686 16.7481 18.7458L19.1113 19.5874C19.346 19.6709 19.6086 19.6048 19.7755 19.4222C20.766 18.332 21.5139 17.0441 21.97 15.6436C22.0077 15.5278 22.0099 15.4034 21.9764 15.2863C21.943 15.1692 21.8754 15.0647 21.7822 14.9863L19.866 13.3674C19.7295 13.2526 19.6199 13.1094 19.5446 12.9478C19.4694 12.7862 19.4304 12.6101 19.4304 12.4318C19.4304 12.2536 19.4694 12.0775 19.5446 11.9158C19.6199 11.7542 19.7295 11.611 19.866 11.4963L21.7822 9.87737C21.8754 9.79892 21.943 9.69447 21.9764 9.57738C22.0099 9.46029 22.0077 9.33588 21.97 9.22006C21.5131 7.81911 20.764 6.53115 19.7721 5.44141C19.69 5.35142 19.5831 5.28771 19.4649 5.25832C19.3467 5.22892 19.2225 5.23515 19.1078 5.27622L16.7429 6.11785C16.6801 6.14043 16.6155 6.15787 16.5499 6.17002M5.03828 7.17858L6.66763 7.75764C7.07306 7.90197 7.50498 7.95659 7.93357 7.91771C8.36216 7.87882 8.7772 7.74738 9.15004 7.53244C9.52287 7.3175 9.8446 7.0242 10.093 6.67279C10.3414 6.32138 10.5106 5.92023 10.5889 5.49706L10.8967 3.81032C11.6271 3.71912 12.366 3.71912 13.0964 3.81032L13.4059 5.49706C13.4836 5.92052 13.6525 6.32203 13.9007 6.67376C14.149 7.0255 14.4708 7.31905 14.8438 7.53408C15.2168 7.7491 15.6321 7.88047 16.0609 7.91907C16.4897 7.95768 16.9217 7.90259 17.3271 7.75764L18.9548 7.17511C19.3982 7.7559 19.7668 8.38887 20.0503 9.06008L18.7391 10.1678C18.4097 10.4459 18.1449 10.7926 17.9633 11.1837C17.7817 11.5747 17.6876 12.0007 17.6876 12.4318C17.6876 12.863 17.7817 13.289 17.9633 13.68C18.1449 14.071 18.4097 14.4177 18.7391 14.6959L20.052 15.8036C19.7676 16.4755 19.3995 17.1088 18.9565 17.6886L17.3271 17.1078C16.9217 16.9634 16.4898 16.9088 16.0612 16.9477C15.6326 16.9866 15.2176 17.118 14.8447 17.333C14.4719 17.5479 14.1502 17.8412 13.9018 18.1926C13.6533 18.544 13.4842 18.9452 13.4059 19.3683L13.0964 21.0551C12.366 21.1464 11.6271 21.1464 10.8967 21.0551L10.5889 19.3683C10.5112 18.9449 10.3423 18.5434 10.094 18.1916C9.84576 17.8399 9.52397 17.5464 9.15098 17.3313C8.77799 17.1163 8.3627 16.9849 7.9339 16.9463C7.5051 16.9077 7.07303 16.9628 6.66763 17.1078L5.04349 17.6886C4.60048 17.1088 4.2324 16.4755 3.94798 15.8036L5.25912 14.6942C5.58826 14.416 5.85277 14.0694 6.03421 13.6785C6.21565 13.2876 6.30964 12.8619 6.30964 12.431C6.30964 12 6.21565 11.5743 6.03421 11.1834C5.85277 10.7925 5.58826 10.4459 5.25912 10.1678L3.94624 9.06008C4.23185 8.38877 4.59985 7.75559 5.04175 7.17511" fill="#000000"/>
+                          </svg>
+                      </span>
+                      <span class="menu-title font_lato">Setting</span>
+                  </a>
+              </li>
+              </ul>
+            </nav>
+                </div>
+                <div class="" style="padding:20px">
+                  <p style="color:#73a8ed; font-size:12px; margin-bottom: 10px; ">Powered By</p>
+                    <t t-if="logo_url">
+                        <div class="login-logo">
+                            <img width="202" height="85" t-att-src="'data:image/png;base64,' + logo_url" alt="Database Logo" />
+                        </div>
+                    </t>
+                  <!-- <svg width="202" height="26" viewBox="0 0 202 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M198.34 11.2523C198.127 11.1698 197.907 11.1126 197.694 11.0745C197.481 11.0364 197.276 11.0173 197.077 11.0173H196.559C196.275 11.0173 196.027 11.0491 195.814 11.1062C195.602 11.1634 195.417 11.2396 195.268 11.3286C195.112 11.4175 194.991 11.5191 194.906 11.6335C194.814 11.7415 194.757 11.8558 194.729 11.9702C194.715 12.0401 194.715 12.1163 194.729 12.1989C194.743 12.2814 194.793 12.3704 194.871 12.4466C194.942 12.5165 195.041 12.5737 195.169 12.6372C195.296 12.6944 195.474 12.7325 195.708 12.7515L197.268 12.923C198.403 13.0501 199.205 13.3296 199.666 13.7743C199.957 14.0411 200.134 14.3651 200.191 14.7399C200.248 15.1147 200.219 15.5466 200.099 16.0231C199.971 16.544 199.723 17.0077 199.347 17.4079C198.971 17.8145 198.524 18.1511 197.985 18.4243C197.446 18.6975 196.857 18.9071 196.204 19.0468C195.552 19.1866 194.871 19.2565 194.183 19.2565C193.672 19.2565 193.197 19.2374 192.75 19.1929C192.303 19.1485 191.877 19.0786 191.48 18.977C191.083 18.8753 190.721 18.7356 190.388 18.564C190.061 18.3925 189.756 18.1702 189.494 17.897L191.977 16.2772C192.26 16.544 192.658 16.7345 193.176 16.8425C193.693 16.9505 194.225 17.0013 194.757 17.0013C196.02 17.0013 196.729 16.6964 196.885 16.0802C196.949 15.8198 196.914 15.6165 196.772 15.4767C196.623 15.3306 196.353 15.2417 195.963 15.2036L194.403 15.0321C193.254 14.8987 192.445 14.5938 191.963 14.1237C191.473 13.6409 191.338 12.9548 191.558 12.0591C191.672 11.589 191.892 11.1571 192.211 10.7569C192.53 10.363 192.934 10.02 193.424 9.7341C193.913 9.44824 194.474 9.21955 195.112 9.05439C195.75 8.88922 196.446 8.80664 197.205 8.80664C198.162 8.80664 198.978 8.90193 199.659 9.08615C200.34 9.27672 200.907 9.588 201.368 10.0327L198.928 11.6208C198.758 11.4556 198.567 11.3349 198.347 11.2523H198.34ZM189.891 13.1517C189.686 13.4376 189.459 13.6981 189.196 13.914C188.934 14.1364 188.657 14.3269 188.359 14.4921C188.061 14.6573 187.77 14.7843 187.487 14.8796L189.302 19.1675H185.515L184.11 15.3433H183.011L182.067 19.1675H178.825L181.365 8.88287H186.614C187.345 8.88287 187.969 8.97816 188.487 9.16238C189.005 9.35295 189.416 9.6007 189.721 9.90562C190.026 10.2169 190.225 10.5663 190.324 10.9601C190.423 11.354 190.423 11.7669 190.324 12.1862C190.239 12.5355 190.097 12.8532 189.891 13.139V13.1517ZM186.884 11.4937C186.685 11.2841 186.359 11.1761 185.905 11.1761H184.039L183.528 13.2534H185.394C185.848 13.2534 186.224 13.1454 186.529 12.9358C186.834 12.7261 187.018 12.4847 187.082 12.2116C187.146 11.9448 187.082 11.7034 186.884 11.4874V11.4937ZM178.407 14.0347C178.315 14.4222 178.215 14.797 178.116 15.1655C178.017 15.5339 177.889 15.896 177.719 16.239C177.556 16.5884 177.336 16.9124 177.073 17.23C176.811 17.5413 176.47 17.8335 176.059 18.1067C175.484 18.4815 174.881 18.7673 174.25 18.9643C173.619 19.1612 172.895 19.2628 172.08 19.2628C171.264 19.2628 170.583 19.1612 170.051 18.9643C169.519 18.7673 169.058 18.4815 168.668 18.1067C168.391 17.8399 168.192 17.5477 168.086 17.23C167.98 16.9188 167.923 16.5884 167.93 16.239C167.93 15.8897 167.98 15.5339 168.065 15.1655C168.15 14.797 168.242 14.4159 168.334 14.0347C168.426 13.6472 168.526 13.2724 168.625 12.904C168.724 12.5355 168.852 12.1735 169.022 11.8304C169.185 11.481 169.405 11.1571 169.668 10.8394C169.93 10.5282 170.271 10.2359 170.682 9.96279C171.257 9.588 171.86 9.30213 172.491 9.10521C173.122 8.90828 173.846 8.80664 174.662 8.80664C175.477 8.80664 176.151 8.90828 176.69 9.10521C177.222 9.30213 177.683 9.588 178.074 9.96279C178.35 10.2296 178.549 10.5218 178.655 10.8394C178.762 11.1507 178.818 11.481 178.811 11.8304C178.811 12.1798 178.762 12.5355 178.676 12.904C178.591 13.2724 178.499 13.6536 178.407 14.0347ZM175.449 11.7669C175.413 11.6716 175.364 11.5827 175.307 11.5064C175.215 11.3794 175.066 11.2778 174.86 11.1888C174.654 11.0999 174.406 11.0618 174.108 11.0618C173.81 11.0618 173.534 11.1062 173.293 11.1888C173.044 11.2778 172.846 11.3794 172.69 11.5064C172.597 11.5827 172.505 11.6716 172.42 11.7669C172.335 11.8622 172.25 12.0019 172.172 12.1798C172.094 12.3577 172.002 12.5927 171.902 12.8849C171.803 13.1771 171.697 13.5583 171.583 14.0347C171.47 14.5048 171.384 14.886 171.342 15.1782C171.292 15.464 171.271 15.6991 171.264 15.877C171.264 16.0548 171.271 16.1946 171.313 16.2899C171.349 16.3851 171.399 16.4741 171.455 16.5503C171.548 16.6774 171.696 16.7854 171.902 16.8743C172.101 16.9632 172.356 17.014 172.654 17.014C172.952 17.014 173.229 16.9696 173.477 16.8743C173.725 16.7854 173.924 16.6774 174.08 16.5503C174.172 16.4741 174.264 16.3851 174.349 16.2899C174.435 16.1946 174.52 16.0548 174.598 15.877C174.676 15.6991 174.768 15.464 174.867 15.1782C174.967 14.8923 175.073 14.5112 175.186 14.0347C175.3 13.5646 175.385 13.1835 175.435 12.8849C175.484 12.5927 175.513 12.3577 175.513 12.1798C175.513 12.0019 175.506 11.8622 175.463 11.7669H175.449ZM162.901 19.1739H159.659L160.695 14.9876L158.198 8.89558H161.751L162.915 12.5927L165.887 8.89558H169.441L163.936 14.9876L162.901 19.1739ZM151.289 11.1444L150.863 12.8659H155.779L155.225 15.121H150.31L149.863 16.9251H155.616L155.062 19.1802H146.068L148.607 8.89558H157.602L157.048 11.1507H151.296L151.289 11.1444ZM138.3 19.1739L136.463 8.88922H139.833L140.648 14.6382L144.266 8.88922H147.657L140.726 19.1739H138.308H138.3ZM130.115 19.1739L127.135 14.003L125.858 19.1739H122.617L125.156 8.88922H128.015L130.994 14.0601L132.271 8.88922H135.513L132.973 19.1739H130.115ZM122.198 14.0347C122.106 14.4222 122.007 14.797 121.907 15.1655C121.808 15.5339 121.68 15.896 121.51 16.239C121.347 16.5884 121.127 16.9124 120.865 17.23C120.602 17.5413 120.262 17.8335 119.85 18.1067C119.276 18.4815 118.673 18.7673 118.041 18.9643C117.41 19.1612 116.687 19.2628 115.871 19.2628C115.055 19.2628 114.374 19.1612 113.842 18.9643C113.31 18.7673 112.849 18.4815 112.459 18.1067C112.182 17.8399 111.984 17.5477 111.877 17.23C111.771 16.9188 111.714 16.5884 111.721 16.239C111.721 15.8897 111.771 15.5339 111.856 15.1655C111.941 14.797 112.033 14.4159 112.126 14.0347C112.218 13.6472 112.317 13.2724 112.416 12.904C112.516 12.5355 112.643 12.1735 112.814 11.8304C112.977 11.481 113.197 11.1571 113.459 10.8394C113.722 10.5282 114.062 10.2359 114.473 9.96279C115.048 9.588 115.651 9.30213 116.282 9.10521C116.914 8.90828 117.637 8.80664 118.453 8.80664C119.269 8.80664 119.943 8.90828 120.482 9.10521C121.014 9.30213 121.475 9.588 121.865 9.96279C122.141 10.2296 122.34 10.5218 122.447 10.8394C122.553 11.1507 122.61 11.481 122.603 11.8304C122.603 12.1798 122.553 12.5355 122.468 12.904C122.383 13.2724 122.29 13.6536 122.198 14.0347ZM119.24 11.7669C119.205 11.6716 119.155 11.5827 119.098 11.5064C119.006 11.3794 118.857 11.2778 118.652 11.1888C118.446 11.0999 118.198 11.0618 117.9 11.0618C117.602 11.0618 117.325 11.1062 117.084 11.1888C116.836 11.2778 116.637 11.3794 116.481 11.5064C116.389 11.5827 116.296 11.6716 116.211 11.7669C116.126 11.8622 116.041 12.0019 115.963 12.1798C115.885 12.3577 115.793 12.5927 115.694 12.8849C115.594 13.1771 115.488 13.5583 115.374 14.0347C115.261 14.5048 115.176 14.886 115.133 15.1782C115.083 15.464 115.062 15.6991 115.055 15.877C115.055 16.0548 115.062 16.1946 115.105 16.2899C115.14 16.3851 115.19 16.4741 115.247 16.5503C115.339 16.6774 115.488 16.7854 115.694 16.8743C115.892 16.9632 116.148 17.014 116.445 17.014C116.743 17.014 117.02 16.9696 117.268 16.8743C117.517 16.7854 117.715 16.6774 117.871 16.5503C117.963 16.4741 118.056 16.3851 118.141 16.2899C118.226 16.1946 118.311 16.0548 118.389 15.877C118.467 15.6991 118.559 15.464 118.659 15.1782C118.758 14.8923 118.864 14.5112 118.978 14.0347C119.091 13.5646 119.176 13.1835 119.226 12.8849C119.276 12.5927 119.304 12.3577 119.304 12.1798C119.304 12.0019 119.297 11.8622 119.254 11.7669H119.24ZM107.642 11.3921C107.451 11.1698 107.082 11.0618 106.55 11.0618C106.252 11.0618 105.983 11.0999 105.748 11.1825C105.514 11.2651 105.316 11.3667 105.16 11.4937C105.067 11.57 104.975 11.6589 104.89 11.7542C104.805 11.8495 104.72 11.9892 104.628 12.1735C104.535 12.3577 104.443 12.5927 104.351 12.8913C104.252 13.1835 104.145 13.5646 104.032 14.0411C103.918 14.5112 103.833 14.8987 103.784 15.1909C103.734 15.4831 103.713 15.7245 103.713 15.9087C103.713 16.0929 103.727 16.2327 103.769 16.328C103.805 16.4233 103.855 16.5122 103.911 16.5884C104.003 16.7155 104.152 16.8171 104.344 16.8997C104.543 16.9823 104.791 17.0204 105.089 17.0204C105.621 17.0204 106.039 16.9124 106.344 16.6901C106.649 16.4677 106.883 16.2136 107.054 15.9278H110.366C110.104 16.4931 109.763 16.9886 109.359 17.4079C108.955 17.8272 108.494 18.1765 107.983 18.4561C107.472 18.7356 106.926 18.9452 106.337 19.0786C105.748 19.212 105.146 19.2819 104.507 19.2819C103.727 19.2819 103.06 19.1802 102.514 18.9833C101.968 18.7864 101.499 18.5005 101.116 18.1257C100.84 17.8589 100.641 17.5667 100.535 17.2491C100.428 16.9378 100.379 16.6075 100.379 16.2581C100.379 15.9087 100.428 15.553 100.513 15.1845C100.599 14.8161 100.691 14.4349 100.783 14.0538C100.875 13.6663 100.975 13.2915 101.074 12.923C101.173 12.5546 101.301 12.1925 101.471 11.8495C101.634 11.5001 101.854 11.1761 102.117 10.8585C102.379 10.5472 102.72 10.255 103.131 9.98185C103.706 9.60705 104.316 9.32119 104.954 9.12426C105.6 8.92734 106.309 8.8257 107.089 8.8257C107.72 8.8257 108.295 8.89558 108.82 9.02898C109.338 9.16238 109.785 9.37201 110.154 9.65152C110.522 9.93103 110.813 10.2804 111.012 10.6997C111.21 11.1189 111.303 11.6144 111.288 12.1798H107.976C107.947 11.8939 107.834 11.6335 107.642 11.4175V11.3921ZM93.8385 11.1444L91.8524 19.1739H88.6106L90.5968 11.1444H87.3409L87.8942 8.88922H97.6477L97.0944 11.1444H93.8385ZM81.2263 19.1739L78.2471 14.003L76.9702 19.1739H73.7285L76.268 8.88922H79.1267L82.1059 14.0601L83.3828 8.88922H86.6245L84.085 19.1739H81.2263ZM68.2595 11.1444L67.8339 12.8659H72.7496L72.1963 15.121H67.2806L66.8337 16.9251H72.5865L72.0332 19.1802H63.0387L65.5781 8.89558H74.5727L74.0194 11.1507H68.2666L68.2595 11.1444ZM61.322 17.0966C60.9461 17.5477 60.485 17.9352 59.9459 18.2591C59.4068 18.5831 58.811 18.8309 58.1513 19.0024C57.4916 19.1739 56.8248 19.2628 56.1438 19.2628C55.4628 19.2628 54.8244 19.1739 54.264 19.0024C53.7037 18.8309 53.2355 18.5831 52.8524 18.2591C52.4694 17.9352 52.2069 17.5477 52.058 17.0966C51.909 16.6456 51.9019 16.1311 52.0438 15.5657L53.6895 8.89558H56.9312L55.2997 15.5085C55.1791 15.9913 55.2429 16.3597 55.4983 16.6202C55.7466 16.8806 56.1509 17.0077 56.6971 17.0077C57.2433 17.0077 57.7186 16.8806 58.1087 16.6202C58.4988 16.3597 58.7542 15.9913 58.8748 15.5085L60.5063 8.89558H63.748L62.1023 15.5657C61.9605 16.1311 61.7051 16.6456 61.322 17.0966ZM50.1924 19.1739H41.3894L43.9288 8.88922H47.1706L45.1844 16.9188H50.7528L50.1995 19.1739H50.1924ZM36.0196 11.1444L35.5727 12.9485H40.4885L39.9352 15.2036H35.0194L34.0405 19.1739H30.7988L33.3383 8.88922H42.3328L41.7795 11.1444H36.0267H36.0196Z" fill="#075ED3"/>
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M25.2798 0L22.1728 6.78445C7.60993 9.54143 2.48135 12.5779 1.17615 14.9791C0.693795 15.8876 0.849852 16.7642 0.849852 16.7642L0.0482891 12.9654H0.0695696C-0.58303 9.80823 3.02045 4.69448 25.2798 0ZM20.8534 9.66848L18.5552 14.6869C7.49644 16.5292 3.34675 18.6191 2.23308 20.3406C1.80747 21.0077 1.91387 21.7001 1.91387 21.7001L1.21871 18.5175H1.2329C0.757636 16.2242 3.86458 12.724 20.8534 9.66848ZM8.70942 22.0812L9.31236 25.2321C9.12793 25.213 6.39695 24.9271 4.28309 23.9616C3.30419 23.5105 2.65869 22.996 2.55938 22.005C2.50972 21.1347 2.91405 20.6202 3.21907 20.3025C4.98535 21.4015 7.48225 21.897 8.70233 22.0812H8.70942Z" fill="#075ED3"/>
+                  </svg> -->
+              </div>
+                </div>
+            </aside>
+                
+                <div id="overlay" class="overlay"></div>
+              
+                <div class="layout" >
+                    <header class="header top-header">
+                        <p> <span style="color: black ; font-size:22px">Settings</span> </p>
+                        <ul class="d-flex align-items-center" style="margin-left: auto;">
+                            <!-- <li class="nav-item">
+                              <a class="nav-link cobrowse_btn" href="#">
+                                Cobrowse
+                              </a>
+                            </li> -->
+                            <li class="nav-item">
+                                <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="badge bg-primary badge-number">4</span>
+                                </a>
+                            </li>
+                            <li class="nav-item" title="Search">
+                              <span class="search-form" id="search" href="#">
+                                <i class="fas fa-search"></i>
+                              </span>
+                            </li>
+                            <!-- <li class="nav-item pe-3">
+                                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                    <img src="profile-img.jpg" alt="Profile" class="rounded-circle" />
+                                    <span class="d-none d-md-block dropdown-toggle ps-2">Jeremy Axel</span>
+                                </a>
+                            </li> -->
+                            <li class="nav-item dropdown pe-3">
+                                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                                    <!-- dynamic image fetch from database start here -->
+                                    <t t-if="user.image_1920">
+                                       <img t-if="user.image_1920" t-att-src="image_data_uri(user.image_1920)" alt="Profile" class="rounded-circle"  />
+                                    </t>
+                                    <t t-else="">
+                                      <i class="fa fa-user rounded-circle" aria-hidden="true" ></i>
+                                    </t>
+                                    <!-- dynamic image fetch from database end here -->
+                                    <span class="d-none d-md-block dropdown-toggle ps-2"><t t-esc="user.name"/></span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center" t-att-href="'/api/render?menu=setting&amp;partner_id=%s' % (partner_id)">
+                                            <i class="bi bi-person"></i>
+                                            <span>Settings</span>
+                                        </a>
+                                    </li> 
+                                    <hr class="dropdown-divider"/>
+                                    <li>
+                                        <a class="dropdown-item d-flex align-items-center" t-att-href="'/vendor/setting/resetpassword?partner_id=%s' % (partner_id)">
+                                            <i class="bi bi-person"></i>
+                                            <span>Reset Password</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                      <hr class="dropdown-divider"/>
+                                    </li>
+                                    <li>
+                                        <!-- <a class="dropdown-item d-flex align-items-center" href="/web/session/logout?redirect=/vendor/logout"> -->
+                                        <a class="dropdown-item d-flex align-items-center" t-att-href="'/api/render?menu=logout&amp;partner_id=%s' % (partner_id)">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            <span>Log Out</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <a id="btn-toggle" href="#" class="sidebar-toggler break-point-lg">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </header>
+                
+                    <main class="content">
+                        <div class="page-content">
+                        <!-- <div class="pagetitle d-flex align-items-center justify-content-between pt-3 eborder">
+                          <div class="d">
+                            <h1>Manage email address</h1>
+                            <p style="color: gray; font-size: 12px; margin-bottom: 8px">Add or remove email addresses from your account</p>
+                          </div>
+                          <div class="search-bar d-flex mb-1">
+                            <form class="search-form d-flex align-items-center" method="POST" action="#">
+                              <input type="text" name="query" placeholder="Address, City, State, Zip..." title="Enter search keyword" />
+                              <button type="submit" title="Search"><i class="fas fa-search"></i></button>
+                            </form>
+                          </div>
+                        </div> -->
+                        <div class="section dashboard">
+                          <div class="row">
+                            <div class="col-md-12">
+                                <div class="email-tab">
+                                    <a t-att-href="'/api/render?menu=setting&amp;partner_id=%s' % (partner_id)"><button class="font_lato">Manage Email Addresses</button></a>
+                                    <a t-att-href="'/vendor/setting/phone?partner_id=%s' % (partner_id)"><button class="font_lato">Manage Phone Number</button></a>
+                                    <button class="tablinks font_lato" data-tab="tab4">Manage Profile</button>
+                                    <a t-att-href="'/vendor/setting/resetpassword?partner_id=%s' % (partner_id)"><button class="font_lato">Reset Password</button></a>
+                                </div>
+                                <div id="tab4" class="tabcontent p-0 my-2">
+                                <div class="mgmProfile">
+                                  <div class="mgmProfileinfo">
+                                    <div class="tab_tops">
+                                  <div class="tab_head">
+                                    <h2 class="t_title">Manage Profile</h2>
+                                  </div>
+                                </div>
+                                    <div class="cover-bg"></div>
+                                    <div class="user-info-wrap">
+                                    <!-- <t t-esc="user.partner_id.image_1920"/> -->
+                                      <div class="mgmAvtar">
+                                            <!-- <t t-set="image_1314" t-value="user.partner_id.image_1920"/> -->
+                                            <!-- <img src="/client_vendor_dashboard/static/src/images/profile-img.jpg" alt="" style="height: 64px;border-radius: 50px;"/> -->
+                                            <!-- <t t-esc="user.partner_id.image_1920"/> -->
+                                                                                        
+                                            <t t-if="user.image_1920">
+                                              <img 
+                                                t-att-src="image_data_uri(user.image_1920)" 
+                                                alt="Profile"
+                                                style="height: 64px; border-radius: 50px;"
+                                              />
+                                            </t>
+                                            <t t-else="">
+                                                <svg 
+                                                    style="height: 64px; width: 64px; border-radius: 50px;" 
+                                                    viewBox="0 0 100 100" 
+                                                    fill="none" 
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_6_17762)">
+                                                        <rect width="100" height="100" rx="50" fill="#E1ECFF"/>
+                                                        <path 
+                                                            fill-rule="evenodd" 
+                                                            clip-rule="evenodd" 
+                                                            d="M50 47.4077C60.1252 47.4077 68.3333 38.2876 68.3333 27.0374C68.3333 15.7871 60.1252 6.66699 50 6.66699C39.8748 6.66699 31.6667 15.7871 31.6667 27.0374C31.6667 38.2876 39.8748 47.4077 50 47.4077ZM50 177.056C80.3757 177.056 105 149.675 105 115.899C105 82.1222 80.3757 54.741 50 54.741C19.6243 54.741 -5 82.1222 -5 115.899C-5 149.675 19.6243 177.056 50 177.056Z" 
+                                                            fill="#2162B9"/>
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_6_17762">
+                                                            <rect width="100" height="100" fill="white"/>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </t>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="mgmProfiletb">
+                                  <div class="mgmEditinfo">
+                                    <div class="mgmUsername">
+                                      <span style="font-size: 13px;  font-weight: 600;"><t t-esc="user.name"/></span>
+                                    </div>
+                                    <div class="mgmPredit">
+                                      <button type="button" class="btn tab_btns" data-toggle="modal" data-target="#exampleModal" style="    padding-bottom: 2px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="24" height="24" rx="12" fill=""/>
+                                    <path d="M18.2657 5.73351C17.796 5.26385 17.159 5 16.4948 5C15.8306 5 15.1936 5.26385 14.7239 5.73351L6.35815 14.0993C6.07382 14.3836 5.87393 14.7413 5.78069 15.1324L5.01425 18.3536C4.9935 18.4408 4.99544 18.5319 5.0199 18.6182C5.04436 18.7045 5.09051 18.7831 5.15396 18.8464C5.21741 18.9098 5.29604 18.9559 5.38235 18.9803C5.46866 19.0046 5.55978 19.0065 5.647 18.9856L8.86746 18.2185C9.25886 18.1254 9.61675 17.9255 9.90128 17.641L18.2657 9.27664C18.7353 8.80697 18.9992 8.16998 18.9992 7.50577C18.9992 6.84157 18.7353 6.20457 18.2657 5.73491V5.73351ZM15.4659 6.47545C15.601 6.34033 15.7614 6.23315 15.9379 6.16002C16.1145 6.08689 16.3037 6.04926 16.4948 6.04926C16.6859 6.04926 16.8751 6.08689 17.0516 6.16002C17.2282 6.23315 17.3886 6.34033 17.5237 6.47545C17.6588 6.61057 17.766 6.77098 17.8391 6.94752C17.9123 7.12407 17.9499 7.31329 17.9499 7.50437C17.9499 7.69546 17.9123 7.88468 17.8391 8.06122C17.766 8.23777 17.6588 8.39818 17.5237 8.5333L16.8994 9.15695L14.8415 7.0998L15.4659 6.47615V6.47545ZM14.0996 7.84315L16.1574 9.89959L9.15794 16.8991C9.01095 17.0461 8.82616 17.149 8.62388 17.1973L6.23286 17.767L6.80191 15.376C6.85021 15.173 6.9538 14.9882 7.10079 14.8412L14.0996 7.84175V7.84315Z" fill="white"/>
+                                    </svg>
+                                    <span style="position: relative;top: -8px;">Edit Profile</span> </button>
+                                    </div>
+                                  </div>
+                                  <div class="mgmAddrs" style="font-size: 12px;">
+                                   <img t-att-src="user.country_id.image_url" alt="" style="height: 18px;" />  <t t-esc="user.street"/>, <t t-esc="user.city"/>, <t t-esc="user.zip"/>  <t t-esc="user.country_id.name"/>
+                                  </div>
+                                  <div class="mgmProfiledata">
+                                    <div class="mgmPinfo">
+                                      <div class="mgmPleft">
+                                        <svg width="13" height="13" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M11.375 9C11.8723 9 12.3492 9.19754 12.7008 9.54917C13.0525 9.90081 13.25 10.3777 13.25 10.875V11.5C13.25 13.9637 10.925 16.5 7 16.5C3.075 16.5 0.75 13.9637 0.75 11.5V10.875C0.75 10.3777 0.947544 9.90081 1.29917 9.54917C1.65081 9.19754 2.12772 9 2.625 9H11.375ZM11.375 10.25H2.625C2.45924 10.25 2.30027 10.3158 2.18306 10.4331C2.06585 10.5503 2 10.7092 2 10.875V11.5C2 13.2975 3.79 15.25 7 15.25C10.21 15.25 12 13.2975 12 11.5V10.875C12 10.7092 11.9342 10.5503 11.8169 10.4331C11.6997 10.3158 11.5408 10.25 11.375 10.25ZM7 0.875C7.91168 0.875 8.78602 1.23716 9.43068 1.88182C10.0753 2.52648 10.4375 3.40082 10.4375 4.3125C10.4375 5.22418 10.0753 6.09852 9.43068 6.74318C8.78602 7.38784 7.91168 7.75 7 7.75C6.08832 7.75 5.21398 7.38784 4.56932 6.74318C3.92466 6.09852 3.5625 5.22418 3.5625 4.3125C3.5625 3.40082 3.92466 2.52648 4.56932 1.88182C5.21398 1.23716 6.08832 0.875 7 0.875ZM7 2.125C6.41984 2.125 5.86344 2.35547 5.4532 2.7657C5.04297 3.17594 4.8125 3.73234 4.8125 4.3125C4.8125 4.89266 5.04297 5.44906 5.4532 5.8593C5.86344 6.26953 6.41984 6.5 7 6.5C7.58016 6.5 8.13656 6.26953 8.5468 5.8593C8.95703 5.44906 9.1875 4.89266 9.1875 4.3125C9.1875 3.73234 8.95703 3.17594 8.5468 2.7657C8.13656 2.35547 7.58016 2.125 7 2.125Z" fill="#747474"/>
+                                            </svg> Status
+                                      </div>
+                                      <div class="mgmPright mgmVerified">
+                                        <span>VERIFIED</span>
+                                      </div>
+                                    </div>
+                                    <div class="mgmPinfo">
+                                      <div class="mgmPleft">
+                                        <svg width="13" height="13" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.37533 0.333008H14.6253C15.3171 0.332963 15.9827 0.597636 16.4855 1.07273C16.9884 1.54783 17.2903 2.19734 17.3295 2.88801L17.3337 3.04134V10.958C17.3337 11.6498 17.069 12.3154 16.5939 12.8182C16.1188 13.321 15.4693 13.623 14.7787 13.6622L14.6253 13.6663H3.37533C2.68354 13.6664 2.01797 13.4017 1.51513 12.9266C1.0123 12.4515 0.710324 11.802 0.671159 11.1113L0.666992 10.958V3.04134C0.666947 2.34956 0.931621 1.68398 1.40672 1.18115C1.88182 0.678314 2.53132 0.37634 3.22199 0.337175L3.37533 0.333008H14.6253H3.37533ZM16.0837 4.81051L9.29199 8.38551C9.21531 8.42602 9.13102 8.45013 9.04451 8.4563C8.958 8.46247 8.87115 8.45056 8.78949 8.42134L8.70949 8.38634L1.91699 4.81134V10.958C1.91701 11.324 2.05463 11.6766 2.30256 11.9458C2.55048 12.2151 2.89058 12.3812 3.25533 12.4113L3.37533 12.4163H14.6253C14.9915 12.4163 15.3442 12.2786 15.6134 12.0305C15.8827 11.7824 16.0487 11.4421 16.0787 11.0772L16.0837 10.958V4.81051ZM14.6253 1.58301H3.37533C3.00933 1.58302 2.65673 1.72065 2.3875 1.96857C2.11827 2.2165 1.95211 2.55659 1.92199 2.92134L1.91699 3.04134V3.39884L9.00033 7.12634L16.0837 3.39801V3.04134C16.0836 2.67522 15.9459 2.3225 15.6978 2.05325C15.4497 1.784 15.1094 1.61793 14.7445 1.58801L14.6253 1.58301Z" fill="#747474"/>
+</svg> Email address 
+                                      </div>
+                                      <div class="mgmPright">
+                                        <a href="#"><t t-esc="user.email"/></a>
+                                      </div>
+                                    </div>
+                                    <div class="mgmPinfo">
+                                      <div class="mgmPleft">
+                                        <svg width="13" height="13" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.37533 0.333008H14.6253C15.3171 0.332963 15.9827 0.597636 16.4855 1.07273C16.9884 1.54783 17.2903 2.19734 17.3295 2.88801L17.3337 3.04134V10.958C17.3337 11.6498 17.069 12.3154 16.5939 12.8182C16.1188 13.321 15.4693 13.623 14.7787 13.6622L14.6253 13.6663H3.37533C2.68354 13.6664 2.01797 13.4017 1.51513 12.9266C1.0123 12.4515 0.710324 11.802 0.671159 11.1113L0.666992 10.958V3.04134C0.666947 2.34956 0.931621 1.68398 1.40672 1.18115C1.88182 0.678314 2.53132 0.37634 3.22199 0.337175L3.37533 0.333008H14.6253H3.37533ZM16.0837 4.81051L9.29199 8.38551C9.21531 8.42602 9.13102 8.45013 9.04451 8.4563C8.958 8.46247 8.87115 8.45056 8.78949 8.42134L8.70949 8.38634L1.91699 4.81134V10.958C1.91701 11.324 2.05463 11.6766 2.30256 11.9458C2.55048 12.2151 2.89058 12.3812 3.25533 12.4113L3.37533 12.4163H14.6253C14.9915 12.4163 15.3442 12.2786 15.6134 12.0305C15.8827 11.7824 16.0487 11.4421 16.0787 11.0772L16.0837 10.958V4.81051ZM14.6253 1.58301H3.37533C3.00933 1.58302 2.65673 1.72065 2.3875 1.96857C2.11827 2.2165 1.95211 2.55659 1.92199 2.92134L1.91699 3.04134V3.39884L9.00033 7.12634L16.0837 3.39801V3.04134C16.0836 2.67522 15.9459 2.3225 15.6978 2.05325C15.4497 1.784 15.1094 1.61793 14.7445 1.58801L14.6253 1.58301Z" fill="#747474"/>
+</svg> Phone number
+                                      </div>
+                                      <div class="mgmPright">
+                                        <a href="#" style="text-decoration: none;" ><t t-esc="user.phone"/></a>
+                                      </div>
+                                    </div>
+                                    <div class="mgmPinfo">
+                                      <div class="mgmPleft">
+                                        <svg width="13" height="13" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 0.833008C9.98912 0.833008 11.8968 1.62318 13.3033 3.02971C14.7098 4.43623 15.5 6.34388 15.5 8.33301C15.5 11.438 13.1333 14.6913 8.5 18.1663C8.35575 18.2745 8.18031 18.333 8 18.333C7.81969 18.333 7.64425 18.2745 7.5 18.1663C2.86667 14.6913 0.5 11.438 0.5 8.33301C0.5 6.34388 1.29018 4.43623 2.6967 3.02971C4.10322 1.62318 6.01088 0.833008 8 0.833008ZM8 2.49967C6.4529 2.49967 4.96917 3.11426 3.87521 4.20822C2.78125 5.30218 2.16667 6.78591 2.16667 8.33301C2.16667 10.5913 3.93167 13.1963 7.54 16.088L8 16.4513L8.46 16.088C12.0683 13.1963 13.8333 10.5913 13.8333 8.33301C13.8333 6.78591 13.2188 5.30218 12.1248 4.20822C11.0308 3.11426 9.5471 2.49967 8 2.49967ZM8 6.66634C8.44203 6.66634 8.86595 6.84194 9.17851 7.1545C9.49107 7.46706 9.66667 7.89098 9.66667 8.33301C9.66667 8.77503 9.49107 9.19896 9.17851 9.51152C8.86595 9.82408 8.44203 9.99967 8 9.99967C7.55797 9.99967 7.13405 9.82408 6.82149 9.51152C6.50893 9.19896 6.33333 8.77503 6.33333 8.33301C6.33333 7.89098 6.50893 7.46706 6.82149 7.1545C7.13405 6.84194 7.55797 6.66634 8 6.66634Z" fill="#747474"/>
+</svg> Region
+                                      </div>
+                                      <div class="mgmPright">
+                                        <t t-esc="user.state_id.name"/>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          </div>
+                        </div>
+                    </div>
+                </main>
+                <div class="horz-list">
+                  <ul>
+                    <li><a href="#" style="text-decoration: underline;">Terms &amp; Conditions</a></li>
+                    <li><a href="#" style="text-decoration: underline;">Warranty</a></li>
+                    <!-- <li><a href="#" style="text-decoration: underline;">Address</a></li> -->
+                    <!-- <li><a href="#" style="text-decoration: underline;">CoBrowse</a></li> -->
+                    <li><a href="#" style="text-decoration: underline;"><t t-esc="company_name"/></a></li>
+                    <li><a href="#">Email: <t t-esc="company_email"/></a></li>
+                    <li><a href="#">Toll Free<t t-esc="company_mobile"/></a></li>
+                  </ul>
+                  <ul>
+                  <!-- <li><a href="#">©Copyright <t t-call="client_vendor_dashboard.vendor_dashboard_time_menu"/>. Fluent Conveyors</a></li> -->
+                  <li><a href="#"><t t-esc="company_address"/></a></li>
+                  <li><a href="#">Copyright© <t t-call="client_vendor_dashboard.vendor_dashboard_time_menu"/> <t t-esc="company_name"/> All right reserved</a></li>
+                  </ul>
+                  </div>
+                  <div class="overlay"></div>
+                  </div>
+                </div>
+            
+ <!-- ===================================for email id=====================================            -->
+
+<div class="modal fade" id="exampleModalOne" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 400px;">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:16px;width:28px;height:28px;border-radius:8px;background: white;font-weight: 100; opacity: 1; padding:2px;">
+      <span aria-hidden="true">&#215;</span>
+    </button>
+    <form id="revokeAccessForm" method="POST" t-attf-action="/vendor/revoke/access?partner_id=#{partner_id}">
+      <input type="hidden" id="revoke_contact_name" name="contact_name" />
+      <input type="hidden" id="revoke_contact_phone" name="phone" />
+      <div class="modal-content">
+        <div class="">
+        </div>
+        <div class="modal-body" style="padding: 14px 10px;">
+          <div class="title-bg">
+            <div id="revoke_access_phone">
+              <p style="font-size: 20px; color: #000000ab; font-weight: 700; margin-bottom: 5px;margin-top: 14px;padding: 0px 8px;">Email address removed</p>
+              <p class="font_lato" style="color:grey; padding: 0px 8px; font-size: 12px;">Please note that this email address will no longer haave access to this account.</p>
+            </div>
+          </div>
+          <div class="" style="padding: 1rem; padding-top:0;text-align: center">
+            <button type="submit" class="btn btn-primary modal-btn font_lato" style="background: #3462ae;margin-top: 18px; width: 100%;">Ok, Got It.</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!-- modal for verify email and phone verify  -->
+<div class="modal fade" id="exampleModalOne" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 400px;">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size:16px;width:28px;height:28px;border-radius:8px;background: white;font-weight: 100; opacity: 1; padding:2px;">
+      <span aria-hidden="true">&#215;</span>
+    </button>
+    <form id="revokeAccessForm" method="POST" t-attf-action="/vendor/revoke/access?partner_id=#{partner_id}">
+      <input type="hidden" id="revoke_contact_name" name="contact_name" />
+      <input type="hidden" id="revoke_contact_phone" name="phone" />
+      <div class="modal-content">
+        <div class="">
+        </div>
+        <div class="modal-body" style="padding: 14px 10px;">
+          <div class="title-bg">
+            <div id="revoke_access_phone">
+              <p style="font-size: 20px; color: #000000ab; font-weight: 700; margin-bottom: 5px;margin-top: 14px;padding: 0px 8px;">Phone Number Removed</p>
+              <p class="font_lato" style="color:grey; padding: 0px 8px; font-size: 12px;">Please note that this phone number will no longer be able to access this account.</p>
+            </div>
+          </div>
+          <div class="" style="padding: 1rem; padding-top:0;text-align: center">
+            <button type="submit" class="btn btn-primary modal-btn font_lato" style="background: #3462ae;margin-top: 18px; width: 100%;">Ok, Got It.</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal for edit profile-->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="width: 400px;">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="font-size: 16px;width: 18px;height: 18px;border-radius: 30px;background: white;padding-bottom: 15px; opacity: 1">
+          <span aria-hidden="true">&#215;</span>
+        </button>
+    <!-- =============================Edit profile start================================     -->
+
+   <div class="modal-content" style="    border-radius: 15px;">
+      <div class="modal-body">
+        <h3 class="modal-title font_lato" id="exampleModalLabel" style="    padding-bottom: 12px;text-align: left; font-size: 18px;">Edit Profile</h3>
+        <div class="fv_card">
+            <form class="mt-3 font_lato" method="POST" t-attf-action="/vendor/edit/profile?partner_id=#{partner_id}"  enctype="multipart/form-data">
+                    <div class="fv_profile_img text-center">
+                    <t t-if="user.image_1920">
+                            <img 
+                                t-att-src="image_data_uri(user.image_1920)" 
+                                id="profile-img"
+                                alt="Profile"
+                                style="height: 64px; border-radius: 50px;"
+                            />
+                        </t>
+                        <t t-else="">
+                            <svg 
+                                id="profile-svg"
+                                style="height: 64px; width: 64px; border-radius: 50px;" 
+                                viewBox="0 0 100 100" 
+                                fill="none" 
+                                xmlns="http://www.w3.org/2000/svg">
+                                <g clip-path="url(#clip0_6_17762)">
+                                    <rect width="100" height="100" rx="50" fill="#E1ECFF"/>
+                                    <path 
+                                        fill-rule="evenodd" 
+                                        clip-rule="evenodd" 
+                                        d="M50 47.4077C60.1252 47.4077 68.3333 38.2876 68.3333 27.0374C68.3333 15.7871 60.1252 6.66699 50 6.66699C39.8748 6.66699 31.6667 15.7871 31.6667 27.0374C31.6667 38.2876 39.8748 47.4077 50 47.4077ZM50 177.056C80.3757 177.056 105 149.675 105 115.899C105 82.1222 80.3757 54.741 50 54.741C19.6243 54.741 -5 82.1222 -5 115.899C-5 149.675 19.6243 177.056 50 177.056Z" 
+                                        fill="#2162B9"/>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_6_17762">
+                                        <rect width="100" height="100" fill="white"/>
+                                    </clipPath>
+                                </defs>
+                            </svg>
+                        </t>
+                    <input type="file" id="file-input" name="file-input"  style="display: none; cursor:pointer;" accept="image/*" />
+
+                    <i class="">
+                        <svg  id="upload-svg" name="upload-svg" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="12" fill="#2C3539"/>
+                            <path d="M18.2657 5.73351C17.796 5.26385 17.159 5 16.4948 5C15.8306 5 15.1936 5.26385 14.7239 5.73351L6.35815 14.0993C6.07382 14.3836 5.87393 14.7413 5.78069 15.1324L5.01425 18.3536C4.9935 18.4408 4.99544 18.5319 5.0199 18.6182C5.04436 18.7045 5.09051 18.7831 5.15396 18.8464C5.21741 18.9098 5.29604 18.9559 5.38235 18.9803C5.46866 19.0046 5.55978 19.0065 5.647 18.9856L8.86746 18.2185C9.25886 18.1254 9.61675 17.9255 9.90128 17.641L18.2657 9.27664C18.7353 8.80697 18.9992 8.16998 18.9992 7.50577C18.9992 6.84157 18.7353 6.20457 18.2657 5.73491V5.73351ZM15.4659 6.47545C15.601 6.34033 15.7614 6.23315 15.9379 6.16002C16.1145 6.08689 16.3037 6.04926 16.4948 6.04926C16.6859 6.04926 16.8751 6.08689 17.0516 6.16002C17.2282 6.23315 17.3886 6.34033 17.5237 6.47545C17.6588 6.61057 17.766 6.77098 17.8391 6.94752C17.9123 7.12407 17.9499 7.31329 17.9499 7.50437C17.9499 7.69546 17.9123 7.88468 17.8391 8.06122C17.766 8.23777 17.6588 8.39818 17.5237 8.5333L16.8994 9.15695L14.8415 7.0998L15.4659 6.47615V6.47545ZM14.0996 7.84315L16.1574 9.89959L9.15794 16.8991C9.01095 17.0461 8.82616 17.149 8.62388 17.1973L6.23286 17.767L6.80191 15.376C6.85021 15.173 6.9538 14.9882 7.10079 14.8412L14.0996 7.84175V7.84315Z" fill="white"/>
+                        </svg>
+                    </i>
+                    <div class="font_lato" style="margin-top: 10px;">Profile picture</div>
+                </div> 
+            <label for="name">Full name<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="text" id="name" name="name" t-att-value="user.name" required="" />
+              <div class="fv_cicon"><svg width="14" height="17" viewBox="0 0 14 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11.375 9C11.8723 9 12.3492 9.19754 12.7008 9.54917C13.0525 9.90081 13.25 10.3777 13.25 10.875V11.5C13.25 13.9637 10.925 16.5 7 16.5C3.075 16.5 0.75 13.9637 0.75 11.5V10.875C0.75 10.3777 0.947544 9.90081 1.29917 9.54917C1.65081 9.19754 2.12772 9 2.625 9H11.375ZM11.375 10.25H2.625C2.45924 10.25 2.30027 10.3158 2.18306 10.4331C2.06585 10.5503 2 10.7092 2 10.875V11.5C2 13.2975 3.79 15.25 7 15.25C10.21 15.25 12 13.2975 12 11.5V10.875C12 10.7092 11.9342 10.5503 11.8169 10.4331C11.6997 10.3158 11.5408 10.25 11.375 10.25ZM7 0.875C7.91168 0.875 8.78602 1.23716 9.43068 1.88182C10.0753 2.52648 10.4375 3.40082 10.4375 4.3125C10.4375 5.22418 10.0753 6.09852 9.43068 6.74318C8.78602 7.38784 7.91168 7.75 7 7.75C6.08832 7.75 5.21398 7.38784 4.56932 6.74318C3.92466 6.09852 3.5625 5.22418 3.5625 4.3125C3.5625 3.40082 3.92466 2.52648 4.56932 1.88182C5.21398 1.23716 6.08832 0.875 7 0.875ZM7 2.125C6.41984 2.125 5.86344 2.35547 5.4532 2.7657C5.04297 3.17594 4.8125 3.73234 4.8125 4.3125C4.8125 4.89266 5.04297 5.44906 5.4532 5.8593C5.86344 6.26953 6.41984 6.5 7 6.5C7.58016 6.5 8.13656 6.26953 8.5468 5.8593C8.95703 5.44906 9.1875 4.89266 9.1875 4.3125C9.1875 3.73234 8.95703 3.17594 8.5468 2.7657C8.13656 2.35547 7.58016 2.125 7 2.125Z" fill="#747474"/>
+</svg></div>
+            </div>
+            <label for="email_id">Email address<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="email" id="email_id" name="email_id" t-att-value="user.email" required="" />
+              <div class="fv_cicon"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M3.37533 0.333008H14.6253C15.3171 0.332963 15.9827 0.597636 16.4855 1.07273C16.9884 1.54783 17.2903 2.19734 17.3295 2.88801L17.3337 3.04134V10.958C17.3337 11.6498 17.069 12.3154 16.5939 12.8182C16.1188 13.321 15.4693 13.623 14.7787 13.6622L14.6253 13.6663H3.37533C2.68354 13.6664 2.01797 13.4017 1.51513 12.9266C1.0123 12.4515 0.710324 11.802 0.671159 11.1113L0.666992 10.958V3.04134C0.666947 2.34956 0.931621 1.68398 1.40672 1.18115C1.88182 0.678314 2.53132 0.37634 3.22199 0.337175L3.37533 0.333008H14.6253H3.37533ZM16.0837 4.81051L9.29199 8.38551C9.21531 8.42602 9.13102 8.45013 9.04451 8.4563C8.958 8.46247 8.87115 8.45056 8.78949 8.42134L8.70949 8.38634L1.91699 4.81134V10.958C1.91701 11.324 2.05463 11.6766 2.30256 11.9458C2.55048 12.2151 2.89058 12.3812 3.25533 12.4113L3.37533 12.4163H14.6253C14.9915 12.4163 15.3442 12.2786 15.6134 12.0305C15.8827 11.7824 16.0487 11.4421 16.0787 11.0772L16.0837 10.958V4.81051ZM14.6253 1.58301H3.37533C3.00933 1.58302 2.65673 1.72065 2.3875 1.96857C2.11827 2.2165 1.95211 2.55659 1.92199 2.92134L1.91699 3.04134V3.39884L9.00033 7.12634L16.0837 3.39801V3.04134C16.0836 2.67522 15.9459 2.3225 15.6978 2.05325C15.4497 1.784 15.1094 1.61793 14.7445 1.58801L14.6253 1.58301Z" fill="#747474"/>
+</svg></div>
+            </div>
+            <label for="phone">Mobile number<span class="import_f">*</span></label>
+            <div class="fv_phone font_lato">
+              <input type="tel" id="phone" name="phone" t-att-value="user.phone"  required="" />
+              <div class="fv_cicon"><svg width="14" height="18" viewBox="0 0 14 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M2.87959 1.01509L3.85209 0.722586C4.38483 0.561939 4.95783 0.600611 5.46415 0.831386C5.97048 1.06216 6.37554 1.46927 6.60376 1.97675L7.35543 3.64842C7.55165 4.08492 7.60629 4.5719 7.51169 5.04103C7.41708 5.51017 7.17798 5.93791 6.82793 6.26425L5.58293 7.42509C5.54653 7.459 5.52348 7.50482 5.51793 7.55425C5.48126 7.88509 5.70543 8.52925 6.22209 9.42509C6.59793 10.0759 6.93876 10.5334 7.22793 10.7893C7.42959 10.9684 7.54043 11.0068 7.58793 10.9934L9.26293 10.4809C9.72035 10.341 10.2101 10.3477 10.6635 10.5002C11.1169 10.6526 11.5113 10.9431 11.7913 11.3309L12.8588 12.8109C13.1834 13.261 13.3337 13.8136 13.2817 14.3661C13.2298 14.9186 12.9791 15.4334 12.5763 15.8151L11.8379 16.5151C11.4461 16.8862 10.9648 17.1495 10.4409 17.2793C9.9171 17.4091 9.36856 17.4011 8.84876 17.2559C6.55376 16.6151 4.49626 14.6784 2.65293 11.4859C0.807093 8.28925 0.159593 5.53592 0.75626 3.22509C0.890573 2.70537 1.1565 2.229 1.5284 1.84192C1.90031 1.45483 2.36566 1.17007 2.87959 1.01509ZM3.24043 2.21259C2.93215 2.30546 2.65299 2.47616 2.42983 2.70823C2.20666 2.94029 2.04701 3.22592 1.96626 3.53759C1.46459 5.48092 2.03876 7.92175 3.73543 10.8609C5.42959 13.7959 7.25376 15.5126 9.18543 16.0526C9.49721 16.1394 9.82616 16.1441 10.1403 16.0661C10.4544 15.9881 10.743 15.8302 10.9779 15.6076L11.7171 14.9076C11.9003 14.7341 12.0142 14.5 12.0378 14.2488C12.0615 13.9976 11.9931 13.7463 11.8454 13.5418L10.7788 12.0626C10.6515 11.8861 10.4721 11.7539 10.2659 11.6845C10.0596 11.6152 9.83682 11.6122 9.62876 11.6759L7.94959 12.1901C6.97459 12.4801 6.08959 11.6959 5.13959 10.0501C4.49959 8.94175 4.20126 8.08342 4.27543 7.41592C4.31459 7.06925 4.47543 6.74925 4.73043 6.51092L5.97543 5.35009C6.13461 5.20176 6.24336 5.00732 6.2864 4.79405C6.32944 4.58077 6.30463 4.35937 6.21543 4.16092L5.46376 2.48925C5.36003 2.25876 5.17602 2.07385 4.94605 1.96898C4.71607 1.86411 4.4558 1.84643 4.21376 1.91925L3.24043 2.21259Z" fill="#747474"/>
+</svg></div>
+            </div>
+            <label for="address">Address<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="text" id="address" name="address" t-att-value="user.street" required="" />
+              <div class="fv_cicon"><svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 0.833008C9.98912 0.833008 11.8968 1.62318 13.3033 3.02971C14.7098 4.43623 15.5 6.34388 15.5 8.33301C15.5 11.438 13.1333 14.6913 8.5 18.1663C8.35575 18.2745 8.18031 18.333 8 18.333C7.81969 18.333 7.64425 18.2745 7.5 18.1663C2.86667 14.6913 0.5 11.438 0.5 8.33301C0.5 6.34388 1.29018 4.43623 2.6967 3.02971C4.10322 1.62318 6.01088 0.833008 8 0.833008ZM8 2.49967C6.4529 2.49967 4.96917 3.11426 3.87521 4.20822C2.78125 5.30218 2.16667 6.78591 2.16667 8.33301C2.16667 10.5913 3.93167 13.1963 7.54 16.088L8 16.4513L8.46 16.088C12.0683 13.1963 13.8333 10.5913 13.8333 8.33301C13.8333 6.78591 13.2188 5.30218 12.1248 4.20822C11.0308 3.11426 9.5471 2.49967 8 2.49967ZM8 6.66634C8.44203 6.66634 8.86595 6.84194 9.17851 7.1545C9.49107 7.46706 9.66667 7.89098 9.66667 8.33301C9.66667 8.77503 9.49107 9.19896 9.17851 9.51152C8.86595 9.82408 8.44203 9.99967 8 9.99967C7.55797 9.99967 7.13405 9.82408 6.82149 9.51152C6.50893 9.19896 6.33333 8.77503 6.33333 8.33301C6.33333 7.89098 6.50893 7.46706 6.82149 7.1545C7.13405 6.84194 7.55797 6.66634 8 6.66634Z" fill="#747474"/>
+</svg></div>
+            </div>
+            <label for="country">Country<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="text" id="country" name="country" t-att-value="user.country_id.name" required="" />
+              <div class="fv_cicon"><svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.00033 0.665039C13.6037 0.665039 17.3353 4.39671 17.3353 9.00004C17.3353 9.32587 17.3162 9.64754 17.2795 9.9642C16.9316 9.60751 16.528 9.30974 16.0845 9.08254V9.00004C16.0845 8.42587 16.017 7.86754 15.8878 7.33337H13.0895C13.1312 7.76504 13.1562 8.20837 13.1645 8.6592C12.7306 8.73914 12.3107 8.88174 11.9178 9.08254V9.00004C11.9178 8.42421 11.8878 7.8667 11.8312 7.33254H6.16949C6.0229 8.7203 6.06073 10.1214 6.28199 11.4992H9.72949C9.57316 11.8999 9.47441 12.3208 9.43616 12.7492H6.55033C7.09366 14.7617 8.03866 16.0842 9.00033 16.0842C9.37866 16.0842 9.75533 15.8784 10.1053 15.5059C10.4062 16.0192 10.7987 16.5242 11.2712 17.0209C10.5487 17.225 9.78699 17.3342 8.99949 17.3342C4.39699 17.3342 0.666992 13.6025 0.666992 9.00004C0.666159 4.39671 4.39699 0.665039 9.00033 0.665039ZM5.25699 12.75H2.98866C3.79338 14.0372 4.98891 15.033 6.40033 15.5917C5.96533 14.9084 5.60616 14.0534 5.34199 13.0792L5.25699 12.75ZM4.91199 7.33254H2.11366L2.10949 7.34671C1.98075 7.88837 1.91614 8.44329 1.91699 9.00004C1.91582 9.85392 2.06942 10.7009 2.37033 11.5H5.01449C4.89248 10.6723 4.83203 9.8367 4.83366 9.00004C4.83366 8.43004 4.85949 7.87171 4.91199 7.33254ZM6.40116 2.40754L6.38199 2.41421C4.67604 3.09524 3.29991 4.41016 2.54199 6.08337H5.08199C5.34366 4.62337 5.79866 3.35087 6.40116 2.40754ZM9.00116 1.91504L8.90366 1.91921C7.85033 2.01671 6.83116 3.68421 6.35866 6.08337H11.6437C11.172 3.69171 10.1578 2.02587 9.10616 1.92087L9.00033 1.91504H9.00116ZM11.6012 2.40671L11.6895 2.55254C12.2478 3.47921 12.6703 4.69587 12.9187 6.08337H15.4587C14.7352 4.48678 13.4475 3.21365 11.8428 2.50837L11.6012 2.40754V2.40671ZM17.7503 13.1667C17.7503 12.1721 17.3552 11.2183 16.652 10.5151C15.9487 9.81179 14.9949 9.41671 14.0003 9.41671C13.0058 9.41671 12.0519 9.81179 11.3487 10.5151C10.6454 11.2183 10.2503 12.1721 10.2503 13.1667C10.2503 14.7192 11.4328 16.3459 13.7503 18.0834C13.8225 18.1375 13.9102 18.1667 14.0003 18.1667C14.0905 18.1667 14.1782 18.1375 14.2503 18.0834C16.567 16.3459 17.7503 14.7192 17.7503 13.1667ZM12.7503 13.1667C12.746 12.9999 12.7752 12.8339 12.836 12.6785C12.8969 12.5232 12.9882 12.3815 13.1047 12.262C13.2212 12.1425 13.3604 12.0475 13.5141 11.9827C13.6679 11.9178 13.833 11.8844 13.9999 11.8844C14.1668 11.8844 14.332 11.9178 14.4857 11.9827C14.6395 12.0475 14.7787 12.1425 14.8951 12.262C15.0116 12.3815 15.1029 12.5232 15.1638 12.6785C15.2247 12.8339 15.2538 12.9999 15.2495 13.1667C15.2495 13.4982 15.1178 13.8162 14.8834 14.0506C14.649 14.285 14.331 14.4167 13.9995 14.4167C13.668 14.4167 13.35 14.285 13.1156 14.0506C12.8812 13.8162 12.7503 13.4982 12.7503 13.1667Z" fill="#747474"/>
+</svg></div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <div>
+                    <label for="region">Region<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="text" id="region" name="region" t-att-value="user.state_id.name" required="" />
+              <div class="fv_cicon"><svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M9.00033 0.665039C13.6037 0.665039 17.3353 4.39671 17.3353 9.00004C17.3353 9.32587 17.3162 9.64754 17.2795 9.9642C16.9316 9.60751 16.528 9.30974 16.0845 9.08254V9.00004C16.0845 8.42587 16.017 7.86754 15.8878 7.33337H13.0895C13.1312 7.76504 13.1562 8.20837 13.1645 8.6592C12.7306 8.73914 12.3107 8.88174 11.9178 9.08254V9.00004C11.9178 8.42421 11.8878 7.8667 11.8312 7.33254H6.16949C6.0229 8.7203 6.06073 10.1214 6.28199 11.4992H9.72949C9.57316 11.8999 9.47441 12.3208 9.43616 12.7492H6.55033C7.09366 14.7617 8.03866 16.0842 9.00033 16.0842C9.37866 16.0842 9.75533 15.8784 10.1053 15.5059C10.4062 16.0192 10.7987 16.5242 11.2712 17.0209C10.5487 17.225 9.78699 17.3342 8.99949 17.3342C4.39699 17.3342 0.666992 13.6025 0.666992 9.00004C0.666159 4.39671 4.39699 0.665039 9.00033 0.665039ZM5.25699 12.75H2.98866C3.79338 14.0372 4.98891 15.033 6.40033 15.5917C5.96533 14.9084 5.60616 14.0534 5.34199 13.0792L5.25699 12.75ZM4.91199 7.33254H2.11366L2.10949 7.34671C1.98075 7.88837 1.91614 8.44329 1.91699 9.00004C1.91582 9.85392 2.06942 10.7009 2.37033 11.5H5.01449C4.89248 10.6723 4.83203 9.8367 4.83366 9.00004C4.83366 8.43004 4.85949 7.87171 4.91199 7.33254ZM6.40116 2.40754L6.38199 2.41421C4.67604 3.09524 3.29991 4.41016 2.54199 6.08337H5.08199C5.34366 4.62337 5.79866 3.35087 6.40116 2.40754ZM9.00116 1.91504L8.90366 1.91921C7.85033 2.01671 6.83116 3.68421 6.35866 6.08337H11.6437C11.172 3.69171 10.1578 2.02587 9.10616 1.92087L9.00033 1.91504H9.00116ZM11.6012 2.40671L11.6895 2.55254C12.2478 3.47921 12.6703 4.69587 12.9187 6.08337H15.4587C14.7352 4.48678 13.4475 3.21365 11.8428 2.50837L11.6012 2.40754V2.40671ZM17.7503 13.1667C17.7503 12.1721 17.3552 11.2183 16.652 10.5151C15.9487 9.81179 14.9949 9.41671 14.0003 9.41671C13.0058 9.41671 12.0519 9.81179 11.3487 10.5151C10.6454 11.2183 10.2503 12.1721 10.2503 13.1667C10.2503 14.7192 11.4328 16.3459 13.7503 18.0834C13.8225 18.1375 13.9102 18.1667 14.0003 18.1667C14.0905 18.1667 14.1782 18.1375 14.2503 18.0834C16.567 16.3459 17.7503 14.7192 17.7503 13.1667ZM12.7503 13.1667C12.746 12.9999 12.7752 12.8339 12.836 12.6785C12.8969 12.5232 12.9882 12.3815 13.1047 12.262C13.2212 12.1425 13.3604 12.0475 13.5141 11.9827C13.6679 11.9178 13.833 11.8844 13.9999 11.8844C14.1668 11.8844 14.332 11.9178 14.4857 11.9827C14.6395 12.0475 14.7787 12.1425 14.8951 12.262C15.0116 12.3815 15.1029 12.5232 15.1638 12.6785C15.2247 12.8339 15.2538 12.9999 15.2495 13.1667C15.2495 13.4982 15.1178 13.8162 14.8834 14.0506C14.649 14.285 14.331 14.4167 13.9995 14.4167C13.668 14.4167 13.35 14.285 13.1156 14.0506C12.8812 13.8162 12.7503 13.4982 12.7503 13.1667Z" fill="#747474"/>
+</svg></div>
+            </div>
+            </div>
+            <div>
+                <label for="zip_code">Zip code<span class="import_f">*</span></label>
+            <div class="fv_text font_lato">
+              <input type="text" id="zip_code" name="zip_code" t-att-value="user.zip" required="" />
+              <div class="fv_cicon"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.29199 0.333008C6.89978 0.333008 7.48268 0.57445 7.91245 1.00422C8.34222 1.43399 8.58366 2.01689 8.58366 2.62467V11.3747C8.58366 11.6756 8.52438 11.9736 8.40922 12.2517C8.29405 12.5297 8.12525 12.7823 7.91245 12.9951C7.69965 13.2079 7.44701 13.3767 7.16898 13.4919C6.89094 13.6071 6.59294 13.6663 6.29199 13.6663H2.95866C2.65771 13.6663 2.35971 13.6071 2.08168 13.4919C1.80364 13.3767 1.55101 13.2079 1.33821 12.9951C1.12541 12.7823 0.956602 12.5297 0.841435 12.2517C0.726268 11.9736 0.666992 11.6756 0.666992 11.3747V2.62467C0.666992 2.01689 0.908435 1.43399 1.33821 1.00422C1.76798 0.57445 2.35087 0.333008 2.95866 0.333008H6.29199ZM6.29199 1.58301H2.95866C2.38366 1.58301 1.91699 2.04967 1.91699 2.62467V11.3747C1.91699 11.9497 2.38366 12.4163 2.95866 12.4163H6.29199C6.86699 12.4163 7.33366 11.9497 7.33366 11.3747V2.62467C7.33366 2.04967 6.86699 1.58301 6.29199 1.58301ZM15.042 0.333008C15.6498 0.333008 16.2327 0.57445 16.6624 1.00422C17.0922 1.43399 17.3337 2.01689 17.3337 2.62467V11.3747C17.3337 11.6756 17.2744 11.9736 17.1592 12.2517C17.0441 12.5297 16.8752 12.7823 16.6624 12.9951C16.4496 13.2079 16.197 13.3767 15.919 13.4919C15.6409 13.6071 15.3429 13.6663 15.042 13.6663H11.7087C11.4077 13.6663 11.1097 13.6071 10.8317 13.4919C10.5536 13.3767 10.301 13.2079 10.0882 12.9951C9.87541 12.7823 9.7066 12.5297 9.59144 12.2517C9.47627 11.9736 9.41699 11.6756 9.41699 11.3747V2.62467C9.41699 2.01689 9.65844 1.43399 10.0882 1.00422C10.518 0.57445 11.1009 0.333008 11.7087 0.333008H15.042ZM15.042 1.58301H11.7087C11.1337 1.58301 10.667 2.04967 10.667 2.62467V11.3747C10.667 11.9497 11.1337 12.4163 11.7087 12.4163H15.042C15.617 12.4163 16.0837 11.9497 16.0837 11.3747V2.62467C16.0837 2.04967 15.617 1.58301 15.042 1.58301ZM4.00033 4.49967V9.49967C4.00033 9.66543 4.06617 9.82441 4.18338 9.94162C4.30059 10.0588 4.45957 10.1247 4.62533 10.1247C4.79109 10.1247 4.95006 10.0588 5.06727 9.94162C5.18448 9.82441 5.25033 9.66543 5.25033 9.49967V4.49967C5.25033 4.33391 5.18448 4.17494 5.06727 4.05773C4.95006 3.94052 4.79109 3.87467 4.62533 3.87467C4.45957 3.87467 4.30059 3.94052 4.18338 4.05773C4.06617 4.17494 4.00033 4.33391 4.00033 4.49967ZM13.5837 5.12467V6.37467H12.542C12.3762 6.37467 12.2173 6.44052 12.1001 6.55773C11.9828 6.67494 11.917 6.83391 11.917 6.99967V9.49967C11.917 9.84467 12.197 10.1247 12.542 10.1247H14.2087C14.3744 10.1247 14.5334 10.0588 14.6506 9.94162C14.7678 9.82441 14.8337 9.66543 14.8337 9.49967C14.8337 9.33391 14.7678 9.17494 14.6506 9.05773C14.5334 8.94052 14.3744 8.87467 14.2087 8.87467H13.167V7.62467H14.2087C14.3744 7.62467 14.5334 7.55883 14.6506 7.44162C14.7678 7.32441 14.8337 7.16543 14.8337 6.99967V4.49967C14.8337 4.33391 14.7678 4.17494 14.6506 4.05773C14.5334 3.94052 14.3744 3.87467 14.2087 3.87467H12.542C12.3762 3.87467 12.2173 3.94052 12.1001 4.05773C11.9828 4.17494 11.917 4.33391 11.917 4.49967C11.917 4.66543 11.9828 4.82441 12.1001 4.94162C12.2173 5.05883 12.3762 5.12467 12.542 5.12467H13.5837Z" fill="#747474"/>
+</svg></div>
+            </div>
+            </div>
+            </div>
+            
+            
+           <span class="tunverfies1 mgmBtn" style="margin-right:5px;"><a href="/vendor/setting" style="color: #000; text-decoration: none;">Discard Changes</a></span>
+           <button type="submit" class="btn btn-primary modal-btn" style="background: #3462ae">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- =========================Edit profile end ========================================= -->
+  </div>
+</div>
+<script>
+function handleFileInputChange(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            // Update the profile image source
+            const img = document.getElementById('profile-img');
+            if (img) {
+                img.src = e.target.result;
+            } else {
+                const imgTag = document.createElement('img');
+                imgTag.src = e.target.result;
+                imgTag.id = 'profile-img';
+                imgTag.alt = 'Profile';
+                imgTag.style.height = '64px';
+                imgTag.style.borderRadius = '50px';
+
+                const container = document.querySelector('.fv_profile_img');
+                container.innerHTML = ''; 
+                container.appendChild(imgTag);
+                container.appendChild(document.getElementById('upload-svg'));
+            }
+        };
+
+        reader.readAsDataURL(file);
+    }
+}
+
+document.getElementById('upload-svg').addEventListener('click', function() {
+    document.getElementById('file-input').click();
+});
+document.getElementById('file-input').addEventListener('change', handleFileInputChange);
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const revokeLinks = document.querySelectorAll('.revoke-access');
+
+        revokeLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const recordName = this.getAttribute('data-record-name');
+                const recordPhone = this.getAttribute('data-record-phone');
+                
+                document.getElementById('revoke_contact_name').value = recordName;
+                document.getElementById('revoke_contact_phone').value = recordPhone;
+            });
+        });
+    });
+
+</script>
+
+<script>
+    document.getElementById("btn-collapse").onclick = function() {  
+        toggleAside()  
+      };
+      function toggleAside() {
+        var asideElement = document.getElementById("sidebar");
+        var isCollapsed = asideElement.classList.contains("collapsed");
+
+        if (isCollapsed) {
+          document.getElementById('side-bar-id').style.display='block';   
+          document.getElementById('loadingImage').style.visibility='hidden';  
+        } 
+        else {
+          document.getElementById('side-bar-id').style.display='none';   
+          document.getElementById('loadingImage').style.visibility='visible';
+        }
+      }
+      $(function(){
+      $(".fold-table tr.view").on("click", function(){
+        $(this).toggleClass("open").next(".fold").toggleClass("open");
+      });
+    });
+</script>
+<script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+    const emailVerifyLinks = document.querySelectorAll('.verify_email_number');
+    const phoneVerifyLinks = document.querySelectorAll('.verify_phone_number');
+
+    emailVerifyLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            const recordId = event.target.getAttribute('data-record-id');
+            const formId = 'email_verification_form_' + recordId;
+            document.getElementById(formId).submit();
+        });
+    });
+
+    phoneVerifyLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            const recordId = event.target.getAttribute('data-record-id');
+            const formId = 'phone_verification_form_' + recordId;
+            document.getElementById(formId).submit();
+        });
+    });
+});
+
+</script>
+<script>
+    <![CDATA[
+        document.addEventListener('DOMContentLoaded', function() {
+    var verifyButtons = document.querySelectorAll('.verify_phone');
+
+    verifyButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var userName = this.getAttribute('data-name');
+            var userPhone = this.getAttribute('data-phone');
+            var nameAttr = this.getAttribute('name');
+            var valueAttr = this.getAttribute('value');
+            resendOTP(userName, userPhone, nameAttr, valueAttr);
+        });
+    });
+});
+
+function resendOTP(userName, userPhone, nameAttr, valueAttr) {
+    fetch('/vendor/setting/phone/check', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: `contact_name=${encodeURIComponent(userName)}&phone=${encodeURIComponent(userPhone)}&${encodeURIComponent(nameAttr)}=${encodeURIComponent(valueAttr)}`
+    })
+    .then(response => response.text())
+    .then(data => {
+    console.log(data.includes('client_vendor_dashboard.check_phone_number_form_template'))
+        
+        if (data.includes('client_vendor_dashboard.check_phone_number_form_template')) {
+            var redirectUrl = '/vendor/setting/phone/check'; 
+            window.location.href = redirectUrl;
+        } else {
+         console.log(" ===================inside else block==================")
+            
+      console.log('Response:', data); 
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+    ]]>
+</script>
+
+
+            
+<script>
+    
+    <![CDATA[
+
+    const allMenu = document.querySelectorAll('.menu1'); 
+    
+    allMenu.forEach(item => {
+        const icon = item.querySelector('.icon');
+        const menuLink = item.querySelector('.menu1-link');
+
+        icon.addEventListener('click', function() {
+            menuLink.classList.toggle('show');
+        });
+    });
+
+    window.addEventListener('click', function(e) {
+        allMenu.forEach(item => {
+            const icon = item.querySelector('.icon');
+            const menuLink = item.querySelector('.menu1-link');
+
+            if (e.target !== icon && e.target !== menuLink) {
+                if (menuLink.classList.contains('show')) {
+                    menuLink.classList.remove('show');
+                }
+            }
+        });
+    });
+     ]]>
+
+</script>
+<script>
+    var tabButtons = document.querySelectorAll(".tablinks");
+    for (var i = 0; i &lt; tabButtons.length; i++) {
+      tabButtons[i].addEventListener("click", function () {
+        var tabName = this.dataset.tab;
+        var tabContent = document.getElementById(tabName);
+        var allTabContent = document.querySelectorAll(".tabcontent");
+        var allTabButtons = document.querySelectorAll(".tablinks");
+
+        for (var j = 0; j &lt; allTabContent.length; j++) {
+          allTabContent[j].style.display = "none";
+        }
+
+        for (var k = 0; k &lt; allTabButtons.length; k++) {
+          allTabButtons[k].classList.remove("active");
+        }
+
+        tabContent.style.display = "block";
+        this.classList.add("active");
+      });
+    }
+    document.querySelector(".tablinks").click();
+</script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="/client_vendor_dashboard/static/src/js/main.js"></script>
+<script src="/client_vendor_dashboard/static/src/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+</template>
+</odoo>

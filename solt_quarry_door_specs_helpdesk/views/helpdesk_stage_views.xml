@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="specs_cad_helpdesk_stage_view_tree" model="ir.ui.view">
+        <field name="name">cad.helpdesk.stage.tree</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+        <field name="arch" type="xml">
+            <field name="fold" position="after">
+                <field name="is_update_required_stage" invisible="not has_cad_request_team"/>
+                <field name="is_finished_stage" invisible="not has_cad_request_team"/>
+                <field name="has_cad_request_team" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>

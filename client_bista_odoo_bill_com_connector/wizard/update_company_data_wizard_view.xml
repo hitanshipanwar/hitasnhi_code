@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_update_company_data_wizard" model="ir.ui.view">
+            <field name="name">view.update.company.data.wizard</field>
+            <field name="model">update.company.data</field>
+            <field name="arch" type="xml">
+            <form string="Update on Bill.Com">
+                <group>
+                    <group>
+                        <field name = "company_ids" widget="many2many_tags" required="1" options='{"no_open": True, "no_create": True}' context="{'is_company_check':True}"/>
+                        <field name = "partner_id" invisible="1"/>
+                        <label for="street" string="Partner Address"/>
+                        <div class="o_address_format">
+                            <field name="street" placeholder="Street..." class="o_address_street" readonly="0" force_save="1"/>
+                            <field name="street2" placeholder="Street 2..." class="o_address_street" readonly="0" force_save="1"/>
+                            <field name="city" placeholder="City" class="o_address_city" readonly="0" force_save="1"/>
+                            <field name="state_id" class="o_address_state" placeholder="State" options='{"no_open": True}' readonly="0" force_save="1"/>
+                            <field name="zip_code" placeholder="Zip" class="o_address_zip" readonly="0" force_save="1"/>
+                            <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}' readonly="0" force_save="1"/>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="phone" string="Phone" widget="phone" options="{'enable_sms': True}" readonly="False"/>
+                        <field name="email" string="Email" widget="email" readonly="False"/>
+                        <field name="supplier_currency_id" readonly="False"/>
+                    </group>
+                </group>
+                <footer>
+                    <button id="update_company" name="send_vendor_info" type="object" string="Update" default_focus="1" class="oe_highlight" groups="client_bista_odoo_bill_com_connector.group_bill_com_access"/>
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+            </field>
+        </record>
+    </data>
+</odoo>

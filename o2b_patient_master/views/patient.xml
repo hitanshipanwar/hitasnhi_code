@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_patient_simple_tree" model="ir.ui.view">
+        <field name="name">patient.patient.tree</field>
+        <field name="model">patient.patient</field>
+        <field name="arch" type="xml">
+        	<tree>
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+        	</tree>
+        </field>
+    </record>
+    
+    <record id="view_patient_simple_form" model="ir.ui.view">
+        <field name="name">patient.patient.form</field>
+        <field name="model">patient.patient</field>
+        <field name="arch" type="xml">
+            <form string="Patient">
+            	<sheet>
+            		<div class="oe_button_box" name="button_box">
+            		<button type="object"  name="action_view_appointments"
+	                    class="oe_stat_button" widget="statinfo" string="Appointments">
+	                </button>
+	                <button type="object"  name="action_view_prescriptions"
+	                    class="oe_stat_button" widget="statinfo" string="Prescriptions">
+	                </button>
+	                <button type="object"  name="action_view_vaccines"
+	                    class="oe_stat_button" widget="statinfo" string="Vaccines">
+	                </button>
+	                <button type="object"  name="action_view_admissions"
+	                    class="oe_stat_button" widget="statinfo" string="Admissions">
+	                </button>
+	                <button type="object"  name="action_view_lab_test"
+	                    class="oe_stat_button" widget="statinfo" string="Lab Test">
+	                </button>
+	                <button type="object"  name="action_view_invoice"
+	                    class="oe_stat_button" widget="statinfo" string="Invoices">
+	                </button>
+	            	</div>
+
+            		<!-- <div class="oe_button_box" name="button_box"/>
+                    <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                    <field name="avatar_128" invisible="1"/>
+                    <field name="image_1920" widget='image' class="oe_avatar" options='{"preview_image": "avatar_128"}'/> -->
+                    <field name='image' widget="image" class="oe_avatar" />
+	            	<div class="oe_title">
+	                    <h1>
+	                        <field name="name" placeholder="e.g. Brandom Freeman" widget="text" class="text-break"/>
+	                    </h1>
+	                </div>
+	                <group>
+	                    <group>
+	                        <label for="street" string="Address"/>
+	                        <div class="o_address_format">
+	                            <field name="street" placeholder="Street..." class="o_address_street"/>
+	                            <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+	                            <field name="city" placeholder="City" class="o_address_city"/>
+	                            <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'default_country_id': country_id}"/>
+	                            <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+	                            <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+	                        </div>
+	                        <field name="vat" string="SSN" placeholder="e.g. BE0477472701" password="True"/>
+	                    </group>
+	                    <group>
+	                    	<label for="phone" />
+		                    <div class="o_row">
+		                        <field name="to_unmask_data" invisible="1"/>
+		                        <field name="show_data" invisible="1"/>
+		                        <field name="hide_data" invisible="1"/>
+		                        <field name="phone" password="False"
+		                            invisible="hide_data"/>
+		                        <field name="phone" password="True"
+		                            invisible="show_data"/>
+		                        <button name="action_view_data"
+		                            groups="base.group_no_one"
+		                            icon="fa-eye"
+		                            type="object"
+		                            class="oe_stat_button"
+		                            invisible="not to_unmask_data or show_data"
+		                            title="Show Data"/>
+		                        <button name="action_hide_data"
+		                            groups="base.group_no_one"
+		                            icon="fa-eye-slash"
+		                            type="object"
+		                            class="oe_stat_button"
+		                            invisible="not to_unmask_data or hide_data"
+		                            title="Hide Data"/>
+		                    </div>
+			                <!-- <field name="phone"/> -->
+	                        <field name="mobile" widget="phone"/>
+	                        <field name="email"/>
+	                        <field name="category_id" widget="many2many_tags"/>
+	                    </group>
+	                </group>
+	                <notebook colspan="4">
+		                <page string="Patients &amp; Addresses" name="patient_addresses" autofocus="autofocus">
+		                    <field name="child_ids" mode="kanban" context="{'default_parent_id': id, 'default_street': street, 'default_street2': street2, 'default_city': city, 'default_state_id': state_id, 'default_zip': zip, 'default_country_id': country_id, }">
+		                        <kanban>
+		                            <!-- <field name="id"/> -->
+		                            <field name="color"/>
+		                            <field name="name"/>
+		                            <!-- <field name="title"/> -->
+		                            <!-- <field name="type"/> -->
+		                            <field name="email"/>
+		                            <field name="parent_id"/>
+		                            <!-- <field name="is_company"/> -->
+		                            <!-- <field name="function"/> -->
+		                            <field name="phone"/>
+		                            <field name="street"/>
+		                            <field name="street2"/>
+		                            <field name="zip"/>
+		                            <field name="city"/>
+		                            <field name="country_id"/>
+		                            <field name="mobile"/>
+		                            <field name="state_id"/>
+		                           <!--  <field name="image_128"/>
+		                            <field name="avatar_128"/>
+		                            <field name="lang"/> -->
+		                            <!-- fields in form x2many view to diminish requests -->
+		                            <field name="comment"/>
+		                            <!-- <field name="display_name"/> -->
+		                            <templates>
+		                                <t t-name="kanban-box">
+		                                    <t t-set="color" t-value="kanban_color(record.color.raw_value)"/>
+		                                    <div t-att-class="color  + ' oe_kanban_global_click'">
+		                                        <div class="o_kanban_image">
+		                                            <img alt="Patient image" t-att-src="kanban_image('patient.patient')"/>
+		                                        </div>
+		                                        <div class="oe_kanban_details">
+		                                            <field name="name"/>
+		                                            <div></div>
+		                                            <div t-if="record.email.raw_value"><field name="email" widget="email"/></div>
+		                                            <div>
+		                                                <div>
+		                                                    <field name="zip"/><t t-if="record.city"> </t>
+		                                                    <field name="city"/>
+		                                                </div>
+		                                                <field t-if="record.state_id.raw_value" name="state_id"/><t t-if="record.country_id"> </t>
+		                                                <field name="country_id"/>
+		                                            </div>
+		                                            <div t-if="record.phone.raw_value">Phone: <t t-esc="record.phone.value"/></div>
+		                                            <div t-if="record.mobile.raw_value">Mobile: <t t-esc="record.mobile.value"/></div>
+		                                        </div>
+		                                    </div>
+		                                </t>
+		                            </templates>
+		                        </kanban>
+		                        <form string="Patient / Address">
+		                            <sheet>
+		                                <!-- <field name="type" required="1" widget="radio" options="{'horizontal': true}"/> -->
+		                                <field name="parent_id" invisible="1"/>
+		                                <!-- <div class="text-muted oe_edit_only">
+		                                    <p class="mb-0" invisible="type != 'contact'">
+		                                        <span>Use this to organize the contact details of employees of a given company (e.g. CEO, CFO, ...).</span>
+		                                    </p>
+		                                    <p class="mb-0" invisible="type != 'invoice'">
+		                                        <span>Preferred address for all invoices. Selected by default when you invoice an order that belongs to this company.</span>
+		                                    </p>
+		                                    <p class="mb-0" invisible="type != 'delivery'">
+		                                        <span>Preferred address for all deliveries. Selected by default when you deliver an order that belongs to this company.</span>
+		                                    </p>
+		                                    <p class="mb-0" invisible="type != 'other'">
+		                                        <span>Other address for the company (e.g. subsidiary, ...)</span>
+		                                    </p>
+		                                </div> -->
+		                                <!-- <hr/> -->
+		                                <group>
+		                                    <group>
+		                                        <field name="name" string="Patient Name" />
+		                                        <!-- <field name="title" options="{'no_open': True}" placeholder="e.g. Mr."
+		                                            invisible="type != 'contact'"/> -->
+		                                        <!-- <field name="function" placeholder="e.g. Sales Director"
+		                                            invisible="type != 'contact'"/> -->
+		                                        <label for="street" string="Address"/>
+		                                        <div>
+		                                            <div class="o_address_format" name="div_address">
+		                                                <field name="street" placeholder="Street..." class="o_address_street"/>
+		                                                <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+		                                                <field name="city" placeholder="City" class="o_address_city"/>
+		                                                <field name="state_id" class="o_address_state" placeholder="State" options="{'no_open': True, 'no_quick_create': True}" context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+		                                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+		                                                <field name="country_id" placeholder="Country" class="o_address_country" options='{"no_open": True, "no_create": True}'/>
+		                                            </div>
+		                                        </div>
+		                                    </group>
+		                                    <group>
+		                                        <field name="email" widget="email"/>
+		                                        <field name="phone" widget="phone"/>
+		                                        <field name="mobile" widget="phone"/>
+		                                    </group>
+		                                </group>
+		                                <group>
+		                                    <field name="comment" placeholder="Internal notes..." nolabel="1" colspan="2"/>
+		                                </group>
+		                                <!-- <field name="lang" invisible="True"/> -->
+		                                <!-- <field name="user_id" invisible="True"/> -->
+		                            </sheet>
+		                        </form>
+		                    </field>
+		                </page>
+		                <page name='basic_info' string="Basic Information">
+	                        <!-- <field name="comment" placeholder="Internal notes..."/> -->
+	                    </page>
+	                    <page name='medical_history' string="Medical History">
+	                        <!-- <field name="comment" placeholder="Internal notes..."/> -->
+	                    </page>
+		                <page name='internal_notes' string="Internal Notes">
+	                        <field name="comment" placeholder="Internal notes..."/>
+	                    </page>
+		            </notebook>
+		        </sheet>
+		        <div class="oe_chatter">
+	                <field name="message_follower_ids" groups="base.group_user"/>
+	                <field name="message_ids" widget="mail_thread"/>
+	                <field name="activity_ids"/>
+	            </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="patient_action_view" model="ir.actions.act_window">
+        <field name="name">Patients</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.patient</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record id="view_patient_category_tree" model="ir.ui.view">
+        <field name="name">patient.category.tree</field>
+        <field name="model">patient.category</field>
+        <field name="arch" type="xml">
+        	<tree>
+                <field name="name"/>
+        	</tree>
+        </field>
+    </record>
+    
+    <record id="view_patient_category_form" model="ir.ui.view">
+        <field name="name">patient.category.form</field>
+        <field name="model">patient.category</field>
+        <field name="arch" type="xml">
+            <form string="Patient Categories">
+            	<sheet>
+            		<group>
+            			<group>
+            				<field name="name"/>
+            			</group>
+            		</group>
+            	</sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="patient_category_action_view" model="ir.actions.act_window">
+        <field name="name">Patient categories</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">patient.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem
+        id="patient_menu"
+        name="Patients"
+        groups="base.group_user"
+        />
+
+        <menuitem
+            id="patient_child_menu"
+            name="Patient"
+            parent="patient_menu"
+            sequence="1"
+            action="patient_action_view"/>
+
+        <menuitem
+            id="configuration_menu"
+            name="Configuration"
+            parent="patient_menu"
+            sequence="1"/>
+
+            <menuitem
+            id="patient_tags_menu"
+            name="Patient Tags"
+            parent="configuration_menu"
+            action="patient_category_action_view"
+            sequence="1"/>
+</odoo>

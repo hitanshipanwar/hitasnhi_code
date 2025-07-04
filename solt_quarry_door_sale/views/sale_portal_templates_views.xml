@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <template id="sale_order_portal_template_inherit" inherit_id="sale.sale_order_portal_template" name="Print Purchase Agreement">
+            <xpath expr="//t[@t-set='entries']/div/div/div[hasclass('o_download_pdf')]" position="after">
+                <div class="o_download_purchase_agreement_pdf d-flex gap-1 flex-lg-column flex-xl-row">
+                    <div class="flex-grow-1">
+                        <a class="btn btn-secondary o_print_btn o_portal_purchase_agreement_print d-block"
+                           t-att-href="sale_order.get_portal_url(report_type='pdf', query_string='&amp;report=purchase_agreement')"
+                           id="print_purchase_agreement_report" title="Purchase Agreement Details" target="_blank"><i
+                                class="fa fa-print"/> View Purchase Agreement Details</a>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <!-- Modify table -->
+        <template id="sale_order_portal_content_inherit" inherit_id="sale.sale_order_portal_content" name="Sale Order template">
+            <xpath expr="//th[@id='product_name_header']" position="replace">
+                <th class="text-start" id="product_name_header">Description</th>
+            </xpath>
+
+            <xpath expr="//td[@id='product_name']" position="replace">
+                <td id="product_name" t-if="not line.sale_specs_id">
+                    <span t-field="line.name"/>
+                </td>
+                <td id="product_name_specs" t-if="line.sale_specs_id">
+                    <t t-set="separator" t-value="','"/>
+                    <span t-field="line.sale_specs_id.specs_dc_id"/><br/>
+                    <span ><strong>Unit Set Up:</strong> <t t-esc="line.sale_specs_id.specs_product_type_id.name"/></span><br/>
+                    <span ><strong>Total Unit Dimension Inlcuding Frame:</strong> <t t-esc="line.sale_specs_id.specs_total_ant"/> x <t t-esc="line.sale_specs_id.specs_total_ant"/></span><br/>
+                    <span ><strong>Desing style:</strong> <t t-esc="line.sale_specs_id.specs_design_id.name"/></span><br/>
+                    <span ><strong>Color:</strong> <t t-esc="line.sale_specs_id.specs_color_id.name"/></span><br/>
+                    <span ><strong>Handing:</strong> <t t-esc="line.sale_specs_id.specs_handing_id.name"/></span><br/>
+                    <span ><strong>CAD Drawing:</strong> <t t-esc="line.sale_specs_name"/></span><br/>
+                    <span ><strong>Glass:</strong> <t t-esc="line.sale_specs_id.specs_type_glass_id.name" t-if="line.sale_specs_id.specs_type_glass_id"/></span><br/>
+                    <span ><strong>Pulls:</strong>
+                        <t t-esc="line.sale_specs_id.specs_jac_id.name" t-if="line.sale_specs_id.specs_jac_id"/>
+                        <t t-esc="separator" t-if="line.sale_specs_id.specs_jac_id"/>
+                        <t t-esc="line.sale_specs_id.specs_jacin_id.name" t-if="line.sale_specs_id.specs_jacin_id"/>
+                        <t t-esc="separator" t-if="line.sale_specs_id.specs_jacin_id"/>
+                        <t t-esc="line.sale_specs_id.specs_moce_id.name" t-if="line.sale_specs_id.specs_moce_id"/>
+                        <t t-esc="separator" t-if="line.sale_specs_id.specs_moce_id"/>
+                        <t t-esc="line.sale_specs_id.specs_typeguar_id.name" t-if="line.sale_specs_id.specs_typeguar_id"/>
+                        <t t-esc="separator" t-if="line.sale_specs_id.specs_typeguar_id and line.sale_specs_id.specs_pch_id"/>
+                        <t t-esc="line.sale_specs_id.specs_pch_id.name" t-if="line.sale_specs_id.specs_pch_id"/>
+                    </span><br/>
+                </td>
+            </xpath>
+        </template>
+    </data> 
+</odoo>

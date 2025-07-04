@@ -1,0 +1,92 @@
+<templates xml:space="preserve">
+
+    <t t-inherit="web.FormControlPanel" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('o_cp_top_left')]" position="inside">
+             <t t-if="env.isSmall">
+                <t t-slot="control-panel-status-indicator" />
+            </t>
+            <t t-slot="control-panel-create-button" />
+        </xpath>
+        <xpath expr="//div[hasclass('o_cp_bottom_right')]" position="replace">
+            <div class="o_cp_bottom_right w-auto flex-shrink-0 justify-content-between align-items-center"
+                     t-att-class="{ 'flex-grow-1' : env.isSmall }">
+                <t t-slot="control-panel-action-menu" t-if="display['bottom-left']"/>
+                    <div t-if="pagerProps and pagerProps.total > 0" class="o_cp_pager" role="search">
+                        <Pager t-props="pagerProps"/>
+                    </div>
+            </div>
+        </xpath>
+    </t>
+    <t t-inherit="web.FormView" t-inherit-mode="extension" owl="1">
+        <xpath expr="//t[@t-if='canCreate']" position="replace">
+            <div class="btn_position" style="    display: flex;margin-top: 53px;left: 14px;position: absolute;">
+                <t t-if="canCreate">
+                    <button type="button" class="btn btn-outline-primary o_form_button_create"  data-hotkey="c" t-on-click.stop="create" t-att-disabled="state.isDisabled">
+                        Create
+                    </button>
+                </t>
+                <t t-if="!canEdit">
+                    <button type="button" class="btn btn-outline-primary o_form_button_edit" t-on-click="edit" data-hotkey="a" style="margin-left:5px;margin-right:10px; ">
+                        Edit
+                    </button>
+                </t>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-if='!canEdit']" position="after">
+            <div t-if="model.root.isInEdition" class="o_form_buttons_edit" style="margin-top: px;">
+                <button type="button" class="btn btn-primary o_form_button_save" t-on-click="saveButtonClicked" data-hotkey="s">
+                    Save
+                </button>
+                <button type="button" class="btn btn-secondary o_form_button_cancel" style="margin-left:11px;" t-on-click="discard" data-hotkey="j">
+                    Discard
+                </button>
+            </div>
+        </xpath>
+    </t>
+
+
+   <t t-inherit="web.ListView.Buttons" t-inherit-mode="extension" owl="1">
+      <xpath expr="//t[@t-elif='activeActions.create']" position="replace">
+            <t t-elif="activeActions.create">
+                    <button type="button" class="btn btn-primary o_list_button_add" style="margin-right: 7px;" data-hotkey="c" t-on-click="onClickCreate" data-bounce-button="">
+                        Create
+                    </button>
+                </t>
+        </xpath> 
+
+    </t>
+
+    <t t-inherit="web.FormControlPanel" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='o_control_panel']" position="replace">
+            <div class="o_control_panel" style="height:70px;" t-ref="root">
+            <div t-if="display['top']" class="o_cp_top"  t-att-class="{ 'flex-wrap': env.isSmall }">
+                <div class="o_cp_top_left d-flex flex-grow-1 align-items-center" t-att-class="{ 'w-100': env.isSmall }">
+                    <t t-if="display['top-left']">
+                        <t t-slot="control-panel-breadcrumb">
+                            <t t-if="env.isSmall">
+                                <t t-call="web.Breadcrumbs.Small" t-if="!env.config.noBreadcrumbs"/>
+                            </t>
+                            <t t-else="">
+                                <t t-call="web.Breadcrumbs" t-if="!env.config.noBreadcrumbs"/>
+                            </t>
+                        </t>
+                    </t>
+                </div>
+                <div class="o_cp_bottom_right w-auto flex-shrink-0 justify-content-between align-items-center"
+                     t-att-class="{ 'flex-grow-1' : env.isSmall }">
+                    <t t-if="env.isSmall">
+                        <t t-slot="control-panel-status-indicator" />
+                    </t>
+                    <t t-slot="control-panel-action-menu" t-if="display['bottom-left']"/>
+                    <div t-if="pagerProps and pagerProps.total > 0" class="o_cp_pager" role="search">
+                        <Pager t-props="pagerProps"/>
+                    </div>
+                    <t t-slot="control-panel-create-button" />
+                </div>
+            </div>
+        </div>
+
+    </t>        
+
+
+</templates>

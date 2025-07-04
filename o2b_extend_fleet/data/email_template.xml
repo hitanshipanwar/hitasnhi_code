@@ -1,0 +1,38 @@
+<odoo>
+    <data>
+        <!-- Email Template For Service Request Resolution -->
+        <record id="insurance_expiry_email_template_o2b" model="mail.template">
+            <field name="name">Insurance Expiry Alert</field>
+            <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+            <field name="email_to">${object.driver_id.email}</field>
+            <field name="subject">Reminder: Insurance Expiry for Vehicle {{ object.name }}</field>
+            <field name="body_html">
+                <![CDATA[
+                    <p>Hello <t t-out="object.driver_id.name"/>,</p>
+                    <p>This is a reminder that the insurance for vehicle <strong><t t-out="object.name"/></strong> is expiring on <strong><t t-out="object.insurance_expiry_date"/></strong>.</p>
+                    <p>Please renew the insurance before the expiry date.</p>
+                    <p>Thank you for your cooperation</p>
+                    <br/>
+                    <p>Thanks & Regards,</p>
+                ]]>
+            </field>
+        </record>
+
+        <!-- Email Template For Maintenance Reminder Email -->
+        <record id="mail_template_maintenance_reminder" model="mail.template">
+            <field name="name">Maintenance Reminder Email</field>
+            <field name="model_id" ref="maintenance.model_maintenance_request"/>
+            <field name="email_to">{{object.employee_id.work_email if object.employee_id else ''}}</field>
+            <field name="subject">Reminder: Scheduled Maintenance on {{object.next_scheduled_maintenance_date}}</field>
+            <field name="body_html">
+                <![CDATA[
+                <p>Dear <t t-out="object.employee_id.name"/>,</p>
+                <p>This is a reminder that scheduled maintenance for the equipment <strong><t t-out="object.name"/></strong> is due on <strong><t t-out="object.next_scheduled_maintenance_date"/></strong>.</p>
+                <p>Please ensure the necessary arrangements are made.</p>
+                <p>Thanks,<br/>Maintenance Team</p>
+                ]]>
+            </field>
+        </record>
+
+    </data>
+</odoo>

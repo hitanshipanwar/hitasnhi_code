@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+
+        <record id="door_suffix_view_tree" model="ir.ui.view">
+            <field name="name">door.suffix.view.tree</field>
+            <field name="model">door.suffix</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Suffix">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_suffix" model="ir.actions.act_window">
+            <field name="name">Suffix</field>
+            <field name="res_model">door.suffix</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

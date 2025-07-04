@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <record id="canadapost_shipping_credential_res_company_form_view" model="ir.ui.view">
+            <field name="name">canadapost shipping credential res company form view</field>
+            <field name="model">res.company</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[last()]" position="after">
+                    <page string="Canada Post Configuration">
+                        <group>
+                            <field name="use_canada_post_shipping_provider"/>
+                        </group>
+                        <group attrs="{'invisible': [('use_canada_post_shipping_provider', '!=', True)]}">
+                            <group>
+                                <field name="ncs_username"
+                                       attrs="{'required':[('use_canada_post_shipping_provider','=',True)]}"/>
+                                <field name="ncs_password"
+                                       attrs="{'required':[('use_canada_post_shipping_provider','=',True)]}"/>
+                                <field name="ncs_customer_number"
+                                       attrs="{'required':[('use_canada_post_shipping_provider','=',True)]}"/>
+                                <field name="ncs_contract_id"
+                                       attrs="{'required':[('use_canada_post_shipping_provider','=',True)]}"/>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

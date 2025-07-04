@@ -1,0 +1,80 @@
+<odoo>
+    <record id="res_partner_view_form_cra" model="ir.ui.view">
+        <field name="name">res.partner.view.form.cra</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//span[@name='address_name']" position="before">
+            <field name='old_id' readonly='1'/>
+                <field name='insurance_company'/>
+                <field name='spmg_name'/>
+                <field name='spmg_npi'/>
+                <field name='pmg_id'/>
+                <field name='pmg_name'/>
+                <field name='pmg_npi'/>
+                <field name='pcp_name'/>
+                <field name='pcp_npi'/>
+                <field name='is_pcp'/>
+                <field name='speciality_code'/>
+                <field name='speciality_description'/>
+                <field name='assigned_center'/>
+            </xpath>
+            <field name='function' position="before">
+                <field name="custom_create_uid"/>
+                <field name="custom_create_date"/>
+                <field name='member_id'/>
+                <field name='prev_member_id'/>
+                <field name='membership_status'/>
+                <field name='age'/>
+                <field name='hchn'/>
+                <field name='sex'/>
+                <field name='birth_date'/>
+                <field name='phone_extension'/>
+            </field>
+            <field name='function' position="after">
+                <field name='alternate_phone'/>
+                <field name='alternate_phone2'/>
+                
+            </field>
+
+            <field name='category_id' position="before">
+                <field name='region'/>
+                <field name='ases_prem'/>
+                <field name='paymonth'/>
+                <field name='benefit_plan'/>
+                <field name='benefit_plan_desc'/>
+                <field name='tier'/>
+                <field name='ratecell'/>
+                <field name='ratecell_description'/>
+            </field>
+
+            <page name="internal_notes" position="after">
+                <page name="insalud" string="In-Salud">
+                    <group>
+                        <group>
+                            <field name='ipa_category'/>
+                            <field name='organization_id'/>
+                            <field name='organization'/>
+                            <field name='organization_npi'/>
+                            <field name='billing_provider_name'/>
+                            <field name='billing_provider_npi'/>
+                            <field name='membership_type'/>
+                        </group>
+                        <group>
+                            <field name='coverage'/>
+                            <field name='raf'/>
+                            <field name='total_revenue'/>
+                            <field name='cms_premium'/>
+                            <field name='plantino_flag'/>
+                            <field name='hospice_flag'/>
+                            <field name='esrd_flag'/>
+                            <field name="cms_category"/>
+                            <field name="membership_key"/>
+                        </group>
+                   
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

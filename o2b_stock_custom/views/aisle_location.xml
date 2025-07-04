@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+		<record id="view_aisle_location_tree" model="ir.ui.view">
+            <field name="name">aisle.location.tree</field>
+            <field name="model">aisle.location</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="aisle_id"/>
+                    <field name="product_id"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_aisle_location_form" model="ir.ui.view">
+            <field name="name">aisle.location.from</field>
+            <field name="model">aisle.location</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="aisle_id"/>
+                                <field name="company_id"/>
+                            </group>
+                            <group>
+                                <field name="product_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_action_aisle_location_filter" model="ir.ui.view">
+            <field name="name">aisle.location.search</field>
+            <field name="model">aisle.location</field>
+            <field name="arch" type="xml">
+                <search string="Search Journal Items">
+                    <field name="aisle_id" string="Aisle Name" filter_domain="['|', ('aisle_id', 'ilike', self), ('product_id', 'ilike', self)]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_aisle_location" model="ir.actions.act_window">
+            <field name="name">Aisle Location</field>
+            <field name="res_model">aisle.location</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_aisle_location_tree"/>
+            <field name="search_view_id" ref="view_action_aisle_location_filter"/>
+        </record>
+
+
+        <!-- Action to Update company -->
+        <record id="action_server_update_ca_company_aisle_location" model="ir.actions.server">
+            <field name="name">Update Company</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="model_aisle_location"/>
+            <field name="binding_model_id" ref="model_aisle_location"/>
+            <field name="state">code</field>
+            <field name="code">records.action_set_company()</field>
+        </record>
+
+        <menuitem id="menu_aisle_location" name="Aisle Location" action="action_aisle_location" parent="stock.menu_stock_warehouse_mgmt"
+                  sequence="401"/>
+
+
+        <!-- Added Smart Button In Prodcut Foerm View -->
+        
+        <record id="product_product_form_view_inherited" model="ir.ui.view">
+            <field name="name">product.product.purchase.order</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="groups_id" eval="[(4, ref('purchase.group_purchase_user'))]"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button class="oe_stat_button" name="view_product_aisle_location" type="object" icon="fa-cubes">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value">
+                                <field name="aisle_location_count" widget="statinfo" nolabel="1" class="mr4"/>
+                            </span>
+                            <span class="o_stat_text">Aisle Locations</span>
+                        </div>
+                    </button>
+                </div>
+            </field>
+        </record>
+
+	</data>
+</odoo>

@@ -1,0 +1,9 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<odoo>-->
+<!--	<template id="assets_backend" name="bista_odoo_bill_com_connector assets" inherit_id="web.assets_backend">-->
+<!--		<xpath expr="." position="inside">-->
+<!--			<script type="text/javascript" src="/bista_odoo_bill_com_connector/static/src/js/chatter.js"></script>-->
+<!--			<script type="text/javascript" src="/bista_odoo_bill_com_connector/static/src/js/attachment_box.js"></script>-->
+<!--		</xpath>-->
+<!--	</template>-->
+<!--</odoo>-->

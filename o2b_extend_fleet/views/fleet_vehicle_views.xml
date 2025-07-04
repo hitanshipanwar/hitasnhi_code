@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="fleet_vehicle_form_inherit_insurance" model="ir.ui.view">
+        <field name="name">fleet.vehicle.form.insurance</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" position="after">
+            	<group>
+	                <group string="Insurance Info">
+	                    <field name="insurance_policy_number"/>
+	                    <field name="insurance_provider"/>
+	                    <field name="insurance_expiry_date"/>
+	                </group>
+            	</group>
+            </xpath>
+            <xpath expr="//field[@name='next_assignation_date']" position="after">
+                <field name="fuel_card_1"/>
+                <field name="fuel_card_2"/>
+                <field name="highway_toll_tag" widget="many2many_tags" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Fines">
+                    <field name="fine_ids" context="{'default_vehicle_id': active_id}" default="{'default_model_id': self, 'default_driver_id': self.vehicle_id.driver_id}">
+                        <tree editable="bottom">
+                            <field name="vehicle_id" readonly="1"/>
+                            <field name="driver_id"/>
+                            <field name="fine_type" widget="many2many_tags" options="{'no_create': True, 'no_edit': True, 'no_open': True}"/>
+                            <field name="fine_date"/>
+                            <field name="description"/>
+                            <field name="file_name" invisible="1" force_save="1"/>
+                            <field name="attachment" widget="binary" filename="file_name"/>
+                        </tree>
+                    </field>
+                </page>
+                <!-- <page string="Assignment Record History">
+                    <field name="driver_assignment_ids" context="{'default_vehicle_id': active_id}">
+                        <tree editable="bottom" create="0" delete="0">
+                            <field name="vehicle_id" readonly="1"/>
+                            <field name="driver_id" readonly="1"/>
+                            <field name="start_date" readonly="1"/>
+                            <field name="end_date" readonly="1"/>
+                            <field name="active" readonly="1"/>
+                        </tree>
+                    </field>
+                </page> -->
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_fines"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-gavel">
+                    <field name="fine_count" widget="statinfo" string="Fines"/>
+                    <!-- <span class="o_stat_text">Fines</span> -->
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="fleet_vehicle_filter_insurance_expiring_soon" model="ir.ui.view">
+        <field name="name">fleet.vehicle.filter</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <field name="insurance_expiry_date" string="Insurance Expiry Date"/>
+                <filter string="Insurance Expiry Date" date="insurance_expiry_date" name="insurance_expiry_date"/>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Graph -->
+    <record id="view_fleet_vehicle_graph_insurance" model="ir.ui.view">
+        <field name="name">fleet.vehicle.graph.insurance</field>
+        <field name="model">fleet.vehicle</field>
+        <field name="arch" type="xml">
+            <graph string="Insurance Expiry Overview" type="bar">
+                <field name="insurance_expiry_date" type="row"/>
+                <field name="id" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id='fleet.fleet_vehicle_action' model='ir.actions.act_window'>
+        <field name="name">Vehicles</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">kanban,tree,form,graph,pivot,activity</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Ready to manage your fleet more efficiently ?
+          </p><p>
+            Let's create your first vehicle.
+          </p>
+        </field>
+    </record>
+
+    <record id="action_fleet_insurance_graph" model="ir.actions.act_window">
+        <field name="name">Insurance Expiry Graph</field>
+        <field name="res_model">fleet.vehicle</field>
+        <field name="view_mode">graph</field>
+        <field name="domain">[('insurance_expiry_date','!=',False)]</field>
+    </record>
+
+    <record id="fleet_vehicle_log_contract_form_inherit" model="ir.ui.view">
+        <field name="name">fleet.vehicle.log.contract.form.insurance</field>
+        <field name="model">fleet.vehicle.log.contract</field>
+        <field name="inherit_id" ref="fleet.fleet_vehicle_log_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div[@class='oe_title']" position="before">
+                <div class="oe_button_box" name="button_box">
+                    <button name="action_view_fines"
+                            type="object"
+                            class="oe_stat_button"
+                            icon="fa-gavel">
+                        <field name="fine_count" widget="statinfo" string="Fines"/>
+                        <!-- <span class="o_stat_text">Fines</span> -->
+                    </button>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+
+<!-- 
+    <menuitem id="menu_insurance_graph"
+              name="Insurance Expiry Graph"
+              parent="fleet.menu_root"
+              action="action_fleet_insurance_graph"/>
+ -->
+</odoo>

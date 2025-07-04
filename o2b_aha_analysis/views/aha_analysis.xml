@@ -1,0 +1,85 @@
+<odoo>
+    <!-- Tree View -->
+    <record id="view_aha_analysis_tree" model="ir.ui.view">
+        <field name="name">aha.analysis.tree</field>
+        <field name="model">aha.analysis</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="pcp_name"/>
+                <field name="aha_completed_id"/>
+                <field name="ticket_count"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_aha_analysis_search" model="ir.ui.view">
+        <field name="name">aha.analysis.search</field>
+        <field name="model">aha.analysis</field>
+        <field name="arch" type="xml">
+            <search string="Search AHA Completed Analysis">
+                <filter string="In-Salud" name="in_salud" domain="[('company_id.name','=','In-Salud')]"/>
+                <field name="date_from" string="Date From"/>
+                <field name="date_to" string="Date To"/>
+                <filter string="From Date" date="date_from" name="date_from"/>
+                <filter string="To Date" date="date_to" name="date_to"/>
+            </search>
+        </field>
+    </record>
+
+    <!-- Graph View -->
+    <record id="view_aha_analysis_graph" model="ir.ui.view">
+        <field name="name">aha.analysis.graph</field>
+        <field name="model">aha.analysis</field>
+        <field name="arch" type="xml">
+            <graph string="AHA Completed Analysis">
+                <!-- X-axis: PCP Name -->
+                <field name="pcp_name" type="row"/>
+                <!-- Measure: Ticket Count -->
+                <field name="ticket_count" type="measure"/>
+                <!-- Y-axis (or column headers): AHA Completed -->
+                <field name="aha_completed_id" type="col"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_aha_analysis_pivot" model="ir.ui.view">
+        <field name="name">aha.analysis.pivot</field>
+        <field name="model">aha.analysis</field>
+        <field name="arch" type="xml">
+            <pivot string="AHA Completed Analysis">
+                <field name="ticket_count" type="measure"/>
+                <field name="pcp_name" type="row"/>
+                <field name="aha_completed_id" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Cohort View -->
+    <record id="view_aha_analysis_cohort" model="ir.ui.view">
+        <field name="name">aha.analysis.cohort</field>
+        <field name="model">aha.analysis</field>
+        <field name="arch" type="xml">
+            <cohort string="AHA Completed Analysis" 
+                    date_start="date_from" 
+                    date_stop="date_to" 
+                    interval="day" 
+                    sample="1" 
+                    measure="ticket_count"/>
+        </field>
+    </record>
+
+    <record id="action_aha_analysis" model="ir.actions.act_window">
+        <field name="name">AHA Completed Analysis</field>
+        <field name="res_model">aha.analysis</field>
+        <field name="view_mode">graph,pivot,cohort</field>
+        <field name="context">{'search_default_in_salud': 1}</field>
+        <field name="help">AHA Completed Analysis Report based on Helpdesk Tickets</field>
+    </record>
+
+    <menuitem id="menu_aha_analysis"
+              name="AHA Completed Analysis"
+              parent="helpdesk.helpdesk_ticket_report_menu_main"
+              action="action_aha_analysis"/>
+</odoo>

@@ -1,0 +1,54 @@
+<odoo>
+    <data>
+        <record id="pcp_form_view" model="ir.ui.view" >
+            <field name="name">pcp.form.view</field>
+            <field name="model">pcp</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="PCP">
+                        <div class="oe_title">
+                                    <h1>
+                                        <field name="name" required="1"/>
+                                    </h1>
+                                </div>
+                        <group>
+                            <group>
+                                <field name="pcp_npi"/>
+                            </group>
+                            <group/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="pcp_tree_view" model="ir.ui.view" >
+            <field name="name">pcp.tree.view</field>
+            <field name="model">pcp</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="pcp_npi"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pcp_action" model="ir.actions.act_window">
+            <field name="name">PCP</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pcp</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an PCP
+              </p><p>
+                Specify PCP.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="pcp_menu" name="PCP"
+        action="pcp_action" parent="contacts.res_partner_menu_config"
+        sequence="0"/>
+
+    </data>
+</odoo>

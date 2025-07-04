@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="inherited_res_users_form_view" model="ir.ui.view">
+        <field name="name">res.users.form.inherit</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/div/group/field[@name='partner_id']" position="after">
+                <field name="to_unmask_data"/>
+                <!-- <field name="pin_unmask_data" password="1" invisible="to_unmask_data == False"/> -->
+            </xpath>
+        </field>
+    </record>
+
+
+   <!--  <record id="inherited_view_patient_simple_form" model="ir.ui.view">
+        <field name="name">patient.patient.form.inherit</field>
+        <field name="model">patient.patient</field>
+        <field name="inherit_id" ref="o2b_patient_master.view_patient_simple_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group/field[@name='phone']" position="replace">
+                <label for="phone" />
+                    <div class="o_row">
+                        <field name="to_unmask_data" invisible="1"/>
+                        <field name="show_data" invisible="1"/>
+                        <field name="hide_data" invisible="1"/>
+                        <field name="phone" password="False"
+                            invisible="hide_data"/>
+                        <field name="phone" password="True"
+                            invisible="show_data"/>
+                        <button name="action_view_data"
+                            groups="base.group_no_one"
+                            icon="fa-eye"
+                            type="object"
+                            class="oe_stat_button"
+                            invisible="not to_unmask_data or show_data"
+                            title="Show Data"/>
+                        <button name="action_hide_data"
+                            groups="base.group_no_one"
+                            icon="fa-eye-slash"
+                            type="object"
+                            class="oe_stat_button"
+                            invisible="not to_unmask_data or hide_data"
+                            title="Hide Data"/>
+                    </div>
+            </xpath>
+        </field>
+    </record> -->
+</odoo>
+
+
+<!-- groups="base.group_no_one,o2b_masking_data.maskdata_manager"/> -->
+<!-- groups="base.group_no_one,o2b_masking_data.maskdata_manager"/> -->

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_bill_com_fund_transfer" model="ir.cron">
+        <field name="name">Bill.com Fund Transfer</field>
+        <field name="priority">1</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="active">True</field>
+        <!-- <field name="numbercall">-1</field> -->
+        <!-- <field name="doall" eval="False"/> -->
+        <field name="model_id" ref="model_bill_com_config"/>
+        <field name="code">model._get_fund_transfer_report_data('','')</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

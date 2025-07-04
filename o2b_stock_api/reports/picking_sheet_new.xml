@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="report_pickingslip_sheet">
+        <t t-call="web.html_container">
+            <t t-call="web.basic_layout">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang).sudo()"/>
+                <t t-set="partner" t-value="o.partner_id or (o.move_lines and o.move_lines[0].partner_id) or False"/>
+                <t t-if="partner" name="partner_header">
+                    <t t-set="address">
+                    </t>
+                    <t t-if="o.picking_type_id.sequence_code == 'OUT'">
+                    <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name.replace('/', '%2F'), 600, 100)" style="width:350px;height:60px"/>
+                    </t>
+                    <t t-if="o.picking_type_id.sequence_code == 'PICK'">
+                        <div style="display: flex; align-items: center; width: 350px;">
+                            <span style="margin-right: 10px;">PICK Code</span>
+                            <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.name.replace('/', '%2F'), 600, 100)" style="width:350px;height:60px"/>
+                        </div>
+                        <br/><br/>
+                        <t t-set="other_picking" t-value="o.sale_id.picking_ids.filtered(lambda p: p.id != o.id and p.picking_type_id.sequence_code == 'OUT')">
+                        </t>
+                        <div t-if="other_picking" t-foreach="other_picking" t-as="picking" style="display: flex; align-items: center; width: 350px;">
+                            <span style="margin-right: 10px;">Delivery Code</span>
+                            <div>
+                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', picking.name.replace('/', '%2F'), 600, 100)" style="width:350px;height:60px"/>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+
+                <div class="page">
+                    <!-- Barcode -->
+                    <div>
+                      
+                      <!--<div t-field="o.picking_type_id.code" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:100%;height:35px', 'type': 'QR'}"/>-->
+                    </div>
+
+                    <div class="row justify-content-end" t-if="o.sudo().sale_id.client_order_ref">
+                        <div class="col-4">
+                            <strong>Customer Reference:</strong>
+                            <p t-field="o.sudo().sale_id.client_order_ref"/>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-8">
+                            <t t-set="parent_comment" t-value="(o.partner_id.parent_id.comment or '').strip()" />
+                            <t t-if="not is_html_empty(parent_comment)">
+                                <strong>Company Internal Notes:</strong><br/>
+                                <span t-esc="parent_comment"/>
+                            </t>
+                            <!-- <t t-set="child_comment" t-value="(o.partner_id.comment or '').strip()" />
+                            <t t-if="not is_html_empty(child_comment)">
+                                <strong>Customer Internal Notes:</strong><br/>
+                                <span t-esc="child_comment"/>
+                            </t> -->
+                        </div>
+                        <div class="col-4">
+                            <strong>Total Weight: </strong><br/>
+                            <span t-field="o.weight"/> lbs
+                            <!--<span t-field="o.weight_uom_id"/>-->
+                        </div>
+                    </div>
+                    
+                    <t t-if='not is_html_empty (o.x_studio_permanent_customer_notes)'>
+                      <div class="row">
+                          <div class="col-8">
+                              <span>
+                                  <strong>Permanent Customer Notes:</strong>
+                                  <br/>
+                              </span>
+                              <span t-field="o.x_studio_permanent_customer_notes"/>
+                          </div>
+                      </div>
+                    </t>
+                    
+                    <div class="row">
+                        <div class="col-8">
+                            <span>
+                                <strong>Customer Service Notes:</strong>
+                                <br/>
+                            </span>
+                            <span t-field="o.x_studio_field_F7ZDy"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <span>
+                                <strong>Sale Order Notes:</strong>
+                                <br/>
+                            </span>
+                            <span t-field="o.sale_id.note"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span t-field="o.sale_id"/>
+                        </div>
+                    </div>
+                    <!--<div class="row">-->
+                    <!--<div class="col">-->
+                    <!--<span t-field="o.create_date"/>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span>Name</span>
+                                </th>
+                                <th>
+                                    <span>State</span>
+                                </th>
+                                <th>
+                                    <span>City</span>
+                                </th>
+                                <th>
+                                    <span>Creation Date</span>
+                                </th>
+                                <th t-if="o.carrier_id">
+                                    <strong>Delivery Method</strong>
+                                </th>
+                                <!--<th t-if="o.shipping_weight">-->
+                                <!--    <strong>Shipping Weight</strong>-->
+                                <!--</th>-->
+                                <th t-if="o.carrier_tracking_ref">
+                                    <strong>Tracking Number</strong>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <span t-field="o.partner_id.name"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.partner_id.state_id"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.partner_id.city"/>
+                                </td>
+                                <td>
+                                    <span t-field="o.date" t-options="{&quot;format&quot;: &quot;MM/dd/yyyy&quot;}"/>
+                                </td>
+                                <td t-if="o.carrier_id" class="h6">
+                                    <span t-field="o.carrier_id"/>
+                                </td>
+                                <!--<td t-if="o.shipping_weight">-->
+                                <!--    <span t-field="o.shipping_weight"/>-->
+                                <!--    <span t-field="o.weight_uom_id"/>-->
+                                <!--</td>-->
+                                <td t-if="o.carrier_tracking_ref">
+                                    <span t-field="o.carrier_tracking_ref"/>
+                                </td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- <div class="row">
+                        <div class="col">
+                            <span t-field="o.x_studio_field_F7ZDy"/>
+                        </div>
+                    </div> -->
+                    <table class="table table-sm mt48" t-if="o.state!='done'">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <strong>AISLE</strong>
+                                </th>
+                                <th>
+                                    <strong>NAME</strong>
+                                </th>
+                                <th>
+                                    <strong>ATTRIBUTE VALUE</strong>
+                                </th>
+                                <th>
+                                    <strong>DEMAND</strong>
+                                </th>
+                            </tr>
+                        </thead>
+                        <t t-if="o.company_id.show_mo_validation">
+                            <tbody>
+                                <t t-set="lines_to_sort" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and x.state != 'cancel')"/>
+                                <t t-set="lines" t-value="lines_to_sort.sorted(key=lambda x: '%s--%s' % (x.product_id.aisle.name or '---', x.product_id.name))"/>
+                                <tr t-foreach="lines" t-as="move">
+                                    <td>
+                                        <span t-field="move.product_id.ca_aisle_id"/>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <span t-field="move.product_id.product_tmpl_id.x_studio_oms_internal_name"/>
+                                        </b>
+                                    </td>
+                                    <td class="o_bold">
+                                        <span t-field="move.product_id.product_template_variant_value_ids" class="h6"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.0f'%move.product_uom_qty" class="o_bold h6"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>
+                        <t t-if="not o.company_id.show_mo_validation">
+                            <tbody>
+                                <t t-set="lines_to_sort" t-value="o.move_lines.filtered(lambda x: x.product_uom_qty and x.state != 'cancel')"/>
+                                <t t-set="lines" t-value="lines_to_sort.sorted(key=lambda x: '%s--%s' % (x.product_id.aisle.name or '---', x.product_id.name))"/>
+                                <tr t-foreach="lines" t-as="move">
+                                    <td>
+                                        <span t-field="move.sale_line_id.product_id.aisle"/>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <span t-field="move.sale_line_id.product_id.x_studio_oms_internal_name"/>
+                                        </b>
+                                    </td>
+                                    <td class="o_bold">
+                                        <span t-field="move.sale_line_id.product_id.product_template_variant_value_ids" class="h6"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.0f'%move.product_uom_qty" class="o_bold h6"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>
+                    </table>
+                    <table class="table table-sm mt48" t-if="o.move_line_ids and o.state=='done'">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span>AISLE</span>
+                                </th>
+                                <th>
+                                    <span>NAME</span>
+                                </th>
+                                <th>
+                                    <span>ATTRIBUTE VALUE</span>
+                                </th>
+                                <th>
+                                    <span>QTY</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <t t-if="o.company_id.show_mo_validation">
+                            <tbody>
+                                <tr t-foreach="o.move_line_ids.sorted(key=lambda x: x.product_id.aisle and x.product_id.aisle.name or x.product_id.name)" t-as="move_line">
+                                    <td>
+                                        <span t-field="move_line.product_id.ca_aisle_id"/>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <span t-field="move_line.move_id.product_id.product_tmpl_id.x_studio_oms_internal_name" class="h6 o_bold"/>
+                                        </b>
+                                    </td>
+                                    <td class="o_bold">
+                                        <span t-field="move_line.move_id.product_id.product_template_variant_value_ids" class="h6"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.0f'%move_line.move_id.product_uom_qty" class="o_bold h6"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>
+                        <t t-if="not o.company_id.show_mo_validation">
+                            <tbody>
+                                <tr t-foreach="o.move_line_ids.sorted(key=lambda x: x.product_id.aisle and x.product_id.aisle.name or x.product_id.name)" t-as="move_line">
+                                    <td>
+                                        <span t-field="move_line.move_id.sale_line_id.product_id.aisle"/>
+                                    </td>
+                                    <td>
+                                        <b>
+                                            <span t-field="move_line.move_id.sale_line_id.product_id.x_studio_oms_internal_name" class="h6 o_bold"/>
+                                        </b>
+                                    </td>
+                                    <td class="o_bold">
+                                        <span t-field="move_line.move_id.sale_line_id.product_id.product_template_variant_value_ids" class="h6"/>
+                                    </td>
+                                    <td>
+                                        <span t-esc="'%.0f'%move_line.move_id.product_uom_qty" class="o_bold h6"/>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </t>
+                    </table>
+                    <p>
+                        <t t-if="o.backorder_ids and o.backorder_ids.filtered(lambda x: x.state not in ('done', 'cancel'))">
+                            All items couldn't be shipped, the remaining ones will be shipped as soon as they become
+                            available.
+                        </t>
+                    </p>
+                </div>
+                
+                <div class="footer">
+                  <div class="col-xs-6 text-right">
+                    Page <span class="page"/> of <span class="topage"/>
+                  </div>
+                </div>
+            <!-- </t> -->
+            </t>
+        </t>
+    </template>
+
+    <template id="report_new_picking_slip">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-set="o" t-value="o.with_context(lang=o.partner_id.lang or o.env.lang).sudo()"/>
+                <t t-call="o2b_stock_api.report_pickingslip_sheet" t-lang="o.partner_id.lang or o.env.lang"/>
+            </t>
+        </t>
+    </template>
+
+    <record id="paperformat_new_picking_slip" model="report.paperformat">
+        <field name="name">Custom Paperformat for Picking Sheet New</field>
+        <field name="format">A4</field>
+        <field name="page_height">0</field>
+        <field name="page_width">0</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">2</field>
+        <field name="margin_bottom">0</field>
+        <field name="margin_left">0</field>
+        <field name="margin_right">0</field>
+        <field name="dpi">96</field>
+    </record>
+
+    <record id="action_report_new_picking_slip" model="ir.actions.report">
+        <field name="name">*~PICKING SHEET NEW~*</field>
+        <field name="model">stock.picking</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">o2b_stock_api.report_new_picking_slip</field>
+        <field name="report_file">o2b_stock_api.report_new_picking_slip</field>
+        <field name="binding_model_id" ref="model_stock_picking"/>
+        <field name="paperformat_id" ref="o2b_stock_api.paperformat_new_picking_slip"/>
+        <field name="binding_type">report</field>
+    </record>
+
+</odoo>

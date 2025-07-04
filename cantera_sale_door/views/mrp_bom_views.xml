@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_bom_cantera_form_button">
+            <field name= "name">mrp.bom.cantera.inherit.form.view</field>
+            <field name= "model">mrp.bom</field>
+            <field name= "inherit_id" ref= "mrp.mrp_bom_form_view"/>
+            <field name= "arch" type= "xml">
+                <xpath expr="//sheet/group/group[1]/div" position="after">
+                    <field name="specs_id" readonly="context.get('default_specs_id')"/>
+                </xpath>
+            </field>                        
+        </record> 
+    </data> 
+</odoo>

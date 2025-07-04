@@ -1,0 +1,233 @@
+<odoo>
+  <data>
+    <record id="specs_sale_view_form" model="ir.ui.view">
+            <field name="name">specs.sale.view.form</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <form string="specs">
+                    <header>
+                        <button name="save_total_specs" string="Confirmar Cotizacion" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'errase')]}"/>
+                        <button name="create_materials_bills" string="Crear Lista de Materiales" type="object" class="btn-primary" attrs="{'invisible': [('state', '!=', 'price')]}"/>
+                        <button name="state_cancel" string="Cancelar" type="object" class="btn-secondary" attrs="{'invisible': [('state', '=', 'cancel')]}"/>
+                        <button name="state_return" string="Borrador" type="object" class="btn-secondary" attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                        <field name="stage_id" widget="statusbar" readonly='1'/>
+                    </header>
+                    <sheet  attrs="{'readonly': [('block_changes','!=',False)]}">
+                        <div class="oe_button_box" name="button_box">
+                            <button name="mrp_call_view" type="object" class="oe_stat_button" icon="fa-list-ul">
+                                <field string="Lista de Materiales" name="mrp_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="block_changes" invisible='1'/>
+                                <field name="state" invisible='1'/>
+                                <field name="specs_type" required='1' attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                <field name="product_id" required='1' attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                <field name="name_specs" invisible='1'/>
+                                <field name="campo_o2m_ids" invisible='1'/>
+                                <field name="specs_preparations_ids" invisible='1'/>
+                                <field name="specs_glass_type_id" invisible='1'/>
+                            </group>
+                            <group>
+                                <group>
+                                    <div>
+                                        <label for="specs_amount_total" groups='cantera_sale_door.cant_ventas,cantera_sale_door.cant_administrador'/>
+                                        <h1><field name="specs_amount_total" string="" widget='monetary' readonly='1' groups='cantera_sale_door.cant_ventas,cantera_sale_door.cant_administrador'/></h1>
+                                    </div>
+                                </group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Cotizador">
+                                <group string="Header">
+                                    <group>
+                                        <field name="specs_sale_id" required='1' readonly="context.get('default_specs_sale_id')" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_leads_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_product_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_dc_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_design_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_color_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_level_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_mtrs" readonly='1'/>
+                                        <field name="specs_suffix_id" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <group string="Generales">
+                                    <group>
+                                        <field name="specs_ant" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_alt" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_antmarc" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altmarc" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_bast" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_porfbast" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_antleaft" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altleaft" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_board_id" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altboard" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tramrec" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_traminc" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tramcurniv" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tramcurin" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_pasrec" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_handing_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_newdec" attrs="{'invisible': [('specs_type', '!=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_huacal" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_forging_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_operable" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_type_arc_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altarc" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tolsup" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tolcen" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_tollat" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_glass" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_type_glass_id" attrs="{'invisible': [('specs_type', '=', 'railing')]}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string="Frame" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_ancmarc" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_profmarc" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_anchor_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_hinges_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_amount_hinges" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group string="Frame Brickmolding" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_molding_int_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_traslape_int_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_molding_ext_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_traslape_ext_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <group string="Pull Handles" attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}">
+                                    <group>
+                                        <field name="specs_jac_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_jacin_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_jin_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_jinin_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <group string='Deadbolt' attrs="{'invisible': [('specs_type', '!=', 'door')], 'readonly': [('block_changes','!=',False)]}">
+                                    <group>
+                                        <field name="specs_pch_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_moce_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altce" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="specs_mbas" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_mbai" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_rlat" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_bac" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <group string='Transom' attrs="{'invisible': ['|', ('specs_type', '=', 'railing'), ('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_tyarct_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altarct"  attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_antra" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altra" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_ddm" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altpc" attrs="{'invisible': [('specs_type', '!=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_anpc" attrs="{'invisible': [('specs_type', '!=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_typet_glass_id" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="railing_id" invisible='1'/>   
+                                    </group>
+                                    <group string='Sidelight' attrs="{'invisible': ['|', ('specs_type', '=', 'railing'), ('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_anfi" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_alfi" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_board_type_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_altboard_type" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_glassf" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_typef_glass_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_ddmf" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_posfi_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <field name="specs_line_ids" attrs="{'readonly': [('block_changes','!=',False)]}">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="accessories_id"/>
+                                        <field name="amount_accessories"/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <group string='Latch' attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_latchsup_id" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_cls" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_latchin_id" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_cli" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                    <group string='protections' attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                        <field name="specs_tolerance" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_typeguar_id" attrs="{'invisible': [('specs_type', '=', 'windows')], 'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_flashing_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                        <field name="specs_assembly_id" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                    </group>
+                                </group>
+                                <field name="specs_sp_line_ids" attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="preparations_ids" domain="[('id', 'in', specs_preparations_ids)]" widget='many2many_tags'/>
+                                        <field name="amount_preparations"/>
+                                        <field name="specs_preparations_ids" invisible='1'/>
+                                    </tree>
+                                </field>
+                                <group>
+                                    <field name="description" attrs="{'readonly': [('block_changes','!=',False)]}"/>
+                                </group>
+                                <field name="specs_glass_line_ids"  attrs="{'invisible': [('specs_type', '=', 'railing')], 'readonly': [('block_changes','!=',False)]}">
+                                    <tree editable="bottom">
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="glass_piece_id"/>
+                                        <field name="handing_glass_id"/>
+                                        <field name="glass_type_id" domain="[('id', 'in', specs_glass_type_id)]" widget='many2many_tags'/>
+                                        <field name="specs_glass_type_id" invisible='1'/>
+                                        <field name="radius_id"/>
+                                        <field name="glass_width"/> 
+                                        <field name="glass_height"/> 
+                                        <field name="glass_qty"/>
+                                        <field name="amount_glass"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" groups="base.group_user"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="specs_sale_view_tree" model="ir.ui.view">
+            <field name="name">specs.sale.view.tree</field>
+            <field name="model">specs.sale</field>
+            <field name="arch" type="xml">
+                <tree string="Specs">
+                    <field name="specs_type"/>
+                    <field name="opportunity_specs"/>
+                    <field name="specs_sale_id"/>
+                    <field name="specs_leads_id"/>
+                    <field name="state" widget="badge" decoration-success="state == 'bom'" decoration-info="state == 'price'" decoration-danger="state == 'cancel'"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_specs_sale" model="ir.actions.act_window">
+            <field name="name">specs</field>
+            <field name="res_model">specs.sale</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="specs_sale_sub_menu" name="specs" action="action_specs_sale" parent="sale.menu_sale_config" sequence="99"/>
+
+  </data>
+</odoo>

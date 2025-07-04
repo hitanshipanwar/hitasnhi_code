@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_mrporder_inherit" inherit_id="mrp.report_mrporder">
+        <xpath expr="//div[@t-field='o.name']" position="replace">
+            <div>
+                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.barcode, 600, 100)"
+                     style="width:350px;height:60px"/>
+            </div>
+            <div>
+                <span class="text-left">check in</span>
+                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.barcode_checkin_text, 600, 100)"
+                     style="width:350px;height:60px"/>
+            </div>
+            <div>
+                <span class="text-left">check out</span>
+                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', o.barcode_checkout_text, 600, 100)"
+                     style="width:350px;height:60px"/>
+            </div>
+        </xpath>
+        <!--        <xpath expr="//div[@t-field='o.name']" position="after">-->
+        <!--            -->
+        <!--&lt;!&ndash;            <div t-field="o.barcode_checkin_text" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:350px;height:60px'}"/>&ndash;&gt;-->
+        <!--            <div class="text-left"  t-field="o.barcode_checkin_text"/>-->
+        <!--            -->
+        <!--&lt;!&ndash;            <div t-field="o.barcode_checkout_text" t-options="{'widget': 'barcode', 'width': 600, 'height': 100, 'img_style': 'width:350px;height:60px'}"/>&ndash;&gt;-->
+        <!--            <div class="text-left" t-field="o.barcode_checkout_text"/>-->
+        <!--        </xpath>-->
+    </template>
+</odoo>

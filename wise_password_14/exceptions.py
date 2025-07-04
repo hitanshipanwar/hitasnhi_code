@@ -1,0 +1,2 @@
+class ExpiredPassword(Exception):
+    pass

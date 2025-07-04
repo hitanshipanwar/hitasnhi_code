@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="railing_tree" model="ir.ui.view">
+            <field name="name">railing.view.tree</field>
+            <field name="model">railing</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Railing">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_railing" model="ir.actions.act_window">
+            <field name="name">Railing</field>
+            <field name="res_model">railing</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="Railing_indicator" name="Railing" parent="offering_menu" sequence="12"/>
+            <menuitem id="railing_sub_menu" name="Railing" action="action_railing" parent="cantera_sale_door.Railing_indicator" sequence="1"/>
+
+  </data>
+</odoo>

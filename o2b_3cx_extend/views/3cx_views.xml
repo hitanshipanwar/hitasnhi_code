@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="3cx_form_view_inherit" model="ir.ui.view">
+        <field name="model">config.3cx</field>
+        <field name="inherit_id" ref="nalios_3cx_full.3cx_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='db_token']" position="after">
+                <field name="company_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

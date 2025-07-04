@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="view_own_configuration_tree" model="ir.ui.view">
+	        <field name="name">own.configuration.tree</field>
+	        <field name="model">own.configuration</field>
+	        <field name="arch" type="xml">
+	            <tree>
+	                <field name="name"/>
+	                <!-- <field name="email"/> -->
+	                <!-- <field name="phone"/> -->
+		            <field name="subscription_code"/>
+		            <field name="last_update_on"/>
+	                <field name="last_update_by"/>
+	            </tree>
+	        </field>
+	    </record>
+
+	    <!-- Form View -->
+	    <record id="view_own_configuration_form" model="ir.ui.view">
+	        <field name="name">own.configuration.form</field>
+	        <field name="model">own.configuration</field>
+	        <field name="arch" type="xml">
+	            <form>
+	            	<header>
+	            		<button class="btn btn-sm btn-primary" type="object" name="action_connect_service" string="Connect"/>
+						<button class="btn btn-sm btn-primary" type="object" name="action_disconnect_service" string="Disconnect"/>
+						<field name="state" widget="statusbar" statusbar_visible="draft,active,expired"/>
+	            	</header>
+	                <sheet>
+	                	<widget name="web_ribbon" title="Subscription Activated" bg_color="bg-success" invisible="state in ['expired', 'draft']"/>
+	            		<widget name="web_ribbon" title="Subscription Expired" bg_color="bg-danger" invisible="state in ['active', 'draft']"/>
+	            		<widget name="web_ribbon" title="Draft Subscription" bg_color="bg-warning" invisible="state in ['expired', 'active']"/>
+	                    <group>
+	                    	<group>
+		                        <field name="name"/>
+		                        <field name="platform"/>
+		                        <field name="subscription_code"/>
+		                    </group>
+		                    <group>
+		                        <field name="company_id"/>
+		                        <!-- <field name="email"/> -->
+		                        <!-- <field name="phone"/> -->
+		                    </group>
+	                    </group>
+	                    <notebook>
+	                    	<page name="Update" string="Update">
+	                    		<group>
+	                    			<group>
+	                    				<field name="last_update_on"/>
+	                    				<field name="last_update_by"/>
+	                    			</group>
+	                    			<group></group>
+	                    		</group>
+	                    	</page>
+	                    </notebook>
+	                </sheet>
+	                <div class="oe_chatter">
+		                <field name="message_follower_ids"/>
+		                <field name="activity_ids"/>
+		                <field name="message_ids"/>
+		            </div>
+	            </form>
+	        </field>
+	    </record>
+
+	    <!-- Action -->
+	    <record id="action_own_configuration" model="ir.actions.act_window">
+	        <field name="name">Configuration</field>
+	        <field name="res_model">own.configuration</field>
+	        <field name="view_mode">tree,form</field>
+	    </record>
+
+	    <!-- Menuitem -->
+	    <menuitem id="menu_o2b_configuration" name="Configuration" parent="base.menu_custom" sequence="4"/>
+		<menuitem id="menu_own_configuration" name="O2B Configuration" action="action_own_configuration" parent="o2b_base.menu_o2b_configuration" sequence="4"/>
+
+</odoo>

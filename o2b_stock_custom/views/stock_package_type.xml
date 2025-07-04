@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="view_stock_package_type_form_inherited" model="ir.ui.view">
+        <field name="name">stock.package.type.from</field>
+        <field name="model">stock.package.type</field>
+        <field name="inherit_id" ref="stock.stock_package_type_form"/>
+        <field name="arch" type="xml">
+	        <xpath expr="//sheet" position="before">
+	        	<header>
+	                <button name="print_label" type="object" string="Print Label"/>
+	        	</header>
+	        </xpath>
+        </field>
+    </record>
+
+</odoo>

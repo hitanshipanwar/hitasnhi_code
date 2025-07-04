@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_payment_invoice_form_bista_odoo_bill_com_connector" model="ir.ui.view">
+            <field name="name">view.account.payment.invoice.form.bista.odoo.bill.com.connector</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="attributes">
+                    <attribute name="context">{"from_register_payment": True}</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_payment_form_bista_odoo_bill_com_connector" model="ir.ui.view">
+            <field name="name">view.account.payment.form.bista.odoo.bill.com.connector</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <!-- <xpath expr="//field[@name='ref']" position="after"> -->
+                <xpath expr="//field[@name='memo']" position="after">
+                    <field name="currency_exchange_rate" readonly="1"
+                           invisible="currency_exchange_rate == 0"/>
+                    <field name="bill_com_payment_id" readonly="1"
+                           invisible="not bill_com_payment_id" style="color:Red;"/>
+                    <field name="bill_com_payment_status" readonly="1"
+                           invisible="bill_com_payment_status == False" style="color:Red;"/>
+                </xpath>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="vendor_name" readonly="1" force_save="1"
+                           invisible="vendor_name == False"/>
+                    <!-- <field name="batch_payment_id" readonly="1" force_save="1"
+                           attrs="{'invisible': [('batch_payment_id', '=', False)]}"/> -->
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_draft']" position="attributes">
+                    <!-- <attribute name="attrs">{'invisible': ['|',('state', '=', 'draft'), ('bill_com_payment_id', '!=',
+                        False)]}
+                    </attribute> -->
+                    <attribute name="invisible">state == 'draft' or bill_com_payment_id != False
+                    </attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_post']" position="attributes">
+                    <attribute name="invisible">state != 'draft' or bill_com_payment_id != False
+                    </attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_cancel']" position="attributes">
+                    <attribute name="invisible">state != 'draft' or bill_com_payment_id != False
+                    </attribute>
+                </xpath>
+                <xpath expr="/form/header/button[@name='action_cancel']" position="after">
+                    <button name="bill_com_cancel" type="object"
+                            invisible="state in ('draft', 'cancel') or bill_com_payment_id == False"
+                            string="Cancel"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_payment_form_multi_bista_odoo_bill_com_connector" model="ir.ui.view">
+            <field name="name">view.account.payment.form.multi.bista.odoo.bill.com.connector</field>
+            <field name="model">account.payment.register</field>
+            <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="attributes">
+                    <attribute name="context">{"from_register_payment": True}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='group_payment']" position="before">
+                    <field name="group_payment_invisible" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='group_payment']" position="attributes">
+                    <attribute name="invisible">group_payment_invisible == True</attribute>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_account_payment_search_bista_odoo_bill_com_connector" model="ir.ui.view">
+            <field name="name">view.account.payment.search.bista.odoo.bill.com.connector</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="bill_com_payment_id"/>
+                    <field name="bill_com_payment_status"/>
+                    <!-- <field name="batch_payment_id"/> -->
+                    <field name="bill_com_fund_transfer_id"/>
+                </xpath>
+                <xpath expr="//filter[@name='state']" position="after">
+                    <filter string="Bill.Com Payment Status" name="bill_com_payment_status" domain="[]"
+                            context="{'group_by': 'bill_com_payment_status'}"/>
+                    <!-- <filter string="Batch Payment" name="bill_com_payment_status" domain="[]"
+                            context="{'group_by': 'batch_payment_id'}"/> -->
+                    <filter string="Bill.Com Batch Payment ID" name="bill_com_payment_status" domain="[]"
+                            context="{'group_by': 'bill_com_fund_transfer_id'}"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- <record id="view_account_payment_tree_bista_odoo_bill_com_connector" model="ir.ui.view">
+            <field name="name">view.account.payment.tree.bista.odoo.bill.com.connector</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="batch_payment_id"/>
+                </xpath>
+            </field>
+        </record> -->
+    </data>
+</odoo>

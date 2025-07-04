@@ -1,0 +1,47 @@
+<odoo noupdate="1">
+
+    <!--
+         Stages
+    -->
+    <record id="stage_in_progress" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Draft</field>
+        <field name="code">draft</field>
+        <field name="description">The specs that are being executed.</field>
+        <field name="sequence">1</field>
+        <field name="done" eval="False"/>
+    </record>
+    <record id="stage_planned" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Spec Ready</field>
+        <field name="code">price</field>
+        <field name="description">This stage will indicate when the spec has been captured and the design along with the order are awaiting the client's signature.</field>
+        <field name="sequence">3</field>
+        <field name="done" eval="False"/>
+    </record>
+    <record id="stage_sale_confirm" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Sale Confirm</field>
+        <field name="code">sale_confirm</field>
+        <field name="description">Indicate when the supplier receives the purchase order.</field>
+        <field name="sequence">4</field>
+        <field name="done" eval="False"/>
+    </record>
+    <record id="stage_cancel" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Cancelled</field>
+        <field name="code">cancel</field>
+        <field name="description">Order Canceled.</field>
+        <field name="sequence">6</field>
+        <field name="done" eval="True"/>
+    </record>
+
+    <!--
+         Precisions
+    -->
+    <record forcecreate="True" id="decimal_price_specs" model="decimal.precision">
+        <field name="name">Specs Measures</field>
+        <field name="digits">4</field>
+    </record>
+    
+</odoo>

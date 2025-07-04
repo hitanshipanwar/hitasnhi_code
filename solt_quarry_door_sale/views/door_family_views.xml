@@ -1,0 +1,88 @@
+<odoo>
+    <data>
+
+        <record id="spec_door_family_view_tree_inherit" model="ir.ui.view">
+            <field name="name">spec.door.family.view.tree.inherit</field>
+            <field name="model">door.family</field>
+            <field name="inherit_id" ref="solt_quarry_door_product.door_family_view_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="editable"></attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="spec_door_family_view_form" model="ir.ui.view">
+            <field name="name">spec.door.family.view.form</field>
+            <field name="model">door.family</field>
+            <field name="arch" type="xml">
+                <form string="Product Family">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Door"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="pricelist_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                            <field name="product_attribute_id" options="{'no_create': True}"/>
+                        </group>
+                        <notebook>
+                            <page name="field_configuration" string="Fields configuration">
+                                <button name="load_default_spec_fields" type="object" class="btn btn-primary"
+                                        string="Load Spec fields"
+                                        confirm="The fields will be loaded with their initial values and the settings made will be lost. Do you want to continue?"
+                                />
+                                <button name="duplicate_configuration_spec_fields" type="object" class="btn btn-primary"
+                                        string="Replicate configuration"
+                                        confirm="The settings made will be replicated in all Product Families. Do you want to continue?"
+                                        groups="base.group_no_one"
+                                />
+                                <field name="door_family_field_line_ids" widget="section_and_note_one2many">
+                                    <tree editable="bottom">
+                                        <control>
+                                            <create name="add_section_control" string="Add a section" context="{'default_display_type': 'line_section'}"/>
+                                        </control>
+
+                                        <field name="sequence" widget="handle" />
+                                        <field name="name" invisible="display_type != 'line_section'"/>
+                                        <field name="field_id" options="{'no_create': True}" invisible="display_type == 'line_section'"/>
+                                        <field name="field_name" invisible="display_type == 'line_section'"/>
+                                        <field name="ttype" invisible="display_type == 'line_section'"/>
+                                        <field name="sale_price_field" widget="boolean_toggle" invisible="display_type == 'line_section'"/>
+                                        <field name="cost_price_field" widget="boolean_toggle" invisible="display_type == 'line_section'"/>
+                                        <field name="required_in_specs" widget="boolean_toggle" invisible="display_type == 'line_section'"/>
+                                        <field name="required_in_spec_ids"
+                                               options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"
+                                               widget="many2many_tags" placeholder="Setup" readonly="required_in_specs==False"
+                                               required="required_in_specs==True"
+                                                invisible="display_type == 'line_section'"/>
+                                        <field name="editable_in_mrp" widget="boolean_toggle" invisible="display_type == 'line_section'"/>
+                                        <field name="visible_in_spec_ids" options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"
+                                               widget="many2many_tags"
+                                               placeholder="Setup"
+                                               readonly="editable_in_mrp==False"
+                                               invisible="display_type == 'line_section'"/>
+                                        <field name="max_qty" required="ttype=='integer'"
+                                               readonly="ttype!='integer'"
+                                               invisible="display_type == 'line_section'"/>
+                                        <field name="product_id" options="{'no_create': True, 'no_open': True}"
+                                               readonly="ttype!='integer'"
+                                               domain="['|', ('product_spec_roller_latche', '=', True), ('product_spec_ball_catche', '=', True)]"
+                                               invisible="display_type == 'line_section'"/>
+
+                                        <field name="invisible_in_spec_ids" options="{'color_field': 'color', 'no_create_edit': True, 'no_create': True}"
+                                               widget="many2many_tags"
+                                               placeholder="Setup" invisible="display_type == 'line_section'" />
+                                        <field name="display_type" column_invisible="1"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

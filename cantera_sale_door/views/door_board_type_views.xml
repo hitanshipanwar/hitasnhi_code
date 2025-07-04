@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_board_type_view_tree" model="ir.ui.view">
+            <field name="name">door.board.type.view.tree</field>
+            <field name="model">door.board.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Tipo de Tablero de Fijo">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_board_type" model="ir.actions.act_window">
+            <field name="name">Tipo de Tablero de Fijo</field>
+            <field name="res_model">door.board.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="Sidelight_indicator" name="Sidelight" parent="offering_menu" sequence="8"/>
+        <menuitem id="door_board_type_sub_menu" name="Tipo de Tablero de Fijo" action="action_door_board_type" parent="Sidelight_indicator" sequence="1"/>
+
+  </data>
+</odoo>

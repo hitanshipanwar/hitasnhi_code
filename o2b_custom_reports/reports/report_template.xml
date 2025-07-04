@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- task #1812 -->
+    <!-- <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document" name="Sale Order Report Inherit">
+        <xpath expr="//p[@t-field='doc.note']" position="replace"/>
+
+        <xpath expr="//div[@id='informations']" position="after">
+            <p t-field="doc.note"/>
+
+            <div t-if="doc.get_pdf_attachment_links_from_note()">
+                <strong>Attachments:</strong>
+                <p t-raw="doc.get_pdf_attachment_links_from_note()"/>
+            </div>
+        </xpath>
+    </template> -->
+    <!-- task #1812 -->
+
+    <!-- task #1847 -->
+    <template id="report_saleorder_document_inherit" inherit_id="sale.report_saleorder_document" name="Sale Order Report Inherit">
+        <xpath expr="//p[@t-field='doc.note']" position="replace"/>
+
+        <xpath expr="//div[@id='informations']" position="after">
+            <p t-field="doc.note"/>
+
+
+            <!-- <t t-if="doc.get_first_pdf_attachment_id()">
+                <iframe t-att-src="'/web/content/' + str(doc.get_first_pdf_attachment_id()) + '?download=true'"
+                        style="width: 100%; height: 500px; border: none;"></iframe>
+                <iframe src="/web/content/{doc.get_first_pdf_attachment_id()}" width="100%" height="600px"></iframe>
+            </t> -->
+        </xpath>
+        <xpath expr="//p[@id='fiscal_position_remark']" position="after">
+            <div t-if="doc.get_pdf_images_from_note()">
+                <strong>Embedded Attachments:</strong>
+                <t t-foreach="doc.get_pdf_images_from_note()" t-as="img_data">
+                    <img t-att-src="'data:image/png;base64,' + img_data" style="width:100%; margin-top: 10px;"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <!-- task #1847 -->
+
+
+    <!-- task HSO-1739 -->
+    <template id="report_purchaseeorder_document_inherit" inherit_id="purchase.report_purchaseorder_document" name="Purchase Order Report Inherit">
+        <xpath expr="//p[@t-field='o.notes']" position="replace"/>
+
+        <xpath expr="//div[@id='informations']" position="after">
+            <p t-field="o.notes"/>
+            <!-- <div t-if="o.get_pdf_attachment_links_from_note()">
+                <strong>Attachments:</strong>
+                <p t-raw="o.get_pdf_attachment_links_from_note()"/>
+            </div> -->
+        </xpath>
+        <xpath expr="//div[@id='total']" position="after">
+            <div t-if="o.get_pdf_images_from_note()">
+                <strong>Embedded Attachments:</strong>
+                <t t-foreach="o.get_pdf_images_from_note()" t-as="img_data">
+                    <img t-att-src="'data:image/png;base64,' + img_data" style="width:100%; margin-top: 10px;"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_purchasequotation_document_inherit" inherit_id="purchase.report_purchasequotation_document" name="Purchase Quotation Report Inherit">
+        <xpath expr="//p[@t-field='o.notes']" position="replace"/>
+
+        <xpath expr="//div[@class='page']/h2" position="after">
+            <p t-field="o.notes"/>
+            <!-- <div t-if="o.get_pdf_attachment_links_from_note()">
+                <strong>Attachments:</strong>
+                <p t-raw="o.get_pdf_attachment_links_from_note()"/>
+            </div> -->
+        </xpath>
+        <xpath expr="//div/table" position="after">
+            <div t-if="o.get_pdf_images_from_note()">
+                <strong>Embedded Attachments:</strong>
+                <t t-foreach="o.get_pdf_images_from_note()" t-as="img_data">
+                    <img t-att-src="'data:image/png;base64,' + img_data" style="width:100%; margin-top: 10px;"/>
+                </t>
+            </div>
+        </xpath>
+    </template>
+    <!-- task HSO-1739 -->
+</odoo>

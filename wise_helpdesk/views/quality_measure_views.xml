@@ -1,0 +1,200 @@
+<odoo>
+    <data noupdate='False'>
+        <record id="quality_metrics_form_view" model="ir.ui.view" >
+            <field name="name">quality.metrics.form.view</field>
+            <field name="model">quality.metrics</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Quality Metrics">
+                        <field name="quality_type" invisible='1'/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" required="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                            <field name="quality_type" invisible="1"/>
+                                <field name="partner_id"/>
+                                <field name="pcp_name"/>
+                                <field name="pcp_npi"/>
+                                <field name="pmg_name"/>
+                                <field name="pmg_npi"/>
+                                <field name="member_id"/>
+                                <field name="member_name"/>
+                                <field name="sex"/>
+                                <field name="birth_date"/>
+                                <field name="phone"/>
+                                <field name="membership_status"/>
+                                <field name="paymonth"/>
+                                <field name="city"/>
+                            </group>
+                            <group>
+                                <field name="old_id"/>
+                                <field name="insurance_company"/>
+                                <field name="organization"/>
+                                <field name="auditor_last_update_by" readonly="1"/>
+                                <field name="auditor_update_date" readonly="1"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Alianza" attrs="{'invisible':[('quality_type','!=','alianza')]}">
+                                <group>
+                                    <group>
+                                        <field name="measure_category"/>
+                                        <field name="quality_measure" />
+                                        <field name="measure_description"/>
+                                        <field name="measure_key" />
+                                        <field name="current_rate_cell" />
+                                        <field name="current_rate_cell_desc"/>
+                                        <field name="raf_score" />
+                                        <field name="measure_status" />
+                                        <field name="diagnosis_code"/>
+                                        <field name="diagnosis_description" />
+                                        <field name="drug_name" />
+                                        <field name="estimated_expiration_date" />
+                                        <field name="last_service_code"/>
+                                        <field name="last_service_date" />
+                                    </group>
+                                    <group>
+                                        <field name="render_provider"/>
+                                        <field name="render_provider_npi" />
+                                        <field name="app_date" />
+                                        <field name="current_service_code" />
+                                        <field name="current_service_date" />
+                                        <field name="current_diagnosis_code" />
+                                        <field name="transmission_date" />
+                                        <field name="internal_compliance_status" />
+                                        <field name="notes" />
+                                        <field name="rescued_flag" />
+                                        <field name="official_compliance_status"/>
+                                        <field name="official_compliance_date" />
+                                        <field name="official_expiration_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="RSE" attrs="{'invisible':[('quality_type','!=','rse')]}">
+                                <group>
+                                    <group>
+                                        <field name="measure_category"/>
+                                        <field name="quality_measure" />
+                                        <field name="measure_description"/>
+                                        <field name="measure_key" />
+                                        <field name="current_rate_cell" />
+                                        <field name="current_rate_cell_desc"/>
+                                        <field name="raf_score" />
+                                        <field name="current_hchn_classification"/>
+                                        <field name="measure_status" />
+                                        <field name="diagnosis_code"/>
+                                        <field name="diagnosis_description" />
+                                        <field name="drug_name" />
+                                        <field name="estimated_expiration_date" />
+                                        <field name="last_service_code"/>
+                                        <field name="last_service_date" />
+                                    </group>
+                                    <group>
+                                        <field name="render_provider"/>
+                                        <field name="render_provider_npi" />
+                                        <field name="app_date" />
+                                        <field name="current_service_code" />
+                                        <field name="current_service_date" />
+                                        <field name="current_diagnosis_code" />
+                                        <field name="transmission_date" />
+                                        <field name="internal_compliance_status" />
+                                        <field name="notes" />
+                                        <field name="rescued_flag" />
+                                        <field name="official_compliance_status"/>
+                                        <field name="official_compliance_date" />
+                                        <field name="official_expiration_date" />
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="Insalud" attrs="{'invisible':[('quality_type','!=','insalud')]}">
+                                <group>
+                                    <group>
+                                        <field name="measure_category"/>
+                                        <field name="measure_key" />
+                                        <field name="diagnosis_code"/>
+                                        <field name="last_service_code"/>
+                                        <field name="last_service_date" />
+                                        <field name="hedis_value_set"/>
+                                        <field name="render_provider"/>
+                                        <field name="render_provider_npi" />
+                                        <field name="app_date" />
+                                        <field name="current_service_code" />
+                                        <field name="current_service_date" />   
+                                    </group>
+                                    <group>
+                                        <field name="transmission_date" />
+                                        <field name="insalud_internal_compliance_status" />
+                                        <field name="notes" />
+                                        <field name="status"/>
+                                        <field name="estimated_month_closure"/>
+                                        <field name="official_compliance_status"/>
+                                        <field name="official_compliance_date" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter" name="studio_div_81a2cf">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="quality_metrics_tree_view" model="ir.ui.view" >
+            <field name="name">quality.metrics.tree.view</field>
+            <field name="model">quality.metrics</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="member_name"/>
+                    <field name="member_id"/>
+                    <field name="member_name"/>
+                    <field name="measure_category"/>
+                    <field name="quality_measure"/>
+                    <field name="estimated_expiration_date"/>
+                    <field name="pmg_name"/>
+                    <field name="pcp_name"/>
+                    <field name="auditor_last_update_by" readonly="1"/>
+                    <field name="auditor_update_date" readonly="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="quality_metrics_action" model="ir.actions.act_window">
+            <field name="name">Alianza Quality Measures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quality.metrics</field>
+            <field name="domain">[('quality_type', '=', 'alianza')]</field>
+            <field name="context">{'default_quality_type': 'alianza'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an Quality Metrics
+              </p><p>
+                Specify quality metrics.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="main_quality_metrics_root"
+            name="Alianza Quality Metrics"
+            web_icon="fa fa-television,#EB5A46,#34495e"
+            groups="base.group_user"
+            sequence="30"/>
+
+        <menuitem id="quality_metrics_menu" 
+            name="Quality Measures"
+            action="quality_metrics_action"
+            parent="main_quality_metrics_root"
+            sequence="1"/>
+
+    </data>
+</odoo>

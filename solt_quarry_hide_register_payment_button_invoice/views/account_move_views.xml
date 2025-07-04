@@ -1,0 +1,21 @@
+<odoo>
+    <data>
+      <!-- Inherit Form View to Modify it -->
+      <record id="hide_register_payment_btn_form_inherit" model="ir.ui.view">
+          <field name="name">account.move.hide.register.payment.btn.form</field>
+          <field name="model">account.move</field>
+          <field name="inherit_id" ref="account.view_move_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//button[@name='action_register_payment']" position="attributes">
+                  <attribute name="invisible">state != 'posted' or payment_state not in ('not_paid', 'partial') or move_type not in ('out_invoice', 'out_refund', 'in_invoice', 'in_refund', 'out_receipt', 'in_receipt') or can_hide_register_payment_btn</attribute>
+              </xpath>
+
+              <field name="show_name_warning" position="after">
+                  <field name="can_hide_register_payment_btn" invisible="1"/>
+              </field>
+
+          </field>
+      </record>
+    </data>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="counter_specs_form_button">
+            <field name= "name">counter.specs.inherit.form.view</field>
+            <field name= "model">sale.order</field>
+            <field name= "inherit_id" ref= "sale.view_order_form"/>
+            <field name= "arch" type= "xml">
+                    <xpath expr= "//sheet/div[1]/button[@name='action_view_invoice']" position= "before">
+                        <button name="specs_call_view" type="object" class="oe_stat_button" icon="fa-hand-o-right">
+                            <field string="Specs" name="specs_count" widget="statinfo"/>
+                        </button>
+                    </xpath> 
+                    <xpath expr="//field[@name='partner_id']" position="after">
+                        <field name="campo_o2m_ids" invisible='1'/>
+                    </xpath>
+            </field>                        
+        </record> 
+    </data> 
+</odoo>

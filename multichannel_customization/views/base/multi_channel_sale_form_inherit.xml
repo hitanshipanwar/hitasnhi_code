@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2015-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- "License URL : <https://store.webkul.com/license.html/>" -->
+<odoo>
+    <record id="multi_channel_form_inherit_for_order_date" model="ir.ui.view">
+        <field name="name">multi.channel.sale.from</field>
+        <field name="model">multi.channel.sale</field>
+        <field name="inherit_id" ref="odoo_multi_channel_sale.multi_channel_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='sales_setting']/div[@class='row mt16 o_settings_container']"
+                position="inside">
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label string="Import Orders After Date" for="import_order_after_date" />
+                        <div class="text-muted">
+                            Will Import Orders After the Selected date
+                        </div>
+                        <div class="text-muted">
+                            <b>
+                                <field name="import_order_after_date"
+                                    options="{'no_create' : True}"
+                                    readonly="state == 'validate'" />
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <label string="Import Orders End Date" for="import_order_end_date" />
+                        <div class="text-muted">
+                            Will Import Orders till the Selected date
+                        </div>
+                        <div class="text-muted">
+                            <b>
+                                <field name="import_order_end_date"
+                                    options="{'no_create' : True}"
+                                    readonly="state == 'validate'" />
+                            </b>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-6 o_setting_box">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <div>
+                                <field name="import_company_with_order"
+                                />
+                            </div>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label string="Import Company With Customer"
+                                for="import_company_with_order" />
+                            <div class="text-muted">
+                                Import Company along with customer
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 style="margin-top: 10px !important;background-color: #e9ecef;padding-left: 8px;">
+								Manage Default Customer
+				</h2>
+                    <div class="row mt16 o_settings_container">
+						<div class="col-xs-12 col-md-6 o_setting_box " >
+							<div class="o_setting_left_pane"/>
+							<div class="o_setting_right_pane">
+								<label string="Default Customer" for="default_customer_id"/>
+								<div class="text-primary">
+									<field name="default_customer_id"/>
+								</div>
+							</div>
+						</div>
+					</div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

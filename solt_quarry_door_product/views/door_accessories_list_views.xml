@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+        <record id="door_accessories_list_view_tree" model="ir.ui.view">
+            <field name="name">door.accessories.list.view.tree</field>
+            <field name="model">door.accessories.list</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Item list">
+                    <field name="name"/>
+                    <field name="product_id" options="{'no_create': True}"/>
+                    <field name="pricelist_id" options="{'no_create': True}"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_accessories_list" model="ir.actions.act_window">
+            <field name="name">Item list</field>
+            <field name="res_model">door.accessories.list</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

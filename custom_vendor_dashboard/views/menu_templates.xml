@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+      <template id="custom_vendor_dashboard_menu" inherit_id="portal.my_account_link">
+        <xpath expr="//*[@id='o_logout_divider']" position="before">
+            <!-- <a href="/vendor/login" role="menuitem" class="dropdown-item ps-3" groups="base.group_portal"> -->
+            <a href="/vendor/login" role="menuitem" class="dropdown-item ps-3">
+                <i class="fa fa-dashboard small text-muted"/> Vendor Dashboard
+            </a>
+        </xpath>
+      </template> 
+    </data>
+</odoo>

@@ -1,0 +1,12 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+bill_com_config_all_users,Bill.Com Config Access All Users,model_bill_com_config,base.group_user,1,1,1,0
+bill_com_config_setting_users,Bill.Com Config Access Setting Users,model_bill_com_config,base.group_system,1,1,1,1
+bill_com_error_logs,Bill.Com Error Logs,model_bill_com_error_logs,,1,1,1,1
+bill_com_payment_methods,Bill.Com Payment Methods,model_bill_com_payment_methods,,1,1,1,1
+access_bill_com_vendor_company_data,access_bill_com_vendor_company_data,model_bill_com_vendor_company_data,base.group_user,1,1,1,1
+access_bill_com_payment_term_company_data,access_bill_com_payment_term_company_data,model_bill_com_payment_term_company_data,base.group_user,1,1,1,1
+bill_com_update_company_data,Bill.Com Update Company Data,model_update_company_data,,1,1,1,1
+client_bista_odoo_bill_com_connector.access_bulk_send_bill_com,access_bulk_send_bill_com,client_bista_odoo_bill_com_connector.model_bulk_send_bill_com,base.group_user,1,1,1,1
+client_bista_odoo_bill_com_connector.access_bulk_vendor_send_bill_com,access_bulk_vendor_send_bill_com,client_bista_odoo_bill_com_connector.model_bulk_vendor_send_bill_com,base.group_user,1,1,1,1
+access_bill_com_users_company_data,access_bill_com_users_company_data,model_bill_com_users_company_data,base.group_user,1,1,1,1
+

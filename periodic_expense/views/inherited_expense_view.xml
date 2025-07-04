@@ -1,0 +1,59 @@
+<odoo>
+  <record id="view_hr_expense_form_small_fields" model="ir.ui.view">
+    <field name="name">hr.expense.form.small.fields</field>
+    <field name="model">hr.expense</field>
+    <field name="inherit_id" ref="hr_expense.hr_expense_view_form"/>
+    <field name="arch" type="xml">
+
+      <field name="product_id" position="attributes">
+        <!-- <attribute name="class">oe_short</attribute> -->
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="total_amount" position="attributes">
+        <attribute name="style">width: 100px;</attribute>
+      </field>
+
+      <field name="currency_id" position="attributes">
+        <attribute name="style">width: 100px;</attribute>
+      </field>
+
+      <field name="tax_ids" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="reference" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="date" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="account_id" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="analytic_account_id" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="analytic_tag_ids" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="company_id" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="employee_id" position="attributes">
+        <attribute name="style">width: 150px;</attribute>
+      </field>
+
+      <field name="payment_mode" position="attributes">
+        <!-- <attribute name="style">width: 150px;</attribute> -->
+      </field>
+
+    </field>
+  </record>
+</odoo>

@@ -1,0 +1,12 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"access_pcp_users","access.pcp.users","model_pcp","base.group_user",1,1,1,1
+"access_pcp_admin","access.pcp.admin","model_pcp","base.group_erp_manager",1,1,1,1
+"access_pmg_users","access.pmg.users","model_pmg","base.group_user",1,1,1,1
+"access_pmg_admin","access.pmg.admin","model_pmg","base.group_erp_manager",1,1,1,1
+"access_quality_metrics_users","access.quality.metrics.users","model_quality_metrics","base.group_user",1,1,1,1
+"access_quality_metrics_admin","access.quality.metrics.admin","model_quality_metrics","base.group_erp_manager",1,1,1,1
+"access_emergency_room_users","access.emergency.room.users","model_emergency_room","base.group_user",1,1,1,1
+"access_emergency_room_admin","access.emergency.room.admin","model_emergency_room","base.group_erp_manager",1,1,1,1
+"access_helpdesk_category_users","access.helpdesk.category.users","model_helpdesk_category","base.group_user",1,1,1,1
+"access_helpdesk_category_admin","access.helpdesk.category.admin","model_helpdesk_category","base.group_erp_manager",1,1,1,1
+wise_helpdesk.access_aha_completed_type,access_aha_completed_type,wise_helpdesk.model_aha_completed_type,base.group_user,1,1,1,1

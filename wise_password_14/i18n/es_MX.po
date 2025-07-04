@@ -1,0 +1,717 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* wise_password_14
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-02-08 18:07+0000\n"
+"PO-Revision-Date: 2022-02-08 18:07+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: wise_password_14
+#: model:mail.template,subject:wise_password_14.set_password_email
+msgid ""
+"${object.create_uid.name} from ${object.company_id.name} invites you to "
+"connect"
+msgstr ""
+"${object.create_uid.name} de ${object.company_id.name} te invita a "
+"conectarse a Odoo"
+
+#. module: wise_password_14
+#: model:mail.template,subject:wise_password_14.expire_password_reminder_email
+msgid ""
+"${object.create_uid.name} from ${object.company_id.name} reminds you to "
+"change your password"
+msgstr ""
+"${object.create_uid.name} de ${object.company_id.name} te recuerda que "
+"cambies tu contraseña"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "${object.token}"
+msgstr ""
+
+#. module: wise_password_14
+#: model:mail.template,body_html:wise_password_14.expire_password_reminder_email
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                                <!-- HEADER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\">\n"
+"                                                <span style=\"font-size: 10px;\">Welcome</span><br/>\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                                                    ${object.name}\n"
+"                                                </span>\n"
+"                                            </td><td valign=\"middle\" align=\"right\">\n"
+"                                                <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- CONTENT -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                <div>\n"
+"                                                    Dear ${object.name},<br/><br/>\n"
+"                                                    This is a reminder to reset your password, as it will expire on ${ctx.get('expiration_date').strftime(\"%B %d, %Y at %I:%m %p\")}. \n"
+"                                                    <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                        <a href=\"/web/renew_password?\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                            Reset Password\n"
+"                                                        </a>\n"
+"                                                    </div>\n"
+"                                                    --<br/>The ${object.company_id.name} Team\n"
+"                                                </div>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\" align=\"left\">\n"
+"                                                ${object.company_id.name}\n"
+"                                            </td></tr>\n"
+"                                            <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                ${object.company_id.phone}\n"
+"                                                % if object.company_id.email\n"
+"                                                    | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                                                % endif\n"
+"                                                % if object.company_id.website\n"
+"                                                    | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                                                    ${object.company_id.website}\n"
+"                                                </a>\n"
+"                                                % endif\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                                <!— HEADER —>\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\">\n"
+"                                                <span style=\"font-size: 10px;\">Bienvenidos</span><br/>\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                                                    ${object.name}\n"
+"                                                </span>\n"
+"                                            </td><td valign=\"middle\" align=\"right\">\n"
+"                                                <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!— CONTENT —>\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                <div>\n"
+"                                                    Estimado ${object.name},<br/><br/>\n"
+"                                                    Este es un recordatorio para restablecer su contraseña, ya que caducará el ${ctx.get('expiration_date').strftime(\"%d/%m/%Y %I:%m %p\")}. \n"
+"                                                    <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                        <a href=\"/web/renew_password?\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                            Restablecer la contraseña\n"
+"                                                        </a>\n"
+"                                                    </div>\n"
+"                                                    —<br/>El equipo de  ${object.company_id.name} \n"
+"                                                </div>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!— FOOTER —>\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\" align=\"left\">\n"
+"                                                ${object.company_id.name}\n"
+"                                            </td></tr>\n"
+"                                            <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                ${object.company_id.phone}\n"
+"                                                % if object.company_id.email\n"
+"                                                    | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                                                % endif\n"
+"                                                % if object.company_id.website\n"
+"                                                    | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                                                    ${object.company_id.website}\n"
+"                                                </a>\n"
+"                                                % endif\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        "
+
+#. module: wise_password_14
+#: model:mail.template,body_html:wise_password_14.set_password_email
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\">\n"
+"                <tr>\n"
+"                    <td align=\"center\">\n"
+"                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"                            <tbody>\n"
+"                                <!-- HEADER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\">\n"
+"                                                <span style=\"font-size: 10px;\">Welcome</span><br/>\n"
+"                                                <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                                                    ${object.name}\n"
+"                                                </span>\n"
+"                                            </td><td valign=\"middle\" align=\"right\">\n"
+"                                                <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- CONTENT -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                                                <div>\n"
+"                                                    Dear ${object.name},<br/><br/>\n"
+"                                                    You have been invited by ${object.create_uid.name} of ${object.company_id.name} to connect.\n"
+"                                                    <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                                                        <a href=\"${object.signup_url}\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">\n"
+"                                                            Accept invitation\n"
+"                                                        </a>\n"
+"                                                    </div>\n"
+"                                                    % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')\n"
+"                                                    Your signin link is: <b><a href=\"${object.signup_url}\">${object.signup_url}</a></b><br/>\n"
+"                                                    Your domain is: <b><a href=\"${website_url}\">${website_url}</a></b><br/>\n"
+"                                                    Your sign in email is: <b><a href=\"/web/login?login=${object.email}\" target=\"_blank\">${object.email}</a></b><br/>\n"
+"                                                    Your initial password is: <b>${ctx.get('password')}</b><br/><br/>\n"
+"                                                    --<br/>The ${object.company_id.name} Team\n"
+"                                                </div>\n"
+"                                            </td></tr>\n"
+"                                            <tr><td style=\"text-align:center;\">\n"
+"                                            <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width: 590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tr><td valign=\"middle\" align=\"left\">\n"
+"                                                ${object.company_id.name}\n"
+"                                            </td></tr>\n"
+"                                            <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                                                ${object.company_id.phone}\n"
+"                                                % if object.company_id.email\n"
+"                                                    | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                                                % endif\n"
+"                                                % if object.company_id.website\n"
+"                                                    | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                                                    ${object.company_id.website}\n"
+"                                                </a>\n"
+"                                                % endif\n"
+"                                            </td></tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </table>\n"
+"        "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"border-collapse:collapse;padding-top:16px;background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tbody><tr><td align=\"center\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"border-collapse:collapse;padding:16px;background-color: white; color: #454748; border-collapse:separate;\"><tbody><!-- HEADER --><tr><td align=\"center\" style=\"min-width:590px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"border-collapse:collapse;min-width:590px;background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\"><tbody><tr><td valign=\"middle\"><span style=\"font-size:10px;\">Bienvenidos</span><br> <span style=\"font-size:20px;font-weight: bold;\">${object.name}</span></td><td valign=\"middle\" align=\"right\"><img src=\"/logo.png?company=${object.company_id.id}\" style=\"border-style:none;vertical-align:middle;padding:0px;margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\" width=\"80\" height=\"35.1094\"></td></tr><tr><td colspan=\"2\" style=\"text-align:center;\"><hr width=\"100%\" style=\"margin:1rem 0 1rem 0;border-top-color:rgba(0, 0, 0, 0.1);border-top-style:solid;border-top-width:1px;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"></td></tr></tbody></table></td></tr><!-- CONTENT --><tr><td align=\"center\" style=\"min-width:590px;\"><table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"border-collapse:collapse;min-width:590px;background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\"><tbody><tr><td valign=\"top\" style=\"font-size:13px;\"><div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;\"> Estimado ${object.name}:<br><br> ${object.create_uid.name} de ${object.company_id.name} te invitó a conectarte.<div style=\"font-size:13px;font-family:&quot;Lucida Grande&quot;, Helvetica, Verdana, Arial, sans-serif;margin:16px 0px 16px 0px;\"> <a href=\"${object.signup_url}\" style=\"text-decoration:none;color:rgb(0, 135, 132);background-color:#875A7B;padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size:13px;\">Aceptar la invitacion</a></div>\n"
+"                                                    % set website_url = object.env['ir.config_parameter'].sudo().get_param('web.base.url')\n"
+"\n"
+"Su enlace de inicio de sesión es: <b style=\"font-weight:bolder;\"><a href=\"${object.signup_url}\" style=\"text-decoration:none;background-color:transparent;color:rgb(0, 135, 132);\">${object.signup_url}</a></b><br> Su dominio es: <b style=\"font-weight:bolder;\"><a href=\"${website_url}\" style=\"text-decoration:none;background-color:transparent;color:rgb(0, 135, 132);\">${website_url}</a></b><br> Su correo electrónico de inicio de sesión es: <b style=\"font-weight:bolder;\"><a href=\"/web/login?login=${object.email}\" target=\"_blank\" style=\"text-decoration:none;background-color:transparent;color:rgb(0, 135, 132);\">${object.email}</a></b><br> Su contraseña inicial es: <b style=\"font-weight:bolder;\">${ctx.get('password')}</b><br><br> -<br> El equipo de ${object.company_id.name} </div></td></tr><tr><td style=\"text-align:center;\"><hr width=\"100%\" style=\"margin:1rem 0 1rem 0;border-top-color:rgba(0, 0, 0, 0.1);border-top-style:solid;border-top-width:1px;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;overflow-y:visible;overflow-x:visible;height:0px;box-sizing:content-box;background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"></td></tr></tbody></table></td></tr>\n"
+"                                <!-- FOOTER -->\n"
+"                                <tr>\n"
+"                                    <td align=\"center\" style=\"min-width:590px;\">\n"
+"                                        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"border-collapse:collapse;min-width:590px;background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                                            <tbody><tr><td valign=\"middle\" align=\"left\">\n"
+"                                                ${object.company_id.name}\n"
+"                                            </td></tr>\n"
+"                                            <tr><td valign=\"middle\" align=\"left\" style=\"opacity:0.7;\">\n"
+"                                                ${object.company_id.phone}\n"
+"                                                % if object.company_id.email\n"
+"                                                    | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none;background-color:transparent;color: #454748;\">${object.company_id.email}</a>\n"
+"                                                % endif\n"
+"                                                % if object.company_id.website\n"
+"                                                    | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none;background-color:transparent;color: #454748;\">\n"
+"                                                    ${object.company_id.website}\n"
+"                                                </a>\n"
+"                                                % endif\n"
+"                                            </td></tr>\n"
+"                                        </tbody></table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </tbody>\n"
+"                        </table>\n"
+"                    </td>\n"
+"                </tr>\n"
+"            </tbody></table>"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Back to Login"
+msgstr "Regresar a Iniciar Sesión"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_users.py:0
+#, python-format
+msgid "Cannot send email: user %s has no email address."
+msgstr ""
+
+#. module: wise_password_14
+#: model:ir.model,name:wise_password_14.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Confirm"
+msgstr "Confirmar"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+msgid "Confirm New Password"
+msgstr "Confirmar Nueva Contraseña"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Confirmar nueva contraseña"
+msgstr ""
+
+#. module: wise_password_14
+#: model:ir.model,name:wise_password_14.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/controllers/main.py:0
+#: code:addons/wise_password_14/controllers/main.py:0
+#, python-format
+msgid "Could not reset your password"
+msgstr "No se puede restablecer su contraseña"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_users.py:0
+#, python-format
+msgid "Create Initial Password"
+msgstr ""
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.view_users_form_inherit
+msgid "Create Initial Password And Send Invitational Email"
+msgstr "Crear contraseña inicial y enviar correo de invitación"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__date_changed
+msgid "Date Password Changed"
+msgstr "Fecha de cambio de contraseña"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_change_password_user__display_name
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:wise_password_14.field_res_partner__display_name
+#: model:ir.model.fields,field_description:wise_password_14.field_res_users__display_name
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_change_password_user__id
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__id
+#: model:ir.model.fields,field_description:wise_password_14.field_res_partner__id
+#: model:ir.model.fields,field_description:wise_password_14.field_res_users__id
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__id
+msgid "ID"
+msgstr "Identificación"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/controllers/main.py:0
+#, python-format
+msgid "Invalid Initial Password"
+msgstr "Contraseña Inicial Inválida"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/controllers/main.py:0
+#, python-format
+msgid "Invalid Previous Password"
+msgstr "Contraseña Previa Inválida"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Invalid Token"
+msgstr "Token Inválido"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_change_password_user____last_update
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:wise_password_14.field_res_partner____last_update
+#: model:ir.model.fields,field_description:wise_password_14.field_res_users____last_update
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords____last_update
+msgid "Last Modified on"
+msgstr "Última modificación el"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_min_len
+msgid "Minimum Length (Set to 0 to disable)"
+msgstr "Longitud Mínima (Establézcalo en 0 para deshabilitar)"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_config_settings.py:0
+#, python-format
+msgid "Minimum Length must be greater than or equal to 0"
+msgstr "La longitud mínima debe ser mayor que o igual a 0"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Minimum Length:"
+msgstr "Longitud Mínima:"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Must Include Lowercase Letter"
+msgstr "Debe incluir minúsculas"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Must Include Number"
+msgstr "Debe incluir números"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Must Include Special Character"
+msgstr "Debe incluir carácteres especiales"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Must Include Uppercase Letter"
+msgstr "Debe incluir mayúsculas"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_include_lower
+msgid "Must include at least one lowercase letter"
+msgstr "Debe incluir al menos una minúscula"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_include_num
+msgid "Must include at least one number"
+msgstr "Debe incluir al menos un número"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_include_special
+msgid "Must include at least one special character"
+msgstr "Debe inlcuir al menos un carácter especial"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_include_upper
+msgid "Must include at least one uppercase letter"
+msgstr "Debe incluir al menos una mayúscula"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+msgid "New Password"
+msgstr "Nueva Contraseña"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Nueva contraseña"
+msgstr ""
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Number of Days Until Reminder:"
+msgstr "Número de días antes del recordatorio:"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Number of days until reset:"
+msgstr "Número de días antes del reinicio:"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_users__old_passwords
+msgid "Old Passwords"
+msgstr "Contraseñas Antiguas"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_config_settings.py:0
+#, python-format
+msgid "Password History must be greater than or equal to 0"
+msgstr "El historial de contraseñas debe ser mayor o igual a 0"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Password History:"
+msgstr "Historial de contraseñas:"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__password
+msgid "Previous Password"
+msgstr "Contraseña Previa"
+
+#. module: wise_password_14
+#: model:ir.model,name:wise_password_14.model_wise_password_14_old_passwords
+msgid "Previous encrypted passwords to be compared to the users' new password"
+msgstr ""
+"Las anteriores contraseñas cifradas se compararán con la nueva contraseña de"
+" los usuarios"
+
+#. module: wise_password_14
+#: model:ir.actions.server,name:wise_password_14.password_expire_reminder_cron_ir_actions_server
+#: model:ir.cron,cron_name:wise_password_14.password_expire_reminder_cron
+#: model:ir.cron,name:wise_password_14.password_expire_reminder_cron
+msgid "Remind Users with Passwords Expiring Soon"
+msgstr "Recordar a los usuarios con contraseñas que caducan pronto"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Require user passwords to have at least 1 Special Character"
+msgstr ""
+"Requerir que las contraseñas de los usuarios tengan al menos 1 carácter "
+"especial"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Require user passwords to have at least 1 lowercase letter"
+msgstr ""
+"Requerir que las contraseñas de los usuarios tengan al menos 1 minúscula"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Require user passwords to have at least 1 number"
+msgstr "Requerir que las contraseñas de los usuarios tengan al menos 1 número"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Require user passwords to have at least 1 uppercase letter"
+msgstr ""
+"Requerir que las contraseñas de los usuarios tengan al menos 1 mayúscula"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid ""
+"Set the minimum number of characters for all users' passwords (0 to disable)"
+msgstr ""
+"Establezca el número mínimo de caracteres para las contraseñas de todos los "
+"usuarios (0 para deshabilitar)"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid ""
+"Set the number of days from when a user's password expires to start sending "
+"emails (0 to disable)"
+msgstr ""
+"Establezca la cantidad de días desde que caduca la contraseña de un usuario "
+"para comenzar a enviar correos electrónicos (0 para deshabilitar)"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "Set the number of days until a user's password is reset (0 to disable)"
+msgstr ""
+"Establezca el número de días hasta que se restablezca la contraseña de un "
+"usuario (0 para deshabilitar)"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid ""
+"Set the number of new passwords that must be set until an old password can "
+"be reused (0 to disable)"
+msgstr ""
+"Establezca el número de nuevas contraseñas que se deben configurar hasta que"
+" se pueda reutilizar una contraseña anterior (0 para deshabilitar)"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Su contraseña inicial"
+msgstr ""
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Su correo electrónico:"
+msgstr ""
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "Su nombre"
+msgstr ""
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_users__date_password_changed
+msgid "The datetime the password was last modified"
+msgstr ""
+"Establezca el número de nuevas contraseñas que se deben configurar hasta que"
+" se pueda reutilizar una contraseña anterior (0 para deshabilitar)"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_num_days_till_reset
+msgid "The number of days a password will be valid for (Set to 0 to disable)"
+msgstr ""
+"El número de días por los que una contraseña será válida (Establézcalo en 0 "
+"para deshabilitar)"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"The number of days a password will be valid for must be greater than or "
+"equal to 0"
+msgstr ""
+"El número de días de validez de una contraseña debe ser mayor o igual a 0"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_num_days_till_reminder
+msgid ""
+"The number of days before password expiration to remind the user to change "
+"their password (Set to 0 to disable)"
+msgstr ""
+"Número de días antes de que caduque la contraseña para recordarle al usuario"
+" que cambie su contraseña (Establézcalo en 0 para deshabilitarlo)"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"The number of days before password expiration to remind the user to change "
+"their password must be greater than or equal to 0"
+msgstr ""
+"Número de días antes del vencimiento de la contraseña para recordar al "
+"usuario que cambie su contraseña debe ser mayor o igual a 0"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_config_settings.py:0
+#, python-format
+msgid ""
+"The number of days before password expiration to start reminding users to "
+"reset their password cannot be greater than the number of days a password is"
+" valid for"
+msgstr ""
+"El número de días antes del vencimiento de la contraseña para comenzar a "
+"recordar a los usuarios que restablezcan su contraseña no puede ser mayor "
+"que el número de días de validez de la contraseña"
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_res_config_settings__pwd_num_stored
+msgid ""
+"The number of new passwords that must be set until an old password can be "
+"reused (Set to 0 to disable)"
+msgstr ""
+"El número de contraseñas nuevas que se deben configurar hasta que se pueda "
+"reutilizar una contraseña anterior (Establézcalo en 0 para deshabilitar)"
+
+#. module: wise_password_14
+#: code:addons/wise_password_14/models/res_users.py:0
+#, python-format
+msgid "The proper email template could not be found"
+msgstr ""
+
+#. module: wise_password_14
+#: model:ir.model.fields,field_description:wise_password_14.field_wise_password_14_old_passwords__user_id
+msgid "User"
+msgstr "Usuario"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.res_config_settings_form_inherit
+msgid "User Password Settings"
+msgstr "Configuración de contraseña de usuario"
+
+#. module: wise_password_14
+#: model:ir.model,name:wise_password_14.model_change_password_user
+msgid "User, Change Password Wizard"
+msgstr "Usuario, Asistente de cambio de contraseña"
+
+#. module: wise_password_14
+#: model:ir.model,name:wise_password_14.model_res_users
+msgid "Users"
+msgstr "Usuarios"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+msgid "Your Email"
+msgstr "Su correo"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+msgid "Your Previous Password"
+msgstr "Su contraseña previa"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.renew_password
+msgid "Your password has expired and you need to update it"
+msgstr "Su contraseña ha expirado y necesita ser actualizada"
+
+#. module: wise_password_14
+#: model_terms:ir.ui.view,arch_db:wise_password_14.set_password
+msgid "e.g. John Doe"
+msgstr "p.ej. Juan Pérez"

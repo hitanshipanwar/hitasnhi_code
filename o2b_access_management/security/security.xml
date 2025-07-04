@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+
+    <!-- Inherit the existing menu item -->
+    <record id="base.menu_action_res_groups" model="ir.ui.menu">
+        <field name="groups_id" eval="[(5,)]"/>
+    </record>
+
+    <!-- Create New Group for employee -->
+    <record id="group_employee_own" model="res.groups">
+        <field name="name">Employee Own Record Only</field>
+        <field name="category_id" ref="base.module_category_human_resources_employees"/>
+        <field name="implied_ids" eval="[(4, ref('hr.group_hr_manager'))]"/>
+    </record>
+
+    <!-- Record rule: If user have group access to own records can see own record and can not edit, create and delete records -->
+    <record id="hr_employee_rule_own" model="ir.rule">
+        <field name="name">Restrict Employee Access to Own Record</field>
+        <field name="model_id" ref="hr.model_hr_employee"/>
+        <field name="domain_force">[('user_id', '=', user.id)]</field>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_employee_own'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_write" eval="False"/>
+        <field name="perm_create" eval="False"/>
+        <field name="perm_unlink" eval="False"/>
+    </record>
+
+    <!-- New Group for contract User -->
+    <record id="group_hr_contract_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="base.module_category_human_resources_contracts"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="hr_contract_rule_user_own_contracts" model="ir.rule">
+        <field name="name">Contracts: Own Records Only</field>
+        <field name="model_id" ref="hr_contract.model_hr_contract_history"/>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_hr_contract_user'))]"/>
+        <field name="domain_force">[('employee_id.user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- New Group for Vehicle -->
+    <record id="group_fleet_vehicle_manager" model="res.groups">
+        <field name="name">Fleet Vehicle Manager</field>
+        <field name="category_id" ref="base.module_category_manufacturing_maintenance"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="comment">The user will be able to view all fleet.vehicle records in read-only mode.</field>
+    </record>
+
+    <record id="access_fleet_vehicle_manager_read" model="ir.model.access">
+        <field name="name">fleet.vehicle manager: read-only access</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+        <field name="group_id" ref="o2b_access_management.group_fleet_vehicle_manager"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="fleet_vehicle_rule_manager_all" model="ir.rule">
+        <field name="name">Fleet Vehicle: All Records (Manager)</field>
+        <field name="model_id" ref="fleet.model_fleet_vehicle"/>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_fleet_vehicle_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <!-- Hide Menu -->
+    <record id="group_hide_menu_employee" model="res.groups">
+        <field name="name">Hide Menu For Employee</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_hide_menu_manager" model="res.groups">
+        <field name="name">Hide Menu For Manager</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="group_hide_menu_manufacturing" model="res.groups">
+        <field name="name">Hide Menu For Manufacturing</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Manager cnatin access -->
+    <record id="lunch_order_user_rule_full" model="ir.rule">
+        <field name="name">Allow Lunch Order Users Full Access</field>
+        <field name="model_id" ref="lunch.model_lunch_order"/>
+        <field name="groups" eval="[(4, ref('lunch.group_lunch_user'))]"/>
+        <field name="perm_read" eval="True"/>
+        <field name="perm_create" eval="True"/>
+        <field name="perm_write" eval="True"/>
+        <field name="perm_unlink" eval="True"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+    </record>
+
+    <!-- Record Rule for Inventory user can access own inventory -->
+    <!-- Transfer -->
+    <!-- <record id="stock_picking_rule_stock_user" model="ir.rule">
+        <field name="name">Stock Picking Access for Stock Users</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="domain_force">[('warehouse_users', 'in', [user.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+ -->
+    <record id="stock_picking_rule_stock_admin" model="ir.rule">
+        <field name="name">Stock Picking Admin</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Batch Transfer -->
+    <record id="stock_picking_batch_transafer_rule_stock_user" model="ir.rule">
+        <field name="name">Stock Picking Batch Transfer Access for Stock Users</field>
+        <field name="model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="domain_force">[('warehouse_users', 'in', [user.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="stock_picking_batch_transafer_rule_stock_admin" model="ir.rule">
+        <field name="name">Stock Picking Batch Transfer Admin</field>
+        <field name="model_id" ref="stock_picking_batch.model_stock_picking_batch"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <!-- Stock Scrap -->
+    <record id="stock_picking_scrap_rule_stock_user" model="ir.rule">
+        <field name="name">Stock Picking Scrap Access for Stock Users</field>
+        <field name="model_id" ref="stock.model_stock_scrap"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_user'))]"/>
+        <field name="domain_force">[('warehouse_users', 'in', [user.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    <record id="stock_picking_scrap_rule_stock_admin" model="ir.rule">
+        <field name="name">Stock Picking Scrap Admin</field>
+        <field name="model_id" ref="stock.model_stock_scrap"/>
+        <field name="groups" eval="[(4, ref('stock.group_stock_manager'))]"/>
+        <field name="domain_force">[(1, '=', 1)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+    
+    <!-- Calendar Access Rights -->
+    <record id="group_own_calendar_events" model="res.groups">
+        <field name="name">Own Calendar Events</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="rule_calendar_event_access" model="ir.rule">
+        <field name="name">Calendar Event Access</field>
+        <field name="model_id" ref="calendar.model_calendar_event"/>
+        <field name="domain_force">['|', ('user_id', '=', user.id), ('partner_ids', 'in', [user.partner_id.id])]</field>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_own_calendar_events'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+     <!-- Can Not Delete other user MO -->
+    <record id="group_cannot_delete_other_mo" model="res.groups">
+        <field name="name">Cannot Delete other's Manufacturing</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Own Assigned Task -->
+    <record id="project_task_rule_user" model="ir.rule">
+        <field name="name">User can only see assigned tasks</field>
+        <field name="model_id" ref="project.model_project_task"/>
+        <field name="groups" eval="[(4, ref('project.group_project_user'))]"/>
+        <field name="domain_force">[('user_ids', 'in', [user.id])]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="0"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+    </record>
+
+
+    <!-- Can Not Delete/Create Warehoues -->
+    <record id="group_cannot_access_warehoues" model="res.groups">
+        <field name="name">Warehoues: Restrict Creation/Deletion</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+
+    <!-- Van/Warehoues Record rule -->
+    <record id="group_warehoues_user_assigned_van" model="res.groups">
+        <field name="name">User: Van Assgined Inventory</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="stock_picking_rule_van_driver" model="ir.rule">
+        <field name="name">Van Driver Transfers Access</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="domain_force">
+            ['|',('location_id', 'child_of', user.fleet_location_ids.ids),
+         ('location_dest_id', 'child_of', user.fleet_location_ids.ids)
+        ]
+        </field>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_warehoues_user_assigned_van'))]"/>
+    </record>
+
+    <record id="stock_quant_rule_van_driver" model="ir.rule">
+        <field name="name">Van Driver Inventory Access</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="domain_force">
+            [('location_id', 'in', user.fleet_location_ids.ids)]
+        </field>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_warehoues_user_assigned_van'))]"/>
+    </record>
+
+    <!-- Manufacturing User access -->
+    <record id="group_manufacturing_access_inventory" model="res.groups">
+        <field name="name">Manufacturing User: Inventory Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+
+    <record id="stock_quant_rule_manufacturing_user" model="ir.rule">
+        <field name="name">Manufacturing User: Inventory Access</field>
+        <field name="model_id" ref="stock.model_stock_quant"/>
+        <field name="domain_force">
+            [('location_users', 'in', [user.id])]
+        </field>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_manufacturing_access_inventory'))]"/>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+    <record id="stock_picking_rule_stock_for_manufacturing_user" model="ir.rule">
+        <field name="name">Stock Picking Access for Stock Users</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="groups" eval="[(4, ref('o2b_access_management.group_manufacturing_access_inventory'))]"/>
+        <field name="domain_force">['|', ('location_users', 'in', [user.id]), ('user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="1"/>
+        <field name="perm_create" eval="1"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_unlink" eval="1"/>
+    </record>
+
+	</data>
+</odoo>

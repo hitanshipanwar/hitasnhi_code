@@ -1,0 +1,48 @@
+<odoo>
+    <data>
+        <record id="pmg_form_view" model="ir.ui.view" >
+            <field name="name">pmg.form.view</field>
+            <field name="model">pmg</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="PMG">
+                        <div class="oe_title">
+                                    <h1>
+                                        <field name="name" required="1"/>
+                                    </h1>
+                                </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="pmg_tree_view" model="ir.ui.view" >
+            <field name="name">pmg.tree.view</field>
+            <field name="model">pmg</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="company_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="pmg_action" model="ir.actions.act_window">
+            <field name="name">PMG</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pmg</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an PMG
+              </p><p>
+                Specify PMG.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="pmg_menu" name="PMG"
+        action="pmg_action" parent="contacts.res_partner_menu_config"
+        sequence="0"/>
+
+    </data>
+</odoo>

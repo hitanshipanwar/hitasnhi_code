@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="res_partner_form_inherit_o2b" model="ir.ui.view">
+        <field name="name">res.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="action_view_fines"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-gavel">
+                    <field name="fine_count" widget="statinfo" string="Fines"/>
+                </button>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

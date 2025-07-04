@@ -1,0 +1,27 @@
+<odoo>
+    <data>
+      <!-- Inherit Form View to Modify it -->
+      <record id="view_hide_menu_res_users_form_inherit" model="ir.ui.view">
+          <field name="name">hide.menu.res.users.form.inherit</field>
+          <field name="model">res.users</field>
+          <field name="inherit_id" ref="base.view_users_form"/>
+          <field name="arch" type="xml">
+
+              <xpath expr="//notebook" position="inside">
+                  <page string="Hide Menus" name="hide_menus" invisible="is_admin_user">
+                      <group>
+                          <p colspan="2" class="mb-4">The selected menus in this section have been hidden from the user.</p>
+                          <field name="is_admin_user" invisible="1"/>
+                          <field name="hide_ir_menu_access" domain="[('parent_id', '=', False)]" nolabel="1"  colspan="2">
+                              <tree>
+                                  <field name="name"/>
+                              </tree>
+                          </field>
+                      </group>
+                  </page>
+              </xpath>
+
+          </field>
+      </record>
+    </data>
+</odoo>

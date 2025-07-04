@@ -1,0 +1,252 @@
+<odoo>
+    <record id="helpdesk_ticket_view_form_cra" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form.cra</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="priority">2</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group/group[1]" position="replace">
+                <group>
+                    <field name="active" invisible="1"/>
+                    <field name="partner_name" invisible="1"/>
+                    <field name="partner_email" invisible="1"/>
+                    <field name="partner_phone" invisible="1"/>
+                    <field name="is_partner_email_update" invisible="1"/>
+                    <field name="is_partner_phone_update" invisible="1"/>
+                    <field name="partner_id" string="Search Member" />
+                    <field name="phone_number"/>
+                    <field name="mobile_number"/>
+                    <field name="is_solved" invisible="1"/>
+                    <field name="alternate_phone"/>
+                    <field name="alternate_phone2"/>
+                    <field name="email"/>
+                    <field name="email_cc" invisible="1"/>
+                    <field name="member_id"/>
+                    <field name="insurance_company"/>
+                    <field name="competition"/>
+                    <field name="coverage"/>
+                    <field name="hchn"/>
+                    <field name="ratecell_description"/>
+                    <field name="birth_date"/>
+                    <field name="age"/>
+                    <field name="sex"/>
+                    <field name="city"/>
+                    <field name="old_id"/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet/group/group[2]" position="replace">
+                <group>
+                    <field name="company_id" groups="base.group_multi_company" context="{'create': False}"/>
+                    <field name="team_id"/>
+                    <field name="domain_user_ids" invisible="1"/>
+                    <field name="user_id" class="field_user_id" domain="['&amp;', ('id', 'in', domain_user_ids), ('share', '=', False)]" widget="many2one_avatar_user"/>
+                    <field name="ticket_type_id"/>
+                    <field name="lost_call_phone"/>
+                    <field name="visit_flag"/>
+                    <field name="priority" widget="priority"/>
+                    <field name="pmg_name"/>
+                    <field name="pcp_name"/>
+                    <field name="medicaid_expiration"/>
+                    <field name="category" domain="[('ticket_type_id','=', ticket_type_id)]"/>
+                    <field name="date_time_coordinated"/>
+                    <field name="aha_completed_id" options="{'no_create': True}"/>
+                    <field name="customer_satisfaction" widget="priority"/>
+                    <field name="vaccination_status" />
+                    <field name="covid_19_vaccine"/>
+                    <field name="preferred_location"/>
+                    <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                </group>
+            </xpath>
+            <xpath expr="//form[1]/sheet[1]/div[not(@name)][2]" position="replace"/>
+            <field name="description" position="replace">
+                <notebook colspan="4">
+                    <page string="Teleconsultas" name="teleconsultas">
+                        <group>
+                            <group string="Paso 1: Información inicial del paciente.">
+                                <field name="patient_phone"/>
+                                <field name="start_call_datetime"/>
+                                <field name="reason"/>
+                                <field name="call_911"/>
+                                <field name="current_location"/>
+                                <field name="accompanied"/>
+                                <field name="companion_drivers"/>
+                                <field name="present_symptoms"/>
+                                <field name="symptoms_since"/>
+                            </group>
+                            <group string="Paso 2: Condiciones existentes y Medicamentos.">
+                                <field name="previous_condition1"/>
+                                <field name="previous_condition2"/>
+                                <field name="previous_condition3"/>
+                                <field name="last_3_hours_medication"/>
+                                <field name="medication_name"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Paso 3: Información sobre Dolor y Visita al PCP">
+                                <field name="feel_pain"/>
+                                <field name="pain_level"/>
+                                <field name="pcp_last_visit"/>
+                                <field name="child_vaccination"/>
+                            </group>
+                            <group string="Paso 4: Recomendaciones y Acciones">
+                                <field name="beneficiary_recommendation"/>
+                                <field name="nutritionist"/>
+                                <field name="emergency_room"/>
+                                <field name="municipal_emergency_room"/>
+                                <field name="nurse_id" domain="[('is_nurse','=',True)]" options="{'no_create': True, 'no_create_edit':True}" />
+                                <field name="triage_info"/>
+                                <field name="call_ended"/>
+                            </group>
+                        </group>
+
+                    </page>
+                    <page string="In-Salud Censo" name="insalud_censo">
+                        <group>
+                            <group>
+                                <field name="beneficiary_name"/>
+                                <field name="facility"/>
+                                <field name="hospital_npi"/>
+                                <field name="place_service"/>
+                                <field name="ipa_group"/>
+                                <field name="census_type"/>
+                                <field name="admission_date"/>
+                                <field name="discharge_date"/>
+                                <field name="census_type2"/>
+                                <field name="los"/>
+                                <field name="admitting_physician"/>
+                                <field name="admitting_physician_npi"/>
+                                <field name="admitting_phone"/>
+                                <field name="admission_diagnosis"/>
+                                <field name="admission_diagnosis_description"/>
+                                <field name="discharge_diagnosis"/>
+                                <field name="discharge_diagnosis_description"/>
+                            </group>
+                            <group>
+                                <field name="download_date"/>
+                                <field name="production_date"/>
+                                <field name="ipa_category"/>
+                                <field name="pcp_npi"/>
+                                <field name="new_admission_flag"/>
+                                <field name="new_discharge_flag"/>
+                                <field name="new_hospital_visit_flag"/>
+                                <field name="new_readmission_flag"/>
+                                <field name="readmission_flag"/>
+                                <field name="pcp_abreviation"/>
+                                <field name="lace_score"/>
+                            </group>
+                        </group>
+
+                    </page>
+                    <page name="desafiliaciones" string="Desafiliaciones">
+                        <group>
+                            <group>
+                                <field name="razon_desafiliacion"/>
+                                <field name="especialidad_desafiliacion"/>
+                                <field name="pcp_desafiliacion"/>
+                            </group>
+                            <group>
+                                <field name="estatus_boleta"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="Telemedicina" string="telemedicina">
+                        <group>
+                            <group String="Requisitos para servicios de telemedicina">
+                                <field name="use_phone_or_pc"/>
+                                <field name="has_email"/>
+                                <field name="has_signal"/>
+                                <field name="has_internet"/>
+                                <field name="has_high_speed_internet"/>
+                            </group>
+                            <group>
+                                <field name="receive_services"/>
+                                <field name="inform_patient_portal"/>
+                                <field name="used_patient_portal"/>
+                            </group>
+                        </group>
+                    </page>
+                    <page name="Encuesta" string="Encuesta">
+                        <group>
+                            <group>
+                                <field name="encuesta"/>
+                            </group>
+                            <group>
+                                <field name="encuesta_question1"/>
+                                <field name="encuesta_question2"/>
+                                <field name="encuesta_question3"/>
+                                <field name="encuesta_question4"/>
+                            </group>
+                        </group>
+                    </page>
+
+                </notebook>
+                <field name="description" class="field_description" placeholder="Description of the ticket..."/>
+
+            </field>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_ticket_search_cra" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search.cra</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="birth_date" string="Fecha de Nacimiento"/>
+                <field name="phone_number" string="Phone Number"/>
+                <field name="mobile_number" string="Mobile Number"/>
+                <field name="alternate_phone" string="Alternate Phone"/>
+                <field name="alternate_phone2" string="Alternate Phone 2"/>
+                <field name="pmg_name" string="PMG name"/>
+                <field name="pcp_name" string="PCP name"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_tickets_view_tree_inherit_cra" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.cra</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="category" optional="show" domain="[('ticket_type_id','=', ticket_type_id)]" />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_aha_completed_type_tree" model="ir.ui.view">
+        <field name="name">aha.completed.type.tree.cra</field>
+        <field name="model">aha.completed.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="helpdesk_aha_completed_type_form" model="ir.ui.view">
+        <field name="name">aha.completed.type.form.cra</field>
+        <field name="model">aha.completed.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="helpdesk_aha_completed_type_action" model="ir.actions.act_window">
+            <field name="name">AHA Completed</field>
+            <field name="res_model">aha.completed.type</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="aha_completed_type_menu" name="AHA Completed"
+        sequence="100" parent="helpdesk.helpdesk_menu_config"
+        action="helpdesk_aha_completed_type_action"/>
+
+</odoo>

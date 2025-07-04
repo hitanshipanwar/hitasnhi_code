@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_handing_glass_view_tree" model="ir.ui.view">
+            <field name="name">door.handing.glass.view.tree</field>
+            <field name="model">door.handing.glass</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Handing Glass">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_handing_glass" model="ir.actions.act_window">
+            <field name="name">Handing Glass</field>
+            <field name="res_model">door.handing.glass</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        
+        <menuitem id="door_handing_glass_sub_menu" name="Handing Glass" action="action_door_handing_glass" parent="cantera_sale_door.glass_specs_indicator" sequence="2"/>
+
+  </data>
+</odoo>

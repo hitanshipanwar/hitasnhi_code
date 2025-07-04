@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data>
+
+        <record id="view_sezzle_settings_form" model="ir.ui.view">
+            <field name="name">sezzle.settings.form</field>
+            <field name="model">sezzle.settings</field>
+            <field name="arch" type="xml">
+                <form string="Sezzle API Settings">
+                    <sheet>
+                        <group col="2">
+                            <group>
+                                <field name="name" placeholder="Enter name"/>
+                                <field name="environment" string="Environment" placeholder="Select environment" />
+                                <field name="start_date" string="From Date" placeholder="Enter start date" required="1" />
+                                <field name="end_date" string="To Date" placeholder="Enter end date"/>
+                                <label for="offset"/>
+                                <div class="o_column" col="2">
+                                    <field name="offset" placeholder="Enter offset" />
+                                    <span class="text-muted">Max: 20</span>
+                                </div>
+                                <field name="currency_code" string="Currency Code" placeholder="Enter currency code" />
+                            </group>
+                            <group>
+                                <field name="provider" />
+                                <field name="company_id" required="1" />
+                                <field name="payment_journal_id" required="1" />
+                            </group>
+                        </group>
+                        <group>
+                            <button name="create_bank_statement_line_via_settlement" string="Import Transactions" type="object" default_focus="1" class="oe_highlight"/>
+                        </group>
+                        <notebook>
+                            <page name="sezzle_cred" string="Sezzle Credential">
+                                <group>
+                                    <group>
+                                        <field name="is_token_expired" invisible="1"/>
+                                        <field name="public_key" required="1"/>
+                                        <field name="private_key" required="1"/>
+                                        <label for="access_token" required="1"/>
+                                        <div class="o_row" col="2">
+                                            <field name="access_token" password="True"/>
+                                            <button string="Generate Access Token" type="object" name="set_access_token" class="btn-primary" invisible="not private_key or not public_key"/>
+                                        </div>
+                                    </group>
+                                </group>
+                            </page>
+                            <page name="sezzle_cred_update" string="Update">
+                                <group>
+                                    <group>
+                                        <field name="access_token_create_date" readonly="1" />
+                                        <field name="access_token_expire_date" readonly="1" />
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_sezzle_settings_tree" model="ir.ui.view">
+            <field name="name">sezzle.settings.tree</field>
+            <field name="model">sezzle.settings</field>
+            <field name="arch" type="xml">
+                <tree string="Sezzle API Settings">
+                    <field name="name"/>
+                    <field name="provider"/>
+                    <field name="environment" required="1"/>
+                    <!-- <field name="public_key" required="1"/>
+                    <field name="private_key" required="1"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_sezzle_settings" model="ir.actions.act_window">
+            <field name="name">Sezzle Settings</field>
+            <field name="res_model">sezzle.settings</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+
+    <menuitem id="menu_sezzle_settings_config" name="Sezzle Configuration" parent="account.account_banks_menu" action="action_sezzle_settings"/>
+
+
+</odoo>

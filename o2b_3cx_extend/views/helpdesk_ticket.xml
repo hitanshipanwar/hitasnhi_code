@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="helpdesk_ticket_view_form_inherit" model="ir.ui.view">
+        <field name="model">helpdesk.ticket</field>
+        <field name="priority">9</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_cc']" position="after">
+                <field name="description"/>
+                <field name="call_description" groups="o2b_3cx_extend.group_call_description_access"/>
+                <!-- <field name="audio_url"/> -->
+            </xpath>
+        </field>
+    </record>
+    
+</odoo>

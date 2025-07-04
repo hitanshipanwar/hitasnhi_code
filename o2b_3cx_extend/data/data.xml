@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="group_call_description_access" model="res.groups">
+        <field name="name">3CX Information Access</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <record id="res_call_log_company_rule" model="ir.rule">
+        <field name="name">Call Logs per Company</field>
+        <field name="model_id" ref="o2b_3cx_extend.model_res_call_log"/>
+        <!-- <field name="domain_force">[('company_id', 'in', company_ids)]</field> -->
+        <field name="domain_force">['|', ('company_id', '=', False), ('company_id', 'in', company_ids)]</field>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <!-- 3cx_template Inherit -->
+    <template id="3cx_template" inherit_id="nalios_3cx_full.3cx_template">
+        <xpath expr="//Parameters" position="inside">
+            <Parameter Name="CompanyID" Type="String" Parent="General Configuration" Editor="String" Title="Company ID:" t-att-Default="rse_company.id"/>
+        </xpath>
+        <xpath expr="//PostValues" position="inside">
+            <Value Key="company" Passes="1" Type="String">[CompanyID]</Value>
+        </xpath>
+
+      <!--   <xpath expr="//PostValues" position="inside">
+            <Value Key="historyid" Passes="1" Type="String">[IIf(IsNull([HistoryID]), "", [HistoryID])]</Value>
+            <Value Key="callid" Passes="1" Type="String">[IIf(IsNull([CallID]), "", [CallID])]</Value>
+            <Value Key="reason_terminated" Passes="1" Type="String">[IIf(IsNull([ReasonTerminated]), "", [ReasonTerminated])]</Value>
+            <Value Key="from_dn" Passes="1" Type="String">[IIf(IsNull([FromDN]), "", [FromDN])]</Value>
+            <Value Key="dial_no" Passes="1" Type="String">[IIf(IsNull([DialedNumber]), "", [DialedNumber])]</Value>
+            <Value Key="reason_changed" Passes="1" Type="String">[IIf(IsNull([ReasonChanged]), "", [ReasonChanged])]</Value>
+            <Value Key="final_number" Passes="1" Type="String">[IIf(IsNull([FinalNumber]), "", [FinalNumber])]</Value>
+            <Value Key="final_dn" Passes="1" Type="String">[IIf(IsNull([FinalDN]), "", [FinalDN])]</Value>
+            <Value Key="bill_code" Passes="1" Type="String">[IIf(IsNull([BillCode]), "", [BillCode])]</Value>
+            <Value Key="bill_rate" Passes="1" Type="String">[IIf(IsNull([BillRate]), "", [BillRate])]</Value>
+            <Value Key="bill_cost" Passes="1" Type="String">[IIf(IsNull([BillCost]), "", [BillCost])]</Value>
+            <Value Key="bill_name" Passes="1" Type="String">[IIf(IsNull([BillName]), "", [BillName])]</Value>
+            <Value Key="chain" Passes="1" Type="String">[IIf(IsNull([Chain]), "", [Chain])]</Value>
+            <Value Key="missed_queue_calls" Passes="1" Type="String">[IIf(IsNull([MissedQueueCalls]), "", [MissedQueueCalls])]</Value>
+            <Value Key="from_type" Passes="1" Type="String">[IIf(IsNull([FromType]), "", [FromType])]</Value>
+            <Value Key="to_type" Passes="1" Type="String">[IIf(IsNull([ToType]), "", [ToType])]</Value>
+            <Value Key="final_type" Passes="1" Type="String">[IIf(IsNull([FinalType]), "", [FinalType])]</Value>
+            <Value Key="final_dispname" Passes="1" Type="String">[IIf(IsNull([FinalDispName]), "", [FinalDispName])]</Value>
+            <Value Key="from_dispname" Passes="1" Type="String">[IIf(IsNull([FromDispName]), "", [FromDispName])]</Value>
+            <Value Key="to_dispname" Passes="1" Type="String">[IIf(IsNull([ToDispName]), "", [ToDispName])]</Value>
+            <Value Key="to_dn" Passes="1" Type="String">[IIf(IsNull([ToDN]), "", [ToDN])]</Value>
+            <Value Key="created_at" Passes="1" Type="String">[IIf(IsNull([CreatedAt]), "", [CreatedAt])]</Value>
+
+        </xpath> -->
+    </template>
+
+</odoo>

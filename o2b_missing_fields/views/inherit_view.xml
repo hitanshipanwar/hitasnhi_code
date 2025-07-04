@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+    <record id="Chatter_section" model="res.groups">
+        <field name="name">Chatter Tab</field>
+        <field name="category_id" ref="base.module_category_services_helpdesk" /> 
+    </record>
+
+    <!-- Create group for provide access  to modify tickets but not able to create ticket and duplicate  -->
+    <record id="helpdesk_educational_call" model="res.groups">
+        <field name="name">Helpdesk Educational Call</field>
+        <field name="category_id" ref="base.module_category_services_helpdesk" /> 
+    </record>
+
+    <record id="view_helpdesk_form_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">   
+            <xpath expr="//div[hasclass('oe_chatter')]" position="attributes">
+                <attribute name="groups">o2b_missing_fields.Chatter_section</attribute>
+            </xpath>
+            
+        </field>
+    </record>
+
+    <record id="view_helpdesk_form_inherit_add_field" model="ir.ui.view">
+        <field name="name">view.helpdesk.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="wise_helpdesk.helpdesk_ticket_view_form_cra"/>
+        <field name="arch" type="xml">   
+            <xpath expr="//page[@name='desafiliaciones']" position="replace">
+                <page name="desafiliaciones" string="Desafiliaciones">
+                    <style>
+                        .o_form_label{
+                        color: gray;
+                        font-weight:400 !important;
+                        } 
+                         .o_form_label_empty{
+                        color: #212529 !important; 
+                        }
+                        </style>
+                        <group>
+                            <field name="razon_desafiliacion"/>
+                            <field name="desafiliaciones_beneficios" widget="many2many_tags"  options="{'no_create': True}" />
+                            <field name="especialidad_desafiliacion"/>
+                            <field name="pcp_desafiliacion"/>
+                            <field name="estatus_boleta"/>
+                            <field name="desafiliaciones_numero_control" />  
+                        </group>
+                    </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="tree_view_add_list" model="ir.ui.view">
+            <field name="name">tree.view.add.list</field>
+            <field name="model">add.list.value</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="All Project" sample="1" >
+                    <field name="add_value"/>
+                </tree>
+            </field>
+    </record>
+    
+    <record id="add_value_view_action" model="ir.actions.act_window">
+            <field name="name">Desafiliaciones - Beneficios</field>
+            <field name="res_model">add.list.value</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Add Value in list 
+                </p>
+            </field>
+    </record>
+
+    <record id="add_list_value_action_view" model="ir.actions.act_window.view">
+            <field name="view_mode">tree</field>
+            <field name="sequence" eval="4"/>
+            <field name="view_id" ref="tree_view_add_list"/>
+            <field name="act_window_id" ref="add_value_view_action"/>
+    </record>
+
+     <menuitem id="add_list_item_menu" 
+            name="Desafiliaciones - Beneficios"
+            parent="helpdesk.helpdesk_menu_config"
+            action="add_value_view_action"
+            sequence="110"
+            groups="helpdesk.group_helpdesk_manager"/> 
+
+
+    
+</odoo>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="product_template_attribute_price_view_tree">
+            <field name= "name">product.template.attribute.price.view.tree</field>
+            <field name= "model">product.template.attribute.value</field>
+            <field name= "inherit_id" ref= "product.product_template_attribute_value_view_tree"/>
+            <field name= "arch" type= "xml"> 
+                    <xpath expr="//field[@name='price_extra']" position="before">
+                        <field name="price_unique" widget='monetary' optional="show"/>
+                        <field name="price_sd" widget='monetary' optional="show"/> 
+                        <field name="price_dd" widget='monetary' optional="show"/> 
+                        <field name="price_bifolds" widget='monetary' optional="show"/> 
+                        <field name="price_mol_arq" widget='monetary' optional="show"/> 
+                        <field name="price_mol_cua" widget='monetary' optional="show"/>  
+                    </xpath>
+                    <xpath expr="//field[@name='price_extra']" position="attributes">
+                        <attribute name="optional">hide</attribute>
+                    </xpath>
+            </field>                        
+        </record>
+
+        <record model="ir.ui.view" id="product_template_attribute_price_view_form">
+            <field name= "name">product.template.attribute.price.view.form</field>
+            <field name= "model">product.template.attribute.value</field>
+            <field name= "inherit_id" ref= "product.product_template_attribute_value_view_form"/>
+            <field name= "arch" type= "xml"> 
+                    <xpath expr="//field[@name='price_extra']" position="before">
+                        <field name="price_sd" widget='monetary'/> 
+                        <field name="price_dd" widget='monetary'/> 
+                        <field name="price_bifolds" widget='monetary'/> 
+                        <field name="price_unique" widget='monetary'/>
+                        <field name="price_mol_arq" widget='monetary'/> 
+                        <field name="price_mol_cua" widget='monetary'/>  
+                    </xpath>
+            </field>                        
+        </record> 
+    </data> 
+</odoo>

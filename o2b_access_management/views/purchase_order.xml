@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<record id="purchase_order_form_inherit" model="ir.ui.view">
+	        <field name="name">purchase.order.form</field>
+	        <field name="model">purchase.order</field>
+	        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//sheet/group" position="after">
+	        		<group>
+	        			<group>
+			        		<field name="order_number"/>
+			        	</group>
+			        	<group>
+			        		<field name="payment_reference"/>
+			        		<field name="payment_date"/>
+			        		<field name="payment_amt"/>
+			        		<field name="payment_method_type"/>
+	        				<!-- <field name="seller_vat_num"/> -->
+			        	</group>
+		        	</group>
+	        	</xpath>
+	        	<xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+	        		<field name="part_number"/>
+	        	</xpath>
+	        </field>
+	    </record>
+
+	    <record id="product_normal_form_view_inherit" model="ir.ui.view">
+	        <field name="name">product.product.form</field>
+	        <field name="model">product.product</field>
+	        <field name="inherit_id" ref="product.product_normal_form_view"/>
+	        <field name="arch" type="xml">
+	        	<xpath expr="//field[@name='detailed_type']" position="before">
+	        		<field name="part_number"/>
+	        	</xpath>
+	        </field>
+	    </record>
+
+	</data>
+</odoo>

@@ -1,0 +1,17 @@
+# -*- coding: utf-8 -*-
+##########################################################################
+# Author      : O2b Technologies Pvt. Ltd.(<www.o2btechnologies.com>)
+# Copyright(c): 2016-Present O2b Technologies Pvt. Ltd.
+# All Rights Reserved.
+#
+# This program is copyright property of the author mentioned above.
+# You can`t redistribute it and/or modify it.
+#
+##########################################################################
+from . import stock_i_warehouse
+from . import stock_move
+from . import mrp_production
+from . import aisle_location
+from . import ir_config_settings
+from . import stock_package_type
+from . import res_company

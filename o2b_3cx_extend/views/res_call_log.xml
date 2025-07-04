@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="res_call_log_list_view_inherit" model="ir.ui.view">
+        <field name="model">res.call.log</field>
+        <field name="inherit_id" ref="nalios_3cx_full.res_call_log_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="ticket_id"/>
+            </xpath>
+            <xpath expr="//field[@name='details']" position="after">
+                <field name="transcription"/>
+                <field name="audio_url"/>
+                <field name="company_id"/>
+                <field name="description"/>
+                <field name="call_description"/>
+                <!-- Added -->
+                <!-- <field name="missed_call_test"/>
+                <field name="historyid"/>
+                <field name="callid"/>
+                <field name="reason_terminated"/>
+                <field name="from_dn"/>
+                <field name="dial_no"/>
+                <field name="reason_changed"/>
+                <field name="final_number"/>
+                <field name="final_dn"/>
+                <field name="bill_code"/>
+                <field name="bill_rate"/>
+                <field name="bill_cost"/>
+                <field name="bill_name"/>
+                <field name="chain"/>
+                <field name="missed_queue_calls"/>
+                <field name="from_type"/>
+                <field name="to_type"/>
+                <field name="final_type"/>
+                <field name="final_dispname"/>
+                <field name="from_dispname"/>
+                <field name="to_dispname"/>
+                <field name="to_dn"/>
+                <field name="created_at"/> -->
+            </xpath>
+        </field>
+    </record>
+
+    <record id="res_call_log_form_view" model="ir.ui.view">
+        <field name="name">res.call.log.form.view</field>
+        <field name="model">res.call.log</field>
+        <field name="arch" type="xml">
+            <form string="Call Log">
+                <header>
+                    <button name="action_open_partner_wizard"
+                            string="Create Partner"
+                            type="object"
+                            class="btn-primary"/>
+                    <button name="action_create_or_update_ticket"
+                            string="Create/Update Ticket"
+                            type="object"
+                            class="btn-secondary"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name" string="Subject"/>
+                            <field name="partner_id"/>
+                            <field name="company_id" readonly="1"/>
+                            <field name="ticket_id"/>
+                        </group>
+                        <group>
+                            <field name="date" readonly="1"/>
+                            <field name="ttype" readonly="1"/>
+                            <field name="entitytype" readonly="1"/>
+                            <field name="agentname" readonly="1"/>
+                            <field name="agent" readonly="1"/>
+                        </group>
+                    </group>
+
+                    <group string="Call Timing">
+                        <field name="call_start" readonly="1"/>
+                        <field name="call_established" readonly="1"/>
+                        <field name="call_end" readonly="1"/>
+                        <field name="duration" readonly="1"/>
+                    </group>
+
+                    <group string="Caller Info">
+                        <field name="call_ticket" string="Call Ticket ID" readonly="1"/>
+                        <field name="call_phone" readonly="1"/>
+                        <field name="call_email" readonly="1"/>
+                        <field name="partner_name_ai" readonly="1"/>
+                        <field name="number" readonly="1"/>
+                        <field name="transcription" readonly="1"/>
+                        <field name="audio_url" readonly="1"/>
+                    </group>
+
+                    <notebook>
+                        <page string="Transcription">
+                            <field name="description" readonly="1"/>
+                        </page>
+                        <page string="Call Description">
+                            <field name="call_description" readonly="1"/>
+                        </page>
+                        <page string="Other Details">
+                            <field name="details" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="nalios_3cx_full.action_call_logs" model="ir.actions.act_window">
+        <field name="name">3CX Call Logs</field>
+        <field name="res_model">res.call.log</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

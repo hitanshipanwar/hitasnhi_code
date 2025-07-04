@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Multi - Company Specs Rules -->
+<!--    <record id="specs_sale_rule" model="ir.rule">-->
+<!--        <field name="name">Specs multi-company</field>-->
+<!--        <field name="model_id" ref="model_specs_sale"/>-->
+<!--        <field name="domain_force">[('company_id', 'in', company_ids)]</field>-->
+<!--    </record>-->
+
+    <!-- Multi - Company Specs Glass Specifications Rules -->
+<!--    <record id="specs_door_glass_specs_rule" model="ir.rule">-->
+<!--        <field name="name">Specs multi-company</field>-->
+<!--        <field name="model_id" ref="model_door_glass_specs"/>-->
+<!--        <field name="domain_force">[('specs_id.company_id', 'in', company_ids)]</field>-->
+<!--    </record>-->
+
+</odoo>

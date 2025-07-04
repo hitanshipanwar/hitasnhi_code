@@ -1,0 +1,622 @@
+<odoo>
+    <template id="check_phone_number_form_template">
+    <html t-att="html_data or {}">
+    <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <!-- <link rel="shortcut icon" type="image/png" href="/client_vendor_dashboard/static/src/images/fav fluent.png" /> -->
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/main.css" />
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/client_vendor_dashboard/static/src/css/style.css" />
+    <title>Vendor Dashboard | Phone </title>
+    <link async="true" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.0/css/all.min.css" crossorigin="" />
+  </head>
+    
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&amp;display=swap');
+      @font-face {
+          font-family: 'Eurostile';
+          font-style: normal;
+          font-weight: normal;
+          src: local('Eurostile'), url('eurostile.woff') format('woff');
+      }
+      
+      @font-face {
+      font-family: 'EuroStyle Normal';
+      font-style: normal;
+      font-weight: normal;
+      src: local('EuroStyle Normal'), url('EuroStyle Normal.woff') format('woff');
+      }
+
+      .fv_banner {
+        display: flex;
+        flex-direction: row;
+    }
+     <!-- =============================================== -->
+    <!-- .loginform {
+            position: absolute;
+            /*max-width: 400px;*/
+            /*background: gray;*/
+            margin: 0 auto;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+            } -->
+            .logincard h2 {
+            color: #293337;
+            margin-bottom: 10px;
+            font-size: 20px;
+            font-weight: 700;
+            font-family: 'Eurostile';
+            }
+            .logincard p {
+            font-size: 14px;
+            color: gray;
+            font-family: 'Lato';
+            }
+            .logincard {
+            width: 345px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            <!-- box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center; -->
+            }
+            @media screen and (max-width: 380px) {
+              .logincard {
+                width: 300px;
+            }
+            }
+            .logincard form {
+            display: flex;
+            flex-direction: column;
+            }
+            .logincard label {
+            font-size: 12px;
+            color: #585858;
+            font-weight: 400;
+            text-align: left;
+            color: black;
+            font-family: 'Lato';
+            margin-bottom: 5px;
+            }
+            <!-- s -->
+            .logincard button[type="submit"]:hover {
+            background: #444;
+            }
+            .logincard button[type="submit"] {
+            width: 100%;
+            padding: 10px 0;
+            background: #3462ae;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+            font-family: "Lato", sans-serif;
+            }
+            .logincard button {
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+            .logincard .switch {
+            /*margin-top: 15px;*/
+            cursor: pointer;
+            font-size: 15px;
+            }
+            .logincard .switch a {
+            color: #1f3ab5;
+            text-decoration: none;
+
+            }
+            .logincard .login-btn .submit-btn{
+            display: block;
+            }
+            .logincard .login-btn:hover .submit-btn {
+            background: #353e42;
+            text-decoration: none;
+            }
+           <!--  .logincard input[type="text"],
+            .logincard input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            outline: none;
+            } -->
+            .fluentchat {
+            position: absolute;
+            bottom: 10%;
+            right: 5%;
+            background: #FCC500;
+            padding: 13px;
+            border-radius: 50%;
+            height: 50px;
+            width: 50px;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.10);
+        }
+    <!-- ========================================== -->
+
+    .fv_right {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        height: 100vh;
+    }
+
+    .fv_right {
+        flex: 1;
+    }
+
+    @media (min-width:1200px) {
+        .fv_left {
+            flex: 2;
+        }
+
+        .fv_right {
+            flex: 7;
+        }
+
+    }
+
+    .fv_left #showcase {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url(/client_vendor_dashboard/static/src/images/Image_Frame_1.svg) no-repeat center center / cover;
+        height: 100vh;
+        text-align: center;
+    }
+
+    .fv_nav {
+        padding: 40px;
+        height: 90px;
+    }
+
+    .fv_card {
+        margin-top: 2rem;
+    }
+
+    .fv_mid {
+        position: absolute;
+        margin: 0 auto;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .fv_form {
+        width: 365px;
+        background-color: #fff;
+        padding: 20px;
+    }
+
+    @media screen and (max-width:992px) {
+        .fv_mid {
+            position: relative;
+            top: auto;
+            left: auto;
+            transform: translate(0%, 0%);
+        }
+
+    }
+
+    h1, h2 {
+        font-family: 'Eurostile';
+    }
+
+    .fv_title {
+        font-size: 22px;
+        font-weight: 800;
+        text-shadow: 0px 0px 0px #00000094;
+    }
+
+    .fv_subtitle {
+        color: #585858;
+        font-size: 14px;
+    }
+
+    .fv_card form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .import_f {
+        color: #ff0000;
+        font-size: 13px;
+        font-weight: 700;
+    }
+
+    .fv_card input {
+        padding: 6px;
+        margin-bottom: 20px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 14px;
+        padding: 8px;
+        padding-left: 35px;
+        width: 100%;
+        font-family: "Lato", sans-serif;
+    }
+    .fv_card input:focus {
+        outline: 1px solid #6a6a6a40;
+    }
+    .fv_card label {
+        color: #585858;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .fv_phone, .fv_text, .fv_pass {
+        position: relative;
+    }
+
+    .fv_cicon {
+        position: absolute;
+        color: #5858589e;
+        left: 12px;
+        top: 10px;
+    }
+
+    .fv_cicon img {
+        height: 17px;
+    }
+
+    
+    .fv_card button[type="submit"]:hover {
+        background: #444;
+    }
+
+    .fv_card button[type="submit"] {
+    }
+
+    .fv_arrow {
+        display: inline-block;
+        height: 10px;
+        position: relative;
+        width: 10px;
+        margin-left: 10px;
+    }
+
+    .fv_arrow::after {
+        border-bottom-style: solid;
+        border-bottom-width: 2px;
+        border-right-style: solid;
+        border-right-width: 2px;
+        content: "";
+        display: inline-block;
+        height: 10px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 10px;
+    }
+
+    .fv_arrow.fv_arrow-bar::before {
+        bottom: 1px;
+        content: "";
+        height: 16px;
+        position: absolute;
+        right: 0;
+        transform-origin: bottom;
+        width: 2px;
+        -moz-transform: rotate(-45deg);
+        -ms-transform: rotate(-45deg);
+        -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+
+    .fv_arrow.is-right {
+        -moz-transform: rotate(315deg);
+        -ms-transform: rotate(315deg);
+        -webkit-transform: rotate(315deg);
+        transform: rotate(315deg);
+    }
+
+    .fv_arrow::after, .fv_arrow .fv_arrow::after {
+        border-color: white;
+    }
+
+    .fv_arrow::before, .fv_arrow .fv_arrow::before {
+        background-color: white;
+    }
+
+    .fv_or {
+        display: flex;
+        flex-direction: row;
+        margin-bottom: 1.2rem;
+        align-items: center;
+        margin: 20px 0;
+    }
+
+    .fv_or .bar {
+        flex: auto;
+        border: none;
+        height: 1px;
+        background: #aaaaaa52;
+    }
+
+    .fv_or span {
+        color: #b7b5b5;
+        padding: 0 0.8rem;
+        font-size: 12px;
+    }
+
+    .fv_form_bottom.btom_center {
+        text-align: center
+    }
+    .fv_form_bottom.fv_form_ques {
+    text-align: center;
+    color: #4a4a4a;
+    font-size: 13px;
+    margin-top: 20px;
+    }
+    .fv_form_bottom a {
+        color: #1f3ab5;
+        font-weight: 500;
+        font-size: 14px;
+    }
+    
+    .fv_form_bottom a:hover {
+        color: #0080f1;
+        text-decoration: none;
+    }
+
+    .ven_chat {
+        position: absolute;
+        bottom: 5%;
+        right: 5%;
+    }
+
+    @media screen and (max-width:768px) {
+        .ven_chat {
+            display: none;
+        }
+
+    }
+    .fv_text{
+        position: relative;
+    }
+    .fv_check {
+        position: absolute;
+        top: 9px;
+        right: 10px;
+        font-size: 14px;
+        color: #5858589e;
+    }
+   /* .fv_check.check_green i{
+        color: green;
+
+    }*/
+    <!-- ================================= -->
+      .logincard button {
+            width: 100%;
+            padding: 10px 0;
+            background: #3462ae;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 14px;
+            font-family: "Lato", sans-serif;
+            }
+            #otp_code {
+
+                color:black;
+                letter-spacing: 3px;
+
+            }
+
+    </style>
+    <body>
+      <div class="fv_banner">
+          <div class="fv_left">
+              <!-- <div id="showcase">
+              </div> -->
+          </div>
+          <div class="fv_right">
+              <div class="fv_nav">
+                  <div id="fv_logo">
+                      <a href=""><svg width="202" height="26" viewBox="0 0 202 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M198.34 11.2523C198.127 11.1698 197.907 11.1126 197.694 11.0745C197.481 11.0364 197.276 11.0173 197.077 11.0173H196.559C196.275 11.0173 196.027 11.0491 195.814 11.1062C195.602 11.1634 195.417 11.2396 195.268 11.3286C195.112 11.4175 194.991 11.5191 194.906 11.6335C194.814 11.7415 194.757 11.8558 194.729 11.9702C194.715 12.0401 194.715 12.1163 194.729 12.1989C194.743 12.2814 194.793 12.3704 194.871 12.4466C194.942 12.5165 195.041 12.5737 195.169 12.6372C195.296 12.6944 195.474 12.7325 195.708 12.7515L197.268 12.923C198.403 13.0501 199.205 13.3296 199.666 13.7743C199.957 14.0411 200.134 14.3651 200.191 14.7399C200.248 15.1147 200.219 15.5466 200.099 16.0231C199.971 16.544 199.723 17.0077 199.347 17.4079C198.971 17.8145 198.524 18.1511 197.985 18.4243C197.446 18.6975 196.857 18.9071 196.204 19.0468C195.552 19.1866 194.871 19.2565 194.183 19.2565C193.672 19.2565 193.197 19.2374 192.75 19.1929C192.303 19.1485 191.877 19.0786 191.48 18.977C191.083 18.8753 190.721 18.7356 190.388 18.564C190.061 18.3925 189.756 18.1702 189.494 17.897L191.977 16.2772C192.26 16.544 192.658 16.7345 193.176 16.8425C193.693 16.9505 194.225 17.0013 194.757 17.0013C196.02 17.0013 196.729 16.6964 196.885 16.0802C196.949 15.8198 196.914 15.6165 196.772 15.4767C196.623 15.3306 196.353 15.2417 195.963 15.2036L194.403 15.0321C193.254 14.8987 192.445 14.5938 191.963 14.1237C191.473 13.6409 191.338 12.9548 191.558 12.0591C191.672 11.589 191.892 11.1571 192.211 10.7569C192.53 10.363 192.934 10.02 193.424 9.7341C193.913 9.44824 194.474 9.21955 195.112 9.05439C195.75 8.88922 196.446 8.80664 197.205 8.80664C198.162 8.80664 198.978 8.90193 199.659 9.08615C200.34 9.27672 200.907 9.588 201.368 10.0327L198.928 11.6208C198.758 11.4556 198.567 11.3349 198.347 11.2523H198.34ZM189.891 13.1517C189.686 13.4376 189.459 13.6981 189.196 13.914C188.934 14.1364 188.657 14.3269 188.359 14.4921C188.061 14.6573 187.77 14.7843 187.487 14.8796L189.302 19.1675H185.515L184.11 15.3433H183.011L182.067 19.1675H178.825L181.365 8.88287H186.614C187.345 8.88287 187.969 8.97816 188.487 9.16238C189.005 9.35295 189.416 9.6007 189.721 9.90562C190.026 10.2169 190.225 10.5663 190.324 10.9601C190.423 11.354 190.423 11.7669 190.324 12.1862C190.239 12.5355 190.097 12.8532 189.891 13.139V13.1517ZM186.884 11.4937C186.685 11.2841 186.359 11.1761 185.905 11.1761H184.039L183.528 13.2534H185.394C185.848 13.2534 186.224 13.1454 186.529 12.9358C186.834 12.7261 187.018 12.4847 187.082 12.2116C187.146 11.9448 187.082 11.7034 186.884 11.4874V11.4937ZM178.407 14.0347C178.315 14.4222 178.215 14.797 178.116 15.1655C178.017 15.5339 177.889 15.896 177.719 16.239C177.556 16.5884 177.336 16.9124 177.073 17.23C176.811 17.5413 176.47 17.8335 176.059 18.1067C175.484 18.4815 174.881 18.7673 174.25 18.9643C173.619 19.1612 172.895 19.2628 172.08 19.2628C171.264 19.2628 170.583 19.1612 170.051 18.9643C169.519 18.7673 169.058 18.4815 168.668 18.1067C168.391 17.8399 168.192 17.5477 168.086 17.23C167.98 16.9188 167.923 16.5884 167.93 16.239C167.93 15.8897 167.98 15.5339 168.065 15.1655C168.15 14.797 168.242 14.4159 168.334 14.0347C168.426 13.6472 168.526 13.2724 168.625 12.904C168.724 12.5355 168.852 12.1735 169.022 11.8304C169.185 11.481 169.405 11.1571 169.668 10.8394C169.93 10.5282 170.271 10.2359 170.682 9.96279C171.257 9.588 171.86 9.30213 172.491 9.10521C173.122 8.90828 173.846 8.80664 174.662 8.80664C175.477 8.80664 176.151 8.90828 176.69 9.10521C177.222 9.30213 177.683 9.588 178.074 9.96279C178.35 10.2296 178.549 10.5218 178.655 10.8394C178.762 11.1507 178.818 11.481 178.811 11.8304C178.811 12.1798 178.762 12.5355 178.676 12.904C178.591 13.2724 178.499 13.6536 178.407 14.0347ZM175.449 11.7669C175.413 11.6716 175.364 11.5827 175.307 11.5064C175.215 11.3794 175.066 11.2778 174.86 11.1888C174.654 11.0999 174.406 11.0618 174.108 11.0618C173.81 11.0618 173.534 11.1062 173.293 11.1888C173.044 11.2778 172.846 11.3794 172.69 11.5064C172.597 11.5827 172.505 11.6716 172.42 11.7669C172.335 11.8622 172.25 12.0019 172.172 12.1798C172.094 12.3577 172.002 12.5927 171.902 12.8849C171.803 13.1771 171.697 13.5583 171.583 14.0347C171.47 14.5048 171.384 14.886 171.342 15.1782C171.292 15.464 171.271 15.6991 171.264 15.877C171.264 16.0548 171.271 16.1946 171.313 16.2899C171.349 16.3851 171.399 16.4741 171.455 16.5503C171.548 16.6774 171.696 16.7854 171.902 16.8743C172.101 16.9632 172.356 17.014 172.654 17.014C172.952 17.014 173.229 16.9696 173.477 16.8743C173.725 16.7854 173.924 16.6774 174.08 16.5503C174.172 16.4741 174.264 16.3851 174.349 16.2899C174.435 16.1946 174.52 16.0548 174.598 15.877C174.676 15.6991 174.768 15.464 174.867 15.1782C174.967 14.8923 175.073 14.5112 175.186 14.0347C175.3 13.5646 175.385 13.1835 175.435 12.8849C175.484 12.5927 175.513 12.3577 175.513 12.1798C175.513 12.0019 175.506 11.8622 175.463 11.7669H175.449ZM162.901 19.1739H159.659L160.695 14.9876L158.198 8.89558H161.751L162.915 12.5927L165.887 8.89558H169.441L163.936 14.9876L162.901 19.1739ZM151.289 11.1444L150.863 12.8659H155.779L155.225 15.121H150.31L149.863 16.9251H155.616L155.062 19.1802H146.068L148.607 8.89558H157.602L157.048 11.1507H151.296L151.289 11.1444ZM138.3 19.1739L136.463 8.88922H139.833L140.648 14.6382L144.266 8.88922H147.657L140.726 19.1739H138.308H138.3ZM130.115 19.1739L127.135 14.003L125.858 19.1739H122.617L125.156 8.88922H128.015L130.994 14.0601L132.271 8.88922H135.513L132.973 19.1739H130.115ZM122.198 14.0347C122.106 14.4222 122.007 14.797 121.907 15.1655C121.808 15.5339 121.68 15.896 121.51 16.239C121.347 16.5884 121.127 16.9124 120.865 17.23C120.602 17.5413 120.262 17.8335 119.85 18.1067C119.276 18.4815 118.673 18.7673 118.041 18.9643C117.41 19.1612 116.687 19.2628 115.871 19.2628C115.055 19.2628 114.374 19.1612 113.842 18.9643C113.31 18.7673 112.849 18.4815 112.459 18.1067C112.182 17.8399 111.984 17.5477 111.877 17.23C111.771 16.9188 111.714 16.5884 111.721 16.239C111.721 15.8897 111.771 15.5339 111.856 15.1655C111.941 14.797 112.033 14.4159 112.126 14.0347C112.218 13.6472 112.317 13.2724 112.416 12.904C112.516 12.5355 112.643 12.1735 112.814 11.8304C112.977 11.481 113.197 11.1571 113.459 10.8394C113.722 10.5282 114.062 10.2359 114.473 9.96279C115.048 9.588 115.651 9.30213 116.282 9.10521C116.914 8.90828 117.637 8.80664 118.453 8.80664C119.269 8.80664 119.943 8.90828 120.482 9.10521C121.014 9.30213 121.475 9.588 121.865 9.96279C122.141 10.2296 122.34 10.5218 122.447 10.8394C122.553 11.1507 122.61 11.481 122.603 11.8304C122.603 12.1798 122.553 12.5355 122.468 12.904C122.383 13.2724 122.29 13.6536 122.198 14.0347ZM119.24 11.7669C119.205 11.6716 119.155 11.5827 119.098 11.5064C119.006 11.3794 118.857 11.2778 118.652 11.1888C118.446 11.0999 118.198 11.0618 117.9 11.0618C117.602 11.0618 117.325 11.1062 117.084 11.1888C116.836 11.2778 116.637 11.3794 116.481 11.5064C116.389 11.5827 116.296 11.6716 116.211 11.7669C116.126 11.8622 116.041 12.0019 115.963 12.1798C115.885 12.3577 115.793 12.5927 115.694 12.8849C115.594 13.1771 115.488 13.5583 115.374 14.0347C115.261 14.5048 115.176 14.886 115.133 15.1782C115.083 15.464 115.062 15.6991 115.055 15.877C115.055 16.0548 115.062 16.1946 115.105 16.2899C115.14 16.3851 115.19 16.4741 115.247 16.5503C115.339 16.6774 115.488 16.7854 115.694 16.8743C115.892 16.9632 116.148 17.014 116.445 17.014C116.743 17.014 117.02 16.9696 117.268 16.8743C117.517 16.7854 117.715 16.6774 117.871 16.5503C117.963 16.4741 118.056 16.3851 118.141 16.2899C118.226 16.1946 118.311 16.0548 118.389 15.877C118.467 15.6991 118.559 15.464 118.659 15.1782C118.758 14.8923 118.864 14.5112 118.978 14.0347C119.091 13.5646 119.176 13.1835 119.226 12.8849C119.276 12.5927 119.304 12.3577 119.304 12.1798C119.304 12.0019 119.297 11.8622 119.254 11.7669H119.24ZM107.642 11.3921C107.451 11.1698 107.082 11.0618 106.55 11.0618C106.252 11.0618 105.983 11.0999 105.748 11.1825C105.514 11.2651 105.316 11.3667 105.16 11.4937C105.067 11.57 104.975 11.6589 104.89 11.7542C104.805 11.8495 104.72 11.9892 104.628 12.1735C104.535 12.3577 104.443 12.5927 104.351 12.8913C104.252 13.1835 104.145 13.5646 104.032 14.0411C103.918 14.5112 103.833 14.8987 103.784 15.1909C103.734 15.4831 103.713 15.7245 103.713 15.9087C103.713 16.0929 103.727 16.2327 103.769 16.328C103.805 16.4233 103.855 16.5122 103.911 16.5884C104.003 16.7155 104.152 16.8171 104.344 16.8997C104.543 16.9823 104.791 17.0204 105.089 17.0204C105.621 17.0204 106.039 16.9124 106.344 16.6901C106.649 16.4677 106.883 16.2136 107.054 15.9278H110.366C110.104 16.4931 109.763 16.9886 109.359 17.4079C108.955 17.8272 108.494 18.1765 107.983 18.4561C107.472 18.7356 106.926 18.9452 106.337 19.0786C105.748 19.212 105.146 19.2819 104.507 19.2819C103.727 19.2819 103.06 19.1802 102.514 18.9833C101.968 18.7864 101.499 18.5005 101.116 18.1257C100.84 17.8589 100.641 17.5667 100.535 17.2491C100.428 16.9378 100.379 16.6075 100.379 16.2581C100.379 15.9087 100.428 15.553 100.513 15.1845C100.599 14.8161 100.691 14.4349 100.783 14.0538C100.875 13.6663 100.975 13.2915 101.074 12.923C101.173 12.5546 101.301 12.1925 101.471 11.8495C101.634 11.5001 101.854 11.1761 102.117 10.8585C102.379 10.5472 102.72 10.255 103.131 9.98185C103.706 9.60705 104.316 9.32119 104.954 9.12426C105.6 8.92734 106.309 8.8257 107.089 8.8257C107.72 8.8257 108.295 8.89558 108.82 9.02898C109.338 9.16238 109.785 9.37201 110.154 9.65152C110.522 9.93103 110.813 10.2804 111.012 10.6997C111.21 11.1189 111.303 11.6144 111.288 12.1798H107.976C107.947 11.8939 107.834 11.6335 107.642 11.4175V11.3921ZM93.8385 11.1444L91.8524 19.1739H88.6106L90.5968 11.1444H87.3409L87.8942 8.88922H97.6477L97.0944 11.1444H93.8385ZM81.2263 19.1739L78.2471 14.003L76.9702 19.1739H73.7285L76.268 8.88922H79.1267L82.1059 14.0601L83.3828 8.88922H86.6245L84.085 19.1739H81.2263ZM68.2595 11.1444L67.8339 12.8659H72.7496L72.1963 15.121H67.2806L66.8337 16.9251H72.5865L72.0332 19.1802H63.0387L65.5781 8.89558H74.5727L74.0194 11.1507H68.2666L68.2595 11.1444ZM61.322 17.0966C60.9461 17.5477 60.485 17.9352 59.9459 18.2591C59.4068 18.5831 58.811 18.8309 58.1513 19.0024C57.4916 19.1739 56.8248 19.2628 56.1438 19.2628C55.4628 19.2628 54.8244 19.1739 54.264 19.0024C53.7037 18.8309 53.2355 18.5831 52.8524 18.2591C52.4694 17.9352 52.2069 17.5477 52.058 17.0966C51.909 16.6456 51.9019 16.1311 52.0438 15.5657L53.6895 8.89558H56.9312L55.2997 15.5085C55.1791 15.9913 55.2429 16.3597 55.4983 16.6202C55.7466 16.8806 56.1509 17.0077 56.6971 17.0077C57.2433 17.0077 57.7186 16.8806 58.1087 16.6202C58.4988 16.3597 58.7542 15.9913 58.8748 15.5085L60.5063 8.89558H63.748L62.1023 15.5657C61.9605 16.1311 61.7051 16.6456 61.322 17.0966ZM50.1924 19.1739H41.3894L43.9288 8.88922H47.1706L45.1844 16.9188H50.7528L50.1995 19.1739H50.1924ZM36.0196 11.1444L35.5727 12.9485H40.4885L39.9352 15.2036H35.0194L34.0405 19.1739H30.7988L33.3383 8.88922H42.3328L41.7795 11.1444H36.0267H36.0196Z" fill="#075ED3"/>
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M25.2798 0L22.1728 6.78445C7.60993 9.54143 2.48135 12.5779 1.17615 14.9791C0.693795 15.8876 0.849852 16.7642 0.849852 16.7642L0.0482891 12.9654H0.0695696C-0.58303 9.80823 3.02045 4.69448 25.2798 0ZM20.8534 9.66848L18.5552 14.6869C7.49644 16.5292 3.34675 18.6191 2.23308 20.3406C1.80747 21.0077 1.91387 21.7001 1.91387 21.7001L1.21871 18.5175H1.2329C0.757636 16.2242 3.86458 12.724 20.8534 9.66848ZM8.70942 22.0812L9.31236 25.2321C9.12793 25.213 6.39695 24.9271 4.28309 23.9616C3.30419 23.5105 2.65869 22.996 2.55938 22.005C2.50972 21.1347 2.91405 20.6202 3.21907 20.3025C4.98535 21.4015 7.48225 21.897 8.70233 22.0812H8.70942Z" fill="#075ED3"/>
+                          </svg></a>
+                  </div>
+              </div>  
+              
+               <div class="fv_mid">
+                    <div class="fv_form">
+                        
+                    <div class="loginform" id="beforeOtpForm">
+                    <div class="logincard">
+                      <h2>Check Your Phone Number</h2>
+                      <p class="font_lato"> We've sent 6-character code to your phone number . The code expires in 15 minutes, so please enter it soon.</p>
+                      <div class="">
+                        <div class="login-btn">
+                          <button class="submit-btn bg-color" id="submit" type="submit" onclick="showOtpForm();">Verify Code Manually <span class="fv_arrow fv_arrow-bar is-right"></span></button>
+                        </div>
+                          <div class="switch mt-2 font_lato"> <a t-att-href="'/api/render?menu=setting&amp;partner_id=%s' % (partner_id)"><i class="fas fa-long-arrow-alt-left"></i>  Go Back</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <t t-if="error">
+                    <div class="alert alert-danger">
+                      <t t-esc="error" />
+                    </div>
+                    </t>
+                 <div class="loginform" id="otp_submit" style="display:none;">
+                      <div class="logincard">
+                        <h2>Verify Phone number </h2>
+                        <p>Enter 6-character code sent to your phone number below </p>
+                        <div class="fv_card">
+                          <form method="POST" action="/vendor/setting/phone/verified/confirm" id="otpForm">
+                            <!-- ======================================== -->
+                            
+                            <t t-esc="user_email" />
+
+                            <t t-set="name" t-value="request.session.get('addUserName')"/>
+                            <t t-set="user_email" t-value="request.session.get('add_email')"/>
+                            <t t-set="phoneOtp" t-value="request.session.get('sent_opt')"/>
+                            <t t-set="phoneno" t-value="request.session.get('addphone')"/>
+                            <span >
+                            <t t-if="passcode">
+                                    <p class="text-danger" id="error" style="text-align: left;font-weight: bold; font-size:12px "><t t-esc="passcode"/></p>
+                            </t>
+                            </span>
+                            
+                           
+                            <input type="hidden" id="new_contact_name" name="contact_name"  t-att-value="name" />
+                            <input type="hidden" id="new_contact_phone" name="phone" t-att-value="phoneno" />
+                            <label for="otp_code"> Enter Magic Code<span class="import_f">*</span></label>
+                            <!-- ========================================================================= -->
+                             <t t-if="Match">
+                                <div class="fv_text">
+                                 <input type="password" id="otp_code" name="otp_code" t-att-value="phoneOtp" readonly="readonly" 
+                                    class="otp-verified" style="border-color:green; "/>
+                                <div class="fv_cicon"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.29199 0.333008C6.89978 0.333008 7.48268 0.57445 7.91245 1.00422C8.34222 1.43399 8.58366 2.01689 8.58366 2.62467V11.3747C8.58366 11.6756 8.52438 11.9736 8.40922 12.2517C8.29405 12.5297 8.12525 12.7823 7.91245 12.9951C7.69965 13.2079 7.44701 13.3767 7.16898 13.4919C6.89094 13.6071 6.59294 13.6663 6.29199 13.6663H2.95866C2.65771 13.6663 2.35971 13.6071 2.08168 13.4919C1.80364 13.3767 1.55101 13.2079 1.33821 12.9951C1.12541 12.7823 0.956602 12.5297 0.841435 12.2517C0.726268 11.9736 0.666992 11.6756 0.666992 11.3747V2.62467C0.666992 2.01689 0.908435 1.43399 1.33821 1.00422C1.76798 0.57445 2.35087 0.333008 2.95866 0.333008H6.29199ZM6.29199 1.58301H2.95866C2.38366 1.58301 1.91699 2.04967 1.91699 2.62467V11.3747C1.91699 11.9497 2.38366 12.4163 2.95866 12.4163H6.29199C6.86699 12.4163 7.33366 11.9497 7.33366 11.3747V2.62467C7.33366 2.04967 6.86699 1.58301 6.29199 1.58301ZM15.042 0.333008C15.6498 0.333008 16.2327 0.57445 16.6624 1.00422C17.0922 1.43399 17.3337 2.01689 17.3337 2.62467V11.3747C17.3337 11.6756 17.2744 11.9736 17.1592 12.2517C17.0441 12.5297 16.8752 12.7823 16.6624 12.9951C16.4496 13.2079 16.197 13.3767 15.919 13.4919C15.6409 13.6071 15.3429 13.6663 15.042 13.6663H11.7087C11.4077 13.6663 11.1097 13.6071 10.8317 13.4919C10.5536 13.3767 10.301 13.2079 10.0882 12.9951C9.87541 12.7823 9.7066 12.5297 9.59144 12.2517C9.47627 11.9736 9.41699 11.6756 9.41699 11.3747V2.62467C9.41699 2.01689 9.65844 1.43399 10.0882 1.00422C10.518 0.57445 11.1009 0.333008 11.7087 0.333008H15.042ZM15.042 1.58301H11.7087C11.1337 1.58301 10.667 2.04967 10.667 2.62467V11.3747C10.667 11.9497 11.1337 12.4163 11.7087 12.4163H15.042C15.617 12.4163 16.0837 11.9497 16.0837 11.3747V2.62467C16.0837 2.04967 15.617 1.58301 15.042 1.58301ZM4.00033 4.49967V9.49967C4.00033 9.66543 4.06617 9.82441 4.18338 9.94162C4.30059 10.0588 4.45957 10.1247 4.62533 10.1247C4.79109 10.1247 4.95006 10.0588 5.06727 9.94162C5.18448 9.82441 5.25033 9.66543 5.25033 9.49967V4.49967C5.25033 4.33391 5.18448 4.17494 5.06727 4.05773C4.95006 3.94052 4.79109 3.87467 4.62533 3.87467C4.45957 3.87467 4.30059 3.94052 4.18338 4.05773C4.06617 4.17494 4.00033 4.33391 4.00033 4.49967ZM13.5837 5.12467V6.37467H12.542C12.3762 6.37467 12.2173 6.44052 12.1001 6.55773C11.9828 6.67494 11.917 6.83391 11.917 6.99967V9.49967C11.917 9.84467 12.197 10.1247 12.542 10.1247H14.2087C14.3744 10.1247 14.5334 10.0588 14.6506 9.94162C14.7678 9.82441 14.8337 9.66543 14.8337 9.49967C14.8337 9.33391 14.7678 9.17494 14.6506 9.05773C14.5334 8.94052 14.3744 8.87467 14.2087 8.87467H13.167V7.62467H14.2087C14.3744 7.62467 14.5334 7.55883 14.6506 7.44162C14.7678 7.32441 14.8337 7.16543 14.8337 6.99967V4.49967C14.8337 4.33391 14.7678 4.17494 14.6506 4.05773C14.5334 3.94052 14.3744 3.87467 14.2087 3.87467H12.542C12.3762 3.87467 12.2173 3.94052 12.1001 4.05773C11.9828 4.17494 11.917 4.33391 11.917 4.49967C11.917 4.66543 11.9828 4.82441 12.1001 4.94162C12.2173 5.05883 12.3762 5.12467 12.542 5.12467H13.5837Z" fill="#747474"/>
+</svg></div>
+                            </div>
+                                <!-- <input type="password" id="otp_code" name="otp_code" t-att-value="phoneOtp" readonly="readonly" 
+                                    class="otp-verified" style="border-color:green; "/> -->
+                                <p class="text-success" style="text-align: left; font-weight: bold; color:green; font-size:11px; "> <img src="/client_vendor_dashboard/static/src/images/verify.png" alt=".png" style="height: 16px;" />VERIFIED</p>
+                            </t>
+                            <t t-else="">
+                                <div class="fv_text">
+                                 <input type="password" id="otp_code" name="otp_code"  placeholder="placeholder"/>
+                                <div class="fv_cicon"><svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M6.29199 0.333008C6.89978 0.333008 7.48268 0.57445 7.91245 1.00422C8.34222 1.43399 8.58366 2.01689 8.58366 2.62467V11.3747C8.58366 11.6756 8.52438 11.9736 8.40922 12.2517C8.29405 12.5297 8.12525 12.7823 7.91245 12.9951C7.69965 13.2079 7.44701 13.3767 7.16898 13.4919C6.89094 13.6071 6.59294 13.6663 6.29199 13.6663H2.95866C2.65771 13.6663 2.35971 13.6071 2.08168 13.4919C1.80364 13.3767 1.55101 13.2079 1.33821 12.9951C1.12541 12.7823 0.956602 12.5297 0.841435 12.2517C0.726268 11.9736 0.666992 11.6756 0.666992 11.3747V2.62467C0.666992 2.01689 0.908435 1.43399 1.33821 1.00422C1.76798 0.57445 2.35087 0.333008 2.95866 0.333008H6.29199ZM6.29199 1.58301H2.95866C2.38366 1.58301 1.91699 2.04967 1.91699 2.62467V11.3747C1.91699 11.9497 2.38366 12.4163 2.95866 12.4163H6.29199C6.86699 12.4163 7.33366 11.9497 7.33366 11.3747V2.62467C7.33366 2.04967 6.86699 1.58301 6.29199 1.58301ZM15.042 0.333008C15.6498 0.333008 16.2327 0.57445 16.6624 1.00422C17.0922 1.43399 17.3337 2.01689 17.3337 2.62467V11.3747C17.3337 11.6756 17.2744 11.9736 17.1592 12.2517C17.0441 12.5297 16.8752 12.7823 16.6624 12.9951C16.4496 13.2079 16.197 13.3767 15.919 13.4919C15.6409 13.6071 15.3429 13.6663 15.042 13.6663H11.7087C11.4077 13.6663 11.1097 13.6071 10.8317 13.4919C10.5536 13.3767 10.301 13.2079 10.0882 12.9951C9.87541 12.7823 9.7066 12.5297 9.59144 12.2517C9.47627 11.9736 9.41699 11.6756 9.41699 11.3747V2.62467C9.41699 2.01689 9.65844 1.43399 10.0882 1.00422C10.518 0.57445 11.1009 0.333008 11.7087 0.333008H15.042ZM15.042 1.58301H11.7087C11.1337 1.58301 10.667 2.04967 10.667 2.62467V11.3747C10.667 11.9497 11.1337 12.4163 11.7087 12.4163H15.042C15.617 12.4163 16.0837 11.9497 16.0837 11.3747V2.62467C16.0837 2.04967 15.617 1.58301 15.042 1.58301ZM4.00033 4.49967V9.49967C4.00033 9.66543 4.06617 9.82441 4.18338 9.94162C4.30059 10.0588 4.45957 10.1247 4.62533 10.1247C4.79109 10.1247 4.95006 10.0588 5.06727 9.94162C5.18448 9.82441 5.25033 9.66543 5.25033 9.49967V4.49967C5.25033 4.33391 5.18448 4.17494 5.06727 4.05773C4.95006 3.94052 4.79109 3.87467 4.62533 3.87467C4.45957 3.87467 4.30059 3.94052 4.18338 4.05773C4.06617 4.17494 4.00033 4.33391 4.00033 4.49967ZM13.5837 5.12467V6.37467H12.542C12.3762 6.37467 12.2173 6.44052 12.1001 6.55773C11.9828 6.67494 11.917 6.83391 11.917 6.99967V9.49967C11.917 9.84467 12.197 10.1247 12.542 10.1247H14.2087C14.3744 10.1247 14.5334 10.0588 14.6506 9.94162C14.7678 9.82441 14.8337 9.66543 14.8337 9.49967C14.8337 9.33391 14.7678 9.17494 14.6506 9.05773C14.5334 8.94052 14.3744 8.87467 14.2087 8.87467H13.167V7.62467H14.2087C14.3744 7.62467 14.5334 7.55883 14.6506 7.44162C14.7678 7.32441 14.8337 7.16543 14.8337 6.99967V4.49967C14.8337 4.33391 14.7678 4.17494 14.6506 4.05773C14.5334 3.94052 14.3744 3.87467 14.2087 3.87467H12.542C12.3762 3.87467 12.2173 3.94052 12.1001 4.05773C11.9828 4.17494 11.917 4.33391 11.917 4.49967C11.917 4.66543 11.9828 4.82441 12.1001 4.94162C12.2173 5.05883 12.3762 5.12467 12.542 5.12467H13.5837Z" fill="#747474"/>
+</svg></div>
+                            </div>
+
+                              <!-- <input type="password" id="otp_code" name="otp_code"  placeholder="placeholder"/> -->
+                              <div class="div d-flex justify-content-between mb-2">
+                                <div>
+                                   
+                                  <label for="showPassword"></label>
+                                </div>
+
+                                <div class="switch font_lato" id="resendButton" style="color:#4c7acd" >Resend code</div>
+
+                                <!-- <p id="resendButton"  class="submit-btn" type="submit" style="cursor:pointer; display:none;">Resend code</p> -->
+
+                              </div>
+                              <div class="login-btn">
+
+                              </div>
+                          </t>
+                            </form>
+                        </div>
+
+                      </div>
+                    </div>
+                </div>
+            </div>
+              </div>
+          </div>
+    
+
+      <div class="fluentchat"> 
+            <svg width="25" height="25" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="fluent:chat-24-regular">
+            <path id="Vector" d="M15.9998 2.66797C23.3638 2.66797 29.3332 8.6373 29.3332 16.0013C29.3332 23.3653 23.3638 29.3346 15.9998 29.3346C13.8718 29.3376 11.7743 28.8291 9.88385 27.852L4.78252 29.2746C4.4979 29.3541 4.19729 29.3564 3.91148 29.2814C3.62567 29.2064 3.36494 29.0568 3.15599 28.8478C2.94705 28.6389 2.79742 28.3781 2.72242 28.0923C2.64742 27.8065 2.64975 27.5059 2.72918 27.2213L4.15318 22.124C3.17365 20.2319 2.66375 18.1319 2.66652 16.0013C2.66652 8.6373 8.63585 2.66797 15.9998 2.66797ZM15.9998 4.66797C12.9941 4.66797 10.1114 5.86201 7.98597 7.98743C5.86056 10.1128 4.66652 12.9955 4.66652 16.0013C4.66652 17.9613 5.16385 19.8453 6.09718 21.5173L6.29718 21.8773L4.81452 27.1893L10.1305 25.7066L10.4905 25.9066C12.003 26.7476 13.688 27.2309 15.4163 27.3197C17.1446 27.4085 18.8703 27.1003 20.461 26.4188C22.0517 25.7372 23.4652 24.7005 24.5931 23.388C25.721 22.0755 26.5334 20.5221 26.9679 18.847C27.4025 17.1719 27.4476 15.4195 27.0999 13.7242C26.7522 12.0289 26.0209 10.4358 24.962 9.06699C23.9032 7.69816 22.5449 6.59 20.9914 5.82747C19.4379 5.06494 17.7304 4.6683 15.9998 4.66797ZM11.6665 17.3346H17.6638C17.9172 17.3347 18.1611 17.431 18.3462 17.6039C18.5314 17.7769 18.6439 18.0137 18.6612 18.2665C18.6785 18.5192 18.5992 18.7692 18.4393 18.9657C18.2794 19.1622 18.0508 19.2908 17.7998 19.3253L17.6638 19.3346H11.6665C11.4132 19.3346 11.1693 19.2383 10.9841 19.0653C10.799 18.8924 10.6864 18.6556 10.6691 18.4028C10.6519 18.15 10.7312 17.9001 10.8911 17.7036C11.051 17.507 11.2795 17.3785 11.5305 17.344L11.6665 17.3346ZM11.6665 12.668H20.3398C20.5931 12.6684 20.8368 12.7649 21.0216 12.9379C21.2065 13.111 21.3188 13.3478 21.3359 13.6005C21.353 13.8531 21.2736 14.1029 21.1137 14.2993C20.9539 14.4957 20.7254 14.6241 20.4745 14.6586L20.3398 14.668H11.6665C11.4132 14.6679 11.1693 14.5716 10.9841 14.3987C10.799 14.2257 10.6864 13.9889 10.6691 13.7361C10.6519 13.4834 10.7312 13.2334 10.8911 13.0369C11.051 12.8404 11.2795 12.7118 11.5305 12.6773L11.6665 12.668Z" fill="#2C3539"/>
+            </g>
+            </svg>
+          </div>
+         <script src="css/bootstrap.min.js"></script>
+            <script src="css/main.js"></script>
+            <script>
+                if(document.getElementById('error'))
+                {
+                  document.getElementById('beforeOtpForm').style.display='none';
+                  document.getElementById('otp_submit').style.display='flex'; 
+                }
+                else
+                {
+                 document.getElementById('beforeOtpForm').style.display='flex';
+                 document.getElementById('otp_submit').style.display='none';
+                }
+            </script>
+            <script>
+                 document.getElementById('otp_code').addEventListener('input', function() {
+                    if (this.value.length === 6) {
+                        document.getElementById('otpForm').submit();
+                    }
+                });
+                
+            </script>
+            <script>
+                if (document.querySelector(".otp-verified")) {
+                  document.getElementById('beforeOtpForm').style.display='none';
+                  document.getElementById('otp_submit').style.display='flex';
+
+                  setTimeout(function() {
+                    window.location.href = '/vendor/verified/otp/setting/phone/verified';
+                }, 3000);
+
+                }
+            </script>
+
+            <script>
+                <![CDATA[
+                var resendButton = document.getElementById('resendButton');
+                var new_contact_name1 = document.getElementById('new_contact_name');
+                var new_contact_email1 = document.getElementById('new_contact_phone');
+                if (resendButton) {
+                   resendButton.addEventListener('click', function() {
+                    resendOTP();
+                });
+              }
+               function resendOTP() {
+                var phone1 = new_contact_name.value;
+                var phone2 = new_contact_phone.value;
+
+                console.log('Sending OTP to:',phone1);
+                console.log('Sending OTP to:',phone2);
+
+
+                fetch('/vendor/setting/phone/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+
+                     body: '&contact_name='+ document.getElementById('new_contact_name').value + '&phone=' + document.getElementById('new_contact_phone').value + '&resend_otp=true',
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('OTP Resent:', data);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            } 
+            ]]>
+            </script>
+            <script>
+              function showOtpForm() {
+                  document.getElementById('beforeOtpForm').style.display='none';
+                  document.getElementById('otp_submit').style.display='flex';    
+                }
+            </script> 
+    </body>
+    
+    <link rel="stylesheet" href="/im_livechat/external_lib.css"/>
+    <!-- <script type="text/javascript" src="/im_livechat/external_lib.js"></script> -->
+    <!-- <script type="text/javascript" src="/im_livechat/loader/1"></script> -->
+    <script src="/client_vendor_dashboard/static/src/js/main.js"></script>
+    <script src="/client_vendor_dashboard/static/src/js/bootstrap.bundle.min.js"></script>
+  </html>
+</template>
+</odoo>

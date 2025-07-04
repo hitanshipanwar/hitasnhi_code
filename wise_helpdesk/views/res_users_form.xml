@@ -1,0 +1,14 @@
+<odoo>
+    <record id="res_users_view_form_cra" model="ir.ui.view">
+        <field name="name">res.users.view.form.cra</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page/group[1]" position="before">
+                <group string="Assign Nurse">
+                    <field name='is_nurse'/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="stock_picking_image_view_form" model="ir.ui.view">
+        <field name="name">stock.picking.image.form</field>
+        <field name="model">stock.picking.image</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="picking_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="image_1000" widget="image"/>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="stock_picking_image_view_kanban" model="ir.ui.view">
+        <field name="name">stock.picking.image.view.kanban</field>
+        <field name="model">stock.picking.image</field>
+        <field name="arch" type="xml">
+            <kanban string="Transfer Images" default_order="sequence">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="image_1000"/>
+                <field name="sequence" widget="handle"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="card oe_kanban_global_click p-0">
+                            <div class="o_squared_image">
+                                <img class="card-img-top" t-att-src="kanban_image('stock.picking.image', 'image_1000', record.id.raw_value)" t-att-alt="record.name.value"/>
+                            </div>
+                            <div class="card-body p-0">
+                                <h4 class="card-title p-2 m-0 bg-200">
+                                    <small><field name="name"/></small>
+                                </h4>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="name">stock.picking.form</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin']/.." position="inside">
+                <field name="validated_by" />
+                <field name="validated_on" />
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Images" name="images">
+                    <field name="stock_image_ids" class="o_stock_picking_image_list" context="{'default_name': 'Bill of Lading'}" mode="kanban" add-label="Add an image" nolabel="1"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+
+</odoo>

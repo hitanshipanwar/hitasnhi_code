@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="o2b_stock_custom.BarcodeAisleComponent" owl="1">
+        <div class="o_content o_barcode_client_action">
+            <!-- Your template content here -->
+            <div class="o_barcode_header">
+                <div class="navbar navbar-expand navbar-dark">
+                    <nav class="navbar-nav mr-auto">
+                        <button t-on-click="exit" class="o_exit btn nav-link mr-4">
+                            <i class="fa fa-chevron-left"/>
+                        </button>
+                        <span class="o_title navbar-text text-white" t-esc="env.model.name"/>
+                    </nav>
+                    <!-- Add additional elements as needed -->
+                </div>
+            </div>
+            <!-- Rest of the template -->
+        </div>
+    </t>
+</templates>

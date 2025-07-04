@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="crm_lead_view_form_view_inherit" model="ir.ui.view">
+        <field name="name">crm.lead.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_set_lost']" position="before">
+                <button string="Create Project" name="action_open_project_form" type="object" class="oe_highlight" attrs="{'invisible': [('has_project', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_schedule_meeting']" position="before">
+                <button class="oe_stat_button" type="object" name="open_task_from_view_action" icon="fa-list" attrs="{'invisible': ['|','|',('probability', '=', 0), ('active', '=', False),('crm_count', '=',0)]}">
+                <field name="crm_count" string="Tasks" widget="statinfo" attrs="{'invisible': ['|', '|',('probability', '=', 0), ('active', '=', False), ('crm_count','=',0)]}"/>
+                </button>
+                <button name="open_related_projects"
+                        type="object"
+                        class="oe_stat_button"
+                        icon="fa-folder-open"
+                        string="Projects"
+                        attrs="{'invisible': [('has_project', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='team_id']" position="after">
+                <field name="task_ids" widget="many2many_tags"/>
+                <field name="has_project" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_form_view_inherit" model="ir.ui.view">
+        <field name="name">project.task.form</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='date_last_stage_update']" position="after">
+               <field name='crm_id'/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

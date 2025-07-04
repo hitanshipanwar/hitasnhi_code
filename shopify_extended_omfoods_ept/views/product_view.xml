@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_product_product_ts" model="ir.ui.view">
+            <field name="name">product product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group string="Low Stock Indicator">
+                            <field name="ca_minimum_stock"/>
+                            <field name="ca_low_stock"/>
+                            <field name="us_minimum_stock"/>
+                            <field name="us_low_stock"/>
+                        </group>
+                        <group string="Inventory Management In Shopify">
+                            <field name="inventory_management_ca"/>
+                            <field name="check_product_stock_ca"
+                                   attrs="{'invisible': [('inventory_management_ca', '=','Dont track Inventory')]}"/>
+                            <field name="inventory_management_us"/>
+                            <field name="check_product_stock_us"
+                                   attrs="{'invisible': [('inventory_management_us', '=','Dont track Inventory')]}"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_product_product_tree_ts" model="ir.ui.view">
+            <field name="name">product product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="uom_id" position="after">
+                    <field name="ca_low_stock"/>
+                    <field name="us_low_stock"/>
+                </field>
+            </field>
+        </record>
+        <record id="view_product_template_ts" model="ir.ui.view">
+            <field name="name">product template</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="before">
+                    <group string="Inventory Management In Shopify">
+                        <field name="inventory_management_ca"/>
+                        <field name="check_product_stock_ca"
+                               attrs="{'invisible': [('inventory_management_ca', '=','Dont track Inventory')]}"/>
+                        <field name="inventory_management_us"/>
+                        <field name="check_product_stock_us"
+                               attrs="{'invisible': [('inventory_management_us', '=','Dont track Inventory')]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="specs_edit_project_form_inherit" model="ir.ui.view">
+            <field name="name">specs.edit.project.form.inherit</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='date_start']" position="after">
+                    <field name="is_card_request_project"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="specs_view_task_form2_inherit" model="ir.ui.view">
+            <field name="name">specs.view.task.form2.inherit</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="is_card_request_project" invisible="1"/>
+                    <field name="specs_id" readonly="1" force_save="1" invisible="project_id == False or is_card_request_project == False"/>
+                </xpath>
+                <xpath expr= "//div[hasclass('oe_button_box')]" position= "inside">
+                    <button name="specs_call_view"
+                            type="object"
+                            invisible="project_id == False or is_card_request_project == False"
+                            class="oe_stat_button"
+                            icon="fa-hand-o-right">
+                        <field string="Specs" name="specs_count" widget="statinfo"/>
+                    </button>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

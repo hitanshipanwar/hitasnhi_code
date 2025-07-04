@@ -1,0 +1,33 @@
+<odoo>
+    <data noupdate='False'>
+        
+        <record id="insalud_quality_metrics_action" model="ir.actions.act_window">
+            <field name="name">InSalud Quality Measures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quality.metrics</field>
+            <field name="domain">[('quality_type', '=', 'insalud')]</field>
+            <field name="context">{'default_quality_type': 'insalud'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an In Salud Quality Metrics
+              </p><p>
+                Specify In Salud quality metrics.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="main_insalud_quality_metrics_root"
+            name="InSalud Quality Metrics"
+            web_icon="fa fa-television,#FFFFFF,#34495e"
+            groups="base.group_user"
+            sequence="30"/>
+
+        <menuitem id="insalud_quality_metrics_menu" 
+            name="Insalud Quality Measures"
+            action="insalud_quality_metrics_action"
+            parent="main_insalud_quality_metrics_root"
+            sequence="1"/>
+
+    </data>
+</odoo>

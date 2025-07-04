@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="specs_helpdesk_ticket_type_view_tree" model="ir.ui.view">
+        <field name="name">specs.helpdesk.ticket.type.tree</field>
+        <field name="model">helpdesk.ticket.type</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_type_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_card_request_ticket_type"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="specs_helpdesk_ticket_type_view_form" model="ir.ui.view">
+        <field name="name">specs.helpdesk.ticket.type.form</field>
+        <field name="model">helpdesk.ticket.type</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_type_view_form"/>
+        <field name="arch" type="xml">
+            <field name="sequence" position="after">
+                <field name="is_card_request_ticket_type"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

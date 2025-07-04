@@ -1,0 +1,12 @@
+<odoo noupdate="1">
+
+    <record forcecreate="True" id="stage_cad_request" model="specs.type">
+        <field name="active">True</field>
+        <field name="name">Cad Request</field>
+        <field name="code">cad_request_stage</field>
+        <field name="description">This stage will indicate the moment in which the spec is being captured and before confirming the spec.</field>
+        <field name="sequence">2</field>
+        <field name="done" eval="False"/>
+    </record>
+    
+</odoo>

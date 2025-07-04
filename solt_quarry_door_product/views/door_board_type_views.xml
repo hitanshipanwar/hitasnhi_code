@@ -1,0 +1,21 @@
+<odoo>
+  <data>
+
+        <record id="door_board_type_view_tree" model="ir.ui.view">
+            <field name="name">door.board.type.view.tree</field>
+            <field name="model">door.board.type</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Fixed Board Type">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_board_type" model="ir.actions.act_window">
+            <field name="name">Fixed Board Type</field>
+            <field name="res_model">door.board.type</field>
+            <field name="view_mode">tree</field>
+        </record>
+  </data>
+</odoo>

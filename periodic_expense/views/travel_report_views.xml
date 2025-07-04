@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_travel_report_form" model="ir.ui.view">
+        <field name="name">travel.report.form</field>
+        <field name="model">periodic.travel.report</field>
+        <field name="arch" type="xml">
+            <form string="Travel Report">
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="project"/>
+                        <field name="location"/>
+                        <field name="trip_purpose"/>
+                        <field name="activity_detail"/>
+                    </group>
+                    <notebook>
+                        <page string="Travel Expenses">
+                            <field name="expense_line_ids">
+                                <tree editable="top">
+                                    <field name="date"/>
+                                    <field name="description"/>
+                                    <field name="expense_type_id"/>
+                                    <field name="expense_amount"/>
+                                    <field name="attachment" widget="download" filename="attachment_filename"/>
+                                    <field name="expense_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_travel_report_tree" model="ir.ui.view">
+        <field name="name">travel.report.tree</field>
+        <field name="model">periodic.travel.report</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="employee_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="project"/>
+                <field name="location"/>
+                <field name="trip_purpose"/>
+                <field name="activity_detail"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_travel_report" model="ir.actions.act_window">
+        <field name="name">Travel Reports</field>
+        <field name="res_model">periodic.travel.report</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+    </record>
+
+    <menuitem id="menu_periodic_expense_root" name="Periodic Expense" parent="hr_expense.menu_hr_expense_root" sequence="20"/>
+    <menuitem id="menu_travel_report" name="Travel Reports" parent="menu_periodic_expense_root" action="action_travel_report"/>
+</odoo>

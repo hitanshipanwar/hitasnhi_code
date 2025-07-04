@@ -1,0 +1,26 @@
+<odoo>
+  <data>
+
+        <record id="door_conf_view_tree" model="ir.ui.view">
+            <field name="name">door.conf.view.tree</field>
+            <field name="model">door.configuration</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="configuración de Puerta">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_configuration" model="ir.actions.act_window">
+            <field name="name">configuración de Puerta</field>
+            <field name="res_model">door.configuration</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+        <menuitem id="offering_menu" name="Offering" parent="sale.sale_menu_root" sequence="6"/>
+            <menuitem id="head_indicator" name="Head" parent="offering_menu" sequence="1"/>
+                <menuitem id="door_configuration_sub_menu" name="Configuración de Producto" action="action_door_configuration" parent="head_indicator" sequence="6"/>
+
+  </data>
+</odoo>

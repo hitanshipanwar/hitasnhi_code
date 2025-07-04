@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="specs_crm_team_view_form_inherit">
+            <field name= "name">specs.crm.team.inherit.form.view</field>
+            <field name= "model">crm.team</field>
+            <field name= "inherit_id" ref= "sales_team.crm_team_view_form"/>
+            <field name= "arch" type= "xml">
+                <xpath expr="//div[hasclass('oe_title')]" position="after">
+                    <group colspan="2">
+                        <group>
+                            <field name="code" colspan="2" required="1"/>
+                            <field name="team_sequence_id"
+                                   options="{'no_create': 1, 'no_open': 1}"
+                                   readonly="1"
+                                   force-save="1"
+                                   colspan="2"/>
+                        </group>
+                        <group/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook" position="before">
+                    <group>
+                        <group string="Sale orders">
+                            <field name="pricelist_id" options="{'no_create': 1, 'no_open': 1}"/>
+                            <field name="sale_journal_id" options="{'no_create': 1, 'no_open': 1}"/>
+                        </group>
+                        <group string="Spec">
+                            <field name="spec_team_sequence_id"
+                                   options="{'no_create': 1, 'no_open': 1}"
+                                   readonly="1"
+                                   force-save="1"/>
+                        </group>
+                    </group>
+                </xpath>
+            </field>                        
+        </record>
+    </data> 
+</odoo>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_mrp_production_form_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherited</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='miscellaneous']" position="after">
+                <page string="Time Tracking" name="time_tracking">
+                    <group>
+                        <field name="checkin_checkout_ids" options="{'no_create': True}" nolabel="1">
+                            <tree>
+                                <field name="employee_id"/>
+                                <field name="checkin_time"/>
+                                <field name="checkout_time"/>
+                                <field name="time_taken"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <group class="oe_subtotal_footer oe_right" name="project_hours">
+                            <field name="total_time_taken"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="view_mrp_production_barcode" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherited</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <form string="Mrp Production" create="0" delete="0" edit="0">
+                <field name="qty_producing" invisible="1"/>
+                <field name="state" invisible="1"/>
+                <field name="move_raw_ids" invisible="1"/>
+                <header>
+                    <button name="button_mark_done" attrs="{'invisible': [
+                        '|',
+                        ('move_raw_ids', '=', []),
+                        '&amp;',
+                        '|',
+                        ('state', 'not in', ('confirmed', 'progress')),
+                        ('qty_producing', '!=', 0),
+                        ('state', '!=', 'to_close')]}" string="Mark as Done" type="object" class="oe_highlight"
+                            data-hotkey="g"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+
+                        <!--                             <field name="barcode_checkin" widget="image" options="{'max_width': 100, 'max_height': 50}" readonly="1"/>-->
+                        <!--                             <field name="barcode_checkout" widget="image" options="{'max_width': 100, 'max_height': 50}" readonly="1"/>-->
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_mrp_production_time_tracking_form_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.checkin.checkout.form</field>
+        <field name="model">mrp.production.checkin.checkout</field>
+        <field name="arch" type="xml">
+            <form string="Time Tracking" create="0" delete="0" edit="0">
+                <group>
+                    <field name="production_id" readonly="1"/>
+                    <field name="employee_id" readonly="1"/>
+                </group>
+                <group>
+                    <field name="checkin_time" readonly="1"/>
+                    <field name="checkout_time" readonly="1"/>
+                </group>
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_mrp_production_time_tracking_tree_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.checkin.checkout</field>
+        <field name="model">mrp.production.checkin.checkout</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="production_id"/>
+                <field name="employee_id"/>
+                <field name="checkin_time"/>
+                <field name="checkout_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_production_time_tracking_action" model="ir.actions.act_window">
+        <field name="name">Time Tracking</field>
+        <field name="res_model">mrp.production.checkin.checkout</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_mrp_production_time_tracking_form_inherited"/>
+    </record>
+
+    <record id="view_mrp_production_tree_inherited" model="ir.ui.view">
+        <field name="name">mrp.production.tree.inherited</field>
+        <field name="model">mrp.production</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <!-- <field name="barcode_image" widget="image" options="{'max_width': 100, 'max_height': 50}"/> -->
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_production_tree_action" model="ir.actions.act_window">
+        <field name="name">Production</field>
+        <field name="res_model">mrp.production</field>
+        <field name="type">ir.actions.act_window</field>
+        <!-- <field name="domain">[('state','=','confirmed')]</field> -->
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_mrp_production_tree_inherited"/>
+    </record>
+
+    <record id="mrp_production_form_action" model="ir.actions.act_window">
+        <field name="name">Production</field>
+        <field name="res_model">mrp.production</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_mrp_production_form_inherited"/>
+    </record>
+
+    <record id="action_server_update_barcode" model="ir.actions.server">
+            <field name="name">Update Barcode</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="mrp.model_mrp_production"/>
+            <field name="binding_model_id" ref="mrp.model_mrp_production"/>
+            <field name="state">code</field>
+            <field name="code">records.button_barcode_order()</field>
+        </record>
+
+
+</odoo>

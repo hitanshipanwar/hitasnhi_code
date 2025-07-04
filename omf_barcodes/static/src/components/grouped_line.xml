@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-inherit="stock_barcode.GroupedLineComponent" t-inherit-mode="extension">
+        <xpath expr="//span[hasclass('o_barcode_product_ref')]/b" position="before">
+            <t t-if="line.product_id.aisle_name">
+                <b><t t-esc="line.product_id.aisle_name"/>&#160;</b>
+            </t>
+        </xpath>
+    </t>
+
+</templates>

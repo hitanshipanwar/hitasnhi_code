@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="website_product_visibility_access" model="res.groups">
+        <field name="name">Website: Product Visibility</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

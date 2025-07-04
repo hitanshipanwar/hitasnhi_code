@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- stage "Canceled" gets created by default with sequence 0-->
+    <record id="helpdesk_stage_cancelled" model="helpdesk.stage">
+        <field name="name">Canceled</field>
+        <field name="sequence">10</field>
+        <field name="team_ids" eval="[(4, ref('helpdesk.helpdesk_team1'))]"/>
+        <field name="fold" eval="True"/>
+    </record>
+
+</odoo>

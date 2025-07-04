@@ -1,0 +1,24 @@
+<odoo>
+    <data>
+        <!-- Inherit Form View to Modify it -->
+        <record id="family_product_attribute_view_form_inherit" model="ir.ui.view">
+            <field name="name">family.product.attribute.form.inherit</field>
+            <field name="model">product.attribute</field>
+            <field name="inherit_id" ref="product.product_attribute_view_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='value_ids']/tree//field[@name='default_extra_price']" position="before">
+                    <field name="attribute_id" column_invisible="True"/>
+                    <field name="family_product_id" options="{'no_create': True}" column_invisible="parent.attribute_type == False or parent.attribute_type != 'family'"/>
+                    <field name="config_id" options="{'no_create': True}" column_invisible="parent.attribute_type == False or parent.attribute_type != 'setup'"/>
+                </xpath>
+                <group name="sale_main_fields" position="after">
+                    <group>
+                        <field name="attribute_type"/>
+                    </group>
+                </group>
+
+            </field>
+        </record>
+    </data>
+</odoo>

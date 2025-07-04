@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form.inherit.omf.mrp</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='button_mark_done'][3]" position="attributes">
+                <attribute name="attrs">{'invisible':[('state', 'in', ('draft', 'done'))]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='button_mark_done'][4]" position="replace" />
+            <xpath expr="//header" position="inside">
+                <button name="action_open_quants" type="object" string="Reconcile Inventory" />
+            </xpath>
+            <xpath expr="//field[@name='company_id'][1]" position="after">
+                <field name="label_type" />
+            </xpath>
+            <xpath expr="//field[@name='bom_id']" position="before">
+                <field name="po_lot_id" />
+                <field name="po_country" />
+                <field name="purchase_order_notes" />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

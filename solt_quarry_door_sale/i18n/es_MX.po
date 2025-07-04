@@ -1,0 +1,1041 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* solt_quarry_door_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-09-12 16:35+0000\n"
+"PO-Revision-Date: 2024-09-12 16:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__active
+msgid "Active"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_ids
+msgid "Activities"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_state
+msgid "Activity State"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_type_icon
+msgid "Activity Type Icon"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_anchor_id
+msgid "Anchors"
+msgstr "Anclas"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altarc
+msgid "Arch Raise"
+msgstr "Altura de Arco"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_type_arc_id
+msgid "Arch Type"
+msgstr "Tipo de arco"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tyarct_id
+msgid "Arch Type in Transom"
+msgstr "Tipo de Arco en Transom"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_assembly_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_assembly_sub_menu
+msgid "Assembly Preparation"
+msgstr "Preparación de Ensamble"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_bac
+msgid "Ball Deadbolt"
+msgstr "Cerradura de bola"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altboard_type
+msgid "Board Height of Fixed"
+msgstr "Altura de Tablero de Fijos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altboard
+msgid "Bottom Panel Height"
+msgstr "Altura tablero"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_type
+msgid "Classification Type"
+msgstr "Tipo de clasificación"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__code
+msgid "Code"
+msgstr "Código"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_color_id
+msgid "Color"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__description
+msgid "Comments"
+msgstr "Comentarios"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_level_sub_menu
+msgid "Complexity Level"
+msgstr "Nivel de Complejidad"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Confirm Quote"
+msgstr "Confirmar Cotización"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__create_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__create_date
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__creation_date
+msgid "Creation date"
+msgstr "Fecha de creación"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__currency_id
+msgid "Currency"
+msgstr "Moneda"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.deadbolt_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Deadbolt"
+msgstr "Cerradura"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altce
+msgid "Deadbolt Height"
+msgstr "Altura de Cerradura"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_metal_sub_menu
+msgid "Deadbolt Model"
+msgstr "Modelo de cerradura"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_moce_id
+msgid "Preparation"
+msgstr "Preparación de Chapa"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__description
+msgid "Description"
+msgstr "Descripción"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_design_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_design_sub_menu
+msgid "Design"
+msgstr "Diseño"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__display_name
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__done
+msgid "Done"
+msgstr "Hecho"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altmarc
+msgid "Door Height"
+msgstr "Altura puerta con marco"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_antmarc
+msgid "Door Width"
+msgstr "Ancho puerta con marco"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_ddmf
+msgid "Double Fixed Frame"
+msgstr "Doble Marco de Fijos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_ddm
+msgid "Double Frame"
+msgstr "Marco"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Draft"
+msgstr "Borrador"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_jac_id
+msgid "External Active Pull Set"
+msgstr "Jaladera Activa Exterior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_jin_id
+msgid "External Inactive Pull Set"
+msgstr "Jaladera Inactiva Exterior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_board_type_sub_menu
+msgid "Fixed Board Type"
+msgstr "Tipo de Tablero de Fijo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_glass
+msgid "Fixed Glass"
+msgstr "Vidrio Fijo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_glassf
+msgid "Fixed Glass in Fixed"
+msgstr "Vidrio Fijo en Fijos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_alfi
+msgid "Fixed Height"
+msgstr "Altura de Fijos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_posfi_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_position_sub_menu
+msgid "Fixed Position"
+msgstr "Posición del Fijo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_anfi
+msgid "Fixed Width"
+msgstr "Ancho de Fijos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_flashing_id
+msgid "Flashing/Sill Pan"
+msgstr "Tipo de Flashing"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_follower_ids
+msgid "Followers"
+msgstr "Seguidores"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "es (socios)"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__activity_type_icon
+msgid "Font awesome icon e.g. fa-tasks"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_forge_sub_menu
+msgid "Forging"
+msgstr "Forja"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Frame"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.frame_brickmolding_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Frame Brickmolding"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_profmarc
+msgid "Frame Depth"
+msgstr "Profundidad de Bastidor"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_ancmarc
+msgid "Frame Width"
+msgstr "Ancho de Marco"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_molding_ext_id
+msgid "FrameBrickmoldExt"
+msgstr "Moldura Externa"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_molding_int_id
+msgid "FrameBrickmoldInt"
+msgstr "Moldura Interna"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_traslape_ext_id
+msgid "FrameOverlapExt"
+msgstr "Traslape Externa"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_traslape_int_id
+msgid "FrameOverlapInt"
+msgstr "Traslape Interna"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.general_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "General"
+msgstr "Generales"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_glass_piece_sub_menu
+msgid "Glass Part ID"
+msgstr "ID Pieza de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model,name:solt_quarry_door_sale.model_door_glass_specs
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_glass_line_ids
+#: model:ir.ui.menu,name:solt_quarry_door_sale.glass_specs_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Glass Specifications"
+msgstr "Especificaciones de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.actions.act_window,name:solt_quarry_door_sale.action_door_glass_specs
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__specs_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_glass_specs_sub_menu
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.door_glass_specs_view_tree
+msgid "Glass Specs"
+msgstr "Especificaciones de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__glass_type_id
+msgid "Glass type"
+msgstr "Tipo de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_handing_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_handing_sub_menu
+msgid "Handing"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__handing_glass_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_handing_glass_sub_menu
+msgid "Handing Glass"
+msgstr "Manejo de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_handle_sub_menu
+msgid "Handles"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.head_indicator
+msgid "Head"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Header"
+msgstr "Cabecera"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__glass_height
+msgid "Height"
+msgstr "Altura"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_amount_hinges
+msgid "Hinge Quantity"
+msgstr "Cantidad de Bisagras"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_hinges_id
+msgid "Hinges"
+msgstr "Bisagras"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__id
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__id
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__id
+msgid "ID"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__glass_piece_id
+msgid "ID Glass Piece"
+msgstr "ID Pieza de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_exception_icon
+msgid "Icon"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__message_has_error
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_type__done
+msgid "If enabled, the specs in a done stage are considered as closed."
+msgstr ""
+"Si está habilitado, las especificaciones en una etapa finalizada se "
+"consideran cerradas."
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_jacin_id
+msgid "Internal Active Pull Set"
+msgstr "Jaladera Activa Interior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_jinin_id
+msgid "Internal Inactive Pull Set"
+msgstr "Jaladera Inactiva Interior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_is_follower
+msgid "Is Follower"
+msgstr "Es seguidor"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__is_forge_visible
+msgid "Is Forge Visible"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__is_moce_id_visible
+msgid "Is Moce Id Visible"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__write_uid
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__write_date
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Latch"
+msgstr "Picaporte"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altleaft
+msgid "Leaf Height"
+msgstr "Altura de hoja"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_antleaft
+msgid "Leaf Width"
+msgstr "Ancho de la Hoja"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_latchin_id
+msgid "Lower latch"
+msgstr "Picaporte Inferior"
+
+#. module: solt_quarry_door_sale
+#: model:res.groups,name:solt_quarry_door_sale.group_quarry_manager
+msgid "Manager"
+msgstr "Administrador"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__my_activity_date_deadline
+msgid "My Activity Deadline"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__name
+msgid "Name"
+msgstr "Nombre"
+
+#. module: solt_quarry_door_sale
+#: model:ir.actions.server,name:solt_quarry_door_sale.model_specs_sale_action_new_version
+msgid "New version"
+msgstr "Nueva versión"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_calendar_event_id
+msgid "Next Activity Calendar Event"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_summary
+msgid "Next Activity Summary"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_type_id
+msgid "Next Activity Type"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_ddm__no
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_ddmf__no
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_glass__no
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_glassf__no
+msgid "No"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__specs_amount_hinges
+msgid "Number of Hinges"
+msgstr "Cantidad de Bisagras"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.offering_menu
+msgid "Offering"
+msgstr "Oferta"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_opportunity_id
+msgid "Opportunity"
+msgstr "Oportunidad"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_sale_id
+msgid "Order No."
+msgstr "Orden"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Other Info"
+msgstr "Otra información"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_traslape_sub_menu
+msgid "Overlap"
+msgstr "Traslape"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_pch_id
+msgid "Preparation"
+msgstr "Modelo de cerradura"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_product_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_family_sub_menu
+msgid "Product Family"
+msgstr "Familia de productos"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_product_type_id
+msgid "Product type"
+msgstr "Tipo de producto"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.protections_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Protections"
+msgstr "Protecciones"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.pull_handle_menu
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Pull Handles"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__glass_qty
+msgid "Qty"
+msgstr "Cantidad"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_cli
+msgid "Qty Lower latch"
+msgstr "Cantidad Picaporte Inferior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_cls
+msgid "Qty Upper latch"
+msgstr "Cantidad Picaporte Superior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.module.category,name:solt_quarry_door_sale.module_category_quarry
+msgid "Quarry"
+msgstr "Cantera"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Quotation Info"
+msgstr "Información de la Cotización"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__radius_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_radius_sub_menu
+msgid "Radius"
+msgstr "Radio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_mbai
+msgid "Rail Bottom Width"
+msgstr "Medidas Bastidor Interior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_mbas
+msgid "Rail Top Width"
+msgstr "Medidas Bastidor Superior"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__rating_template_id
+msgid "Rating Email Template"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__block_changes
+msgid "Registro Bloqueado"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__activity_user_id
+msgid "Responsible User"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_rlat
+msgid "Roller Latches"
+msgstr "Cerraduras con rodillo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:res.groups,name:solt_quarry_door_sale.group_quarry_sale
+msgid "Sales"
+msgstr "Ventas"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model,name:solt_quarry_door_sale.model_sale_order
+msgid "Sales Order"
+msgstr "Orden de venta"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__salesman_id
+msgid "Salesperson"
+msgstr "Vendedor"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__sequence
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__sequence
+msgid "Sequence"
+msgstr "Sequencia"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.Sidelight_indicator
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Sidelight"
+msgstr "Vidrio lateral"
+
+#. module: solt_quarry_door_sale
+#: model:ir.actions.act_window,name:solt_quarry_door_sale.action_specs_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.specs_sale_sub_menu
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.counter_specs_form_button
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_tree
+msgid "Specs"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_anchor_id_domain
+msgid "Specs Anchor Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_color_id_domain
+msgid "Specs Color Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_flashing_id_domain
+msgid "Specs Flashing Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_hinge_id_domain
+msgid "Specs Hinge Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_latchin_id_domain
+msgid "Specs Latchin Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_latchsup_id_domain
+msgid "Specs Latchsup Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_moce_id_domain
+msgid "Specs Moce Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_molding_ext_id_domain
+msgid "Specs Molding Ext Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_molding_int_id_domain
+msgid "Specs Molding Int Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_product_id_domain
+msgid "Specs Product Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model,name:solt_quarry_door_sale.model_specs_type
+msgid "Specs Stage"
+msgstr "Etapas del Specs"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tyarct_id_domain
+msgid "Specs Tyarct Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_typeguar_id_domain
+msgid "Specs Typeguar Id Domain"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_sale_order__specs_sale_count
+msgid "Specs count"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model,name:solt_quarry_door_sale.model_specs_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_sale_order__specs_sale_ids
+msgid "Specs sale"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_mtrs
+msgid "Square meters"
+msgstr "Metros Cuadrados"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__stage_id
+msgid "Stage"
+msgstr "Etapa"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__state
+msgid "Stage code"
+msgstr "Código"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_type__name
+msgid "Stage name"
+msgstr "Nombre"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_porfbast
+msgid "Stile Depth"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_bast
+msgid "Stile Width"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_suffix_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_suffix_sub_menu
+msgid "Suffix"
+msgstr "Sufijo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__is_moce_id_visible
+msgid ""
+"Technical field to indicate the visibility of the deadbolt in the specs."
+msgstr ""
+"Campo técnico para indicar la visibilidad del cerrojo en las "
+"especificaciones."
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__is_forge_visible
+msgid ""
+"Technical field to indicate the visibility of the forging in the specs."
+msgstr ""
+"Campo técnico para indicar la visibilidad de la forja en las "
+"especificaciones."
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__block_changes
+msgid "Technical field to indicate whether the specs is editable or not"
+msgstr "Campo técnico para indicar si las especificaciones son editables o no"
+
+#. module: solt_quarry_door_sale
+#. odoo-python
+#: code:addons/solt_quarry_door_sale/models/sale_order.py:0
+#, python-format
+msgid "The order {} do not have a opportunity."
+msgstr "La orden {} no tiene oportunidad."
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_typeguar_id
+msgid "Threshold Type"
+msgstr "Tipo de Guardapolvo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tolerance
+msgid "Threshold tolerance"
+msgstr "Tolerancia Guardapolvo"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_board_type_id
+msgid "Tipo de Tablero de Fijos"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tolcen
+msgid "Tolerance Central"
+msgstr "Tolerancia Central (entre hoja y hoja)"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tollat
+msgid "Tolerance Sides"
+msgstr "Tolerancia de los Lados (entre hoja y marco izq y der)"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_tolsup
+msgid "Tolerance Top"
+msgstr "Tolerancia Superior (hoja y marco sup)"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_alt
+msgid "Total Height"
+msgstr "Altura total"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_amount_total
+msgid "Total Price"
+msgstr "Precio Total"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_ant
+msgid "Total Width"
+msgstr "Ancho total"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "Transom"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altarct
+msgid "Transom Arch Height"
+msgstr "Altura del Arco de Transom"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_altra
+msgid "Transom Height"
+msgstr "Altura de Transom"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_antra
+msgid "Transom Width"
+msgstr "Ancho de Transom"
+
+#. module: solt_quarry_door_sale
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_type_arc_sub_menu
+msgid "Type of door arc"
+msgstr "Tipo de Arco de Puerta"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_type_glass_id
+#: model:ir.ui.menu,name:solt_quarry_door_sale.door_type_glass_sub_menu
+msgid "Type of glass"
+msgstr "Tipo de vidrio"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__unit_id
+msgid "Unit id"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_mtrs_uom_name
+msgid "UoM name"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_latchsup_id
+msgid "Upper latch"
+msgstr "Picaporte Superior"
+
+#. module: solt_quarry_door_sale
+#: model:res.groups,name:solt_quarry_door_sale.group_quarry_user
+msgid "User"
+msgstr "Usuario"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__version
+msgid "Version"
+msgstr "Versión"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,help:solt_quarry_door_sale.field_specs_sale__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_door_glass_specs__glass_width
+msgid "Width"
+msgstr "Ancho"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields,field_description:solt_quarry_door_sale.field_specs_sale__specs_forging_id
+msgid "WrouhtIron"
+msgstr "Forja"
+
+#. module: solt_quarry_door_sale
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_ddm__yes
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_ddmf__yes
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_glass__yes
+#: model:ir.model.fields.selection,name:solt_quarry_door_sale.selection__specs_sale__specs_glassf__yes
+msgid "Yes"
+msgstr "Si"
+
+#. module: solt_quarry_door_sale
+#: model_terms:ir.ui.view,arch_db:solt_quarry_door_sale.specs_sale_view_form
+msgid "per"
+msgstr ""

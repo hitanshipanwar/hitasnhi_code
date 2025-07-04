@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+     <!-- GROUPS -->
+    <record id="group_quarry_hide_register_payment_btn_invoice" model="res.groups">
+        <field name="name">Hide Register Payments button on Invoices</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

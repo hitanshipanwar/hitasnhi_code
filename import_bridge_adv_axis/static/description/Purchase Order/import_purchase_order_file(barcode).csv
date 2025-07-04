@@ -1,0 +1,4 @@
+Order,Partner,Product,Quantity,Uom,Description,Price,Salesperson,Tax,Date,Payment Terms,Partner Name,Attributes Name,IMP Note,Other Details,Yes/No
+POO037,Azure Interior,CAB001,1,Units,Large Cabinet product order.,10000,Mitchell Admin,Gst 2%,03/31/2020,Immediate Payment,Michael,red,available,none,1
+POO038,Azure Interior,2.3E+12,2,Units,I want Cabinet With Doors.,10000,Mitchell Admin,Gst 2%,03/31/2020,10 Days,David,white,only white,plain,1
+POO038,Azure Interior,DB1,3,Units,Large Cabinet product order.,456,Mitchell Admin,Gst 2%,03/31/2020,10 Days,Nancy,black,not available,new arrival,0

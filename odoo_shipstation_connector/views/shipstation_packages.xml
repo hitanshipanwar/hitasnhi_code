@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2016-Present Webkul Software Pvt. Ltd. (<https://webkul.com/>) -->
+<!-- See LICENSE file for full copyright and licensing details. -->
+<!-- License URL : <https://store.webkul.com/license.html/> -->
+
+<odoo>
+    <data>
+        <record id="packages_action" model="ir.actions.act_window">
+            <field name="name">ShipStation Packages</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">shipstation.packages</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="shipstaion_packages_tree_view" model="ir.ui.view">
+            <field name="name">ShipStation Packages Tree</field>
+            <field name="model">shipstation.packages</field>
+            <field name="arch" type="xml">
+                <tree string="Packages">
+                    <field name="carrier_code"/>
+                    <field name="package_code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="shipstaion_packages_form_view" model="ir.ui.view">
+            <field name="name">ShipStation Packages Form</field>
+            <field name="model">shipstation.packages</field>
+            <field name="arch" type="xml">
+                <form string="Packages">
+                    <sheet>
+                        <group>
+                            <field name="carrier_code"/>
+                            <field name="package_code"/>
+                            <field name="name"/>
+                        </group>
+                        <group>
+                            <field name="is_domestic"/>
+                            <field name="is_international"/>
+                            <field name="max_weight"/>
+                        </group>
+                        <group>
+                            <field name="length"/>
+                            <field name="width"/>
+                            <field name="height"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

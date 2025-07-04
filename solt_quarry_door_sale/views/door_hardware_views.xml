@@ -1,0 +1,25 @@
+<odoo>
+  <data>
+
+        <record id="door_hardware_view_tree" model="ir.ui.view">
+            <field name="name">door.hardware.view.tree</field>
+            <field name="model">door.hardware</field>
+            <field name="arch" type="xml">
+                <tree edit="0" create="0" delete="0" string="Items">
+                    <field name="hardware_id"/>
+                    <field name="amount"/>
+                    <field name="include_in_spec_price" widget="boolean_toggle"/>
+                    <field name="sequence" invisible='1'/>
+                    <field name="specs_id" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_hardware" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="res_model">door.hardware</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

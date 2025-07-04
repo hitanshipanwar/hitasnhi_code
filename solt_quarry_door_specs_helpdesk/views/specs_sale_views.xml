@@ -1,0 +1,34 @@
+<odoo>
+    <data>
+        <record id="specs_sale_helpdesk_ticket_view_form_inherit" model="ir.ui.view">
+            <field name="name">specs.sale.helpdesk.ticket.form.inherit</field>
+            <field name="model">specs.sale</field>
+            <field name="inherit_id" ref="solt_quarry_door_sale.specs_sale_view_form"/>
+            <field name="arch" type="xml">
+
+                <field name="state" position="after">
+                    <field name="ticket_id" invisible="1"/>
+                    <field name="is_ticket_canceled" invisible="1"/>
+                </field>
+                <xpath expr="//button[@name='action_state_cancel']" position="before">
+                    <button name="action_create_ticket" string="Create CAD Request ticket" type="object"
+                            class="btn-primary" invisible="ticket_id and not is_ticket_canceled  or not confirmed_spec or confirmed_spec and state not in ['draft', 'cad_request_stage']"
+                            groups="solt_quarry_door_sale.group_quarry_manager,solt_quarry_door_sale.group_quarry_sale"
+                            confirm="The action will create a Cad Request ticket. Are you sure you want to continue?"
+                    />
+                    <button name="action_update_ticket_required" string="Update required" type="object"
+                            class="btn-secondary" invisible="not ticket_id or ticket_id and is_ticket_canceled or not confirmed_spec or confirmed_spec and state not in ['cad_request_stage']"
+                            groups="solt_quarry_door_sale.group_quarry_manager,solt_quarry_door_sale.group_quarry_sale"
+                            confirm="The action will move the ticket to the stage configured as CAD Update Required. Are you sure you want to continue?"
+                    />
+                    <button name="action_finish_ticket" string="CAD accepted by sales" type="object"
+                            class="btn-secondary" invisible="not ticket_id or ticket_id and is_ticket_canceled  or not confirmed_spec or confirmed_spec and state not in ['cad_request_stage']"
+                            groups="solt_quarry_door_sale.group_quarry_manager,solt_quarry_door_sale.group_quarry_sale"
+                            confirm="The action will move the ticket to the stage configured as CAD Finish. Are you sure you want to continue?"
+                    />
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

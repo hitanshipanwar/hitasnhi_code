@@ -1,0 +1,33 @@
+<odoo>
+    <data noupdate='False'>
+        
+        <record id="rse_quality_metrics_action" model="ir.actions.act_window">
+            <field name="name">RSE Quality Measures</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">quality.metrics</field>
+            <field name="domain">[('quality_type', '=', 'rse')]</field>
+            <field name="context">{'default_quality_type': 'rse'}</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an RSE Quality Metrics
+              </p><p>
+                Specify RSE quality metrics.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="main_rse_quality_metrics_root"
+            name="RSE Quality Metrics"
+            web_icon="fa fa-television,#4dd0e1,#34495e"
+            groups="base.group_user"
+            sequence="30"/>
+
+        <menuitem id="rse_quality_metrics_menu" 
+            name="RSE Quality Measures"
+            action="rse_quality_metrics_action"
+            parent="main_rse_quality_metrics_root"
+            sequence="1"/>
+
+    </data>
+</odoo>

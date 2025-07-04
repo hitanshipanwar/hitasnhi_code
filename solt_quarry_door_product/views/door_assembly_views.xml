@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+
+        <record id="door_assembly_view_tree" model="ir.ui.view">
+            <field name="name">door.assembly.view.tree</field>
+            <field name="model">door.assembly</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Assembly Preparation">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_assembly" model="ir.actions.act_window">
+            <field name="name">Assembly Preparation</field>
+            <field name="res_model">door.assembly</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

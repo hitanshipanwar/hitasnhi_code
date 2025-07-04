@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+o2b_extend_fleet.access_highway_toll_tag,access_highway_toll_tag,o2b_extend_fleet.model_highway_toll_tag,base.group_user,1,1,1,1
+o2b_extend_fleet.access_fleet_fine,access_fleet_fine,o2b_extend_fleet.model_fleet_fine,base.group_user,1,1,1,1
+o2b_extend_fleet.access_fine_type,access_fine_type,o2b_extend_fleet.model_fine_type,base.group_user,1,1,1,1
+o2b_extend_fleet.access_fleet_driver_assignment,access_fleet_driver_assignment,o2b_extend_fleet.model_fleet_driver_assignment,base.group_user,1,1,1,1

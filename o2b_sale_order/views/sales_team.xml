@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Field Added In Sales Team -->
+        <record id="sales_team_form_view_in_crm_is_check" model="ir.ui.view">
+            <field name="name">crm.team.form.inherit.is_check</field>
+            <field name="model">crm.team</field>
+            <field name="inherit_id" ref="sales_team.crm_team_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='options_active']" position="inside">
+                    <span name="is_check">
+                        <field name="is_check"/>
+                        <label for="is_check" string="DST"/>
+                    </span>
+                </xpath>
+            </field>
+        </record>
+        <!-- Change the location of the field and also hide the field. -->
+         <record id="sale_management_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit.customer_ref</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_management.sale_order_form_quote"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='client_order_ref']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="client_order_ref"/>
+                    <field name="is_sale_draft" invisible="1"/>
+                    <field name="is_shopify_mismatch" invisible="1"/>
+                    <field name="is_auth_capture_mismatch" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- For Readonly the name field in Quotation -->
+        <record id="view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </xpath>
+            </field>
+        </record>
+        <!-- Customer Reference Position Change -->
+        <record id="view_move_form_customer_ref" model="ir.ui.view">
+            <field name="name">account.move.custom.ref.hide</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='other_info']//label[@for='ref']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='other_info']//field[@name='ref']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='partner_shipping_id']" position="after">
+                    <field name="ref" string="Customer Reference"/>
+                    <field name="is_account_payment" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@id='other_tab']//field[@name='delivery_date']" position="after">
+                    <field name="shopify_payment_id_capture" groups="base.group_no_one"/>
+                    <field name="txn_amount_shopify_capture" groups="base.group_no_one"/>
+                    <field name="txn_status_capture" groups="base.group_no_one"/>
+                    <!-- Abhishek -->
+                    <field name="shopify_payment_id" groups="base.group_no_one"/>
+                    <field name="txn_amount_shopify" groups="base.group_no_one"/>
+                    <field name="txn_status" groups="base.group_no_one"/>
+                </xpath>
+            </field>
+        </record>
+        <!-- Filter to search by partner's last name -->
+        <record id="view_account_move_line_search_bank_rec_widget_inherit" model="ir.ui.view">
+            <field name="name">account.move.line.search.bank_rec_widget.inherit</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account_accountant.view_account_move_line_search_bank_rec_widget"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='currency_id']" position="after">
+                    <field name="partner_last_name"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_shopify_mismatch_import" model="ir.ui.view">
+            <field name="name">shopify.mismatch.import.form</field>
+            <field name="model">shopify.mismatch.import</field>
+            <field name="arch" type="xml">
+              <form string="Import Shopify Mismatch">
+                <group>
+                  <field name="file"/>
+                  <field name="file_name"/>
+                </group>
+                <footer>
+                  <button string="Import" type="object" name="action_import" class="btn-primary"/>
+                  <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+              </form>
+            </field>
+        </record>
+        <record id="action_shopify_mismatch_import" model="ir.actions.act_window">
+            <field name="name">Import Shopify Mismatch</field>
+            <field name="res_model">shopify.mismatch.import</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        <menuitem id="menu_shopify_mismatch_import"
+                name="Shopify Mismatch Import"
+                parent="sale.sale_menu_root"
+                action="action_shopify_mismatch_import"/>
+        <!-- Shopify Payment -->
+        <record id="view_account_payment_form_inherit_shopify" model="ir.ui.view">
+            <field name="name">account.payment.form.inherit.shopify</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_bank_id']" position="after">
+                    <field name="shopify_payment_id" readonly="1"/>
+                    <field name="txn_amount_shopify" readonly="1"/>
+                    <field name="txn_status" readonly="1"/>
+                    <!-- Abhishek -->
+                    <field name="shopify_payment_id_capture" readonly="1"/>
+                    <field name="txn_amount_shopify_capture" readonly="1"/>
+                    <field name="txn_status_capture" readonly="1"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_picking_form_inherit" model="ir.ui.view">
+            <field name="name">stock.picking.form.inherit.hide.put.in.pack</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_put_in_pack']" position="attributes">
+                    <attribute name="invisible">picking_type_code != 'outgoing'</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

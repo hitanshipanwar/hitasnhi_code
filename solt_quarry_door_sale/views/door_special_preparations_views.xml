@@ -1,0 +1,24 @@
+<odoo>
+  <data>
+
+        <record id="door_special_preparations_view_tree" model="ir.ui.view">
+            <field name="name">door.special.preparations.view.tree</field>
+            <field name="model">door.special.preparations</field>
+            <field name="arch" type="xml">
+                <tree create="0" edit="0" delete="0" string="Special Prep">
+                    <field name="preparations_ids" context="{'not_show_attribute_specs': True}" options="{'no_create': True}"/>
+                    <field name="amount_preparations"/> 
+                    <field name="sequence" invisible='1'/>
+                    <field name="specs_id" invisible='1'/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_special_preparations" model="ir.actions.act_window">
+            <field name="name">Special Prep</field>
+            <field name="res_model">door.special.preparations</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="stock_barcode.MainComponent" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[@class='o_barcode_header']" position="after">
+            <div t-if="state.minDeliveryCharges" class="o_custom_section mt-2 p-3 bg-light border rounded" style="padding: 2rem !important">
+                <div class="row">
+                    <span class="font-weight-bold"> Min Delivery Charges: </span>
+                    <span t-esc="state.minDeliveryCharges" style="margin-left: 1%;"/>
+                </div>
+                <div class="row">
+                    <span class="font-weight-bold"> Selected Carrier: </span>
+                    <span t-esc="state.carrier_id_name" style="margin-left: 1%;"/>
+                </div>
+                <div class="row">
+                    <!-- <span class="font-weight-bold"> Shippment Comparison Rates: </span> -->
+                    <span t-raw="state.shippment_comparison_rate"/>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
+

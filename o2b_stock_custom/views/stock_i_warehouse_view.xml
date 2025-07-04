@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- Tree View for stock.move.line -->
+    <record id="view_stock_move_line_tree_aisles" model="ir.ui.view">
+        <field name="name">stock.move.line.tree.aisles</field>
+        <field name="model">stock.move.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_id"/>
+                <field name="qty_done"/>
+                <field name="location_id"/>
+                <field name="location_dest_id"/>
+                <field name="aisle_id"/>
+                <field name="stock_aisle"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Action for stock.move.line Tree View -->
+    <record id="action_stock_move_line_aisles" model="ir.actions.act_window">
+        <field name="name">Move Lines</field>
+        <field name="res_model">stock.move.line</field>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="view_stock_move_line_tree_aisles"/>
+        <field name="context">{}</field>
+        <field name="domain">[('aisle_id', '=', context.get('default_stock_aisle'))]</field>
+    </record>
+
+    <!-- Kanban View for stock.aisle -->
+    <record id="view_aisle_kanban" model="ir.ui.view">
+        <field name="name">stock.aisle.kanban</field>
+        <field name="model">stock.aisle</field>
+        <field name="arch" type="xml">
+            <kanban create="1">
+                <field name="name"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_record" t-att-data-id="record.id">
+                            <a type="action" name="%(action_stock_move_line_aisles)d"
+                               t-attf-context="{'default_stock_aisle': record.id}">
+                                <div class="o_kanban_details">
+                                    <strong>
+                                        <field name="name"/>
+                                    </strong>
+                                </div>
+                            </a>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_aisle_tree" model="ir.ui.view">
+        <field name="name">stock.aisle.tree</field>
+        <field name="model">stock.aisle</field>
+        <field name="arch" type="xml">
+            <tree create="1">
+                <field name="name"/>
+                <field name="barcode"/>
+                <field name="company_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_aisle_form" model="ir.ui.view">
+        <field name="name">stock.aisle.from</field>
+        <field name="model">stock.aisle</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <button name="print_label" type="object" string="Print Label"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="company_id"/>
+                        </group>
+                        <group>
+                            <field name="barcode"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action for stock.aisle Kanban View -->
+    <record id="action_stock_aisle" model="ir.actions.act_window">
+        <field name="name">Aisles</field>
+        <field name="res_model">stock.aisle</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_id" ref="view_aisle_kanban"/>
+    </record>
+
+
+    <!-- Action to Update CA Comapny -->
+    <record id="action_server_update_ca_company" model="ir.actions.server">
+        <field name="name">Update Company</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="model_stock_aisle"/>
+        <field name="binding_model_id" ref="model_stock_aisle"/>
+        <field name="state">code</field>
+        <field name="code">records.action_set_company()</field>
+    </record>
+
+    <!-- Menu Item for Aisles -->
+    <menuitem id="menu_stock_aisle" name="Aisles" action="action_stock_aisle" parent="stock.menu_stock_config_settings"
+              sequence="400"/>
+
+</odoo>

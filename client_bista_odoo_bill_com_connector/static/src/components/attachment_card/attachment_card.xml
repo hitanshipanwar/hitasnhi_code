@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-inherit="mail.AttachmentCard" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('o_AttachmentCard_aside')]" position="attributes">
+            <attribute name="class">o_AttachmentCard_aside position-relative overflow-hidden o-has-multiple-action d-flex flex-column</attribute>
+            <attribute name="t-att-class"></attribute>
+        </xpath>
+        <xpath expr="//div[hasclass('o_AttachmentCard_aside')]" position="inside">
+            <t t-if="!attachmentCard.attachment.is_sent_on_bill_com and attachmentCard.attachment.account_move_bill_id">
+                <div t-on-click="attachmentCard.attachment.onClickSyncToBillDotCom" title="Send to Bill.com"
+                     t-att-data-id="attachmentCard.attachment.id"
+                     class="o_AttachmentCard_asideItem o_AttachmentCard_asideItemDownload d-flex justify-content-center align-items-center">
+                    <i class="fa fa-refresh"/>
+                </div>
+            </t>
+        </xpath>
+    </t>
+</templates>

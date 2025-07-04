@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Fleet Fine Views -->
+    <record id="fleet_fine_tree" model="ir.ui.view">
+        <field name="name">fleet.fine.tree</field>
+        <field name="model">fleet.fine</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="vehicle_id"/>
+                <field name="driver_id"/>
+                <field name="fine_type" widget="many2many_tags"/>
+                <field name="fine_date"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_fine_search_view" model="ir.ui.view">
+        <field name="name">fleet.fine.search</field>
+        <field name="model">fleet.fine</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="driver_id"/>
+                <field name="vehicle_id"/>
+                <field name="fine_type"/>
+                <field name="fine_date"/>
+                
+                <!-- Group By -->
+                <group expand="0" string="Group By">
+                    <filter name="groupby_driver" string="Driver" domain="[]" context="{'group_by' : 'driver_id'}" />
+                    <filter name="groupby_vehicle" string="Vehicle" domain="[]" context="{'group_by' : 'vehicle_id'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="fleet_fine_form" model="ir.ui.view">
+        <field name="name">fleet.fine.form</field>
+        <field name="model">fleet.fine</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="vehicle_id"/>
+                            <field name="driver_id"/>
+                            <field name="fine_type" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="fine_date"/>
+                            <field name="description"/>
+                            <field name="file_name" invisible="1" force_save="1"/>
+                            <field name="attachment" widget="binary" filename="file_name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="fleet_fine_action" model="ir.actions.act_window">
+            <field name="name">Fines</field>
+            <field name="res_model">fleet.fine</field>
+            <field name="search_view_id" ref="fleet_fine_search_view"/>
+            <field name="context">{'search_default_groupby_driver': 1}</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="fleet_fine_menu" name="Fines"
+        sequence="100" parent="fleet.fleet_configuration"
+        action="fleet_fine_action"/>
+
+    <!-- Fleet Fine Type Views -->
+    <record id="fleet_fine_type_tree" model="ir.ui.view">
+        <field name="name">fine.type.tree</field>
+        <field name="model">fine.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="fleet_fine_type_form" model="ir.ui.view">
+        <field name="name">fine.type.form</field>
+        <field name="model">fine.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="fleet_fine_type_action" model="ir.actions.act_window">
+            <field name="name">Fine Types</field>
+            <field name="res_model">fine.type</field>
+            <field name="view_mode">tree,form</field>
+    </record>
+
+     <menuitem id="fleet_fine_type_menu" name="Fine Types"
+        sequence="100" parent="fleet.fleet_configuration"
+        action="fleet_fine_type_action"/>
+</odoo>

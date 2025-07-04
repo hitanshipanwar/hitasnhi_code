@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- This folder is specs from deletion -->
+        <record id="documents_specs_folder" model="documents.folder" forcecreate="1">
+            <field name="name">Specs</field>
+            <field name="sequence">15</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="mrp_bom_cantera_form_button">
+            <field name= "name">mrp.bom.cantera.inherit.form.view</field>
+            <field name= "model">mrp.bom</field>
+            <field name= "inherit_id" ref= "mrp.mrp_bom_form_view"/>
+            <field name= "arch" type= "xml">
+                <xpath expr="//sheet/group/group[1]/div" position="after">
+                    <field name="specs_id" readonly="context.get('default_specs_id')"/>
+                    <field name="is_available" invisible="0"/>
+                </xpath>
+            </field>                        
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="mrp_bom_cantera_tree_button" model="ir.ui.view">
+            <field name="name">spec.mrp.bom.tree.inherit</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='product_tmpl_id']" position="before">
+                    <field name="display_name" optional="show"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify mrp.production -->
+        <record id="spec_mrp_production_form_view" model="ir.ui.view">
+            <field name="name">spec.mrp.production.form.inherit</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//sheet/group/group[1]" position="inside">
+                    <field name="specs_id"/>
+                    <field name="mrp_shipment"/>
+                </xpath>
+
+            </field>
+        </record>
+    </data> 
+</odoo>

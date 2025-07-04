@@ -1,0 +1,22 @@
+<odoo>
+  <data>
+
+        <record id="door_position_view_tree" model="ir.ui.view">
+            <field name="name">door.position.view.tree</field>
+            <field name="model">door.position</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom" string="Fixed Position">
+                    <field name="name"/>
+                    <field name="price" widget="monetary"/> 
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_door_position" model="ir.actions.act_window">
+            <field name="name">Fixed Position</field>
+            <field name="res_model">door.position</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+  </data>
+</odoo>

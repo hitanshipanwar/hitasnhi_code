@@ -1,0 +1,24 @@
+<odoo>
+    <!--Inherited the form view for the contact form-->
+    <record id="contact_view_partner_form_inherit_crapr" model="ir.ui.view">
+        <field name='name'>contact.view.partner.form.inherit.crapr</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <field name='function' position="before">
+                <field name="custom_write_uid" readonly="1"/>
+                <field name="custom_write_date" readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!--Action for contact model to update the empty custom write fields.-->
+    <record id="fill_custom_write_fields_action_contact" model="ir.actions.server">
+        <field name="name">Fill Custom Write Fields</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list,form</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_fill_custom_write_fields_res_partner()</field>
+    </record>
+</odoo>

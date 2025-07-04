@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_product_labels">
+        <t t-call="web.basic_layout">
+            <style>
+                <!--                .border {-->
+                <!--                border: 3px solid black;-->
+                <!--                page-break-after: always;-->
+                <!--                box-sizing: content-box;-->
+                <!--                width: 265px;-->
+                <!--                height: 400px;-->
+                <!--                }-->
+                h4,h5,h6{
+                color: black;
+                font-family: Arial;
+                }
+            </style>
+            <t t-foreach="docs" t-as="o">
+                <div class="page">
+                    <t t-foreach="o.move_ids_without_package" t-as="move">
+                        <div style="border: 3px solid black; height: 160px; box-sizing: content-box; margin-left: -5px;margin-right: -5px;">
+                            <div class="row">
+                                <div class="col-md-8 text-center" style="margin-top: 10px;">
+                                    <div style="margin-left: 1px;">
+                                        <h6>
+                                            <strong>
+                                                <t t-esc="move.product_id.name"/>
+                                            </strong>
+                                        </h6>
+                                    </div>
+                                    <div class="row" style="margin-left: 5px; margin-top: 5px;">
+                                        <div style="border: 2px solid black; box-sizing: content-box; width: 150px;height:20px;">
+                                            <h6>
+                                                <strong>
+                                                    <t t-esc="move.product_id.default_code"/>
+                                                </strong>
+                                            </h6>
+                                        </div>
+                                        <div style="border: 2px solid black; box-sizing: content-box; width: 105px; margin-left: 10px;height:20px;">
+                                            <h6>
+                                                <strong>
+                                                    <t t-esc="move.origin"/>
+                                                </strong>
+                                            </h6>
+                                        </div>
+                                    </div>
+                                    <div class="row" style="margin-left: 5px; margin-top: 5px;">
+                                        <t t-if="move.product_id.barcode">
+                                            <div style="border: 2px solid black; box-sizing: content-box; height:55px;">
+                                                <img t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', move.product_id.barcode, 355, 150)"
+                                                     style="width:100%;height:3rem;margin-top:5px;margin-bottom:5px;margin-left:-100px;margin-right:-100px"/>
+                                            </div>
+                                        </t>
+                                        <t t-if="move.purchase_line_id">
+                                            <div style="border: 2px solid black; box-sizing: content-box; width: 100px; margin-left: 10px;padding-top:5px;">
+                                                <h6>
+                                                    <strong>
+                                                        <t t-esc="move.purchase_line_id.date_order"/>
+                                                    </strong>
+                                                </h6>
+                                            </div>
+                                        </t>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="page-break-after:always"></p>
+                    </t>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>

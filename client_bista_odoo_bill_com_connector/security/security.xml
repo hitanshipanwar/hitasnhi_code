@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+        <record id="group_bill_com_access" model="res.groups">
+            <field name="name">Bill.Com Access</field>
+            <field name="comment">User will have access to the Bill.Com Integration</field>
+        </record>
+
+        <record id="bill_com_vendor_ids" model="ir.rule">
+            <field name="name">Bill.com Vendor ID Data</field>
+            <field name="model_id" ref="model_bill_com_vendor_company_data"/>
+            <field name="domain_force">[('company_id', 'in', [c.id for c in user.company_ids])]</field>
+        </record>
+
+        <record id="bill_com_payment_term_ids" model="ir.rule">
+            <field name="name">Bill.com Payment Term Data</field>
+            <field name="model_id" ref="model_bill_com_payment_term_company_data"/>
+            <field name="domain_force">[('company_id', 'in', [c.id for c in user.company_ids])]</field>
+        </record>
+
+        <record id="bill_com_config_ids" model="ir.rule">
+            <field name="name">Bill.com Config</field>
+            <field name="model_id" ref="model_bill_com_config"/>
+            <field name="domain_force">[('company_ids', 'in', [c.id for c in user.company_ids])]</field>
+        </record>
+    </data>
+</odoo>

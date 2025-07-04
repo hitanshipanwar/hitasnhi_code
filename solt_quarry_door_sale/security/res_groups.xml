@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+     <!-- GROUPS -->
+    <record id="group_quarry_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="solt_quarry_door_sale.module_category_quarry"/>
+    </record>
+
+    <record id="group_quarry_sale" model="res.groups">
+        <field name="name">Sales</field>
+        <field name="implied_ids" eval="[(4, ref('solt_quarry_door_sale.group_quarry_user'))]"/>
+        <field name="category_id" ref="solt_quarry_door_sale.module_category_quarry"/>
+    </record>
+
+    <record id="group_quarry_manager" model="res.groups">
+        <field name="name">Manager</field>
+        <field name="implied_ids" eval="[(4, ref('solt_quarry_door_sale.group_quarry_sale'))]"/>
+        <field name="category_id" ref="solt_quarry_door_sale.module_category_quarry"/>
+    </record>
+
+    <record id="group_quarry_modify_spec_manufacturing" model="res.groups">
+        <field name="name">Can modify Spec in Manufacturing</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+</odoo>

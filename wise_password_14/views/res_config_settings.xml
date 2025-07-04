@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="wise_password_14.res_config_settings_form_inherit" model="ir.ui.view">
+        <field name="name">wise.res.config.settings.form.inherit</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='user_default_rights']" position="after">
+                <h2>User Password Settings</h2>
+                <!-- Min Length Password Setting -->
+                <div class="row mt16 o_settings_container" id="user_default_rights">
+                    <!-- Minimum Chars Password Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_min_len" string="Minimum Length:"/>
+                            <field name="pwd_min_len"/>
+                            <div class="text-muted">Set the minimum number of characters for all users' passwords (0 to disable)</div>
+                        </div>
+                    </div>
+                    <!-- Num Days Till Reset Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_num_days_till_reset" string="Number of days until reset:"/>
+                            <field name="pwd_num_days_till_reset"/>
+                            <div class="text-muted">Set the number of days until a user's password is reset (0 to disable)</div>
+                        </div>
+                    </div>
+                    <!-- Num Days Till Reminder Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_num_days_till_reminder" string="Number of Days Until Reminder:"/>
+                            <field name="pwd_num_days_till_reminder"/>
+                            <div class="text-muted">Set the number of days from when a user's password expires to start sending emails (0 to disable)</div>
+                        </div>
+                    </div>
+                    <!-- Password History Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_num_stored" string="Password History:"/>
+                            <field name="pwd_num_stored"/>
+                            <div class="text-muted">Set the number of new passwords that must be set until an old password can be reused (0 to disable)</div>
+                        </div>
+                    </div>
+                    <!-- Include Num Password Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pwd_include_num"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_include_num" string="Must Include Number"/>
+                            <div class="text-muted">Require user passwords to have at least 1 number</div>
+                        </div>
+                    </div>
+                    <!-- Include Uppercase Password Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pwd_include_upper"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_include_upper" string="Must Include Uppercase Letter"/>
+                            <div class="text-muted">Require user passwords to have at least 1 uppercase letter</div>
+                        </div>
+                    </div>
+                    <!-- Include Lowercase Password Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pwd_include_lower"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_include_lower" string="Must Include Lowercase Letter"/>
+                            <div class="text-muted">Require user passwords to have at least 1 lowercase letter</div>
+                        </div>
+                    </div>
+                    <!-- Include Special Character Password Setting -->
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="pwd_include_special"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="pwd_include_special" string="Must Include Special Character"/>
+                            <div class="text-muted">Require user passwords to have at least 1 Special Character</div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

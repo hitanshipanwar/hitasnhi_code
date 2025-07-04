@@ -1,0 +1,12 @@
+<templates xml:space="preserve">
+  <t t-name="web.SessionExpiredDialog" owl="1">
+    <Dialog title="this.constructor.title">
+      <div role="alert">
+        <p t-esc="this.message" style="white-space: pre-wrap;"/>
+      </div>
+      <t t-set-slot="footer">
+        <button class="btn btn-primary" t-on-click="onClick">Ok</button>
+      </t>
+    </Dialog>
+  </t>
+</templates>
